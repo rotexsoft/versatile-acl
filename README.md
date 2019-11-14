@@ -1,139 +1,92 @@
 # simple-acl
 A simple and highly flexible and customizable access control library for PHP 
 
+Entities
+----------
+* Resource: an item of which an **action** will be denied or allowed to be performed on.
+It is just a case-insensitive string as far as this package is concerned.
+
+* Action: represents a task that can be performed on a **resource**. 
+It is just a case-insensitive string as far as this package is concerned.
+
+* Permission: an entity defining whether or not a **group** or a **user** 
+is allowed or not allowed to perform an **action** on a particular **resource**.
+
+* User: has on or more unique **permissions** and can belong to one or more unique **groups** 
+and consequently inherit permissions from those groups. Permissions directly 
+associated with a user have higher priority than those inherited from groups 
+from the group(s). Must have a unique string identifier.
+
+* Group: has on or more unique **permissions** and can have one or more unique **users** associated with it.
+Must have a unique string identifier.
+
 Ideas / Work in Progress
 
 ```
 Simple Acl
 
-AclUser implements AclUserInterface
-	id (could be string or int)
-	groups (an instance of AclGroups which internally contains an array of AclGroup objects)
-	__construct(string|number $id, AclGroups ...$groups)
+SimpleAclUserInterface:
+	getId(): string
 
-*AclUserInterface
-	getUserId(): string|number
-	getGroups(): AclGroups
-	
-*AclUserOwnableInterface
-	getOwnerId()
-	
-AclGroup implements AclGroupInterface
-	id (could be string or int)
-	tags (an instance of AclGroupActionTags which internally contains an array of AclGroupActionTag objects)
-	
-*AclGroupInterface
-	getGroupId(): string|number
-	getActionTags(): AclGroupActionTags
-	getSortValue(): int value (higher value means group has higher priority)
-	
-AclGroupActionTag implements AclGroupActionTagInterface
-	tag (string describing an action a group can perform)
-	__construct(string $tag)
-	
-* AclGroupActionTagInterface
-	getTag(): string describing an action a group can perform
-	getSortValue(): int value (higher value means actionTag has higher priority)
-	
-abstract class GenericCollection implements  \ArrayAccess, \Countable, \IteratorAggregate
-{
-	protected $values;
+    addGroup(SimpleAclGroupInterface $group): static | throw exception if unsuccesfull
+    addGroups(SimpleAclGroupsInterface $groups): static | throw exception if unsuccesfull
+    belongsToGroup(SimpleAclGroupInterface $group): bool
+    belongsToAtleastOneGroup(SimpleAclGroupsInterface $groups): bool
+    belongsToAllGroups(SimpleAclGroupsInterface $groups): bool
+	getGroups(): SimpleAclGroupsInterface
+    removeGroup(SimpleAclGroupInterface $group): static | throw exception if unsuccesfull
+    removeGroups(SimpleAclGroupsInterface $groups): static | throw exception if unsuccesfull
 
-    /**
-     * 
-     * ArrayAccess: does the requested key exist?
-     * 
-     * @param string $key The requested key.
-     * 
-     * @return bool
-     * 
-     */
-    public function offsetExists($key)
-    {
-		return array_key_exists($key, $this->values);
-    }
-    
-    /**
-     * 
-     * ArrayAccess: get a key value.
-     * 
-     * @param string $key The requested key.
-     * 
-     * @return mixed
-     * 
-     */
-    public function offsetGet($key)
-    {
-        if (array_key_exists($key, $this->values)) {
-            return $this->values[$key];
-        } else {
-            throw new \Exception("offsetGet({$key})");
-        }
-    }
-    
-    /**
-     * 
-     * ArrayAccess: set a key value.
-     * 
-     * @param string $key The requested key.
-     * 
-     * @param string $val The value to set it to.
-     * 
-     * @return void
-     * 
-     */
-    public function offsetSet($key, $val)
-    {
-		$this->values[$key] = $val;
-    }
-    
-    /**
-     * 
-     * ArrayAccess: unset a key.
-     * 
-     * @param string $key The requested key.
-     * 
-     * @return void
-     * 
-     */
-    public function offsetUnset($key)
-    {
-        $this->values[$key] = null;
-        unset($this->values[$key]);
-    }
-  
-  
-	public function toArray() : array {
-		return $this->values;
-	}
+    addPermission(SimpleAclPermissionInterface $perm): static | throw exception if unsuccesfull
+    addPermissions(SimpleAclPermissionsInterface $perms): static | throw exception if unsuccesfull
+    getPermissions(): SimpleAclPermissionsInterface
+    hasPermission(SimpleAclPermissionInterface $perm): bool
+    hasAtleastOnePermission(SimpleAclPermissionsInterface $perms): bool
+    hasAllPermissions(SimpleAclPermissionsInterface $perms): bool    
+    removePermission(SimpleAclPermissionInterface $perm): static | throw exception if unsuccesfull
+    removePermissions(SimpleAclPermissionsInterface $perms): static | throw exception if unsuccesfull
 
-	// IteratorAggregate
-	public function getIterator() {
-		return new \ArrayIterator($this->values);
-	}
+    __construct(string $id, SimpleAclGroupsInterface $groups=null, SimpleAclPermissionsInterface $perms=null)
+
+SimpleAclGroupInterface:
+    getId(): string
+
+    addUser(SimpleAclUserInterface $user): static | throw exception if unsuccesfull
+    addUsers(SimpleAclUsersInterface $users): static | throw exception if unsuccesfull
+    getUsers(): SimpleAclUsersInterface
+    hasUser(SimpleAclUserInterface $user): bool
+    hasAtleastOneUser(SimpleAclUsersInterface $users): bool
+    hasAllUsers(SimpleAclUsersInterface $users): bool  
+    removeUser(SimpleAclUserInterface $user): static | throw exception if unsuccesfull
+    removeUsers(SimpleAclUsersInterface $users): static | throw exception if unsuccesfull
+
+    addPermission(SimpleAclPermissionInterface $perm): static | throw exception if unsuccesfull
+    addPermissions(SimpleAclPermissionsInterface $perms): static | throw exception if unsuccesfull
+    getPermissions(): SimpleAclPermissionsInterface
+    hasPermission(SimpleAclPermissionInterface $perm): bool
+    hasAtleastOnePermission(SimpleAclPermissionsInterface $perms): bool
+    hasAllPermissions(SimpleAclPermissionsInterface $perms): bool    
+    removePermission(SimpleAclPermissionInterface $perm): static | throw exception if unsuccesfull
+    removePermissions(SimpleAclPermissionsInterface $perms): static | throw exception if unsuccesfull
+
+    __construct(string $id, SimpleAclUsersInterface $users=null, SimpleAclPermissionsInterface $perms=null)
+
+SimpleAclPermissionInterface
+    getAction(): string
+    static getAllActionsIdentifier(): string [a special string representing all performable actions on a resource]
+
+    getResource(): string
+    static getAllResoucesIdentifier(): string [a special string representing all resources in the system]
+
+    __construct(string $action, string $resource, bool $allow_action_on_resource=true)
+
+
+Collections:
+    SimpleAclCollectionInterface extends \ArrayAccess, \Countable, \IteratorAggregate
+        SimpleAclUsersInterface  extends SimpleAclCollectionInterface
+        SimpleAclGroupsInterface  extends SimpleAclCollectionInterface
+        SimpleAclPermissionsInterface  extends SimpleAclCollectionInterface
 	
-    // Countable: how many keys are there?
-    public function count()
-    {
-        return count($this->values);
-    }
-}
-
-class AclGroups extends GenericCollection
-{
-  public function __construct(AclGroup ...$groups) {
-    $this->values = $groups;
-  }
-
-}
-
-class AclGroupActionTags extends GenericCollection
-{
-  public function __construct(AclGroupActionTag ...$tags) {
-    $this->values = $tags;
-  }
-
-}
 
 AclUserAssertionInterface
 	allowActionForGroup(AclGroupActionTagInterface $action_tag,  AclGroupInterface $group)
