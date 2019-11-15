@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace SimpleAcl;
+namespace SimpleAcl\Interfaces;
 
 
 interface PermissionableEntitiesCollectionInterface extends CollectionInterface

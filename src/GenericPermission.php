@@ -1,9 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace SimpleAcl\Interfaces;
+namespace SimpleAcl;
 
-interface PermissionInterface
+use SimpleAcl\Interfaces\PermissionInterface;
+use SimpleAcl\Interfaces\PermissionsCollectionInterface;
+
+class GenericPermission implements PermissionInterface
 {
     /**
      * PermissionInterface constructor.
@@ -17,14 +20,19 @@ interface PermissionInterface
      * @param callable|null $additionalAssertions an optional callback function that must return a boolean further indicating whether or not an action can be performed on the resource.
      * @param mixed ...$argsForCallback zero or more arguments to be used to invoke $additionalAssertions
      */
-    public function __construct(string $action, string $resource, bool $allowActionOnResource=true, callable $additionalAssertions=null, ...$argsForCallback);
+    public function __construct(string $action, string $resource, bool $allowActionOnResource = true, callable $additionalAssertions = null, ...$argsForCallback)
+    {
+    }
 
     /**
      * Create a new and empty collection that is meant to house one or more instances of PermissionInterface
      *
      * @return PermissionsCollectionInterface a new and empty collection that is meant to house one or more instances of PermissionInterface
      */
-    public static function createCollection(): PermissionsCollectionInterface;
+    public static function createCollection(): PermissionsCollectionInterface
+    {
+        // TODO: Implement createCollection() method.
+    }
 
     /**
      * Get the string representing an action that can be performed on a resource in the system.
@@ -33,7 +41,10 @@ interface PermissionInterface
      *
      * @return string a string representing an action that can be performed on a resource in the system
      */
-    public function getAction(): string;
+    public function getAction(): string
+    {
+        // TODO: Implement getAction() method.
+    }
 
     /**
      * Get a string value that represents all actions that can be performed on all resources in the system.
@@ -45,7 +56,10 @@ interface PermissionInterface
      *
      * @return string a string value that represents all actions that can be performed on all resources in the system.
      */
-    public static function getAllActionsIdentifier(): string;
+    public static function getAllActionsIdentifier(): string
+    {
+        // TODO: Implement getAllActionsIdentifier() method.
+    }
 
     /**
      * Get the string representing a resources in the system.
@@ -54,7 +68,10 @@ interface PermissionInterface
      *
      * @return string a string representing a resource in the system
      */
-    public function getResource(): string;
+    public function getResource(): string
+    {
+        // TODO: Implement getResource() method.
+    }
 
     /**
      * Get a string value that represents all resources in the system.
@@ -66,7 +83,10 @@ interface PermissionInterface
      *
      * @return string a string value that represents all resources in the system.
      */
-    public static function getAllResoucesIdentifier(): string;
+    public static function getAllResoucesIdentifier(): string
+    {
+        // TODO: Implement getAllResoucesIdentifier() method.
+    }
 
     /**
      * Get the boolean value indicating whether or not an instance of this interface signifies that an action can be performed on a resource.
@@ -75,7 +95,10 @@ interface PermissionInterface
      *
      * @return bool a boolean value indicating whether or not an instance of this interface signifies that an action can be performed on a resource.
      */
-    public function getAllowActionOnResource(): bool;
+    public function getAllowActionOnResource(): bool
+    {
+        // TODO: Implement getAllowActionOnResource() method.
+    }
 
     /**
      * Set the boolean value indicating whether or not an instance of this interface signifies that an action can be performed on a resource to true or false.
@@ -83,7 +106,10 @@ interface PermissionInterface
      * @param bool $allowActionOnResource a boolean value indicating whether or not an instance of this interface signifies that an action can be performed on a resource
      * @return $this
      */
-    public function setAllowActionOnResource(bool $allowActionOnResource): self;
+    public function setAllowActionOnResource(bool $allowActionOnResource): PermissionInterface
+    {
+        // TODO: Implement setAllowActionOnResource() method.
+    }
 
     /**
      * Calculates and returns a boolean value indicating whether or not an instance of this interface signifies that a specified action can be performed on a specified resource.
@@ -101,7 +127,10 @@ interface PermissionInterface
      * @param mixed ...$argsForCallback optional arguments that may be required by the $additionalAssertions callback
      * @return bool return true if an instance of this interface signifies that a specified action can be performed on a specified resource, or false otherwise
      */
-    public function isActionAllowedOnResource(string $action, string $resource, callable $additionalAssertions=null, ...$argsForCallback): bool;
+    public function isActionAllowedOnResource(string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool
+    {
+        // TODO: Implement isActionAllowedOnResource() method.
+    }
 
     /**
      * Checks whether the specified permission object has an equal value to the current instance.
@@ -111,5 +140,8 @@ interface PermissionInterface
      * @param PermissionInterface $permission
      * @return bool
      */
-    public function isEqualTo(PermissionInterface $permission): bool;
+    public function isEqualTo(PermissionInterface $permission): bool
+    {
+        // TODO: Implement isEqualTo() method.
+    }
 }

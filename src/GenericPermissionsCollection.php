@@ -1,12 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace SimpleAcl\Interfaces;
+namespace SimpleAcl;
 
+use SimpleAcl\Interfaces\PermissionInterface;
+use SimpleAcl\Interfaces\PermissionsCollectionInterface;
 
-interface PermissionsCollectionInterface extends CollectionInterface
+class GenericPermissionsCollection extends GenericBaseCollection implements PermissionsCollectionInterface
 {
-
     /**
      * Checks whether or not a permission exists in the current instance.
      *
@@ -16,7 +17,10 @@ interface PermissionsCollectionInterface extends CollectionInterface
      * @param PermissionInterface $perm
      * @return bool true if there is another permission `$x` in the current instance where $x->isEqualTo($perm) === true, otherwise return false
      */
-    public function hasPermission(PermissionInterface $perm): bool;
+    public function hasPermission(PermissionInterface $perm): bool
+    {
+        // TODO: Implement hasPermission() method.
+    }
 
     /**
      * Calculates and returns a boolean value indicating whether or not one or more items in an instance of this interface
@@ -36,5 +40,28 @@ interface PermissionsCollectionInterface extends CollectionInterface
      * @param mixed ...$argsForCallback optional arguments that may be required by the $additionalAssertions callback
      * @return bool return true if one or more items in an instance of this interface signifies that a specified action can be performed on a specified resource, or false otherwise
      */
-    public function isActionAllowedOnResource(string $action, string $resource, callable $additionalAssertions=null, ...$argsForCallback): bool;
+    public function isActionAllowedOnResource(string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool
+    {
+        // TODO: Implement isActionAllowedOnResource() method.
+    }
+
+    /**
+     *
+     * @return bool true if $item is of the expected type, else false
+     *
+     */
+    public function checkType($item): bool
+    {
+        return ($item instanceof GenericPermission);
+    }
+
+    /**
+     *
+     * @return string|array a string or array of strings of type name(s) for items acceptable in a collection
+     *
+     */
+    public function getType()
+    {
+        return GenericPermission::class;
+    }
 }
