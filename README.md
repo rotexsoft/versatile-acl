@@ -81,4 +81,8 @@ Collections: Enforce type-check when adding items to each collection
         SimpleAcl\PermissionsCollectionInterface  extends SimpleAcl\CollectionInterface
 			hasPermission(SimpleAcl\PermissionInterface $perm): bool 
 			isActionAllowedOnResource(string $action, string $resource, callable $additionalAssertions=null, ...$argsForCallback): bool
+
+Create a GenericSimpleAcl main class that Marshals together all the generic implementation objects and provides 
+a nice one stop interface to interact with all the underlying objects.
+
 ```
