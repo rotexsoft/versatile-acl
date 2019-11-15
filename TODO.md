@@ -9,4 +9,5 @@
  and are working as expected.
  * Document using this package using acl examples from existing application and even using examples from the zend packages.
     * Add guidelines on how to customize this package to suit various requirements like the 
-    Owner, User and Group level permission enforcement described above.
+    Owner, User and Group level permission enforcement described above.   
+ * Submit to packagist once it's well done.
