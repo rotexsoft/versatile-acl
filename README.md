@@ -32,26 +32,26 @@ Ideas / Work in Progress
 
 ```
 SimpleAcl\PermissionableEntityInterface:
-	__construct(string $id, SimpleAcl\PermissionsInterface $perms=null)
+	__construct(string $id, SimpleAcl\PermissionsCollectionInterface $perms=null)
     addParentEntity(SimpleAcl\PermissionableEntityInterface $entity): self | throw exception if unsuccesfull
-    addParentEntities(SimpleAcl\PermissionableEntitiesInterface $entities): self | throw exception if unsuccesfull
+    addParentEntities(SimpleAcl\PermissionableEntitiesCollectionInterface $entities): self | throw exception if unsuccesfull
 	isEqualTo(SimpleAcl\PermissionableEntityInterface $entity): bool
     isChildOf(SimpleAcl\PermissionableEntityInterface $entity): bool
     isChildOfEntityWithId(string $entityId): bool
 	getId(): string
-	getParentEntities(): SimpleAcl\PermissionableEntitiesInterface
+	getParentEntities(): SimpleAcl\PermissionableEntitiesCollectionInterface
     removeParentIfExists(SimpleAcl\PermissionableEntityInterface $entity): self | throw exception if unsuccesfull
-    removeParentsThatExist(SimpleAcl\PermissionableEntitiesInterface $entities): self | throw exception if unsuccesfull
+    removeParentsThatExist(SimpleAcl\PermissionableEntitiesCollectionInterface $entities): self | throw exception if unsuccesfull
 
     addPermission(SimpleAcl\PermissionInterface $perm): self | throw exception if unsuccesfull
-    addPermissions(SimpleAcl\PermissionsInterface $perms): self | throw exception if unsuccesfull
-    getPermissions(): SimpleAcl\PermissionsInterface
-    getInheritedPermissions(): SimpleAcl\PermissionsInterface
+    addPermissions(SimpleAcl\PermissionsCollectionInterface $perms): self | throw exception if unsuccesfull
+    getPermissions(): SimpleAcl\PermissionsCollectionInterface
+    getInheritedPermissions(): SimpleAcl\PermissionsCollectionInterface
      
     removePermissionIfExists(SimpleAcl\PermissionInterface $perm): self | throw exception if unsuccesfull
-    removePermissionsThatExist(SimpleAcl\PermissionsInterface $perms): self | throw exception if unsuccesfull
+    removePermissionsThatExist(SimpleAcl\PermissionsCollectionInterface $perms): self | throw exception if unsuccesfull
 	
-	static createCollection(): SimpleAcl\PermissionableEntitiesInterface
+	static createCollection(): SimpleAcl\PermissionableEntitiesCollectionInterface
 
 
 
@@ -62,24 +62,23 @@ SimpleAcl\PermissionInterface
     getResource(): string
     static getAllResoucesIdentifier(): string [a special string representing all resources in the system]
 
-    isActionAllowedOnResource(string $action, string $resource, callable $additionalAssertions=null, ...$argsForCallback): bool
-    toggleAllowActionOnResource(bool $allowActionOnResource): self
     getAllowActionOnResource(): bool
+	setAllowActionOnResource(bool $allowActionOnResource): self
 	
+	isActionAllowedOnResource(string $action, string $resource, callable $additionalAssertions=null, ...$argsForCallback): bool
 	isEqualTo(SimpleAcl\PermissionInterface $permission): bool
 
     __construct(string $action, string $resource, bool $allowActionOnResource=true, callable $additionalAssertions=null, ...$argsForCallback)
-
-	static createCollection(): SimpleAcl\PermissionsInterface
+	static createCollection(): SimpleAcl\PermissionsCollectionInterface
 
 Collections: Enforce type-check when adding items to each collection
     SimpleAcl\CollectionInterface extends \ArrayAccess, \Countable, \IteratorAggregate
 		__construct(...$items) // must be of the same type
 	
-        SimpleAcl\PermissionableEntitiesInterface  extends SimpleAcl\CollectionInterface
+        SimpleAcl\PermissionableEntitiesCollectionInterface  extends SimpleAcl\CollectionInterface
 			hasEntity(SimpleAcl\PermissionableEntityInterface $entity): bool 
 			
-        SimpleAcl\PermissionsInterface  extends SimpleAcl\CollectionInterface
+        SimpleAcl\PermissionsCollectionInterface  extends SimpleAcl\CollectionInterface
 			hasPermission(SimpleAcl\PermissionInterface $perm): bool 
 			isActionAllowedOnResource(string $action, string $resource, callable $additionalAssertions=null, ...$argsForCallback): bool
 ```

@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace SimpleAcl;
 
 
-interface PermissionableEntitiesInterface extends CollectionInterface
+interface PermissionableEntitiesCollectionInterface extends CollectionInterface
 {
 
     /**
