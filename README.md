@@ -26,7 +26,7 @@ Entities Repository maybe introduced to guarantee this uniqueness). A **permissi
 **action** and **resource** value pair. In a real world application an entity can represent various 
 things such as a user or a group (that users can belong to).
  
-
+![Class Diagram](class-diagram.svg)
 
 Ideas / Work in Progress
 
