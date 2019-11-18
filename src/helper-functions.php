@@ -30,4 +30,3 @@ function dump_var($var): void {
     $line_breaker = (php_sapi_name() === 'cli') ? PHP_EOL : '<br>';
     echo var_to_string($var). $line_breaker . $line_breaker;
 }
-
