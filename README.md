@@ -3,19 +3,19 @@ A simple and highly flexible and customizable access control library for PHP
 
 Entities
 ----------
-* Resource: an item on which an **action** will be denied or allowed to be performed on.
+* **Resource:** an item on which an **action** will be denied or allowed to be performed on.
 It is just a case-insensitive string as far as this package is concerned.
 
-* Action: represents a task that can be performed on a **resource**. 
+* **Action:** represents a task that can be performed on a **resource**. 
 It is just a case-insensitive string as far as this package is concerned.
 
-* Permission: an object defining whether or not a **PermissionableEntity** 
+* **Permission:** an object defining whether or not a **PermissionableEntity** 
 is allowed or not allowed to perform an **action** on a particular **resource**.
 This object will allow additional assertions (to test if a **PermissionableEntity**
  is allowed or not allowed to perform an **action** on a particular **resource**) to 
  be injected via a callback.
 
-* PermissionableEntity: has one or more unique **permissions** and can have one or more other unique 
+* **PermissionableEntity:** has one or more unique **permissions** and can have one or more other unique 
 **PermissionableEntities** related to it as parents and consequently inherit permissions from its parent 
 relations. Each parent can have parents and those parents can in turn have parents and so on. An entity 
 cannot become a parent of another entity that is already its parent. Each parent of a **PermissionableEntity** 

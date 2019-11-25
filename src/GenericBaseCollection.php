@@ -9,7 +9,4 @@ use Traversable;
 use VersatileCollections\StrictlyTypedCollectionInterface;
 use VersatileCollections\StrictlyTypedCollectionInterfaceImplementationTrait;
 
-abstract class GenericBaseCollection implements CollectionInterface, StrictlyTypedCollectionInterface
-{
-    use StrictlyTypedCollectionInterfaceImplementationTrait;
-}
+abstract class GenericBaseCollection implements CollectionInterface { }
