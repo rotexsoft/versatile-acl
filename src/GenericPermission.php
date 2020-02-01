@@ -9,6 +9,31 @@ use SimpleAcl\Interfaces\PermissionsCollectionInterface;
 class GenericPermission implements PermissionInterface
 {
     /**
+     * @var string
+     */
+    protected $action = '';
+
+    /**
+     * @var string
+     */
+    protected $resource = '';
+
+    /**
+     * @var bool
+     */
+    protected $allowActionOnResource = true;
+
+    /**
+     * @var callable
+     */
+    protected $additionalAssertions = null;
+
+    /**
+     * @var array
+     */
+    protected $argsForCallback = [];
+
+    /**
      * PermissionInterface constructor.
      *
      * Both $allowActionOnResource and the return value of $additionalAssertions (if specified) must be true
@@ -22,6 +47,11 @@ class GenericPermission implements PermissionInterface
      */
     public function __construct(string $action, string $resource, bool $allowActionOnResource = true, callable $additionalAssertions = null, ...$argsForCallback)
     {
+        $this->action = $action;
+        $this->resource = $resource;
+        $this->allowActionOnResource = $allowActionOnResource;
+        $this->additionalAssertions = $additionalAssertions;
+        $this->argsForCallback = $argsForCallback;
     }
 
     /**
@@ -31,7 +61,7 @@ class GenericPermission implements PermissionInterface
      */
     public static function createCollection(): PermissionsCollectionInterface
     {
-        // TODO: Implement createCollection() method.
+        return new GenericPermissionsCollection();
     }
 
     /**
@@ -43,7 +73,7 @@ class GenericPermission implements PermissionInterface
      */
     public function getAction(): string
     {
-        // TODO: Implement getAction() method.
+        return $this->action;
     }
 
     /**
@@ -58,7 +88,7 @@ class GenericPermission implements PermissionInterface
      */
     public static function getAllActionsIdentifier(): string
     {
-        // TODO: Implement getAllActionsIdentifier() method.
+        return '*';
     }
 
     /**
@@ -70,7 +100,7 @@ class GenericPermission implements PermissionInterface
      */
     public function getResource(): string
     {
-        // TODO: Implement getResource() method.
+        return $this->resource;
     }
 
     /**
@@ -85,7 +115,7 @@ class GenericPermission implements PermissionInterface
      */
     public static function getAllResoucesIdentifier(): string
     {
-        // TODO: Implement getAllResoucesIdentifier() method.
+        return '*';
     }
 
     /**
@@ -97,7 +127,7 @@ class GenericPermission implements PermissionInterface
      */
     public function getAllowActionOnResource(): bool
     {
-        // TODO: Implement getAllowActionOnResource() method.
+        $this->allowActionOnResource;
     }
 
     /**
@@ -108,7 +138,9 @@ class GenericPermission implements PermissionInterface
      */
     public function setAllowActionOnResource(bool $allowActionOnResource): PermissionInterface
     {
-        // TODO: Implement setAllowActionOnResource() method.
+        $this->allowActionOnResource = $allowActionOnResource;
+
+        return $this;
     }
 
     /**
@@ -129,19 +161,25 @@ class GenericPermission implements PermissionInterface
      */
     public function isActionAllowedOnResource(string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool
     {
-        // TODO: Implement isActionAllowedOnResource() method.
+        return $this->getAction() === $action
+            && $this->getResource() === $resource
+            && $this->getAllowActionOnResource() === true
+            && ( (is_null($additionalAssertions)) ? true : (call_user_func_array($additionalAssertions, $argsForCallback) === true) );
     }
 
     /**
      * Checks whether the specified permission object has an equal value to the current instance.
      *
      * It is up to the implementer of this method to define what criteria makes two permission objects equal.
+     * This implementation considers 2 instances ($x and $y) of PermissionInterface as equal if
+     * $x->getAction() === $y->getAction() && $x->getResource() === $y->getResource()
      *
      * @param PermissionInterface $permission
      * @return bool
      */
     public function isEqualTo(PermissionInterface $permission): bool
     {
-        // TODO: Implement isEqualTo() method.
+        return $this->getAction() === $permission->getAction()
+                && $this->getResource() === $permission->getResource();
     }
 }
