@@ -30,7 +30,7 @@ things such as a user or a group (that users can belong to).
 
 ## Example Usage
 
-```
+```php
 <?php
 use \SimpleAcl\GenericPermission;
 use \SimpleAcl\GenericPermissionableEntity;
