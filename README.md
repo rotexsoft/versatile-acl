@@ -35,7 +35,7 @@ things such as a user or a group (that users can belong to).
 use \SimpleAcl\GenericPermission;
 use \SimpleAcl\GenericPermissionableEntity;
 
-$user_entity = new GenericPermissionableEntity('aadegbam');
+$user_entity = new GenericPermissionableEntity('jblow');
 $group_entity = new GenericPermissionableEntity('admin');
 
 $group_entity->addPermission(new GenericPermission('browse', 'blog'))
