@@ -1,7 +1,7 @@
 {
     "name": "rotexsoft/simple-acl",
     "type": "library",
-    "description": "A simple light-weight package that can be used for implementing access control in any php applications.",
+    "description": "A simple light-weight package that can be used for implementing access control in any php application.",
     "keywords": [ 
         "acl", "access", "control", "list", "lists", "access-control", "access-control-list", "access-control-lists",
         "permissions", "role", "roles", "rbac", "role-based", "role-based-access-control", "authorize", "authorization"
