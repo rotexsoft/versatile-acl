@@ -47,8 +47,8 @@ class GenericPermission implements PermissionInterface
      */
     public function __construct(string $action, string $resource, bool $allowActionOnResource = true, callable $additionalAssertions = null, ...$argsForCallback)
     {
-        $this->action = $action;
-        $this->resource = $resource;
+        $this->action = Utils::strtolower($action);
+        $this->resource = Utils::strtolower($resource);
         $this->allowActionOnResource = $allowActionOnResource;
         $this->additionalAssertions = $additionalAssertions;
         $this->argsForCallback = $argsForCallback;
@@ -127,7 +127,7 @@ class GenericPermission implements PermissionInterface
      */
     public function getAllowActionOnResource(): bool
     {
-        $this->allowActionOnResource;
+        return $this->allowActionOnResource;
     }
 
     /**
@@ -161,8 +161,16 @@ class GenericPermission implements PermissionInterface
      */
     public function isActionAllowedOnResource(string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool
     {
-        return $this->getAction() === $action
-            && $this->getResource() === $resource
+        return 
+            (
+                $this->getAction() === Utils::strtolower($action)
+                || $this->getAction() === $this->getAllActionsIdentifier()
+            )
+            && 
+            (
+                $this->getResource() === Utils::strtolower($resource)
+                || $this->getResource() === $this->getAllResoucesIdentifier()
+            )
             && $this->getAllowActionOnResource() === true
             && ( (is_null($additionalAssertions)) ? true : (call_user_func_array($additionalAssertions, $argsForCallback) === true) );
     }

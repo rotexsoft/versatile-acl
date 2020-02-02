@@ -7,9 +7,29 @@ use SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface;
 use SimpleAcl\Interfaces\PermissionableEntityInterface;
 use SimpleAcl\Interfaces\PermissionInterface;
 use SimpleAcl\Interfaces\PermissionsCollectionInterface;
+use SimpleAcl\Exceptions\ParentCannotBeChildException;
 
 class GenericPermissionableEntity implements PermissionableEntityInterface
 {
+    /**
+     *
+     * @var string
+     */
+    protected $id;
+    
+    /**
+     *
+     * @var \SimpleAcl\Interfaces\PermissionsCollectionInterface 
+     */
+    protected $permissions;
+    
+    /**
+     *
+     * @var \SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface 
+     */
+    protected $parentEntities;
+
+
     /**
      * PermissionableEntityInterface constructor.
      * @param string $id a case-insensitive unique string identifier for the new instance of PermissionableEntityInterface
@@ -17,6 +37,9 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function __construct(string $id, PermissionsCollectionInterface $perms = null)
     {
+        $this->id = Utils::strtolower($id);
+        $this->permissions = ($perms === null) ? GenericPermission::createCollection() : $perms;
+        $this->parentEntities = static::createCollection();
     }
 
     /**
@@ -26,7 +49,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public static function createCollection(): PermissionableEntitiesCollectionInterface
     {
-        // TODO: Implement createCollection() method.
+        return new GenericPermissionableEntitiesCollection();
     }
 
     /**
@@ -46,7 +69,23 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function addParentEntity(PermissionableEntityInterface $entity): PermissionableEntityInterface
     {
-        // TODO: Implement addParentEntity() method.
+        if( !$this->parentEntities->hasEntity($entity) ) {
+            
+            if( $entity->getParentEntities()->hasEntity($this) ) {
+                
+                // This instance is already a parent to the 
+                // entity we are trying to make its parent.
+                $message = "Cannot make Entity with id `{$entity->getId()}`"
+                         . " a parent to Entity with id `{$this->getId()}`."
+                         . " Child cannot be parent.";
+                
+                throw new ParentCannotBeChildException($message); 
+            }
+            
+            $this->parentEntities->offsetSet($entity->getId(), $entity);
+        }
+        
+        return $this;
     }
 
     /**
@@ -68,9 +107,37 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function addParentEntities(PermissionableEntitiesCollectionInterface $entities): PermissionableEntityInterface
     {
-        // TODO: Implement addParentEntities() method.
+        foreach ($entities as $entity) {
+            
+            $this->addParentEntity($entity);
+        }
+        
+        return $this;
     }
 
+    public function getAllParentEntities(): PermissionableEntitiesCollectionInterface{
+        
+        static $allParentEntities;
+        
+        if( !($allParentEntities instanceof PermissionableEntitiesCollectionInterface) ) {
+            
+            $allParentEntities = $this->createCollection();
+        }
+        
+        foreach ($this->getParentEntities() as $entity) {
+            
+            $allParentEntities[] = $entity;
+            
+            if( $entity->getParentEntities()->count() > 0 ) {
+                
+                // recurse
+                $entity->getAllParentEntities();
+            }
+        }
+        
+        return $allParentEntities;
+    }
+    
     /**
      * Checks whether or not the current instance has the specified entity `$entity` as one of its parents.
      *
@@ -82,7 +149,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function isChildOf(PermissionableEntityInterface $entity): bool
     {
-        // TODO: Implement isChildOf() method.
+        return $this->parentEntities->hasEntity($entity);
     }
 
     /**
@@ -93,7 +160,15 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function isChildOfEntityWithId(string $entityId): bool
     {
-        // TODO: Implement isChildOfEntityWithId() method.
+        foreach ($this->parentEntities as $parent) {
+            
+            if( $parent->getId() === Utils::strtolower($entityId) ) {
+                
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     /**
@@ -103,7 +178,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function getId(): string
     {
-        // TODO: Implement getId() method.
+        return $this->id;
     }
 
     /**
@@ -114,7 +189,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function getParentEntities(): PermissionableEntitiesCollectionInterface
     {
-        // TODO: Implement getParentEntities() method.
+        return $this->parentEntities;
     }
 
     /**
@@ -127,7 +202,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function isEqualTo(PermissionableEntityInterface $entity): bool
     {
-        // TODO: Implement isEqualTo() method.
+        return $this->getId() === $entity->getId();
     }
 
     /**
@@ -141,7 +216,19 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function removeParentIfExists(PermissionableEntityInterface $entity): PermissionableEntityInterface
     {
-        // TODO: Implement removeParentIfExists() method.
+        if( $this->parentEntities->hasEntity($entity) ) {
+            
+            foreach ($this->parentEntities as $key=>$parentEntity) {
+                
+                if( $entity->isEqualTo($parentEntity) ) {
+                    
+                    $this->parentEntities->offsetUnset($key);
+                    break;
+                }
+            }
+        }
+        
+        return $this;
     }
 
     /**
@@ -155,7 +242,12 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function removeParentsThatExist(PermissionableEntitiesCollectionInterface $entities): PermissionableEntityInterface
     {
-        // TODO: Implement removeParentsThatExist() method.
+        foreach ($entities as $entity) {
+            
+            $this->removeParentIfExists($entity);
+        }
+        
+        return $this;
     }
 
     /**
@@ -170,7 +262,12 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function addPermission(PermissionInterface $perm): PermissionableEntityInterface
     {
-        // TODO: Implement addPermission() method.
+        if( !$this->permissions->hasPermission($perm) ) {
+            
+            $this->permissions[] = $perm;
+        }
+        
+        return $this;
     }
 
     /**
@@ -187,7 +284,12 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function addPermissions(PermissionsCollectionInterface $perms): PermissionableEntityInterface
     {
-        // TODO: Implement addPermissions() method.
+        foreach ($perms as $perm) {
+            
+            $this->addPermission($perm);
+        }
+        
+        return $this;
     }
 
     /**
@@ -197,7 +299,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function getPermissions(): PermissionsCollectionInterface
     {
-        // TODO: Implement getPermissions() method.
+        return $this->permissions;
     }
 
     /**
@@ -208,7 +310,18 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function getInheritedPermissions(): PermissionsCollectionInterface
     {
-        // TODO: Implement getInheritedPermissions() method.
+        $all_parent_entities = $this->getAllParentEntities();
+        $inherited_perms = GenericPermission::createCollection();
+        
+        foreach ($all_parent_entities as $parent_entity) {
+            
+            foreach ($parent_entity->getPermissions() as $parent_permission) {
+                
+                $inherited_perms[] = $parent_permission;
+            }
+        }
+        
+        return $inherited_perms;
     }
 
     /**
@@ -219,7 +332,19 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function removePermissionIfExists(PermissionInterface $perm): PermissionableEntityInterface
     {
-        // TODO: Implement removePermissionIfExists() method.
+        if( $this->permissions->hasPermission($perm) ) {
+            
+            foreach ($this->permissions as $key=>$permission) {
+                
+                if( $perm->isEqualTo($permission) ) {
+                    
+                    $this->permissions->offsetUnset($key);
+                    break;
+                }
+            }
+        }
+        
+        return $this;
     }
 
     /**
@@ -230,6 +355,11 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function removePermissionsThatExist(PermissionsCollectionInterface $perms): PermissionableEntityInterface
     {
-        // TODO: Implement removePermissionsThatExist() method.
+        foreach ($perms as $perm) {
+            
+            $this->removePermissionIfExists($perm);
+        }
+        
+        return $this;
     }
 }

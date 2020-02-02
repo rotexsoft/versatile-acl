@@ -86,4 +86,14 @@ class Utils {
 
         return static::array_key_first(array_slice($array, -1, null, true));
     }
+    
+    public static function strtolower(string $str) {
+          
+        if( function_exists('mb_strtolower') ) {
+
+            return mb_strtolower($str, 'UTF-8');
+        }
+
+        return strtolower($str);
+    }
 }

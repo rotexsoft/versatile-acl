@@ -7,6 +7,7 @@ use SimpleAcl\Exceptions\InvalidItemTypeException;
 use SimpleAcl\Interfaces\PermissionInterface;
 use SimpleAcl\Interfaces\PermissionsCollectionInterface;
 use VersatileCollections\Exceptions\InvalidItemException;
+use VersatileCollections\SpecificObjectsCollection;
 
 class GenericPermissionsCollection extends GenericBaseCollection implements PermissionsCollectionInterface
 {
@@ -74,78 +75,5 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
             }
         }
         return false;
-    }
-
-    /**
-     * Retrieve an external iterator
-     * @link https://php.net/manual/en/iteratoraggregate.getiterator.php
-     * @return Traversable An instance of an object implementing Iterator or Traversable
-     */
-    public function getIterator()
-    {
-        $this->storage->getIterator();
-    }
-
-    /**
-     * Whether an offset exists
-     * @link https://php.net/manual/en/arrayaccess.offsetexists.php
-     * @param mixed $offset An offset to check for.
-     *
-     * @return bool true on success or false on failure.
-     *
-     * The return value will be casted to boolean if non-boolean was returned.
-     */
-    public function offsetExists($offset)
-    {
-        return $this->storage->offsetExists($offset);
-    }
-
-    /**
-     * Offset to retrieve
-     * @link https://php.net/manual/en/arrayaccess.offsetget.php
-     * @param mixed $offset The offset to retrieve.
-     *
-     * @return mixed Can return all value types.
-     */
-    public function offsetGet($offset)
-    {
-        return $this->storage->offsetGet($offset);
-    }
-
-    /**
-     * Offset to set
-     * @link https://php.net/manual/en/arrayaccess.offsetset.php
-     * @param mixed $offset The offset to assign the value to.
-     * @param mixed $value The value to set.
-     *
-     * @return void
-     */
-    public function offsetSet($offset, $value)
-    {
-        $this->storage->offsetSet($offset, $value);
-    }
-
-    /**
-     * Offset to unset
-     * @link https://php.net/manual/en/arrayaccess.offsetunset.php
-     * @param mixed $offset The offset to unset.
-     *
-     * @return void
-     */
-    public function offsetUnset($offset)
-    {
-        $this->storage->offsetUnset($offset);
-    }
-
-    /**
-     * Count elements of an object
-     * @link https://php.net/manual/en/countable.count.php
-     * @return int The custom count as an integer.
-     *
-     * The return value is cast to an integer.
-     */
-    public function count()
-    {
-        return $this->storage->count();
     }
 }
