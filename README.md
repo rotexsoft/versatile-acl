@@ -38,25 +38,64 @@ use \SimpleAcl\GenericPermissionableEntity;
 $user_entity = new GenericPermissionableEntity('jblow');
 $group_entity = new GenericPermissionableEntity('admin');
 
-$group_entity->addPermission(new GenericPermission('browse', 'blog'))
-             ->addPermission(new GenericPermission('read', 'blog'))
-             ->addPermission(new GenericPermission('edit', 'blog')) 
-             ->addPermission(new GenericPermission('add', 'blog'))
-             ->addPermission(new GenericPermission('delete', 'blog'));
+$group_entity->addPermission(new GenericPermission('browse', 'blog-post'))
+             ->addPermission(new GenericPermission('read', 'blog-post'))
+             ->addPermission(new GenericPermission('edit', 'blog-post')) 
+             ->addPermission(new GenericPermission('add', 'blog-post'))
+             ->addPermission(new GenericPermission('delete', 'blog-post'));
 
 $user_entity->addParentEntity($group_entity);
 
 var_dump(
-    $user_entity->getPermissions()->isActionAllowedOnResource('browse', 'blog')
+    $user_entity->getPermissions()->isActionAllowedOnResource('browse', 'blog-post')
 ); // returns false
 
 var_dump(
-    $user_entity->getInheritedPermissions()->isActionAllowedOnResource('browse', 'blog')
+    $user_entity->getInheritedPermissions()->isActionAllowedOnResource('browse', 'blog-post')
 ); // returns true
 
-$user_entity->addPermission(new GenericPermission('browse', 'blog'));
+$user_entity->addPermission(new GenericPermission('browse', 'blog-post'));
 
 var_dump(
-    $user_entity->getPermissions()->isActionAllowedOnResource('browse', 'blog')
+    $user_entity->getPermissions()->isActionAllowedOnResource('browse', 'blog-post')
+); // returns true
+
+//////////////////////////////////////////////////
+// Test all actions and all resources permissions
+//////////////////////////////////////////////////
+
+$user_entity2 = new GenericPermissionableEntity('superuser');
+
+// make this user a super user by allowing it to be able to 
+// perform any action on any resource
+$user_entity2->addPermission(
+    new GenericPermission(
+        GenericPermission::getAllActionsIdentifier(), 
+        GenericPermission::getAllResoucesIdentifier()
+    )
+);
+
+var_dump(
+    $user_entity2->getPermissions()->isActionAllowedOnResource('browse', 'blog-post')
+); // returns true
+
+var_dump(
+    $user_entity2->getPermissions()->isActionAllowedOnResource('browse', 'blog-post')
+); // returns true
+
+var_dump(
+    $user_entity2->getPermissions()->isActionAllowedOnResource('read', 'blog-post')
+); // returns true
+
+var_dump(
+    $user_entity2->getPermissions()->isActionAllowedOnResource('edit', 'blog-post')
+); // returns true
+
+var_dump(
+    $user_entity2->getPermissions()->isActionAllowedOnResource('add', 'blog-post')
+); // returns true
+
+var_dump(
+    $user_entity2->getPermissions()->isActionAllowedOnResource('delete', 'blog-post')
 ); // returns true
 ```

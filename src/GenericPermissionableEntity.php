@@ -69,9 +69,9 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function addParentEntity(PermissionableEntityInterface $entity): PermissionableEntityInterface
     {
-        if( !$this->parentEntities->hasEntity($entity) ) {
+        if( !$this->getAllParentEntities()->hasEntity($entity) ) {
             
-            if( $entity->getParentEntities()->hasEntity($this) ) {
+            if( $entity->getAllParentEntities()->hasEntity($this) ) {
                 
                 // This instance is already a parent to the 
                 // entity we are trying to make its parent.
@@ -121,14 +121,14 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
         
         if( !($allParentEntities instanceof PermissionableEntitiesCollectionInterface) ) {
             
-            $allParentEntities = $this->createCollection();
+            $allParentEntities = static::createCollection();
         }
         
-        foreach ($this->getParentEntities() as $entity) {
+        foreach ($this->getDirectParentEntities() as $entity) {
             
             $allParentEntities[] = $entity;
             
-            if( $entity->getParentEntities()->count() > 0 ) {
+            if( $entity->getDirectParentEntities()->count() > 0 ) {
                 
                 // recurse
                 $entity->getAllParentEntities();
@@ -187,7 +187,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      *
      * @return PermissionableEntitiesCollectionInterface a list of all parent entities added to the current instance
      */
-    public function getParentEntities(): PermissionableEntitiesCollectionInterface
+    public function getDirectParentEntities(): PermissionableEntitiesCollectionInterface
     {
         return $this->parentEntities;
     }

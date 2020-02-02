@@ -161,6 +161,18 @@ class GenericPermission implements PermissionInterface
      */
     public function isActionAllowedOnResource(string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool
     {
+        if( is_null($additionalAssertions) && !is_null($this->additionalAssertions) ) {
+            
+            // use callback registered via this object's constructor
+            $additionalAssertions = $this->additionalAssertions;
+        }
+        
+        if( count($argsForCallback) === 0 && count($this->argsForCallback) > 0 ) {
+            
+            // use args registered via this object's constructor
+            $argsForCallback = $this->argsForCallback;
+        }
+        
         return 
             (
                 $this->getAction() === Utils::strtolower($action)

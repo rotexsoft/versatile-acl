@@ -92,13 +92,22 @@ interface PermissionableEntityInterface
     public function getId(): string;
 
     /**
-     * Return a list (instance of PermissionableEntitiesCollectionInterface) of all parent entities added
-     * (via addParentEntity and / or addParentEntities) to the current instance.
+     * Return a list (instance of PermissionableEntitiesCollectionInterface) of all parent entities 
+     * added (via addParentEntity and / or addParentEntities) to the current instance. 
+     * This does not include parents of those parents.
      *
-     * @return PermissionableEntitiesCollectionInterface a list of all parent entities added to the current instance
+     * @return PermissionableEntitiesCollectionInterface a list of all parent entities added to the current instance. It excludes parents' parents
      */
-    public function getParentEntities(): PermissionableEntitiesCollectionInterface;
+    public function getDirectParentEntities(): PermissionableEntitiesCollectionInterface;
 
+    /**
+     * Return a list (instance of PermissionableEntitiesCollectionInterface) of all parent entities 
+     * and their parents' parents and so on for an instance of this interface.
+     *
+     * @return PermissionableEntitiesCollectionInterface a list of all parent entities and their parents' parents and so on for an instance of this interface
+     */
+    public function getAllParentEntities(): PermissionableEntitiesCollectionInterface;
+    
     /**
      * Checks whether the specified entity object has an equal value to the current instance.
      *
