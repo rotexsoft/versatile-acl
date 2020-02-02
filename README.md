@@ -28,61 +28,35 @@ things such as a user or a group (that users can belong to).
  
 ![Class Diagram](class-diagram.svg)
 
-Ideas / Work in Progress
+## Example Usage
 
 ```
-SimpleAcl\PermissionableEntityInterface:
-	__construct(string $id, SimpleAcl\PermissionsCollectionInterface $perms=null)
-    addParentEntity(SimpleAcl\PermissionableEntityInterface $entity): self | throw exception if unsuccesfull
-    addParentEntities(SimpleAcl\PermissionableEntitiesCollectionInterface $entities): self | throw exception if unsuccesfull
-	isEqualTo(SimpleAcl\PermissionableEntityInterface $entity): bool
-    isChildOf(SimpleAcl\PermissionableEntityInterface $entity): bool
-    isChildOfEntityWithId(string $entityId): bool
-	getId(): string
-	getParentEntities(): SimpleAcl\PermissionableEntitiesCollectionInterface
-    removeParentIfExists(SimpleAcl\PermissionableEntityInterface $entity): self | throw exception if unsuccesfull
-    removeParentsThatExist(SimpleAcl\PermissionableEntitiesCollectionInterface $entities): self | throw exception if unsuccesfull
+<?php
+use \SimpleAcl\GenericPermission;
+use \SimpleAcl\GenericPermissionableEntity;
 
-    addPermission(SimpleAcl\PermissionInterface $perm): self | throw exception if unsuccesfull
-    addPermissions(SimpleAcl\PermissionsCollectionInterface $perms): self | throw exception if unsuccesfull
-    getPermissions(): SimpleAcl\PermissionsCollectionInterface
-    getInheritedPermissions(): SimpleAcl\PermissionsCollectionInterface
-     
-    removePermissionIfExists(SimpleAcl\PermissionInterface $perm): self | throw exception if unsuccesfull
-    removePermissionsThatExist(SimpleAcl\PermissionsCollectionInterface $perms): self | throw exception if unsuccesfull
-	
-	static createCollection(): SimpleAcl\PermissionableEntitiesCollectionInterface
+$user_entity = new GenericPermissionableEntity('aadegbam');
+$group_entity = new GenericPermissionableEntity('admin');
 
+$group_entity->addPermission(new GenericPermission('browse', 'blog'))
+             ->addPermission(new GenericPermission('read', 'blog'))
+             ->addPermission(new GenericPermission('edit', 'blog')) 
+             ->addPermission(new GenericPermission('add', 'blog'))
+             ->addPermission(new GenericPermission('delete', 'blog'));
 
+$user_entity->addParentEntity($group_entity);
 
-SimpleAcl\PermissionInterface
-    getAction(): string
-    static getAllActionsIdentifier(): string [a special string representing all performable actions on a resource]
+var_dump(
+    $user_entity->getPermissions()->isActionAllowedOnResource('browse', 'blog')
+); // returns false
 
-    getResource(): string
-    static getAllResoucesIdentifier(): string [a special string representing all resources in the system]
+var_dump(
+    $user_entity->getInheritedPermissions()->isActionAllowedOnResource('browse', 'blog')
+); // returns true
 
-    getAllowActionOnResource(): bool
-	setAllowActionOnResource(bool $allowActionOnResource): self
-	
-	isActionAllowedOnResource(string $action, string $resource, callable $additionalAssertions=null, ...$argsForCallback): bool
-	isEqualTo(SimpleAcl\PermissionInterface $permission): bool
+$user_entity->addPermission(new GenericPermission('browse', 'blog'));
 
-    __construct(string $action, string $resource, bool $allowActionOnResource=true, callable $additionalAssertions=null, ...$argsForCallback)
-	static createCollection(): SimpleAcl\PermissionsCollectionInterface
-
-Collections: Enforce type-check when adding items to each collection
-    SimpleAcl\CollectionInterface extends \ArrayAccess, \Countable, \IteratorAggregate
-		__construct(...$items) // must be of the same type
-	
-        SimpleAcl\PermissionableEntitiesCollectionInterface  extends SimpleAcl\CollectionInterface
-			hasEntity(SimpleAcl\PermissionableEntityInterface $entity): bool 
-			
-        SimpleAcl\PermissionsCollectionInterface  extends SimpleAcl\CollectionInterface
-			hasPermission(SimpleAcl\PermissionInterface $perm): bool 
-			isActionAllowedOnResource(string $action, string $resource, callable $additionalAssertions=null, ...$argsForCallback): bool
-
-Create a GenericSimpleAcl main class that Marshals together all the generic implementation objects and provides 
-a nice one stop interface to interact with all the underlying objects.
-
+var_dump(
+    $user_entity->getPermissions()->isActionAllowedOnResource('browse', 'blog')
+); // returns true
 ```
