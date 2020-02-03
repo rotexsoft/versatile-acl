@@ -73,11 +73,11 @@ var_dump(
 // Test all actions and all resources permissions
 //////////////////////////////////////////////////
 
-$user_entity2 = new GenericPermissionableEntity('superuser');
+$superuser_entity = new GenericPermissionableEntity('superuser');
 
 // make this user a super user by allowing it to be able to 
 // perform any action on any resource
-$user_entity2->addPermission(
+$superuser_entity->addPermission(
     new GenericPermission(
         GenericPermission::getAllActionsIdentifier(), 
         GenericPermission::getAllResoucesIdentifier()
@@ -85,31 +85,26 @@ $user_entity2->addPermission(
 );
 
 var_dump(
-    $user_entity2->getPermissions()
+    $superuser_entity->getPermissions()
                  ->isActionAllowedOnResource('browse', 'blog-post')
 ); // returns true
 
 var_dump(
-    $user_entity2->getPermissions()
-                 ->isActionAllowedOnResource('browse', 'blog-post')
-); // returns true
-
-var_dump(
-    $user_entity2->getPermissions()
+    $superuser_entity->getPermissions()
                  ->isActionAllowedOnResource('read', 'blog-post')
 ); // returns true
 
 var_dump(
-    $user_entity2->getPermissions()->isActionAllowedOnResource('edit', 'blog-post')
+    $superuser_entity->getPermissions()->isActionAllowedOnResource('edit', 'blog-post')
 ); // returns true
 
 var_dump(
-    $user_entity2->getPermissions()
+    $superuser_entity->getPermissions()
                  ->isActionAllowedOnResource('add', 'blog-post')
 ); // returns true
 
 var_dump(
-    $user_entity2->getPermissions()
+    $superuser_entity->getPermissions()
                  ->isActionAllowedOnResource('delete', 'blog-post')
 ); // returns true
 
