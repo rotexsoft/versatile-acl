@@ -27,8 +27,7 @@
         "vimeo/psalm": "^3.8"
     },
     "autoload": {
-        "classmap": ["src/"],
-        "files": ["src/helper-functions.php"]
+        "classmap": ["src/"]
     },
     "autoload-dev": {
         "classmap": ["src/", "tests/"],
