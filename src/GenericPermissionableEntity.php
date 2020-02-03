@@ -82,7 +82,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
                 throw new ParentCannotBeChildException($message); 
             }
             
-            $this->parentEntities->offsetSet($entity->getId(), $entity);
+            $this->parentEntities->add($entity);
         }
         
         return $this;
@@ -126,7 +126,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
         
         foreach ($this->getDirectParentEntities() as $entity) {
             
-            $allParentEntities[] = $entity;
+            $allParentEntities->add($entity);
             
             if( $entity->getDirectParentEntities()->count() > 0 ) {
                 
@@ -149,7 +149,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function isChildOf(PermissionableEntityInterface $entity): bool
     {
-        return $this->parentEntities->hasEntity($entity);
+        return $this->getAllParentEntities()->hasEntity($entity);
     }
 
     /**
@@ -160,7 +160,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function isChildOfEntityWithId(string $entityId): bool
     {
-        foreach ($this->parentEntities as $parent) {
+        foreach ($this->getAllParentEntities() as $parent) {
             
             if( $parent->getId() === Utils::strtolower($entityId) ) {
                 
@@ -216,16 +216,11 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function removeParentIfExists(PermissionableEntityInterface $entity): PermissionableEntityInterface
     {
-        if( $this->parentEntities->hasEntity($entity) ) {
+        $key = $this->parentEntities->getKey($entity);
+        
+        if( $key !== null ) {
             
-            foreach ($this->parentEntities as $key=>$parentEntity) {
-                
-                if( $entity->isEqualTo($parentEntity) ) {
-                    
-                    $this->parentEntities->offsetUnset($key);
-                    break;
-                }
-            }
+            $this->parentEntities->removeByKey($key);
         }
         
         return $this;
@@ -264,7 +259,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
     {
         if( !$this->permissions->hasPermission($perm) ) {
             
-            $this->permissions[] = $perm;
+            $this->permissions->add($perm);
         }
         
         return $this;
@@ -317,7 +312,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
             
             foreach ($parent_entity->getPermissions() as $parent_permission) {
                 
-                $inherited_perms[] = $parent_permission;
+                $inherited_perms->add($parent_permission);
             }
         }
         
@@ -332,16 +327,11 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function removePermissionIfExists(PermissionInterface $perm): PermissionableEntityInterface
     {
-        if( $this->permissions->hasPermission($perm) ) {
+        $key = $this->permissions->getKey($perm);
+        
+        if( $key !== null ) {
             
-            foreach ($this->permissions as $key=>$permission) {
-                
-                if( $perm->isEqualTo($permission) ) {
-                    
-                    $this->permissions->offsetUnset($key);
-                    break;
-                }
-            }
+            $this->permissions->removeByKey($key);
         }
         
         return $this;

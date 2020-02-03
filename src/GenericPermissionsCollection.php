@@ -3,11 +3,8 @@ declare(strict_types=1);
 
 namespace SimpleAcl;
 
-use SimpleAcl\Exceptions\InvalidItemTypeException;
 use SimpleAcl\Interfaces\PermissionInterface;
 use SimpleAcl\Interfaces\PermissionsCollectionInterface;
-use VersatileCollections\Exceptions\InvalidItemException;
-use VersatileCollections\SpecificObjectsCollection;
 
 class GenericPermissionsCollection extends GenericBaseCollection implements PermissionsCollectionInterface
 {
@@ -15,19 +12,10 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * CollectionInterface constructor.
      * @param mixed ...$items the items to be contained in an instance of this interface. Implementers must enforce that items are of the same type.
      *
-     * @throws \SimpleAcl\Exceptions\InvalidItemTypeException if items are not all of the same type
      */
-    public function __construct(...$items)
+    public function __construct(PermissionInterface ...$permissions)
     {
-        try {
-            $this->storage = SpecificObjectsCollection::makeNewForSpecifiedClassName(
-                PermissionInterface::class, $items, true
-            );
-
-        } catch (InvalidItemException $e) {
-
-            throw new InvalidItemTypeException($e->getMessage(), $e->getCode(), $e);
-        }
+        $this->storage = $permissions;
     }
 
     /**
@@ -76,4 +64,35 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
         }
         return false;
     }
+
+    public function add(Interfaces\PermissionInterface $permission): PermissionsCollectionInterface {
+        
+        $this->storage[] = $permission;
+        
+        return $this;
+    }
+
+    public function getKey(Interfaces\PermissionInterface $permission) {
+        
+        foreach ($this->storage as $key => $other_permission) {
+            if( $permission->isEqualTo($other_permission) ) {
+                
+                return $key;
+            }
+        }
+        return null;
+    }
+
+    public function remove(Interfaces\PermissionInterface $permission): PermissionsCollectionInterface {
+        
+        $key = $this->getKey($permission);
+        
+        if($key !== null) {
+            
+            $this->removeByKey($key);
+        }
+        
+        return $this;
+    }
+
 }

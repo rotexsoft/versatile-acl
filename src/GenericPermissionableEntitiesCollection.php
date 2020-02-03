@@ -3,32 +3,19 @@ declare(strict_types=1);
 
 namespace SimpleAcl;
 
-use Traversable;
-use SimpleAcl\Exceptions\InvalidItemTypeException;
-use VersatileCollections\SpecificObjectsCollection;
 use SimpleAcl\Interfaces\PermissionableEntityInterface;
-use VersatileCollections\Exceptions\InvalidItemException;
 use SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface;
 
 class GenericPermissionableEntitiesCollection extends GenericBaseCollection implements PermissionableEntitiesCollectionInterface
 {
     /**
      * CollectionInterface constructor.
-     * @param mixed ...$items the items to be contained in an instance of this interface. Implementers must enforce that items are of the same type.
+     * @param PermissionableEntityInterface ...$permissionEntities instances of PermissionableEntityInterface to be added to this collection
      *
-     * @throws \SimpleAcl\Exceptions\InvalidItemTypeException if items are not all of the same type
      */
-    public function __construct(...$items)
+    public function __construct(PermissionableEntityInterface ...$permissionEntities)
     {
-        try {
-            $this->storage = SpecificObjectsCollection::makeNewForSpecifiedClassName(
-                PermissionableEntityInterface::class, $items, true
-            );
-
-        } catch (InvalidItemException $e) {
-
-            throw new InvalidItemTypeException($e->getMessage(), $e->getCode(), $e);
-        }
+        $this->storage = $permissionEntities;
     }
 
     /**
@@ -48,5 +35,35 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
             }
         }
         return false;
+    }
+
+    public function add(Interfaces\PermissionableEntityInterface $permissionEntity): PermissionableEntitiesCollectionInterface {
+        
+        $this->storage[$permissionEntity->getId()] = $permissionEntity;
+        
+        return $this;
+    }
+
+    public function getKey(Interfaces\PermissionableEntityInterface $permissionEntity) {
+        
+        foreach ($this->storage as $key => $other_entity) {
+            if( $permissionEntity->isEqualTo($other_entity) ) {
+                
+                return $key;
+            }
+        }
+        return null;
+    }
+
+    public function remove(Interfaces\PermissionableEntityInterface $permissionEntity): PermissionableEntitiesCollectionInterface {
+        
+        $key = $this->getKey($permissionEntity);
+        
+        if($key !== null) {
+            
+            $this->removeByKey($key);
+        }
+        
+        return $this;
     }
 }

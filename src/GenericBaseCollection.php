@@ -9,9 +9,9 @@ use Traversable;
 abstract class GenericBaseCollection implements CollectionInterface {
 
     /**
-     * @var \VersatileCollections\StrictlyTypedCollectionInterface
+     * @var array
      */
-    protected $storage = null;
+    protected $storage = [];
     
     /**
      * Retrieve an external iterator
@@ -20,59 +20,35 @@ abstract class GenericBaseCollection implements CollectionInterface {
      */
     public function getIterator()
     {
-        return $this->storage->getIterator();
+        return new \ArrayIterator($this->storage);
     }
 
     /**
-     * Whether a offset exists
-     * @link https://php.net/manual/en/arrayaccess.offsetexists.php
-     * @param mixed $offset An offset to check for.
-     *
-     * @return bool true on success or false on failure.
-     *
-     * The return value will be casted to boolean if non-boolean was returned.
+     * 
+     * @param string|int $key
      */
-    public function offsetExists($offset)
-    {
-        return $this->storage->offsetExists($offset);
+    public function removeByKey($key) {
+        
+        if($this->keyExists($key)) {
+            
+            $this->storage[$key] = null;
+            unset($this->storage[$key]);
+        }
     }
-
+    
     /**
-     * Offset to retrieve
-     * @link https://php.net/manual/en/arrayaccess.offsetget.php
-     * @param mixed $offset The offset to retrieve.
-     *
-     * @return mixed Can return all value types.
-     * @since 5.0.0
+     * 
+     * @param string|int $key
+     * @return bool
      */
-    public function offsetGet($offset)
-    {
-        return $this->storage->offsetGet($offset);
-    }
-
-    /**
-     * Offset to set
-     * @link https://php.net/manual/en/arrayaccess.offsetset.php
-     * @param mixed $offset The offset to assign the value to.
-     * @param mixed $value The value to set.
-     *
-     * @return void
-     */
-    public function offsetSet($offset, $value)
-    {
-        $this->storage->offsetSet($offset, $value);
-    }
-
-    /**
-     * Offset to unset
-     * @link https://php.net/manual/en/arrayaccess.offsetunset.php
-     * @param mixed $offset The offset to unset.
-     *
-     * @return void
-     */
-    public function offsetUnset($offset)
-    {
-        $this->storage->offsetUnset($offset);
+    public function keyExists($key): bool {
+        
+        if(is_int($key) || is_string($key)){
+            
+            return array_key_exists($key, $this->storage);
+        }
+        
+        return false;
     }
 
     /**
@@ -82,8 +58,8 @@ abstract class GenericBaseCollection implements CollectionInterface {
      *
      * The return value is cast to an integer.
      */
-    public function count()
+    public function count(): int
     {
-        return $this->storage->count();
+        return (int)count($this->storage);
     }
 }

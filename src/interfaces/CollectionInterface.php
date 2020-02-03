@@ -3,14 +3,18 @@ declare(strict_types=1);
 
 namespace SimpleAcl\Interfaces;
 
-
-interface CollectionInterface extends \ArrayAccess, \Countable, \IteratorAggregate
+interface CollectionInterface extends \Countable, \IteratorAggregate
 {
     /**
-     * CollectionInterface constructor.
-     * @param mixed ...$items the items to be contained in an instance of this interface. Implementers must enforce that items are of the same type.
-     *
-     * @throws \SimpleAcl\Exceptions\InvalidItemTypeException if items are not all of the same type
+     * 
+     * @param string|int $key
      */
-    public function __construct(...$items);
+    public function removeByKey($key);
+    
+    /**
+     * 
+     * @param string|int $key
+     * @return bool
+     */
+    public function keyExists($key): bool;
 }

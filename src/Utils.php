@@ -9,15 +9,26 @@ namespace SimpleAcl;
  */
 class Utils {
 
+    /**
+     * 
+     * @param callable $callable
+     * @return \Closure
+     */
     public static function getClosureFromCallable(callable $callable): \Closure {
 
         return ($callable instanceof \Closure)? $callable : \Closure::fromCallable($callable);
     }
 
-    public static function bindObjectAndScopeToClosure(\Closure $closure, $newthis): \Closure {
+    /**
+     * 
+     * @param \Closure $closure
+     * @param object $newthis
+     * @return \Closure
+     * @throws \InvalidArgumentException
+     */
+    public static function bindObjectAndScopeToClosure(\Closure $closure, object $newthis): \Closure {
 
         try {
-            
             $new_closure = \Closure::bind($closure, $newthis);
             
             return $new_closure;
@@ -34,33 +45,36 @@ class Utils {
         }
     }
     
-    public static function getExceptionAsStr(\Exception $e): string {
-        
-        $eol = PHP_EOL;
-        $message = "Exception Code: {$e->getCode()}"
-        . PHP_EOL . "Exception Class: " . get_class($e)
-        . PHP_EOL . "File: {$e->getFile()}"
-        . PHP_EOL . "Line: {$e->getLine()}"
-        . PHP_EOL . "Message: {$e->getMessage()}" . PHP_EOL
-        . PHP_EOL . "Trace: {$eol}{$e->getTraceAsString()}{$eol}{$eol}";
+    /**
+     * 
+     * @param \Throwable $e
+     * @param string $eol
+     * @return string
+     */
+    public static function getThrowableAsStr(\Throwable $e, string $eol=PHP_EOL): string {
 
-        $previous_exception = $e->getPrevious();
+        $previous_throwable = $e;
+        $message = '';
 
-        while( $previous_exception instanceof \Exception ) {
-
-            $message .= "Exception Code: {$previous_exception->getCode()}"
-                . PHP_EOL . "Exception Class: " . get_class($previous_exception)
-                . PHP_EOL . "File: {$previous_exception->getFile()}"
-                . PHP_EOL . "Line: {$previous_exception->getLine()}"
-                . PHP_EOL . "Message: {$previous_exception->getMessage()}" . PHP_EOL
-                . PHP_EOL . "Trace: {$eol}{$previous_exception->getTraceAsString()}{$eol}{$eol}";
+        do {
+            $message .= "Exception / Error Code: {$previous_throwable->getCode()}"
+                . $eol . "Exception / Error Class: " . get_class($previous_throwable)
+                . $eol . "File: {$previous_throwable->getFile()}"
+                . $eol . "Line: {$previous_throwable->getLine()}"
+                . $eol . "Message: {$previous_throwable->getMessage()}" . $eol
+                . $eol . "Trace: {$eol}{$previous_throwable->getTraceAsString()}{$eol}{$eol}";
                 
-            $previous_exception = $previous_exception->getPrevious();
-        } 
+            $previous_throwable = $previous_throwable->getPrevious();
+        } while( $previous_throwable instanceof \Throwable );
         
         return $message;
     }
 
+    /**
+     * 
+     * @param array $array
+     * @return mixed
+     */
     public static function array_key_first(array $array) {
 
         if( function_exists('array_key_first') ) {
@@ -71,9 +85,14 @@ class Utils {
         // polyfill
         if( $array === [] ) { return null; }
 
-        foreach($array as $key => $_) { return $key; }
+        foreach($array as $key => $value) { return $key; }
     }
 
+    /**
+     * 
+     * @param array $array
+     * @return mixed
+     */
     public static function array_key_last(array $array) {
 
         if( function_exists('array_key_last') ) {
@@ -87,7 +106,12 @@ class Utils {
         return static::array_key_first(array_slice($array, -1, null, true));
     }
     
-    public static function strtolower(string $str) {
+    /**
+     * 
+     * @param string $str
+     * @return string
+     */
+    public static function strtolower(string $str): string {
           
         if( function_exists('mb_strtolower') ) {
 

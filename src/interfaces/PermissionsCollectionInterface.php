@@ -6,7 +6,38 @@ namespace SimpleAcl\Interfaces;
 
 interface PermissionsCollectionInterface extends CollectionInterface
 {
-
+    /**
+     * 
+     * @param \SimpleAcl\Interfaces\PermissionInterface $permissions
+     */
+    public function __construct(PermissionInterface ...$permissions);
+    
+    /**
+     * Adds an instance of PermissionInterface to an instance of this interface.
+     * 
+     * @param \SimpleAcl\Interfaces\PermissionInterface $permission
+     * @return $this
+     */
+    public function add(PermissionInterface $permission): self;
+    
+    /**
+     * Removes an instance of PermissionInterface from an instance of this interface.
+     * 
+     * @param \SimpleAcl\Interfaces\PermissionInterface $permission
+     * @return $this
+     */
+    public function remove(PermissionInterface $permission): self;
+    
+    /**
+     * Retrieves the key in the collection associated with the specified permission object.
+     * If the object is not present in the collection, NULL should be returned
+     * 
+     * @param \SimpleAcl\Interfaces\PermissionInterface $permission
+     * 
+     * @return string|int
+     */
+    public function getKey(PermissionInterface $permission);
+    
     /**
      * Checks whether or not a permission exists in the current instance.
      *

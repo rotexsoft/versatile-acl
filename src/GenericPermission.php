@@ -24,7 +24,7 @@ class GenericPermission implements PermissionInterface
     protected $allowActionOnResource = true;
 
     /**
-     * @var callable
+     * @var callable|null
      */
     protected $additionalAssertions = null;
 
