@@ -71,7 +71,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
     {
         if( !$this->getAllParentEntities()->hasEntity($entity) ) {
             
-            if( $entity->getAllParentEntities()->hasEntity($this) ) {
+            if( $entity->isChildOf($this) ) {
                 
                 // This instance is already a parent to the 
                 // entity we are trying to make its parent.
