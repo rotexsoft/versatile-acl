@@ -119,6 +119,45 @@ dump(
 ); // returns false because we explicitly added a permission to $group_entity 
    // to deny the 'add' action on a 'blog-post' resource above
 
+dump(
+    $user_entity->getAllPermissions()
+                ->isAllowed('add', 'blog-post'), __LINE__
+); // returns false because we explicitly added a permission to $group_entity 
+   // to deny the 'add' action on a 'blog-post' resource above and we have also 
+   // not directly added a permission to $user_entity allowing the 'add' action 
+   // on a 'blog-post' resource
+
+///////////////////////////////////////////////////////////////////////////////
+// let's directly add a permission to $user_entity allowing the 'add' action
+// on a 'blog-post' resource to demonstrate how directly added permissions can
+// override inherited permissions
+///////////////////////////////////////////////////////////////////////////////
+
+// add permission that will override the $group_entity equivalent 
+$user_entity->addPermission(new GenericPermission('add', 'blog-post'));
+
+dump(
+    $user_entity->getInheritedPermissions()
+                ->isAllowed('add', 'blog-post'), __LINE__
+); // still returns false because we explicitly added a permission to $group_entity 
+   // to deny the 'add' action on a 'blog-post' resource above
+
+dump(
+    $user_entity->getAllPermissions(true) // default makes directly added permissions
+                                          // have higher priority over inherited ones
+                ->isAllowed('add', 'blog-post'), __LINE__
+); // now returns true because we directly added a permission to $user_entity 
+   // allowing the 'add' action on a 'blog-post' resource which overrides the 
+   // one we explicitly added a permission to $group_entity to deny the 'add' 
+   // action on a 'blog-post' resource
+
+dump(
+    $user_entity->getAllPermissions(false) // makes inherited permissions have 
+                                           // higher priority over directly added ones
+                ->isAllowed('add', 'blog-post'), __LINE__
+); // now returns false because we indicated that getAllPermissions should
+   // give inherited permissions a higher priority over directly added ones. 
+
 $user_entity->addPermission(new GenericPermission('browse', 'blog-post'));
 
 dump(
@@ -237,7 +276,7 @@ $assert_callback = function(array $user_data, array $blog_record){
 };
 
 dump(
-    $user_entity->getDirectPermissions()
+    $user_entity->getAllPermissions()
                 ->isAllowed(
                     'edit', 
                     'blog-post',
@@ -248,7 +287,7 @@ dump(
 ); // true since $logged_in_user_data['id'] === $blog_record_1['author_id']
 
 dump(
-    $user_entity->getDirectPermissions()
+    $user_entity->getAllPermissions()
                 ->isAllowed(
                     'edit', 
                     'blog-post',
@@ -288,7 +327,7 @@ $user_entity3->addPermission(
 );
 
 dump(
-    $user_entity3->getDirectPermissions()
+    $user_entity3->getAllPermissions()
                 ->isAllowed(
                     'edit', 
                     'blog-post',
@@ -300,7 +339,7 @@ dump(
 ); // false since $blog_record_1['year_created'] === 2019 which is a past year
 
 dump(
-    $user_entity3->getDirectPermissions()
+    $user_entity3->getAllPermissions()
                 ->isAllowed(
                     'edit', 
                     'blog-post',
