@@ -115,27 +115,25 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
         return $this;
     }
 
-    public function getAllParentEntities(): PermissionableEntitiesCollectionInterface{
+    public function getAllParentEntities(): PermissionableEntitiesCollectionInterface {
         
-        static $allParentEntities;
-        
-        if( !($allParentEntities instanceof PermissionableEntitiesCollectionInterface) ) {
-            
-            $allParentEntities = static::createCollection();
-        }
+        return $this->doGetAllParentEntities(static::createCollection());
+    }
+    
+    protected function doGetAllParentEntities(PermissionableEntitiesCollectionInterface $coll) {
         
         foreach ($this->getDirectParentEntities() as $entity) {
             
-            $allParentEntities->add($entity);
+            $coll->add($entity);
             
             if( $entity->getDirectParentEntities()->count() > 0 ) {
                 
                 // recurse
-                $entity->getAllParentEntities();
+                $entity->doGetAllParentEntities($coll);
             }
         }
         
-        return $allParentEntities;
+        return $coll;
     }
     
     /**

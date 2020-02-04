@@ -60,8 +60,18 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
         foreach ($this->storage as $permission) {
             
             if(
-                $permission->getAction() === Utils::strtolower($action)
-                && $permission->getResource() === Utils::strtolower($resource)
+                (
+                    Utils::strtolower($permission->getAction()) === Utils::strtolower($action)
+                    ||
+                    Utils::strtolower($permission->getAction()) === Utils::strtolower(GenericPermission::getAllActionsIdentifier())
+                )
+                &&
+                (
+                    Utils::strtolower($permission->getResource()) === Utils::strtolower($resource)
+                    ||
+                    Utils::strtolower($permission->getResource()) === Utils::strtolower(GenericPermission::getAllResoucesIdentifier())
+                )
+                
             ) {
                 return $permission->isAllowed($action, $resource, $additionalAssertions, ...$argsForCallback);
             }
