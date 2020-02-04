@@ -18,8 +18,8 @@ abstract class GenericBaseCollection implements CollectionInterface {
      * @link https://php.net/manual/en/iteratoraggregate.getiterator.php
      * @return Traversable An instance of an object implementing Iterator or Traversable
      */
-    public function getIterator()
-    {
+    public function getIterator() {
+        
         return new \ArrayIterator($this->storage);
     }
 
@@ -47,7 +47,6 @@ abstract class GenericBaseCollection implements CollectionInterface {
             
             return array_key_exists($key, $this->storage);
         }
-        
         return false;
     }
 
@@ -58,8 +57,8 @@ abstract class GenericBaseCollection implements CollectionInterface {
      *
      * The return value is cast to an integer.
      */
-    public function count(): int
-    {
+    public function count(): int {
+        
         return (int)count($this->storage);
     }
 }

@@ -181,15 +181,25 @@ interface PermissionableEntityInterface
      *
      * @return PermissionsCollectionInterface
      */
-    public function getPermissions(): PermissionsCollectionInterface;
+    public function getDirectPermissions(): PermissionsCollectionInterface;
 
     /**
-     * Get a list (an instance of PermissionsCollectionInterface) of the permissions returned when getPermissions() is invoked on each of this instance's parents
+     * Get a list (an instance of PermissionsCollectionInterface) of the permissions returned when getDirectPermissions() is invoked on each of this instance's parents
      * and their parents, parents' parents and so on.
      *
      * @return PermissionsCollectionInterface
      */
     public function getInheritedPermissions(): PermissionsCollectionInterface;
+    
+    /**
+     * Get a list (an instance of PermissionsCollectionInterface) of all permissions returned by $this->getDirectPermissions() and $this->getInheritedPermissions() 
+     * 
+     * @param bool $directPermissionsFirst true to place the permissions from $this->getDirectPermissions() in the beginning of the returned collection
+     *                                     or false to place the permissions from $this->getInheritedPermissions() in the beginning of the returned collection
+     * 
+     * @return \SimpleAcl\Interfaces\PermissionsCollectionInterface
+     */
+    public function getAllPermissions(bool $directPermissionsFirst=true): PermissionsCollectionInterface;
 
     /**
      * Remove the permission `$perm` from the current instance's list of permission if hasPermission($perm) returns true for the current instance.

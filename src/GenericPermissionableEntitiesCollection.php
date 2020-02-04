@@ -37,14 +37,14 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
         return false;
     }
 
-    public function add(Interfaces\PermissionableEntityInterface $permissionEntity): PermissionableEntitiesCollectionInterface {
+    public function add(PermissionableEntityInterface $permissionEntity): PermissionableEntitiesCollectionInterface {
         
         $this->storage[$permissionEntity->getId()] = $permissionEntity;
         
         return $this;
     }
 
-    public function getKey(Interfaces\PermissionableEntityInterface $permissionEntity) {
+    public function getKey(PermissionableEntityInterface $permissionEntity) {
         
         foreach ($this->storage as $key => $other_entity) {
             if( $permissionEntity->isEqualTo($other_entity) ) {
@@ -55,7 +55,7 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
         return null;
     }
 
-    public function remove(Interfaces\PermissionableEntityInterface $permissionEntity): PermissionableEntitiesCollectionInterface {
+    public function remove(PermissionableEntityInterface $permissionEntity): PermissionableEntitiesCollectionInterface {
         
         $key = $this->getKey($permissionEntity);
         

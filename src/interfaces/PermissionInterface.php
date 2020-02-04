@@ -101,7 +101,7 @@ interface PermissionInterface
      * @param mixed ...$argsForCallback optional arguments that may be required by the $additionalAssertions callback
      * @return bool return true if an instance of this interface signifies that a specified action can be performed on a specified resource, or false otherwise
      */
-    public function isActionAllowedOnResource(string $action, string $resource, callable $additionalAssertions=null, ...$argsForCallback): bool;
+    public function isAllowed(string $action, string $resource, callable $additionalAssertions=null, ...$argsForCallback): bool;
 
     /**
      * Checks whether the specified permission object has an equal value to the current instance.

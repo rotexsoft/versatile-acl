@@ -9,22 +9,21 @@ It is just a case-insensitive string as far as this package is concerned.
 * **Action:** represents a task that can be performed on a **resource**. 
 It is just a case-insensitive string as far as this package is concerned.
 
-* **Permission:** an object defining whether or not a **PermissionableEntity** 
-is allowed or not allowed to perform an **action** on a particular **resource**.
-This object will allow additional assertions (to test if a **PermissionableEntity**
- is allowed or not allowed to perform an **action** on a particular **resource**) to 
- be injected via a callback.
+* **Permission (see [\SimpleAcl\Interfaces\PermissionInterface](src/interfaces/PermissionInterface.php)):** an object defining whether 
+or not a **PermissionableEntity** is allowed or not allowed to perform an **action** on a 
+particular **resource**. This object will allow additional assertions (to test if a **PermissionableEntity** 
+is allowed or not allowed to perform an **action** on a particular **resource**) to be injected via a callback.
 
-* **PermissionableEntity:** has one or more unique **permissions** and can have one or more other unique 
-**PermissionableEntities** related to it as parents and consequently inherit permissions from its parent 
-relations. Each parent can have parents and those parents can in turn have parents and so on. An entity 
-cannot become a parent of another entity that is already its parent. Each parent of a **PermissionableEntity** 
-must have a unique id value. Permissions directly associated with an entity have higher priority than those 
-inherited from parent related entities. Each entity must have a unique case-insensitive string identifier (an
-Entities Repository maybe introduced to guarantee this uniqueness). A **permission** is unique to a 
-**PermissionableEntity** if it is the only permission associated with the entity having a specific 
-**action** and **resource** value pair. In a real world application an entity can represent various 
-things such as a user or a group (that users can belong to).
+* **PermissionableEntity (see [\SimpleAcl\Interfaces\PermissionableEntityInterface](src/interfaces/PermissionableEntityInterface.php)):** 
+has one or more unique **permissions** and can have one or more other unique **PermissionableEntities** related to it as parents 
+and consequently inherit permissions from its parent relations. Each parent can have parents and those parents can in turn have 
+parents and so on. An entity cannot become a parent of another entity that is already its parent. Each parent of a 
+**PermissionableEntity** must have a unique id value. Permissions directly associated with an entity have higher 
+priority than those inherited from parent related entities. Each entity must have a unique case-insensitive 
+string identifier (an Entities Repository maybe introduced to guarantee this uniqueness). A **permission** 
+is unique to a **PermissionableEntity** if it is the only permission associated with the entity having a 
+specific **action** and **resource** value pair. In a real world application an entity can represent 
+various things such as a user or a group (that users can belong to).
  
 ![Class Diagram](class-diagram.svg)
 
@@ -48,25 +47,25 @@ $group_entity->addPermission(new GenericPermission('browse', 'blog-post'))
 $user_entity->addParentEntity($group_entity);
 
 var_dump(
-    $user_entity->getPermissions()
-                ->isActionAllowedOnResource('browse', 'blog-post')
+    $user_entity->getDirectPermissions()
+                ->isAllowed('browse', 'blog-post')
 ); // returns false
 
 var_dump(
     $user_entity->getInheritedPermissions()
-                ->isActionAllowedOnResource('browse', 'blog-post')
+                ->isAllowed('browse', 'blog-post')
 ); // returns true
 
 var_dump(
     $user_entity->getInheritedPermissions()
-                ->isActionAllowedOnResource('add', 'blog-post')
+                ->isAllowed('add', 'blog-post')
 ); // returns false
 
 $user_entity->addPermission(new GenericPermission('browse', 'blog-post'));
 
 var_dump(
-    $user_entity->getPermissions()
-                ->isActionAllowedOnResource('browse', 'blog-post')
+    $user_entity->getDirectPermissions()
+                ->isAllowed('browse', 'blog-post')
 ); // returns true
 
 //////////////////////////////////////////////////
@@ -85,27 +84,27 @@ $superuser_entity->addPermission(
 );
 
 var_dump(
-    $superuser_entity->getPermissions()
-                 ->isActionAllowedOnResource('browse', 'blog-post')
+    $superuser_entity->getDirectPermissions()
+                 ->isAllowed('browse', 'blog-post')
 ); // returns true
 
 var_dump(
-    $superuser_entity->getPermissions()
-                 ->isActionAllowedOnResource('read', 'blog-post')
+    $superuser_entity->getDirectPermissions()
+                 ->isAllowed('read', 'blog-post')
 ); // returns true
 
 var_dump(
-    $superuser_entity->getPermissions()->isActionAllowedOnResource('edit', 'blog-post')
+    $superuser_entity->getDirectPermissions()->isAllowed('edit', 'blog-post')
 ); // returns true
 
 var_dump(
-    $superuser_entity->getPermissions()
-                 ->isActionAllowedOnResource('add', 'blog-post')
+    $superuser_entity->getDirectPermissions()
+                 ->isAllowed('add', 'blog-post')
 ); // returns true
 
 var_dump(
-    $superuser_entity->getPermissions()
-                 ->isActionAllowedOnResource('delete', 'blog-post')
+    $superuser_entity->getDirectPermissions()
+                 ->isAllowed('delete', 'blog-post')
 ); // returns true
 
 ///////////////////////////////////////////////////////
@@ -146,8 +145,8 @@ $assert_callback = function(array $user_data, array $blog_record){
 };
 
 var_dump(
-    $user_entity->getPermissions()
-                ->isActionAllowedOnResource(
+    $user_entity->getDirectPermissions()
+                ->isAllowed(
                     'edit', 
                     'blog-post',
                     $assert_callback,
@@ -157,8 +156,8 @@ var_dump(
 ); // true since $logged_in_user_data['id'] === $blog_record_1['author_id']
 
 var_dump(
-    $user_entity->getPermissions()
-                ->isActionAllowedOnResource(
+    $user_entity->getDirectPermissions()
+                ->isAllowed(
                     'edit', 
                     'blog-post',
                     $assert_callback,
@@ -169,13 +168,13 @@ var_dump(
 
 // Note that you can register a default callback and default arguments 
 // when you create a new instance of GenericPermission so that 
-// you don't have to keep invoking isActionAllowedOnResource 
+// you don't have to keep invoking isAllowed 
 // with the callback and its arguments if the arguments do
 // not change between calls. IF there's a default callback
 // whose arguments change from call to call, you can pass
-// null as the third argument to isActionAllowedOnResource
+// null as the third argument to isAllowed
 // and then pass the arguments needed for each call as the
-// the fourth and so on arguments to isActionAllowedOnResource
+// the fourth and so on arguments to isAllowed
 
 // let's create another callback that checks if the 
 // 'year_created' field of a blog post has the same
@@ -197,8 +196,8 @@ $user_entity3->addPermission(
 );
 
 var_dump(
-    $user_entity3->getPermissions()
-                ->isActionAllowedOnResource(
+    $user_entity3->getDirectPermissions()
+                ->isAllowed(
                     'edit', 
                     'blog-post',
                     null, // no callback injected here, 
@@ -209,8 +208,8 @@ var_dump(
 ); // false since $blog_record_1['year_created'] === 2019 which is a past year
 
 var_dump(
-    $user_entity3->getPermissions()
-                ->isActionAllowedOnResource(
+    $user_entity3->getDirectPermissions()
+                ->isAllowed(
                     'edit', 
                     'blog-post',
                     null, // no callback injected here, 

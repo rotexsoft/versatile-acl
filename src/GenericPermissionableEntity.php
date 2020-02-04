@@ -162,7 +162,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
     {
         foreach ($this->getAllParentEntities() as $parent) {
             
-            if( $parent->getId() === Utils::strtolower($entityId) ) {
+            if( Utils::strtolower($parent->getId()) === Utils::strtolower($entityId) ) {
                 
                 return true;
             }
@@ -178,7 +178,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function getId(): string
     {
-        return $this->id;
+        return Utils::strtolower($this->id);
     }
 
     /**
@@ -202,7 +202,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      */
     public function isEqualTo(PermissionableEntityInterface $entity): bool
     {
-        return $this->getId() === $entity->getId();
+        return Utils::strtolower($this->getId()) === Utils::strtolower($entity->getId());
     }
 
     /**
@@ -292,13 +292,13 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
      *
      * @return PermissionsCollectionInterface
      */
-    public function getPermissions(): PermissionsCollectionInterface
+    public function getDirectPermissions(): PermissionsCollectionInterface
     {
         return $this->permissions;
     }
 
     /**
-     * Get a list (an instance of PermissionsCollectionInterface) of the permissions returned when getPermissions() is invoked on each of this instance's parents
+     * Get a list (an instance of PermissionsCollectionInterface) of the permissions returned when getDirectPermissions() is invoked on each of this instance's parents
      * and their parents, parents' parents and so on.
      *
      * @return PermissionsCollectionInterface
@@ -309,14 +309,48 @@ class GenericPermissionableEntity implements PermissionableEntityInterface
         $inherited_perms = GenericPermission::createCollection();
         
         foreach ($all_parent_entities as $parent_entity) {
-            
-            foreach ($parent_entity->getPermissions() as $parent_permission) {
+            foreach ($parent_entity->getDirectPermissions() as $parent_permission) {
                 
                 $inherited_perms->add($parent_permission);
             }
         }
         
         return $inherited_perms;
+    }
+
+    /**
+     * Get a list (an instance of PermissionsCollectionInterface) of all permissions returned by $this->getDirectPermissions() and $this->getInheritedPermissions() 
+     * 
+     * @param bool $directPermissionsFirst true to place the permissions from $this->getDirectPermissions() in the beginning of the returned collection
+     *                                     or false to place the permissions from $this->getInheritedPermissions() in the beginning of the returned collection
+     * 
+     * @return \SimpleAcl\Interfaces\PermissionsCollectionInterface
+     */
+    public function getAllPermissions(bool $directPermissionsFirst=true): PermissionsCollectionInterface {
+        
+        $all_permissions = GenericPermission::createCollection();
+        $direct_perms = $this->getDirectPermissions();
+        $inherited_perms = $this->getInheritedPermissions();
+        $collection1 = $direct_perms;
+        $collection2 = $inherited_perms;
+        
+        if( $directPermissionsFirst === false ) {
+        
+            $collection1 = $inherited_perms;
+            $collection2 = $direct_perms;
+        }
+        
+        foreach($collection1 as $item) {
+            
+            $all_permissions->add($item);
+        }
+        
+        foreach($collection2 as $item) {
+            
+            $all_permissions->add($item);
+        }
+        
+        return $all_permissions;
     }
 
     /**

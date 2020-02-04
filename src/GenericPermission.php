@@ -45,8 +45,8 @@ class GenericPermission implements PermissionInterface
      * @param callable|null $additionalAssertions an optional callback function that must return a boolean further indicating whether or not an action can be performed on the resource.
      * @param mixed ...$argsForCallback zero or more arguments to be used to invoke $additionalAssertions
      */
-    public function __construct(string $action, string $resource, bool $allowActionOnResource = true, callable $additionalAssertions = null, ...$argsForCallback)
-    {
+    public function __construct(string $action, string $resource, bool $allowActionOnResource = true, callable $additionalAssertions = null, ...$argsForCallback) {
+        
         $this->action = Utils::strtolower($action);
         $this->resource = Utils::strtolower($resource);
         $this->allowActionOnResource = $allowActionOnResource;
@@ -59,8 +59,8 @@ class GenericPermission implements PermissionInterface
      *
      * @return PermissionsCollectionInterface a new and empty collection that is meant to house one or more instances of PermissionInterface
      */
-    public static function createCollection(): PermissionsCollectionInterface
-    {
+    public static function createCollection(): PermissionsCollectionInterface {
+        
         return new GenericPermissionsCollection();
     }
 
@@ -71,8 +71,8 @@ class GenericPermission implements PermissionInterface
      *
      * @return string a string representing an action that can be performed on a resource in the system
      */
-    public function getAction(): string
-    {
+    public function getAction(): string {
+        
         return $this->action;
     }
 
@@ -86,8 +86,8 @@ class GenericPermission implements PermissionInterface
      *
      * @return string a string value that represents all actions that can be performed on all resources in the system.
      */
-    public static function getAllActionsIdentifier(): string
-    {
+    public static function getAllActionsIdentifier(): string {
+        
         return '*';
     }
 
@@ -98,8 +98,8 @@ class GenericPermission implements PermissionInterface
      *
      * @return string a string representing a resource in the system
      */
-    public function getResource(): string
-    {
+    public function getResource(): string {
+        
         return $this->resource;
     }
 
@@ -113,8 +113,8 @@ class GenericPermission implements PermissionInterface
      *
      * @return string a string value that represents all resources in the system.
      */
-    public static function getAllResoucesIdentifier(): string
-    {
+    public static function getAllResoucesIdentifier(): string {
+        
         return '*';
     }
 
@@ -125,8 +125,8 @@ class GenericPermission implements PermissionInterface
      *
      * @return bool a boolean value indicating whether or not an instance of this interface signifies that an action can be performed on a resource.
      */
-    public function getAllowActionOnResource(): bool
-    {
+    public function getAllowActionOnResource(): bool {
+        
         return $this->allowActionOnResource;
     }
 
@@ -136,8 +136,8 @@ class GenericPermission implements PermissionInterface
      * @param bool $allowActionOnResource a boolean value indicating whether or not an instance of this interface signifies that an action can be performed on a resource
      * @return $this
      */
-    public function setAllowActionOnResource(bool $allowActionOnResource): PermissionInterface
-    {
+    public function setAllowActionOnResource(bool $allowActionOnResource): PermissionInterface {
+        
         $this->allowActionOnResource = $allowActionOnResource;
 
         return $this;
@@ -159,8 +159,8 @@ class GenericPermission implements PermissionInterface
      * @param mixed ...$argsForCallback optional arguments that may be required by the $additionalAssertions callback
      * @return bool return true if an instance of this interface signifies that a specified action can be performed on a specified resource, or false otherwise
      */
-    public function isActionAllowedOnResource(string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool
-    {
+    public function isAllowed(string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool {
+        
         if( is_null($additionalAssertions) && !is_null($this->additionalAssertions) ) {
             
             // use callback registered via this object's constructor
@@ -175,13 +175,13 @@ class GenericPermission implements PermissionInterface
         
         return 
             (
-                $this->getAction() === Utils::strtolower($action)
-                || $this->getAction() === $this->getAllActionsIdentifier()
+                Utils::strtolower($this->getAction()) === Utils::strtolower($action)
+                || Utils::strtolower($this->getAction()) === Utils::strtolower(static::getAllActionsIdentifier())
             )
             && 
             (
-                $this->getResource() === Utils::strtolower($resource)
-                || $this->getResource() === $this->getAllResoucesIdentifier()
+                Utils::strtolower($this->getResource()) === Utils::strtolower($resource)
+                || Utils::strtolower($this->getResource()) === Utils::strtolower(static::getAllResoucesIdentifier())
             )
             && $this->getAllowActionOnResource() === true
             && ( (is_null($additionalAssertions)) ? true : (call_user_func_array($additionalAssertions, $argsForCallback) === true) );
@@ -190,16 +190,15 @@ class GenericPermission implements PermissionInterface
     /**
      * Checks whether the specified permission object has an equal value to the current instance.
      *
-     * It is up to the implementer of this method to define what criteria makes two permission objects equal.
      * This implementation considers 2 instances ($x and $y) of PermissionInterface as equal if
      * $x->getAction() === $y->getAction() && $x->getResource() === $y->getResource()
      *
      * @param PermissionInterface $permission
      * @return bool
      */
-    public function isEqualTo(PermissionInterface $permission): bool
-    {
-        return $this->getAction() === $permission->getAction()
-                && $this->getResource() === $permission->getResource();
+    public function isEqualTo(PermissionInterface $permission): bool {
+        
+        return Utils::strtolower($this->getAction()) === Utils::strtolower($permission->getAction())
+            && Utils::strtolower($this->getResource()) === Utils::strtolower($permission->getResource());
     }
 }

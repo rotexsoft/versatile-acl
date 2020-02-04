@@ -13,8 +13,8 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * @param mixed ...$items the items to be contained in an instance of this interface. Implementers must enforce that items are of the same type.
      *
      */
-    public function __construct(PermissionInterface ...$permissions)
-    {
+    public function __construct(PermissionInterface ...$permissions) {
+        
         $this->storage = $permissions;
     }
 
@@ -27,8 +27,8 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * @param PermissionInterface $permission
      * @return bool true if there is another permission `$x` in the current instance where $x->isEqualTo($permission) === true, otherwise return false
      */
-    public function hasPermission(PermissionInterface $permission): bool
-    {
+    public function hasPermission(PermissionInterface $permission): bool {
+        
         foreach ($this->storage as $other_permission) {
             if( $permission->isEqualTo($other_permission) ) {
                 return true;
@@ -55,44 +55,44 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * @param mixed ...$argsForCallback optional arguments that may be required by the $additionalAssertions callback
      * @return bool return true if one or more items in an instance of this interface signifies that a specified action can be performed on a specified resource, or false otherwise
      */
-    public function isActionAllowedOnResource(string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool
-    {
+    public function isAllowed(string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool {
+        
         foreach ($this->storage as $permission) {
-            if( $permission->isActionAllowedOnResource($action, $resource, $additionalAssertions, ...$argsForCallback) === true ) {
-                return true;
+            
+            if(
+                $permission->getAction() === Utils::strtolower($action)
+                && $permission->getResource() === Utils::strtolower($resource)
+            ) {
+                return $permission->isAllowed($action, $resource, $additionalAssertions, ...$argsForCallback);
             }
         }
         return false;
     }
 
-    public function add(Interfaces\PermissionInterface $permission): PermissionsCollectionInterface {
+    public function add(PermissionInterface $permission): PermissionsCollectionInterface {
         
         $this->storage[] = $permission;
         
         return $this;
     }
 
-    public function getKey(Interfaces\PermissionInterface $permission) {
+    public function getKey(PermissionInterface $permission) {
         
         foreach ($this->storage as $key => $other_permission) {
             if( $permission->isEqualTo($other_permission) ) {
-                
                 return $key;
             }
         }
         return null;
     }
 
-    public function remove(Interfaces\PermissionInterface $permission): PermissionsCollectionInterface {
+    public function remove(PermissionInterface $permission): PermissionsCollectionInterface {
         
         $key = $this->getKey($permission);
         
         if($key !== null) {
-            
             $this->removeByKey($key);
         }
-        
         return $this;
     }
-
 }
