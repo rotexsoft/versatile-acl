@@ -19,11 +19,12 @@ has one or more unique **permissions** and can have one or more other unique **P
 and consequently inherit permissions from its parent relations. Each parent can have parents and those parents can in turn have 
 parents and so on. An entity cannot become a parent of another entity that is already its parent. Each parent of a 
 **PermissionableEntity** must have a unique id value. Permissions directly associated with an entity have higher 
-priority than those inherited from parent related entities. Each entity must have a unique case-insensitive 
-string identifier (an Entities Repository maybe introduced to guarantee this uniqueness). A **permission** 
-is unique to a **PermissionableEntity** if it is the only permission associated with the entity having a 
-specific **action** and **resource** value pair. In a real world application an entity can represent 
-various things such as a user or a group (that users can belong to).
+priority than those inherited from parent related entities (you can however choose to reverse this behavior using
+**\SimpleAcl\Interfaces\PermissionableEntityInterface::getAllPermissions(false)->isAllowed(...)**). 
+Each entity must have a unique case-insensitive string identifier (an Entities Repository maybe introduced 
+to guarantee this uniqueness). A **permission** is unique to a **PermissionableEntity** if it is the only 
+permission associated with the entity having a specific **action** and **resource** value pair. In a real 
+world application an entity can represent various things such as a user or a group (that users can belong to).
  
 ![Class Diagram](class-diagram.svg)
 
