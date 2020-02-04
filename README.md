@@ -76,39 +76,56 @@ world application an entity can represent various things such as a user or a gro
 use \SimpleAcl\GenericPermission;
 use \SimpleAcl\GenericPermissionableEntity;
 
+function dump($var,$line='') {
+    
+    echo $line ? "Line {$line}: " : '';
+    var_export($var);
+    echo PHP_EOL;
+}
+
 $user_entity = new GenericPermissionableEntity('jblow');
 $group_entity = new GenericPermissionableEntity('admin');
 
-$group_entity->addPermission(new GenericPermission('browse', 'blog-post'))
-             ->addPermission(new GenericPermission('read', 'blog-post'))
-             ->addPermission(new GenericPermission('edit', 'blog-post'))
+$group_entity->addPermission(new GenericPermission('browse', 'blog-post')) // allow
+             ->addPermission(new GenericPermission('read', 'blog-post')) // allow
+             ->addPermission(new GenericPermission('edit', 'blog-post')) // allow
              // deny add action to members of the admin group on the blog-post resource
-             ->addPermission(new GenericPermission('add', 'blog-post', false))
-             ->addPermission(new GenericPermission('delete', 'blog-post'));
+             ->addPermission(new GenericPermission('add', 'blog-post', false)) // deny
+             ->addPermission(new GenericPermission('delete', 'blog-post'));// allow
 
 $user_entity->addParentEntity($group_entity);
 
-var_dump(
+dump(
     $user_entity->getDirectPermissions()
-                ->isAllowed('browse', 'blog-post')
-); // returns false
+                ->isAllowed('browse', 'blog-post'), __LINE__
+); // returns false because we haven't added any permission for 
+   // 'browse', 'blog-post' to $user_entity
 
-var_dump(
+dump(
     $user_entity->getInheritedPermissions()
-                ->isAllowed('browse', 'blog-post')
-); // returns true
+                ->isAllowed('browse', 'blog-post'), __LINE__
+); // returns true because $user_entity inherits the 'browse', 'blog-post' permission
+   // added to its parent ($group_entity) above
 
-var_dump(
+dump(
+    $user_entity->getAllPermissions()
+                ->isAllowed('browse', 'blog-post'), __LINE__
+); // returns true because $user_entity->getAllPermissions() includes permissions 
+   // returned by both $user_entity->getDirectPermissions() and $user_entity->getInheritedPermissions()
+
+dump(
     $user_entity->getInheritedPermissions()
-                ->isAllowed('add', 'blog-post')
-); // returns false
+                ->isAllowed('add', 'blog-post'), __LINE__
+); // returns false because we explicitly added a permission to $group_entity 
+   // to deny the 'add' action on a 'blog-post' resource above
 
 $user_entity->addPermission(new GenericPermission('browse', 'blog-post'));
 
-var_dump(
+dump(
     $user_entity->getDirectPermissions()
-                ->isAllowed('browse', 'blog-post')
-); // returns true
+                ->isAllowed('browse', 'blog-post'), __LINE__
+); // returns true becuse we just added a permission above to $user_entity
+   // allow performing the 'browse' action on a 'blog-post' resource
 
 //////////////////////////////////////////////////
 // Test all actions and all resources permissions
@@ -120,33 +137,66 @@ $superuser_entity = new GenericPermissionableEntity('superuser');
 // perform any action on any resource
 $superuser_entity->addPermission(
     new GenericPermission(
-        GenericPermission::getAllActionsIdentifier(), 
-        GenericPermission::getAllResoucesIdentifier()
+        GenericPermission::getAllActionsIdentifier(), // all actions
+        GenericPermission::getAllResoucesIdentifier() // all resources
     )
 );
 
-var_dump(
+dump(
     $superuser_entity->getDirectPermissions()
-                 ->isAllowed('browse', 'blog-post')
+                     ->isAllowed('browse', 'blog-post'), __LINE__
 ); // returns true
 
-var_dump(
-    $superuser_entity->getDirectPermissions()
-                 ->isAllowed('read', 'blog-post')
+dump(
+    $superuser_entity->getInheritedPermissions()
+                     ->isAllowed('browse', 'blog-post'), __LINE__
+); // returns false because $superuser_entity has no parent and even if it had
+   // parents, the all action and all resorces permission has to have been added 
+   // to one of its parents or their parents in order for it to return true
+
+dump(
+    $superuser_entity->getAllPermissions()
+                     ->isAllowed('browse', 'blog-post'), __LINE__
 ); // returns true
 
-var_dump(
-    $superuser_entity->getDirectPermissions()->isAllowed('edit', 'blog-post')
+dump(
+    $superuser_entity->getDirectPermissions()
+                     ->isAllowed('read', 'blog-post'), __LINE__
 ); // returns true
 
-var_dump(
-    $superuser_entity->getDirectPermissions()
-                 ->isAllowed('add', 'blog-post')
+dump(
+    $superuser_entity->getAllPermissions()
+                     ->isAllowed('read', 'blog-post'), __LINE__
 ); // returns true
 
-var_dump(
+dump(
     $superuser_entity->getDirectPermissions()
-                 ->isAllowed('delete', 'blog-post')
+                     ->isAllowed('edit', 'blog-post'), __LINE__
+); // returns true
+
+dump(
+    $superuser_entity->getAllPermissions()
+                     ->isAllowed('edit', 'blog-post'), __LINE__
+); // returns true
+
+dump(
+    $superuser_entity->getDirectPermissions()
+                     ->isAllowed('add', 'blog-post'), __LINE__
+); // returns true
+
+dump(
+    $superuser_entity->getAllPermissions()
+                     ->isAllowed('add', 'blog-post'), __LINE__
+); // returns true
+
+dump(
+    $superuser_entity->getDirectPermissions()
+                     ->isAllowed('delete', 'blog-post'), __LINE__
+); // returns true
+
+dump(
+    $superuser_entity->getAllPermissions()
+                     ->isAllowed('delete', 'blog-post'), __LINE__
 ); // returns true
 
 ///////////////////////////////////////////////////////
@@ -186,7 +236,7 @@ $assert_callback = function(array $user_data, array $blog_record){
         && $user_data['id'] === $blog_record['author_id'];
 };
 
-var_dump(
+dump(
     $user_entity->getDirectPermissions()
                 ->isAllowed(
                     'edit', 
@@ -194,10 +244,10 @@ var_dump(
                     $assert_callback,
                     $logged_in_user_data,
                     $blog_record_1
-                )
+                ), __LINE__
 ); // true since $logged_in_user_data['id'] === $blog_record_1['author_id']
 
-var_dump(
+dump(
     $user_entity->getDirectPermissions()
                 ->isAllowed(
                     'edit', 
@@ -205,7 +255,7 @@ var_dump(
                     $assert_callback,
                     $logged_in_user_data,
                     $blog_record_2
-                )
+                ), __LINE__
 ); // false since $logged_in_user_data['id'] !== $blog_record_2['author_id']
 
 // Note that you can register a default callback and default arguments 
@@ -237,7 +287,7 @@ $user_entity3->addPermission(
     )
 );
 
-var_dump(
+dump(
     $user_entity3->getDirectPermissions()
                 ->isAllowed(
                     'edit', 
@@ -246,10 +296,10 @@ var_dump(
                           // the one injected via the 
                           // constructor will be called
                     $blog_record_1
-                )
+                ), __LINE__
 ); // false since $blog_record_1['year_created'] === 2019 which is a past year
 
-var_dump(
+dump(
     $user_entity3->getDirectPermissions()
                 ->isAllowed(
                     'edit', 
@@ -258,7 +308,7 @@ var_dump(
                           // the one injected via the 
                           // constructor will be called
                     $blog_record_2
-                )
+                ), __LINE__
 ); // true since $blog_record_2['year_created'] === 2020 which is the 
    // current year as of the writing of this example
 ```
