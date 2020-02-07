@@ -29,6 +29,12 @@ interface PermissionsCollectionInterface extends CollectionInterface
     public function remove(PermissionInterface $permission): self;
     
     /**
+     * Remove all items in the collection and return $this
+     * 
+     */
+    public function removeAll(): PermissionsCollectionInterface;
+    
+    /**
      * Retrieves the key in the collection associated with the specified permission object.
      * If the object is not present in the collection, NULL should be returned
      * 
