@@ -29,11 +29,14 @@ abstract class GenericBaseCollection implements CollectionInterface {
      */
     public function removeByKey($key) {
         
+        $item = null;
+        
         if($this->keyExists($key)) {
             
-            $this->storage[$key] = null;
+            $item = $this->storage[$key];
             unset($this->storage[$key]);
         }
+        return $item;
     }
     
     /**
@@ -60,5 +63,20 @@ abstract class GenericBaseCollection implements CollectionInterface {
     public function count(): int {
         
         return (int)count($this->storage);
+    }
+    
+    
+    public function __toString() {
+        
+        $objAsStr = static::class .' ('. spl_object_hash($this) . ')' . PHP_EOL . '{' . PHP_EOL;
+        
+        foreach ($this->storage as $key => $item) {
+
+            $objAsStr .= "\t"."item[{$key}]: " . str_replace(PHP_EOL, PHP_EOL."\t", ''.$item)  . PHP_EOL;
+        }
+
+        $objAsStr .= PHP_EOL . "}" . PHP_EOL;
+        
+        return $objAsStr;
     }
 }
