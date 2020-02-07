@@ -6,15 +6,16 @@ namespace SimpleAcl;
 use SimpleAcl\Interfaces\PermissionableEntityInterface;
 use SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface;
 
-class GenericPermissionableEntitiesCollection extends GenericBaseCollection implements PermissionableEntitiesCollectionInterface
-{
+class GenericPermissionableEntitiesCollection extends GenericBaseCollection implements PermissionableEntitiesCollectionInterface {
+    
     /**
      * CollectionInterface constructor.
+     * 
      * @param PermissionableEntityInterface ...$permissionEntities instances of PermissionableEntityInterface to be added to this collection
      *
      */
-    public function __construct(PermissionableEntityInterface ...$permissionEntities)
-    {
+    public function __construct(PermissionableEntityInterface ...$permissionEntities) {
+        
         $this->storage = $permissionEntities;
     }
 
@@ -39,7 +40,7 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
 
     public function add(PermissionableEntityInterface $permissionEntity): PermissionableEntitiesCollectionInterface {
         
-        $this->storage[$permissionEntity->getId()] = $permissionEntity;
+        $this->storage[] = $permissionEntity;
         
         return $this;
     }
@@ -60,9 +61,15 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
         $key = $this->getKey($permissionEntity);
         
         if($key !== null) {
-            
             $this->removeByKey($key);
         }
+        
+        return $this;
+    }
+    
+    public function removeAll(): PermissionableEntitiesCollectionInterface {
+        
+        $this->storage = [];
         
         return $this;
     }
