@@ -6,8 +6,8 @@ namespace SimpleAcl;
 use SimpleAcl\Interfaces\PermissionInterface;
 use SimpleAcl\Interfaces\PermissionsCollectionInterface;
 
-class GenericPermissionsCollection extends GenericBaseCollection implements PermissionsCollectionInterface
-{
+class GenericPermissionsCollection extends GenericBaseCollection implements PermissionsCollectionInterface {
+    
     /**
      * CollectionInterface constructor.
      * @param mixed ...$items the items to be contained in an instance of this interface. Implementers must enforce that items are of the same type.
@@ -103,6 +103,13 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
         if($key !== null) {
             $this->removeByKey($key);
         }
+        return $this;
+    }
+    
+    public function removeAll(): PermissionsCollectionInterface {
+        
+        $this->storage = [];
+        
         return $this;
     }
 }
