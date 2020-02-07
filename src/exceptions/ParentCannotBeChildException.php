@@ -4,6 +4,6 @@ namespace SimpleAcl\Exceptions;
 /**
  * Description of ParentCannotBeChildException
  *
- * @author Rotimi Adegbamigbe
+ * @author Rotimi
  */
 class ParentCannotBeChildException extends \Exception {}
