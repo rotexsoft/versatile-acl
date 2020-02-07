@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace SimpleAcl\Interfaces;
 
-interface PermissionableEntitiesCollectionInterface extends CollectionInterface
-{
+interface PermissionableEntitiesCollectionInterface extends CollectionInterface {
+    
     public function __construct(PermissionableEntityInterface ...$permissionEntities);
     
     /**
@@ -23,6 +23,12 @@ interface PermissionableEntitiesCollectionInterface extends CollectionInterface
      * @return $this
      */
     public function remove(PermissionableEntityInterface $permissionEntity): self;
+    
+    /**
+     * Remove all items in the collection and return $this
+     * 
+     */
+    public function removeAll(): PermissionableEntitiesCollectionInterface;
     
     /**
      * Retrieves the key in the collection associated with the specified object.
