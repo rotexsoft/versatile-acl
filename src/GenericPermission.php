@@ -201,4 +201,19 @@ class GenericPermission implements PermissionInterface
         return Utils::strtolower($this->getAction()) === Utils::strtolower($permission->getAction())
             && Utils::strtolower($this->getResource()) === Utils::strtolower($permission->getResource());
     }
+    
+    public function __toString() {
+        
+        $objAsStr = static::class .' ('. spl_object_hash($this) . ')' . PHP_EOL . '{' . PHP_EOL;
+        
+        $objAsStr .= "\taction: `{$this->action}`" . PHP_EOL;
+        $objAsStr .= "\tresource: `{$this->resource}`" . PHP_EOL;
+        $objAsStr .= "\tallowActionOnResource: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->allowActionOnResource, true)) . PHP_EOL;
+        $objAsStr .= "\tadditionalAssertions: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->additionalAssertions, true)) . PHP_EOL;
+        $objAsStr .= "\targsForCallback: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->argsForCallback, true)) . PHP_EOL;
+        
+        $objAsStr .= PHP_EOL . "}" . PHP_EOL;
+        
+        return $objAsStr;
+    }
 }
