@@ -44,7 +44,7 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * signifies that a specified action can be performed on a specified resource.
      *
      * This method should return true (signifying that the specified action is regarded as performable on the specified resource) only if:
-     *  - an item `$x` exists in an instance of this interface
+     *  - an item `$x` exists in an instance of this class
      *  - and $x->getAction() === $action
      *  - and $x->getResource() === $resource
      *  - and $x->getAllowActionOnResource() === true

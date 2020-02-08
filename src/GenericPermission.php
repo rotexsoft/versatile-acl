@@ -129,11 +129,11 @@ class GenericPermission implements PermissionInterface
     }
 
     /**
-     * Get the boolean value indicating whether or not an instance of this interface signifies that an action can be performed on a resource.
+     * Get the boolean value indicating whether or not an instance of this class signifies that an action can be performed on a resource.
      *
      * The value should be retrieved from the third argument passed to the constructor or the value subsequently set via calls to setAllowActionOnResource(..).
      *
-     * @return bool a boolean value indicating whether or not an instance of this interface signifies that an action can be performed on a resource.
+     * @return bool a boolean value indicating whether or not an instance of this class signifies that an action can be performed on a resource.
      */
     public function getAllowActionOnResource(): bool {
         
@@ -141,9 +141,9 @@ class GenericPermission implements PermissionInterface
     }
 
     /**
-     * Set the boolean value indicating whether or not an instance of this interface signifies that an action can be performed on a resource to true or false.
+     * Set the boolean value indicating whether or not an instance of this class signifies that an action can be performed on a resource to true or false.
      *
-     * @param bool $allowActionOnResource a boolean value indicating whether or not an instance of this interface signifies that an action can be performed on a resource
+     * @param bool $allowActionOnResource a boolean value indicating whether or not an instance of this class signifies that an action can be performed on a resource
      * 
      * @return $this
      */
@@ -155,7 +155,7 @@ class GenericPermission implements PermissionInterface
     }
 
     /**
-     * Calculates and returns a boolean value indicating whether or not an instance of this interface signifies that a specified action can be performed on a specified resource.
+     * Calculates and returns a boolean value indicating whether or not an instance of this class signifies that a specified action can be performed on a specified resource.
      *
      * This method should return true (signifying that the specified action is regarded as performable on the specified resource) only if:
      *  - $this->getAction() === $action
@@ -169,7 +169,7 @@ class GenericPermission implements PermissionInterface
      *                                            The callback must return true if the specified action can be performed on the specified resource.
      * @param mixed ...$argsForCallback optional arguments that may be required by the $additionalAssertions callback
      * 
-     * @return bool return true if an instance of this interface signifies that a specified action can be performed on a specified resource, or false otherwise
+     * @return bool return true if an instance of this class signifies that a specified action can be performed on a specified resource, or false otherwise
      */
     public function isAllowed(string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool {
         
