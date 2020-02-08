@@ -116,13 +116,13 @@ class UtilsTest extends \PHPUnit\Framework\TestCase{
         );
     }
     
-    public function testThatGetExceptionAsStrWorksAsExpected() {
+    public function testThatGetThrowableAsStrWorksAsExpected() {
         
         $e1 = new \DescendantException('Descendant Thrown', 911);
         $e2 = new \AncestorException('Ancestor Thrown', 777, $e1);
         $e3 = new \Exception('Base Thrown', 187, $e2);
         
-        $ex_as_str = Utils::getExceptionAsStr($e3);
+        $ex_as_str = Utils::getThrowableAsStr($e3);
 
         $this->assertStringContainsString('187', $ex_as_str);
         $this->assertStringContainsString('Base Thrown', $ex_as_str);
@@ -132,6 +132,12 @@ class UtilsTest extends \PHPUnit\Framework\TestCase{
         $this->assertStringContainsString('911', $ex_as_str);
         $this->assertStringContainsString('DescendantException', $ex_as_str);
         $this->assertStringContainsString('Descendant Thrown', $ex_as_str);
+    }
+    
+    public function testThatStrtolowerWorksAsExpected() {
+        
+        $this->assertStringContainsString(Utils::strtolower('Base Thrown'), 'base thrown');
+        $this->assertStringContainsString(Utils::strtolower('777'), '777');
     }
 }
 

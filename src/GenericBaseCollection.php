@@ -88,11 +88,19 @@ abstract class GenericBaseCollection implements CollectionInterface {
             $propertiesToExcludeFromDumpAcrossAllInstances = [];
         }
         
-        if(!isset($propertiesToExcludeFromDumpAcrossAllInstances[static::class])) {
+        if(
+            !isset($propertiesToExcludeFromDumpAcrossAllInstances[static::class])
+            || 
+            (
+                count($propertiesToExcludeFromDump) > 0
+                &&
+                $propertiesToExcludeFromDumpAcrossAllInstances[static::class] !== $propertiesToExcludeFromDump
+            )
+        ) {
             
             $propertiesToExcludeFromDumpAcrossAllInstances[static::class] = $propertiesToExcludeFromDump;
         }
-        
+
         $objAsStr = static::class .' ('. spl_object_hash($this) . ')' . PHP_EOL . '{' . PHP_EOL;
         
         if( !in_array('storage', $propertiesToExcludeFromDumpAcrossAllInstances[static::class]) ) {

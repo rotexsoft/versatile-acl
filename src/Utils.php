@@ -5,13 +5,14 @@ namespace SimpleAcl;
 /**
  * Description of Utils
  *
- * @author rotimi
+ * @author Rotimi
  */
 class Utils {
 
     /**
      * 
      * @param callable $callable
+     * 
      * @return \Closure
      */
     public static function getClosureFromCallable(callable $callable): \Closure {
@@ -23,6 +24,7 @@ class Utils {
      * 
      * @param \Closure $closure
      * @param object $newthis
+     * 
      * @return \Closure
      * @throws \InvalidArgumentException
      */
@@ -38,7 +40,7 @@ class Utils {
             $function = __FUNCTION__;
             $class = static::class;
             $msg = "Error [{$class}::{$function}(...)]: Could not bind \$newthis to the supplied closure"
-                . PHP_EOL . PHP_EOL . static::getExceptionAsStr($ex);
+                . PHP_EOL . PHP_EOL . static::getThrowableAsStr($ex);
 
             // The bind failed
             throw new \InvalidArgumentException($msg);
@@ -49,6 +51,7 @@ class Utils {
      * 
      * @param \Throwable $e
      * @param string $eol
+     * 
      * @return string
      */
     public static function getThrowableAsStr(\Throwable $e, string $eol=PHP_EOL): string {
@@ -73,6 +76,7 @@ class Utils {
     /**
      * 
      * @param array $array
+     * 
      * @return mixed
      */
     public static function array_key_first(array $array) {
@@ -91,6 +95,7 @@ class Utils {
     /**
      * 
      * @param array $array
+     * 
      * @return mixed
      */
     public static function array_key_last(array $array) {
@@ -109,6 +114,7 @@ class Utils {
     /**
      * 
      * @param string $str
+     * 
      * @return string
      */
     public static function strtolower(string $str): string {
