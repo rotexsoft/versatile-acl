@@ -450,8 +450,15 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
         
         static $propertiesToExcludeFromDumpAcrossAllInstances;
         
-        if(!$propertiesToExcludeFromDumpAcrossAllInstances) {
-            
+        if(
+            !$propertiesToExcludeFromDumpAcrossAllInstances  // first call
+            || 
+            (
+                count($propertiesToExcludeFromDump) > 0
+                &&
+                $propertiesToExcludeFromDumpAcrossAllInstances !== $propertiesToExcludeFromDump
+            ) // handle multiple calls with different values of $propertiesToExcludeFromDump
+        ) {
             $propertiesToExcludeFromDumpAcrossAllInstances = $propertiesToExcludeFromDump;
         }
         
