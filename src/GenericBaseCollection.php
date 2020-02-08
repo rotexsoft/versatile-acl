@@ -9,13 +9,17 @@ use Traversable;
 abstract class GenericBaseCollection implements CollectionInterface {
 
     /**
+     * 
      * @var array
+     * 
      */
     protected $storage = [];
     
     /**
      * Retrieve an external iterator
+     * 
      * @link https://php.net/manual/en/iteratoraggregate.getiterator.php
+     * 
      * @return Traversable An instance of an object implementing Iterator or Traversable
      */
     public function getIterator() {
@@ -24,8 +28,11 @@ abstract class GenericBaseCollection implements CollectionInterface {
     }
 
     /**
+     * Remove an item with the specified key from the collection if it exists and return the removed item or null if it doesn't exist.
      * 
      * @param string|int $key
+     * 
+     * @return mixed the removed item
      */
     public function removeByKey($key) {
         
@@ -40,8 +47,10 @@ abstract class GenericBaseCollection implements CollectionInterface {
     }
     
     /**
+     * Check if specified key exists in the collection.
      * 
      * @param string|int $key
+     * 
      * @return bool
      */
     public function keyExists($key): bool {
@@ -55,26 +64,44 @@ abstract class GenericBaseCollection implements CollectionInterface {
 
     /**
      * Count elements of an object
+     * 
      * @link https://php.net/manual/en/countable.count.php
+     * 
      * @return int The custom count as an integer.
-     *
-     * The return value is cast to an integer.
      */
     public function count(): int {
         
         return (int)count($this->storage);
-    }
-    
+    }   
     
     public function __toString() {
         
+        return $this->dump();
+    }
+    
+    public function dump(array $propertiesToExcludeFromDump=[]):string {
+        
+        static $propertiesToExcludeFromDumpAcrossAllInstances;
+        
+        if(!$propertiesToExcludeFromDumpAcrossAllInstances) {
+            
+            $propertiesToExcludeFromDumpAcrossAllInstances = [];
+        }
+        
+        if(!isset($propertiesToExcludeFromDumpAcrossAllInstances[static::class])) {
+            
+            $propertiesToExcludeFromDumpAcrossAllInstances[static::class] = $propertiesToExcludeFromDump;
+        }
+        
         $objAsStr = static::class .' ('. spl_object_hash($this) . ')' . PHP_EOL . '{' . PHP_EOL;
         
-        foreach ($this->storage as $key => $item) {
+        if( !in_array('storage', $propertiesToExcludeFromDumpAcrossAllInstances[static::class]) ) {
+            foreach ($this->storage as $key => $item) {
 
-            $objAsStr .= "\t"."item[{$key}]: " . str_replace(PHP_EOL, PHP_EOL."\t", ''.$item)  . PHP_EOL;
+                $objAsStr .=  "\t"."item[{$key}]: " . str_replace(PHP_EOL, PHP_EOL."\t", ''.$item)  . PHP_EOL;
+            }
         }
-
+        
         $objAsStr .= PHP_EOL . "}" . PHP_EOL;
         
         return $objAsStr;

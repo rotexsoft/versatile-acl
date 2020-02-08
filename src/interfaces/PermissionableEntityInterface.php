@@ -3,14 +3,18 @@ declare(strict_types=1);
 
 namespace SimpleAcl\Interfaces;
 
-interface PermissionableEntityInterface
-{
+interface PermissionableEntityInterface {
+    
     /**
      * PermissionableEntityInterface constructor.
-     * @param string $id a case-insensitive unique string identifier for the new instance of PermissionableEntityInterface
+     * 
+     * @param string $id a case-insensitive unique string identifier for each new instance of PermissionableEntityInterface. Must be a non-empty string (cannot contain only these characters (" \t\n\r\0\x0B") alone).
      * @param PermissionsCollectionInterface|null $perms optional permissions for the new instance of PermissionableEntityInterface
+     * @param PermissionableEntitiesCollectionInterface|null $parentEntities optional parent entities for the new instance of PermissionableEntityInterface
+     * 
+     * @throws \SimpleAcl\Exceptions\EmptyEntityIdException if $id is an empty string after these characters (" \t\n\r\0\x0B") are stripped from the front and back of the string 
      */
-    public function __construct(string $id, PermissionsCollectionInterface $perms=null);
+    public function __construct(string $id, PermissionsCollectionInterface $perms=null, PermissionableEntitiesCollectionInterface $parentEntities=null);
 
     /**
      * Create a new and empty collection that is meant to house one or more instances of PermissionableEntityInterface
@@ -22,9 +26,7 @@ interface PermissionableEntityInterface
     /**
      * ======================================================================================================
      * ======================================================================================================
-     * ======================================================================================================
      *  Methods related to this instance and its parents
-     * =======================================================================================================
      * =======================================================================================================
      * =======================================================================================================
      */
@@ -41,7 +43,9 @@ interface PermissionableEntityInterface
      * if the list of instance B's parents contains an object `C` where C->isEqualTo(A) === true
      *
      * @param PermissionableEntityInterface $entity
+     * 
      * @return $this
+     * 
      * @throws \SimpleAcl\Exceptions\ParentCannotBeChildException
      */
     public function addParentEntity(PermissionableEntityInterface $entity): self;
@@ -60,7 +64,9 @@ interface PermissionableEntityInterface
      * if the list of instance B's parents contains an object `C` where C->isEqualTo(A) === true
      *
      * @param PermissionableEntitiesCollectionInterface $entities
+     * 
      * @return $this
+     * 
      * @throws \SimpleAcl\Exceptions\ParentCannotBeChildException
      */
     public function addParentEntities(PermissionableEntitiesCollectionInterface $entities): self;
@@ -72,15 +78,17 @@ interface PermissionableEntityInterface
      * X->isEqualTo($entity) === true
      *
      * @param PermissionableEntityInterface $entity
+     * 
      * @return bool true if the current instance has an entity `X` in its parents list where X->isEqualTo($entity) === true, or false otherwise
      */
     public function isChildOf(PermissionableEntityInterface $entity): bool;
 
     /**
-     * Checks whether or not the current instance has any parent with the specified entity Id `$entityId`.
+     * Checks whether or not the current instance has any parent with the specified Id `$entityId`.
      *
-     * @param PermissionableEntityInterface $entity
-     * @return bool true if the current instance has any parent with the specified entity Id `$entityId`, or false otherwise
+     * @param string $entityId
+     * 
+     * @return bool true if the current instance has any parent with the specified Id `$entityId`, or false otherwise
      */
     public function isChildOfEntityWithId(string $entityId): bool;
 
@@ -94,9 +102,9 @@ interface PermissionableEntityInterface
     /**
      * Return a list (instance of PermissionableEntitiesCollectionInterface) of all parent entities 
      * added (via addParentEntity and / or addParentEntities) to the current instance. 
-     * This does not include parents of those parents.
+     * This does not include parents of those parents and so on.
      *
-     * @return PermissionableEntitiesCollectionInterface a list of all parent entities added to the current instance. It excludes parents' parents
+     * @return PermissionableEntitiesCollectionInterface a list of all parent entities added to the current instance. It excludes parents' parents and so on
      */
     public function getDirectParentEntities(): PermissionableEntitiesCollectionInterface;
 
@@ -114,6 +122,7 @@ interface PermissionableEntityInterface
      * It is up to the implementer of this method to define what criteria makes two entity objects equal.
      *
      * @param PermissionableEntityInterface $entity
+     * 
      * @return bool
      */
     public function isEqualTo(PermissionableEntityInterface $entity): bool;
@@ -125,6 +134,7 @@ interface PermissionableEntityInterface
      * list where X->isEqualTo($entity) === true
      *
      * @param PermissionableEntityInterface $entity
+     * 
      * @return $this
      */
     public function removeParentIfExists(PermissionableEntityInterface $entity): self;
@@ -136,6 +146,7 @@ interface PermissionableEntityInterface
      * there is an entity `$y` in the parent list where $x->isEqualTo($y) === true
      *
      * @param PermissionableEntitiesCollectionInterface $entities
+     * 
      * @return $this
      */
     public function removeParentsThatExist(PermissionableEntitiesCollectionInterface $entities): self;
@@ -143,9 +154,7 @@ interface PermissionableEntityInterface
     /**
      * ======================================================================================================
      * ======================================================================================================
-     * ======================================================================================================
      *  Permissions related methods
-     * =======================================================================================================
      * =======================================================================================================
      * =======================================================================================================
      */
@@ -158,6 +167,7 @@ interface PermissionableEntityInterface
      * nothing should happen, this method should just return the current instance (a.k.a $this).
      *
      * @param PermissionInterface $perm
+     * 
      * @return $this
      */
     public function addPermission(PermissionInterface $perm): self;
@@ -172,24 +182,29 @@ interface PermissionableEntityInterface
      * the current instance (a.k.a $this).
      *
      * @param PermissionsCollectionInterface $perms
+     * 
      * @return $this
      */
     public function addPermissions(PermissionsCollectionInterface $perms): self;
 
     /**
-     * Get a list (an instance of PermissionsCollectionInterface) of only the permissions added to this instance's list of permissions via addPermission and addPermissions.
+     * Get a list (an instance of PermissionsCollectionInterface) of only the permissions 
+     * added to this instance's list of permissions via addPermission and addPermissions.
      *
      * @return PermissionsCollectionInterface
      */
     public function getDirectPermissions(): PermissionsCollectionInterface;
 
     /**
-     * Get a list (an instance of PermissionsCollectionInterface) of the permissions returned when getDirectPermissions() is invoked on each of this instance's parents
-     * and their parents, parents' parents and so on.
+     * Get a list (an instance of PermissionsCollectionInterface) of the permissions returned when 
+     * getDirectPermissions() is invoked on each of this instance's parents and their parents, 
+     * parents' parents and so on.
+     * 
+     * @param PermissionsCollectionInterface $inheritedPerms an optional collection that will contain the inherited permissions.  If null, a new collection that will contain the inherited permissions will automatically be created by this method.
      *
      * @return PermissionsCollectionInterface
      */
-    public function getInheritedPermissions(): PermissionsCollectionInterface;
+    public function getInheritedPermissions(PermissionsCollectionInterface $inheritedPerms=null): PermissionsCollectionInterface;
     
     /**
      * Get a list (an instance of PermissionsCollectionInterface) of all permissions returned by $this->getDirectPermissions() and $this->getInheritedPermissions() 
@@ -197,22 +212,26 @@ interface PermissionableEntityInterface
      * @param bool $directPermissionsFirst true to place the permissions from $this->getDirectPermissions() in the beginning of the returned collection
      *                                     or false to place the permissions from $this->getInheritedPermissions() in the beginning of the returned collection
      * 
+     * @param PermissionsCollectionInterface $allPerms an optional collection that all the permissions to be returned will be added to. If null, a new collection that will contain the all permissions will automatically be created by this method.
+     * 
      * @return \SimpleAcl\Interfaces\PermissionsCollectionInterface
      */
-    public function getAllPermissions(bool $directPermissionsFirst=true): PermissionsCollectionInterface;
+    public function getAllPermissions(bool $directPermissionsFirst=true, PermissionsCollectionInterface $allPerms=null): PermissionsCollectionInterface;
 
     /**
-     * Remove the permission `$perm` from the current instance's list of permission if hasPermission($perm) returns true for the current instance.
+     * Remove the permission `$perm` from the current instance's list of permission if the permission exists in the list.
      *
      * @param PermissionInterface $perm permission to be removed
+     * 
      * @return $this
      */
     public function removePermissionIfExists(PermissionInterface $perm): self;
 
     /**
-     * For each permission `$x` in $perms, remove `$x` from the current instance's list of permission if hasPermission($x) returns true for the current instance.
+     * For each permission `$x` in $perms, remove `$x` from the current instance's list of permission if it `$x` exists in the list.
      *
      * @param PermissionsCollectionInterface $perms
+     * 
      * @return $this
      */
     public function removePermissionsThatExist(PermissionsCollectionInterface $perms): self;

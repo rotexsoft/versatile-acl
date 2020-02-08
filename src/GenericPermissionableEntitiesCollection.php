@@ -9,9 +9,9 @@ use SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface;
 class GenericPermissionableEntitiesCollection extends GenericBaseCollection implements PermissionableEntitiesCollectionInterface {
     
     /**
-     * CollectionInterface constructor.
+     * Constructor.
      * 
-     * @param PermissionableEntityInterface ...$permissionEntities instances of PermissionableEntityInterface to be added to this collection
+     * @param PermissionableEntityInterface ...$permissionEntities zero or more instances of PermissionableEntityInterface to be added to this collection
      *
      */
     public function __construct(PermissionableEntityInterface ...$permissionEntities) {
@@ -26,10 +26,11 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
      * in the current instance where $x->isEqualTo($entity) === true.
      *
      * @param PermissionableEntityInterface $entity
+     * 
      * @return bool true if there is another entity `$x` in the current instance where $x->isEqualTo($entity) === true, otherwise return false
      */
-    public function hasEntity(PermissionableEntityInterface $entity): bool
-    {
+    public function hasEntity(PermissionableEntityInterface $entity): bool {
+        
         foreach ($this->storage as $other_entity) {
             if( $entity->isEqualTo($other_entity) ) {
                 return true;
@@ -38,6 +39,13 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
         return false;
     }
 
+    /**
+     * Adds an instance of PermissionableEntityInterface to an instance of this class
+     * 
+     * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $permissionEntity
+     * 
+     * @return $this
+     */
     public function add(PermissionableEntityInterface $permissionEntity): PermissionableEntitiesCollectionInterface {
         
         $this->storage[] = $permissionEntity;
@@ -45,17 +53,31 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
         return $this;
     }
 
-    public function getKey(PermissionableEntityInterface $permissionEntity) {
+    /**
+     * Retrieves the key in the collection associated with the specified object.
+     * If the object is not present in the collection, NULL should be returned
+     * 
+     * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $entity
+     * 
+     * @return string|int|null
+     */
+    public function getKey(PermissionableEntityInterface $entity) {
         
         foreach ($this->storage as $key => $other_entity) {
-            if( $permissionEntity->isEqualTo($other_entity) ) {
-                
+            if( $entity->isEqualTo($other_entity) ) {
                 return $key;
             }
         }
         return null;
     }
-
+    
+    /**
+     * Removes an instance of PermissionableEntityInterface from an instance of this class.
+     * 
+     * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $permissionEntity
+     * 
+     * @return $this
+     */
     public function remove(PermissionableEntityInterface $permissionEntity): PermissionableEntitiesCollectionInterface {
         
         $key = $this->getKey($permissionEntity);
@@ -67,6 +89,11 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
         return $this;
     }
     
+    /**
+     * Remove all items in the collection and return $this
+     * 
+     * @return $this
+     */
     public function removeAll(): PermissionableEntitiesCollectionInterface {
         
         $this->storage = [];

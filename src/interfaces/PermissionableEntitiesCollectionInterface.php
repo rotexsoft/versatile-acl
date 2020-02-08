@@ -5,6 +5,12 @@ namespace SimpleAcl\Interfaces;
 
 interface PermissionableEntitiesCollectionInterface extends CollectionInterface {
     
+    /**
+     * Constructor.
+     * 
+     * @param PermissionableEntityInterface ...$permissionEntities zero or more instances of PermissionableEntityInterface to be added to this collection
+     *
+     */
     public function __construct(PermissionableEntityInterface ...$permissionEntities);
     
     /**
@@ -20,6 +26,7 @@ interface PermissionableEntitiesCollectionInterface extends CollectionInterface 
      * Removes an instance of PermissionableEntityInterface from an instance of this interface.
      * 
      * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $permissionEntity
+     * 
      * @return $this
      */
     public function remove(PermissionableEntityInterface $permissionEntity): self;
@@ -27,18 +34,19 @@ interface PermissionableEntitiesCollectionInterface extends CollectionInterface 
     /**
      * Remove all items in the collection and return $this
      * 
+     * @return $this
      */
-    public function removeAll(): PermissionableEntitiesCollectionInterface;
+    public function removeAll(): self;
     
     /**
      * Retrieves the key in the collection associated with the specified object.
      * If the object is not present in the collection, NULL should be returned
      * 
-     * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $permissionEntity
+     * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $entity
      * 
-     * @return string|int
+     * @return string|int|null
      */
-    public function getKey(PermissionableEntityInterface $permissionEntity);
+    public function getKey(PermissionableEntityInterface $entity);
     
     /**
      * Checks whether or not an entity exists in the current instance.
@@ -47,6 +55,7 @@ interface PermissionableEntitiesCollectionInterface extends CollectionInterface 
      * in the current instance where $x->isEqualTo($entity) === true.
      *
      * @param PermissionableEntityInterface $entity
+     * 
      * @return bool true if there is another entity `$x` in the current instance where $x->isEqualTo($entity) === true, otherwise return false
      */
     public function hasEntity(PermissionableEntityInterface $entity): bool;

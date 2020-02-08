@@ -11,8 +11,8 @@ interface PermissionInterface
      * Both $allowActionOnResource and the return value of $additionalAssertions (if specified) must be true
      * in order for the specified action to be regarded as performable on the resource.
      *
-     * @param string $action a string representing an action that can be performed on a resource in the system
-     * @param string $resource a string representing a resource in the system
+     * @param string $action a case-insensitive string representing an action that can be performed on a resource in the system
+     * @param string $resource a case-insensitive string representing a resource in the system
      * @param bool $allowActionOnResource a boolean flag indicating whether or not the specified action can be performed on the resource
      * @param callable|null $additionalAssertions an optional callback function that must return a boolean further indicating whether or not an action can be performed on the resource.
      * @param mixed ...$argsForCallback zero or more arguments to be used to invoke $additionalAssertions
@@ -48,7 +48,7 @@ interface PermissionInterface
     public static function getAllActionsIdentifier(): string;
 
     /**
-     * Get the string representing a resources in the system.
+     * Get the string representing a resource in the system.
      *
      * Its value should be retrieved from the second argument passed to the constructor.
      *
@@ -81,6 +81,7 @@ interface PermissionInterface
      * Set the boolean value indicating whether or not an instance of this interface signifies that an action can be performed on a resource to true or false.
      *
      * @param bool $allowActionOnResource a boolean value indicating whether or not an instance of this interface signifies that an action can be performed on a resource
+     * 
      * @return $this
      */
     public function setAllowActionOnResource(bool $allowActionOnResource): self;
@@ -99,6 +100,7 @@ interface PermissionInterface
      * @param callable|null $additionalAssertions an optional callback function with additional tests to check whether the specified action can be performed on the specified resource.
      *                                            The callback must return true if the specified action can be performed on the specified resource.
      * @param mixed ...$argsForCallback optional arguments that may be required by the $additionalAssertions callback
+     * 
      * @return bool return true if an instance of this interface signifies that a specified action can be performed on a specified resource, or false otherwise
      */
     public function isAllowed(string $action, string $resource, callable $additionalAssertions=null, ...$argsForCallback): bool;
@@ -109,6 +111,7 @@ interface PermissionInterface
      * It is up to the implementer of this method to define what criteria makes two permission objects equal.
      *
      * @param PermissionInterface $permission
+     * 
      * @return bool
      */
     public function isEqualTo(PermissionInterface $permission): bool;

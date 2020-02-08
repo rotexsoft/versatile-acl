@@ -7,8 +7,10 @@ namespace SimpleAcl\Interfaces;
 interface PermissionsCollectionInterface extends CollectionInterface
 {
     /**
+     * Constructor.
      * 
-     * @param \SimpleAcl\Interfaces\PermissionInterface $permissions
+     * @param mixed ...$items zero or more instances of PermissionInterface to be added to this collection
+     *
      */
     public function __construct(PermissionInterface ...$permissions);
     
@@ -16,6 +18,7 @@ interface PermissionsCollectionInterface extends CollectionInterface
      * Adds an instance of PermissionInterface to an instance of this interface.
      * 
      * @param \SimpleAcl\Interfaces\PermissionInterface $permission
+     * 
      * @return $this
      */
     public function add(PermissionInterface $permission): self;
@@ -24,6 +27,7 @@ interface PermissionsCollectionInterface extends CollectionInterface
      * Removes an instance of PermissionInterface from an instance of this interface.
      * 
      * @param \SimpleAcl\Interfaces\PermissionInterface $permission
+     * 
      * @return $this
      */
     public function remove(PermissionInterface $permission): self;
@@ -31,8 +35,9 @@ interface PermissionsCollectionInterface extends CollectionInterface
     /**
      * Remove all items in the collection and return $this
      * 
+     * @return $this
      */
-    public function removeAll(): PermissionsCollectionInterface;
+    public function removeAll(): self;
     
     /**
      * Retrieves the key in the collection associated with the specified permission object.
@@ -40,7 +45,7 @@ interface PermissionsCollectionInterface extends CollectionInterface
      * 
      * @param \SimpleAcl\Interfaces\PermissionInterface $permission
      * 
-     * @return string|int
+     * @return string|int|null
      */
     public function getKey(PermissionInterface $permission);
     
@@ -51,6 +56,7 @@ interface PermissionsCollectionInterface extends CollectionInterface
      * in the current instance where $x->isEqualTo($perm) === true.
      *
      * @param PermissionInterface $perm
+     * 
      * @return bool true if there is another permission `$x` in the current instance where $x->isEqualTo($perm) === true, otherwise return false
      */
     public function hasPermission(PermissionInterface $perm): bool;
@@ -71,6 +77,7 @@ interface PermissionsCollectionInterface extends CollectionInterface
      * @param callable|null $additionalAssertions an optional callback function with additional tests to check whether the specified action can be performed on the specified resource.
      *                                            The callback must return true if the specified action can be performed on the specified resource.
      * @param mixed ...$argsForCallback optional arguments that may be required by the $additionalAssertions callback
+     * 
      * @return bool return true if one or more items in an instance of this interface signifies that a specified action can be performed on a specified resource, or false otherwise
      */
     public function isAllowed(string $action, string $resource, callable $additionalAssertions=null, ...$argsForCallback): bool;

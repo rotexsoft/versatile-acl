@@ -9,27 +9,37 @@ use SimpleAcl\Interfaces\PermissionsCollectionInterface;
 class GenericPermission implements PermissionInterface
 {
     /**
+     * 
      * @var string
+     * 
      */
     protected $action = '';
 
     /**
+     * 
      * @var string
+     * 
      */
     protected $resource = '';
 
     /**
+     * 
      * @var bool
+     * 
      */
     protected $allowActionOnResource = true;
 
     /**
+     * 
      * @var callable|null
+     * 
      */
     protected $additionalAssertions = null;
 
     /**
+     * 
      * @var array
+     * 
      */
     protected $argsForCallback = [];
 
@@ -39,8 +49,8 @@ class GenericPermission implements PermissionInterface
      * Both $allowActionOnResource and the return value of $additionalAssertions (if specified) must be true
      * in order for the specified action to be regarded as performable on the resource.
      *
-     * @param string $action a string representing an action that can be performed on a resource in the system
-     * @param string $resource a string representing a resource in the system
+     * @param string $action a case-insensitive string representing an action that can be performed on a resource in the system
+     * @param string $resource a case-insensitive string representing a resource in the system
      * @param bool $allowActionOnResource a boolean flag indicating whether or not the specified action can be performed on the resource
      * @param callable|null $additionalAssertions an optional callback function that must return a boolean further indicating whether or not an action can be performed on the resource.
      * @param mixed ...$argsForCallback zero or more arguments to be used to invoke $additionalAssertions
@@ -81,8 +91,8 @@ class GenericPermission implements PermissionInterface
      *
      * It should have a unique value that does not conflict with other strings representing existing actions in the system / your application.
      *
-     * This should be a wild-card value and it is up to the implementer of this interface to choose what that value should be.
-     * The wild-card `*` character is recommended.
+     * The wild-card `*` character is used in this implementation. 
+     * You can extend this class and override this method to define your own identifier.
      *
      * @return string a string value that represents all actions that can be performed on all resources in the system.
      */
@@ -92,7 +102,7 @@ class GenericPermission implements PermissionInterface
     }
 
     /**
-     * Get the string representing a resources in the system.
+     * Get the string representing a resource in the system.
      *
      * Its value should be retrieved from the second argument passed to the constructor.
      *
@@ -108,8 +118,8 @@ class GenericPermission implements PermissionInterface
      *
      * It should have a unique value that does not conflict with other strings representing existing resources in the system / your application.
      *
-     * This should be a wild-card value and it is up to the implementer of this interface to choose what that value should be.
-     * The wild-card `*` character is recommended.
+     * The wild-card `*` character is used in this implementation. 
+     * You can extend this class and override this method to define your own identifier.
      *
      * @return string a string value that represents all resources in the system.
      */
@@ -134,6 +144,7 @@ class GenericPermission implements PermissionInterface
      * Set the boolean value indicating whether or not an instance of this interface signifies that an action can be performed on a resource to true or false.
      *
      * @param bool $allowActionOnResource a boolean value indicating whether or not an instance of this interface signifies that an action can be performed on a resource
+     * 
      * @return $this
      */
     public function setAllowActionOnResource(bool $allowActionOnResource): PermissionInterface {
@@ -157,6 +168,7 @@ class GenericPermission implements PermissionInterface
      * @param callable|null $additionalAssertions an optional callback function with additional tests to check whether the specified action can be performed on the specified resource.
      *                                            The callback must return true if the specified action can be performed on the specified resource.
      * @param mixed ...$argsForCallback optional arguments that may be required by the $additionalAssertions callback
+     * 
      * @return bool return true if an instance of this interface signifies that a specified action can be performed on a specified resource, or false otherwise
      */
     public function isAllowed(string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool {
@@ -191,9 +203,11 @@ class GenericPermission implements PermissionInterface
      * Checks whether the specified permission object has an equal value to the current instance.
      *
      * This implementation considers 2 instances ($x and $y) of PermissionInterface as equal if
-     * $x->getAction() === $y->getAction() && $x->getResource() === $y->getResource()
+     * strtolower($x->getAction()) === strtolower($y->getAction()) 
+     * && strtolower($x->getResource()) === strtolower($y->getResource())
      *
      * @param PermissionInterface $permission
+     * 
      * @return bool
      */
     public function isEqualTo(PermissionInterface $permission): bool {
@@ -204,13 +218,25 @@ class GenericPermission implements PermissionInterface
     
     public function __toString() {
         
+        return $this->dump();
+    }
+    
+    public function dump(array $propertiesToExcludeFromDump=[]):string {
+        
+        static $propertiesToExcludeFromDumpAcrossAllInstances;
+        
+        if(!$propertiesToExcludeFromDumpAcrossAllInstances) {
+            
+            $propertiesToExcludeFromDumpAcrossAllInstances = $propertiesToExcludeFromDump;
+        }
+        
         $objAsStr = static::class .' ('. spl_object_hash($this) . ')' . PHP_EOL . '{' . PHP_EOL;
         
-        $objAsStr .= "\taction: `{$this->action}`" . PHP_EOL;
-        $objAsStr .= "\tresource: `{$this->resource}`" . PHP_EOL;
-        $objAsStr .= "\tallowActionOnResource: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->allowActionOnResource, true)) . PHP_EOL;
-        $objAsStr .= "\tadditionalAssertions: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->additionalAssertions, true)) . PHP_EOL;
-        $objAsStr .= "\targsForCallback: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->argsForCallback, true)) . PHP_EOL;
+        $objAsStr .= in_array('action', $propertiesToExcludeFromDumpAcrossAllInstances) ? '' : "\taction: `{$this->action}`" . PHP_EOL;
+        $objAsStr .= in_array('resource', $propertiesToExcludeFromDumpAcrossAllInstances) ? '' : "\tresource: `{$this->resource}`" . PHP_EOL;
+        $objAsStr .= in_array('allowActionOnResource', $propertiesToExcludeFromDumpAcrossAllInstances) ? '' : "\tallowActionOnResource: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->allowActionOnResource, true)) . PHP_EOL;
+        $objAsStr .= in_array('additionalAssertions', $propertiesToExcludeFromDumpAcrossAllInstances) ? '' : "\tadditionalAssertions: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->additionalAssertions, true)) . PHP_EOL;
+        $objAsStr .= in_array('argsForCallback', $propertiesToExcludeFromDumpAcrossAllInstances) ? '' : "\targsForCallback: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->argsForCallback, true)) . PHP_EOL;
         
         $objAsStr .= PHP_EOL . "}" . PHP_EOL;
         

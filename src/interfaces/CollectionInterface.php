@@ -18,6 +18,7 @@ interface CollectionInterface extends \Countable, \IteratorAggregate {
      * Check if specified key exists in the collection.
      * 
      * @param string|int $key
+     * 
      * @return bool
      */
     public function keyExists($key): bool;
