@@ -8,16 +8,11 @@ use \SimpleAcl\GenericBaseCollection;
  *
  * @author rotimi
  */
-class GenericBaseCollectionTest extends \PHPUnit\Framework\TestCase{
+class GenericBaseCollectionTest extends \PHPUnit\Framework\TestCase {
     
     protected function setUp(): void { 
         
         parent::setUp();
-    }
-
-    public function testBlah() {
-
-        $this->assertEquals(true, true);
     }
     
     public function testGetIteratorWorksAsExcpected() {
@@ -106,7 +101,6 @@ class GenericBaseCollectionTest extends \PHPUnit\Framework\TestCase{
         $collection->add('three');
         
         $haystack1 = $collection->dump();
-        
         $this->assertStringContainsString('{', $haystack1);
         $this->assertStringContainsString('}', $haystack1);
         $this->assertStringContainsString("\titem[0]: one", $haystack1);
