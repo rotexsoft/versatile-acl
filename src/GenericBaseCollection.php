@@ -92,8 +92,6 @@ abstract class GenericBaseCollection implements CollectionInterface {
             !isset($propertiesToExcludeFromDumpAcrossAllInstances[static::class]) // first call
             || 
             (
-                count($propertiesToExcludeFromDump) > 0
-                &&
                 $propertiesToExcludeFromDumpAcrossAllInstances[static::class] !== $propertiesToExcludeFromDump
             ) // handle multiple calls with different values of $propertiesToExcludeFromDump
         ) {

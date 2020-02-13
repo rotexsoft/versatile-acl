@@ -348,7 +348,7 @@ class GenericPermissionableEntitiesCollectionTest extends \PHPUnit\Framework\Tes
         $entity2 = new GenericPermissionableEntity('two');
         $entity3 = new GenericPermissionableEntity('three');
         
-        $haystack = $collection->dump();
+        $haystack = $collection->__toString();
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
         
