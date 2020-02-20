@@ -166,7 +166,10 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
         
         foreach ($this->getDirectParentEntities() as $entity) {
             
-            $coll->add($entity);
+            if( !$coll->hasEntity($entity) ) {
+                
+                $coll->add($entity);
+            }
             
             if( $entity->getDirectParentEntities()->count() > 0 ) {
                 
