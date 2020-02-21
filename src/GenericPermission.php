@@ -6,8 +6,8 @@ namespace SimpleAcl;
 use SimpleAcl\Interfaces\PermissionInterface;
 use SimpleAcl\Interfaces\PermissionsCollectionInterface;
 
-class GenericPermission implements PermissionInterface
-{
+class GenericPermission implements PermissionInterface {
+    
     /**
      * 
      * @var string
