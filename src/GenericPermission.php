@@ -235,13 +235,15 @@ class GenericPermission implements PermissionInterface
             $propertiesToExcludeFromDumpAcrossAllInstances = $propertiesToExcludeFromDump;
         }
         
+        $propertiesToExcludeFromThisCall = $propertiesToExcludeFromDumpAcrossAllInstances;
+        
         $objAsStr = static::class .' ('. spl_object_hash($this) . ')' . PHP_EOL . '{' . PHP_EOL;
         
-        $objAsStr .= in_array('action', $propertiesToExcludeFromDumpAcrossAllInstances) ? '' : "\taction: `{$this->action}`" . PHP_EOL;
-        $objAsStr .= in_array('resource', $propertiesToExcludeFromDumpAcrossAllInstances) ? '' : "\tresource: `{$this->resource}`" . PHP_EOL;
-        $objAsStr .= in_array('allowActionOnResource', $propertiesToExcludeFromDumpAcrossAllInstances) ? '' : "\tallowActionOnResource: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->allowActionOnResource, true)) . PHP_EOL;
-        $objAsStr .= in_array('additionalAssertions', $propertiesToExcludeFromDumpAcrossAllInstances) ? '' : "\tadditionalAssertions: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->additionalAssertions, true)) . PHP_EOL;
-        $objAsStr .= in_array('argsForCallback', $propertiesToExcludeFromDumpAcrossAllInstances) ? '' : "\targsForCallback: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->argsForCallback, true)) . PHP_EOL;
+        $objAsStr .= in_array('action', $propertiesToExcludeFromThisCall) ? '' : "\taction: `{$this->action}`" . PHP_EOL;
+        $objAsStr .= in_array('resource', $propertiesToExcludeFromThisCall) ? '' : "\tresource: `{$this->resource}`" . PHP_EOL;
+        $objAsStr .= in_array('allowActionOnResource', $propertiesToExcludeFromThisCall) ? '' : "\tallowActionOnResource: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->allowActionOnResource, true)) . PHP_EOL;
+        $objAsStr .= in_array('additionalAssertions', $propertiesToExcludeFromThisCall) ? '' : "\tadditionalAssertions: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->additionalAssertions, true)) . PHP_EOL;
+        $objAsStr .= in_array('argsForCallback', $propertiesToExcludeFromThisCall) ? '' : "\targsForCallback: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->argsForCallback, true)) . PHP_EOL;
         
         $objAsStr .= PHP_EOL . "}" . PHP_EOL;
         
