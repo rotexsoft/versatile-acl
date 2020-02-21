@@ -166,10 +166,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
         
         foreach ($this->getDirectParentEntities() as $entity) {
             
-            if( !$coll->hasEntity($entity) ) {
-                
-                $coll->add($entity);
-            }
+            (!$coll->hasEntity($entity)) && $coll->add($entity);
             
             if( $entity->getDirectParentEntities()->count() > 0 ) {
                 
@@ -368,7 +365,8 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
         foreach ($allParentEntities as $parent_entity) {
             foreach ($parent_entity->getDirectPermissions() as $parent_permission) {
                 
-                $inheritedPermsToReturn->add($parent_permission);
+                (!$inheritedPermsToReturn->hasPermission($parent_permission)) 
+                            && $inheritedPermsToReturn->add($parent_permission);
             }
         }
         return $inheritedPermsToReturn;
@@ -463,11 +461,13 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
             $propertiesToExcludeFromDumpAcrossAllInstances = $propertiesToExcludeFromDump;
         }
         
+        $propertiesToExcludeFromThisCall = $propertiesToExcludeFromDumpAcrossAllInstances;
+
         $objAsStr = static::class .' ('. spl_object_hash($this) . ')' . PHP_EOL . '{' . PHP_EOL;
         
-        $objAsStr .= in_array('id', $propertiesToExcludeFromDumpAcrossAllInstances) ? '' : "\t"."id: `{$this->id}`" . PHP_EOL;
-        $objAsStr .= in_array('parentEntities', $propertiesToExcludeFromDumpAcrossAllInstances) ? '' : "\t"."parentEntities: " . PHP_EOL . "\t\t". str_replace(PHP_EOL, PHP_EOL."\t\t", ''.$this->parentEntities) . PHP_EOL;
-        $objAsStr .= in_array('permissions', $propertiesToExcludeFromDumpAcrossAllInstances) ? '' : "\t"."permissions: " . PHP_EOL . "\t\t". str_replace(PHP_EOL, PHP_EOL."\t\t", ''.$this->permissions) . PHP_EOL;
+        $objAsStr .= in_array('id', $propertiesToExcludeFromThisCall) ? '' : "\t"."id: `{$this->id}`" . PHP_EOL;
+        $objAsStr .= in_array('parentEntities', $propertiesToExcludeFromThisCall) ? '' : "\t"."parentEntities: " . PHP_EOL . "\t\t". str_replace(PHP_EOL, PHP_EOL."\t\t", ''.$this->parentEntities) . PHP_EOL;
+        $objAsStr .= in_array('permissions', $propertiesToExcludeFromThisCall) ? '' : "\t"."permissions: " . PHP_EOL . "\t\t". str_replace(PHP_EOL, PHP_EOL."\t\t", ''.$this->permissions) . PHP_EOL;
         
         $objAsStr .= PHP_EOL . "}" . PHP_EOL;
         
