@@ -16,7 +16,7 @@ script:
 
 #  - vendor/bin/rector process src --dry-run
 
-  - vendor/bin/psalm
+#  - vendor/bin/psalm
 
 after_script:
 #  - php vendor/bin/coveralls
