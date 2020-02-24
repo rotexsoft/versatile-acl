@@ -17,70 +17,48 @@ which is implemented by **[\SimpleAcl\GenericPermissionableEntity](src/GenericPe
     * A permission is an instance of **[\SimpleAcl\Interfaces\PermissionInterface](src/interfaces/PermissionInterface.php)** which is implemented by 
     **[\SimpleAcl\GenericPermission](src/GenericPermission.php)** in this package.
 * Each entity also inherits permissions from its parent entities.
-    * The library allows you to give direct permissions a higher priority than inherited permissions and also allows you to do the reverse.
+    * The library allows you to give direct permissions a higher priority than inherited permissions (the default behavior) and also allows you to do the reverse, if you so desire.
 
-### Terms
-* **Resource:** an item on which an **action** will be denied or allowed to be performed on.
-It is just a case-insensitive string as far as this package is concerned.
+### API
+* Below are the most important methods in **[\SimpleAcl\Interfaces\PermissionableEntityInterface](src/interfaces/PermissionableEntityInterface.php)** which are implemented by **[\SimpleAcl\GenericPermissionableEntity](src/GenericPermissionableEntity.php):**
+    * **addParentEntity(PermissionableEntityInterface $entity): $this:** used for adding an instance **X** of 
+    **\SimpleAcl\Interfaces\PermissionableEntityInterface** to another instance **Y** of 
+    **\SimpleAcl\Interfaces\PermissionableEntityInterface** as a parent entity of **Y**.
 
-* **Action:** represents a task that can be performed on a **resource**. 
-It is just a case-insensitive string as far as this package is concerned.
+    * **addParentEntities(PermissionableEntitiesCollectionInterface $entities): $this :** used for adding a collection of one or more instances of 
+    **\SimpleAcl\Interfaces\PermissionableEntityInterface** to another instance **X** of **\SimpleAcl\Interfaces\PermissionableEntityInterface** as 
+    parent entities of **X**.
 
-* **Permission (see [\SimpleAcl\Interfaces\PermissionInterface](src/interfaces/PermissionInterface.php)):** an object defining whether 
-or not a **PermissionableEntity** is allowed or not allowed to perform an **action** on a 
-particular **resource**. This object will allow additional assertions (to test if a **PermissionableEntity** 
-is allowed or not allowed to perform an **action** on a particular **resource**) to be injected via a callback.
+    * **addPermission(PermissionInterface $perm): $this:** used for adding a Permission (an instance of 
+    **\SimpleAcl\Interfaces\PermissionInterface**) to an instance of 
+    **\SimpleAcl\Interfaces\PermissionableEntityInterface**.
 
-* **PermissionableEntity (see [\SimpleAcl\Interfaces\PermissionableEntityInterface](src/interfaces/PermissionableEntityInterface.php)):** 
-has one or more unique **permissions** and can have one or more other unique **PermissionableEntities** related to it as parents 
-and consequently inherit permissions from those parents. Each parent can have parents and those parents can in turn have 
-parents and so on. An entity CANNOT become a parent of another entity that is already its parent. Each parent of a 
-**PermissionableEntity** must have a unique id value. Permissions directly associated with an entity have higher 
-priority than those inherited from parent related entities (you can however choose to reverse this behavior using
-**\SimpleAcl\Interfaces\PermissionableEntityInterface::getAllPermissions(false)->isAllowed(...)**). 
-Each entity must have a unique case-insensitive string identifier. A **permission** is unique to a **PermissionableEntity** if it is the only 
-permission associated with the entity having a specific **action** and **resource** value pair. In a real 
-world application an entity can represent various things such as a user or a group (that users can belong to).
+    * **addPermissions(PermissionsCollectionInterface $perms): $this:** used for adding a collection of Permissions 
+    (an instance of **\SimpleAcl\Interfaces\PermissionsCollectionInterface**) to an instance of 
+    **\SimpleAcl\Interfaces\PermissionableEntityInterface**.
 
-    * Below are the most important methods in **[\SimpleAcl\Interfaces\PermissionableEntityInterface](src/interfaces/PermissionableEntityInterface.php):**
-        * **addParentEntity(PermissionableEntityInterface $entity): $this:** used for adding an instance **X** of 
-        **\SimpleAcl\Interfaces\PermissionableEntityInterface** to another instance **Y** of 
-        **\SimpleAcl\Interfaces\PermissionableEntityInterface** as a parent entity of **Y**.
+    * **getAllParentEntities(): PermissionableEntitiesCollectionInterface:** returns a collection (an instance of
+    **\SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface**) containing all parent entities added via 
+    **addParentEntities** and **addParentEntity** and their parents and parents' parents and so on.
 
-        * **addParentEntities(PermissionableEntitiesCollectionInterface $entities): $this :** used for adding a collection of one or more instances of 
-        **\SimpleAcl\Interfaces\PermissionableEntityInterface** to another instance **X** of **\SimpleAcl\Interfaces\PermissionableEntityInterface** as 
-        parent entities of **X**.
+    * **getDirectParentEntities(): PermissionableEntitiesCollectionInterface:** returns a collection (an instance of
+    **\SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface**) containing all parent entities added via 
+    **addParentEntities** and **addParentEntity** to an instance of **\SimpleAcl\Interfaces\PermissionableEntityInterface**. 
+    The returned collection does not include the parents of the direct parents and so on. 
 
-        * **addPermission(PermissionInterface $perm): $this:** used for adding a Permission (an instance of 
-        **\SimpleAcl\Interfaces\PermissionInterface**) to an instance of 
-        **\SimpleAcl\Interfaces\PermissionableEntityInterface**.
+    * **getAllPermissions(bool $directPermissionsFirst=true): PermissionsCollectionInterface:** returns a collection
+    (an instance of **\SimpleAcl\Interfaces\PermissionsCollectionInterface**) containing all permissions returned by
+    invoking **getDirectPermissions()** and **getInheritedPermissions()** on an instance of **\SimpleAcl\Interfaces\PermissionableEntityInterface**.
 
-        * **addPermissions(PermissionsCollectionInterface $perms): $this:** used for adding a collection of Permissions 
-        (an instance of **\SimpleAcl\Interfaces\PermissionsCollectionInterface**) to an instance of 
-        **\SimpleAcl\Interfaces\PermissionableEntityInterface**.
+    * **getDirectPermissions(): PermissionsCollectionInterface:** returns a collection 
+    (an instance of **\SimpleAcl\Interfaces\PermissionsCollectionInterface**) containing all permissions added to 
+    an instance of **\SimpleAcl\Interfaces\PermissionableEntityInterface** via **addPermission(PermissionInterface $perm)**
+    and **addPermissions(PermissionsCollectionInterface $perms)**.
 
-        * **getAllParentEntities(): PermissionableEntitiesCollectionInterface:** returns a collection (an instance of
-        **\SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface**) containing all parent entities added via 
-        **addParentEntities** and **addParentEntity** and their parents and parents' parents and so on.
-
-        * **getDirectParentEntities(): PermissionableEntitiesCollectionInterface:** returns a collection (an instance of
-        **\SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface**) containing all parent entities added via 
-        **addParentEntities** and **addParentEntity** to an instance of **\SimpleAcl\Interfaces\PermissionableEntityInterface**. 
-        The returned collection does not include the parents of the direct parents and so on. 
-
-        * **getAllPermissions(bool $directPermissionsFirst=true): PermissionsCollectionInterface:** returns a collection
-        (an instance of **\SimpleAcl\Interfaces\PermissionsCollectionInterface**) containing all permissions returned by
-        invoking **getDirectPermissions()** and **getInheritedPermissions()** on an instance of **\SimpleAcl\Interfaces\PermissionableEntityInterface**.
-
-        * **getDirectPermissions(): PermissionsCollectionInterface:** returns a collection 
-        (an instance of **\SimpleAcl\Interfaces\PermissionsCollectionInterface**) containing all permissions added to 
-        an instance of **\SimpleAcl\Interfaces\PermissionableEntityInterface** via **addPermission(PermissionInterface $perm)**
-        and **addPermissions(PermissionsCollectionInterface $perms)**.
-
-        * **getInheritedPermissions(): PermissionsCollectionInterface:** returns a collection
-        (an instance of **\SimpleAcl\Interfaces\PermissionsCollectionInterface**) containing all permissions returned 
-        when **getDirectPermissions()** is invoked on each parent entity returned by **getAllParentEntities()** on an 
-        instance of **\SimpleAcl\Interfaces\PermissionableEntityInterface**.
+    * **getInheritedPermissions(): PermissionsCollectionInterface:** returns a collection
+    (an instance of **\SimpleAcl\Interfaces\PermissionsCollectionInterface**) containing all permissions returned 
+    when **getDirectPermissions()** is invoked on each parent entity returned by **getAllParentEntities()** on an 
+    instance of **\SimpleAcl\Interfaces\PermissionableEntityInterface**.
  
 ![Class Diagram](class-diagram.svg)
 
