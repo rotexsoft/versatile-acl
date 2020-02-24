@@ -5,10 +5,21 @@
 [![License](https://img.shields.io/badge/license-BSD-brightgreen.png?style=flat-square)](https://github.com/rotexsoft/simple-acl/blob/master/LICENSE) &nbsp; 
 
 
-A simple and highly flexible and customizable access control library for PHP 
+A simple, highly flexible and customizable access control library for PHP applications.
 
-Entities
-----------
+## Introduction
+A PHP application can use this library to define **Permissionable Entities** (e.g. application users or groups that users can belong to).
+* Each entity is an instance of **[\SimpleAcl\Interfaces\PermissionableEntityInterface](src/interfaces/PermissionableEntityInterface.php)** 
+which is implemented by **[\SimpleAcl\GenericPermissionableEntity](src/GenericPermissionableEntity.php)** in this package.
+* Each entity can be associated to another entity as a parent Entity. 
+* Each entity can have one or more permissions defined. These are **direct permissions**
+    * A **permission** in this library is an object that represents whether or not an **action** (represented by a case-insensitive string) can be performed by an entity on a **resource** (represented by a case-insensitive string).
+    * A permission is an instance of **[\SimpleAcl\Interfaces\PermissionInterface](src/interfaces/PermissionInterface.php)** which is implemented by 
+    **[\SimpleAcl\GenericPermission](src/GenericPermission.php)** in this package.
+* Each entity also inherits permissions from its parent entities.
+    * The library allows you to give direct permissions a higher priority than inherited permissions and also allows you to do the reverse.
+
+### Terms
 * **Resource:** an item on which an **action** will be denied or allowed to be performed on.
 It is just a case-insensitive string as far as this package is concerned.
 
@@ -22,13 +33,12 @@ is allowed or not allowed to perform an **action** on a particular **resource**)
 
 * **PermissionableEntity (see [\SimpleAcl\Interfaces\PermissionableEntityInterface](src/interfaces/PermissionableEntityInterface.php)):** 
 has one or more unique **permissions** and can have one or more other unique **PermissionableEntities** related to it as parents 
-and consequently inherit permissions from its parent relations. Each parent can have parents and those parents can in turn have 
-parents and so on. An entity cannot become a parent of another entity that is already its parent. Each parent of a 
+and consequently inherit permissions from those parents. Each parent can have parents and those parents can in turn have 
+parents and so on. An entity CANNOT become a parent of another entity that is already its parent. Each parent of a 
 **PermissionableEntity** must have a unique id value. Permissions directly associated with an entity have higher 
 priority than those inherited from parent related entities (you can however choose to reverse this behavior using
 **\SimpleAcl\Interfaces\PermissionableEntityInterface::getAllPermissions(false)->isAllowed(...)**). 
-Each entity must have a unique case-insensitive string identifier (an Entities Repository maybe introduced 
-to guarantee this uniqueness). A **permission** is unique to a **PermissionableEntity** if it is the only 
+Each entity must have a unique case-insensitive string identifier. A **permission** is unique to a **PermissionableEntity** if it is the only 
 permission associated with the entity having a specific **action** and **resource** value pair. In a real 
 world application an entity can represent various things such as a user or a group (that users can belong to).
 
