@@ -60,7 +60,7 @@ which is implemented by **[\SimpleAcl\GenericPermissionableEntity](src/GenericPe
     when **getDirectPermissions()** is invoked on each parent entity returned by **getAllParentEntities()** on an 
     instance of **\SimpleAcl\Interfaces\PermissionableEntityInterface**.
  
-![Class Diagram](class-diagram.svg)
+Click [here](class-diagram.png) to see the full Class Diagram of this library.
 
 ## Example Usage
 
