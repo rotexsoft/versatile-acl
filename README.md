@@ -7,6 +7,13 @@
 
 A simple, highly flexible and customizable access control library for PHP applications.
 
+
+## Installation 
+
+**Via composer:** (Requires PHP 7.2+). 
+
+    composer require rotexsoft/simple-acl
+
 ## Introduction
 A PHP application can use this library to define **Permissionable Entities** (e.g. application users or groups that users can belong to).
 * Each entity is an instance of **[\SimpleAcl\Interfaces\PermissionableEntityInterface](src/interfaces/PermissionableEntityInterface.php)** 
@@ -19,46 +26,6 @@ which is implemented by **[\SimpleAcl\GenericPermissionableEntity](src/GenericPe
 * Each entity also inherits permissions from its parent entities.
     * The library allows you to give direct permissions a higher priority than inherited permissions (the default behavior) and also allows you to do the reverse, if you so desire.
 
-## API
-* Below are the most important methods in **[\SimpleAcl\Interfaces\PermissionableEntityInterface](src/interfaces/PermissionableEntityInterface.php)** which are implemented by **[\SimpleAcl\GenericPermissionableEntity](src/GenericPermissionableEntity.php):**
-    * **addParentEntity(PermissionableEntityInterface $entity): $this:** used for adding an instance **X** of 
-    **\SimpleAcl\Interfaces\PermissionableEntityInterface** to another instance **Y** of 
-    **\SimpleAcl\Interfaces\PermissionableEntityInterface** as a parent entity of **Y**.
-
-    * **addParentEntities(PermissionableEntitiesCollectionInterface $entities): $this :** used for adding a collection of one or more instances of 
-    **\SimpleAcl\Interfaces\PermissionableEntityInterface** to another instance **X** of **\SimpleAcl\Interfaces\PermissionableEntityInterface** as 
-    parent entities of **X**.
-
-    * **addPermission(PermissionInterface $perm): $this:** used for adding a Permission (an instance of 
-    **\SimpleAcl\Interfaces\PermissionInterface**) to an instance of 
-    **\SimpleAcl\Interfaces\PermissionableEntityInterface**.
-
-    * **addPermissions(PermissionsCollectionInterface $perms): $this:** used for adding a collection of Permissions 
-    (an instance of **\SimpleAcl\Interfaces\PermissionsCollectionInterface**) to an instance of 
-    **\SimpleAcl\Interfaces\PermissionableEntityInterface**.
-
-    * **getAllParentEntities(): PermissionableEntitiesCollectionInterface:** returns a collection (an instance of
-    **\SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface**) containing all parent entities added via 
-    **addParentEntities** and **addParentEntity** and their parents and parents' parents and so on.
-
-    * **getDirectParentEntities(): PermissionableEntitiesCollectionInterface:** returns a collection (an instance of
-    **\SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface**) containing all parent entities added via 
-    **addParentEntities** and **addParentEntity** to an instance of **\SimpleAcl\Interfaces\PermissionableEntityInterface**. 
-    The returned collection does not include the parents of the direct parents and so on. 
-
-    * **getAllPermissions(bool $directPermissionsFirst=true): PermissionsCollectionInterface:** returns a collection
-    (an instance of **\SimpleAcl\Interfaces\PermissionsCollectionInterface**) containing all permissions returned by
-    invoking **getDirectPermissions()** and **getInheritedPermissions()** on an instance of **\SimpleAcl\Interfaces\PermissionableEntityInterface**.
-
-    * **getDirectPermissions(): PermissionsCollectionInterface:** returns a collection 
-    (an instance of **\SimpleAcl\Interfaces\PermissionsCollectionInterface**) containing all permissions added to 
-    an instance of **\SimpleAcl\Interfaces\PermissionableEntityInterface** via **addPermission(PermissionInterface $perm)**
-    and **addPermissions(PermissionsCollectionInterface $perms)**.
-
-    * **getInheritedPermissions(): PermissionsCollectionInterface:** returns a collection
-    (an instance of **\SimpleAcl\Interfaces\PermissionsCollectionInterface**) containing all permissions returned 
-    when **getDirectPermissions()** is invoked on each parent entity returned by **getAllParentEntities()** on an 
-    instance of **\SimpleAcl\Interfaces\PermissionableEntityInterface**.
  
 Click [here](class-diagram.png) to see the full Class Diagram of this library.
 
@@ -67,11 +34,153 @@ In your applications, you will be mostly working with instances of **[\SimpleAcl
 and **[\SimpleAcl\GenericPermission](src/GenericPermission.php)**. Both classes have a static **createCollection()** method that can be used to 
 create the appropriate collection object to house one or more instances of each class respectively.
 
+### Creating Entities
+
+You can create an entity with or without permissions and parent entities. Let's create an entity object that represents an **admin** group in a php application.
+
+```php
+<?php
+use \SimpleAcl\GenericPermissionableEntity;
+
+// an entity object representing an admin group in an application
+$adminEntity = new GenericPermissionableEntity('admin'); 
+```
+
+Typically in most applications, there are users that login and perform tasks in the application. These users can sometimes belong to one or more groups which allows them to inherit permissions from those groups. Let's create a sample user with the userid of **johndoe** and let's make that user a member of the admin group.
+
+```php
+<?php
+use \SimpleAcl\GenericPermissionableEntity;
+
+// an entity object representing a user with the userid of johndoe
+$johnDoeEntity = new GenericPermissionableEntity('johndoe');
+
+// we now add this user to the admin group by adding the admin entity object as this user's parent entity
+$johnDoeEntity->addParentEntity($adminEntity);
+
+
+// Alternatively, we could create the user entity and add the user to the admin group in one step via the code below
+$johnDoeEntity = new GenericPermissionableEntity(
+    'johndoe', 
+    null,  // <== we could inject a collection of permissions for johndoe here
+    GenericPermissionableEntity::createCollection()->add($adminEntity)
+);
+
+```
+
+### Creating Permissions
+
+We have created entities in the sample code above. Now let's create some permissions for those entities. Let's assume that our application is a news reading application. Each news article would be a good example of a **resource** in this application and operations like logged in users:
+* adding comments to each new article, 
+* editing their comments on each news article
+* and deleting their comments on each news articles 
+
+are the **actions** we want to grant or deny via permissions objects. Here's how we would do that in code:
+
+```php
+<?php
+use \SimpleAcl\GenericPermission;
+
+// entities with this permission are ALLOWED to create comments on news articles
+$createNewsCommentPermissionGranted = new GenericPermission(
+    'create-comment', 'news-article', true
+);
+
+// entities with this permission are NOT ALLOWED to create comments on news articles
+$createNewsCommentPermissionDenied = new GenericPermission(
+    'create-comment', 'news-article', false
+);
+
+// entities with this permission are ALLOWED to edit comments on news articles
+$editNewsCommentPermissionGranted = new GenericPermission(
+    'edit-comment', 'news-article', true
+);
+
+// entities with this permission are ALLOWED to delete comments on news articles
+$deleteNewsCommentPermissionGranted = new GenericPermission(
+    'delete-comment', 'news-article', true
+);
+
+// We could further spice things up by creating two variants of the
+// $editNewsCommentPermissionGranted and $deleteNewsCommentPermissionGranted that allow 
+// the entities (users or groups) with these variant permissions to only be able  
+// to edit or delete only comments that they have created and not comments created 
+// by other entities (users or groups) in the application. This will be achieved 
+// via injecting a callback into these permissions
+$isOwnArticleAsserter = function(string $loggedInUsersId, array $newsArticleComment) {
+    
+    return $loggedInUsersId === $newsArticleComment['creators_userid'];
+}; // return true is the logged in user is the creator of $newsArticleComment
+
+// entities with this permission are ALLOWED to edit ONLY comments they created on news articles
+$editOnlyMyOwnNewsCommentPermissionGranted = new GenericPermission(
+    'edit-own-comment', 'news-article', true, $isOwnArticleAsserter
+);
+
+// entities with this permission are ALLOWED to delete ONLY comments they created on news articles
+$deleteOnlyMyOwnNewsCommentPermissionGranted = new GenericPermission(
+    'delete-own-comment', 'news-article', true, $isOwnArticleAsserter
+);
+```
+
+
+
+
 We will be using a blog application that has a users table containing information
 about registered blog users (the users in this table are also authors in the application), 
 a posts table and a comments table. Below is the schema for the sample application:
 
 ![example blog database schema](docs/blog.png)
+
+Below are the relationship rules for the blog application
+
+* A user can author many posts
+* A user can make one or more comments on each post
+* A post can have one or more comments associated with it
+
+Below are some access control group definitions that are relevant to this sample blog application:
+
+| Group Name          | Resource | Action  | Allowed |
+|---------------------|----------|---------|---------|
+| admin               | all      | all     | yes     |
+| comments-moderators | comment  | approve | yes     |
+| comments-moderators | comment  | delete  | yes     |
+| comments-owners     | comment  | all     | yes     |
+| posts-moderators    | post     | approve | yes     |
+| posts-moderators    | post     | delete  | yes     |
+| posts-owners        | post     | all     | yes     |
+
+> **NOTE:** the permissions associated with the **comments-owners** and **posts-owners** will require an assertion callback that further checks that members of the group can only permorm actions on the comments or posts they own (not comments and posts owned by other users).
+
+Below is a list of userids of users in the application
+
+* frankwhite
+* ginawhite
+* johndoe
+* janedoe
+* jackbauer
+* jillbauer
+
+Below are the group membership definitions:
+
+| Group               | User      |
+|---------------------|-----------|
+| admin               | frankwhite|
+| comments-moderators | ginawhite |
+| comments-moderators | johndoe   |
+| posts-moderators    | janedoe   |
+| comments-owners     | all       |
+| posts-owners        | all       |
+
+First let's create the permissions for each group:
+
+```php
+<?php
+
+```
+
+
+
 
 ```php
 <?php
@@ -353,3 +462,44 @@ dump(
 ); // true since $blog_record_2['year_created'] === 2020 which is the 
    // current year as of the writing of this example
 ```
+
+## API
+* Below are the most important methods in **[\SimpleAcl\Interfaces\PermissionableEntityInterface](src/interfaces/PermissionableEntityInterface.php)** which are implemented by **[\SimpleAcl\GenericPermissionableEntity](src/GenericPermissionableEntity.php):**
+    * **addParentEntity(PermissionableEntityInterface $entity): $this:** used for adding an instance **X** of 
+    **\SimpleAcl\Interfaces\PermissionableEntityInterface** to another instance **Y** of 
+    **\SimpleAcl\Interfaces\PermissionableEntityInterface** as a parent entity of **Y**.
+
+    * **addParentEntities(PermissionableEntitiesCollectionInterface $entities): $this :** used for adding a collection of one or more instances of 
+    **\SimpleAcl\Interfaces\PermissionableEntityInterface** to another instance **X** of **\SimpleAcl\Interfaces\PermissionableEntityInterface** as 
+    parent entities of **X**.
+
+    * **addPermission(PermissionInterface $perm): $this:** used for adding a Permission (an instance of 
+    **\SimpleAcl\Interfaces\PermissionInterface**) to an instance of 
+    **\SimpleAcl\Interfaces\PermissionableEntityInterface**.
+
+    * **addPermissions(PermissionsCollectionInterface $perms): $this:** used for adding a collection of Permissions 
+    (an instance of **\SimpleAcl\Interfaces\PermissionsCollectionInterface**) to an instance of 
+    **\SimpleAcl\Interfaces\PermissionableEntityInterface**.
+
+    * **getAllParentEntities(): PermissionableEntitiesCollectionInterface:** returns a collection (an instance of
+    **\SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface**) containing all parent entities added via 
+    **addParentEntities** and **addParentEntity** and their parents and parents' parents and so on.
+
+    * **getDirectParentEntities(): PermissionableEntitiesCollectionInterface:** returns a collection (an instance of
+    **\SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface**) containing all parent entities added via 
+    **addParentEntities** and **addParentEntity** to an instance of **\SimpleAcl\Interfaces\PermissionableEntityInterface**. 
+    The returned collection does not include the parents of the direct parents and so on. 
+
+    * **getAllPermissions(bool $directPermissionsFirst=true): PermissionsCollectionInterface:** returns a collection
+    (an instance of **\SimpleAcl\Interfaces\PermissionsCollectionInterface**) containing all permissions returned by
+    invoking **getDirectPermissions()** and **getInheritedPermissions()** on an instance of **\SimpleAcl\Interfaces\PermissionableEntityInterface**.
+
+    * **getDirectPermissions(): PermissionsCollectionInterface:** returns a collection 
+    (an instance of **\SimpleAcl\Interfaces\PermissionsCollectionInterface**) containing all permissions added to 
+    an instance of **\SimpleAcl\Interfaces\PermissionableEntityInterface** via **addPermission(PermissionInterface $perm)**
+    and **addPermissions(PermissionsCollectionInterface $perms)**.
+
+    * **getInheritedPermissions(): PermissionsCollectionInterface:** returns a collection
+    (an instance of **\SimpleAcl\Interfaces\PermissionsCollectionInterface**) containing all permissions returned 
+    when **getDirectPermissions()** is invoked on each parent entity returned by **getAllParentEntities()** on an 
+    instance of **\SimpleAcl\Interfaces\PermissionableEntityInterface**.
