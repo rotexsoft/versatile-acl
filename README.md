@@ -175,16 +175,137 @@ Now that we have seen how to create entity objects and permission objects. Lets 
 
 ```php
 <?php
+// We can inject permissions into entities by
+// 1. Injecting a collection of permissions as the second argument of the
+//    GenericPermissionableEntity class' constructor when creating new
+//    entity objects
+
+// 2. Calling the addPermission method on an instance of the
+//    GenericPermissionableEntity class and passing the permission to be 
+//    added as its argument.
+
+// 3. Calling the addPermissions method on an instance of the
+//    GenericPermissionableEntity class and passing a collection of  
+//    permissions to be added as its argument.
 
 
+// We can grant the admin entity object (we created earlier)
+// the most powerful special permission. Note that $johnDoeEntity will
+// now inherit this special permission too since $adminEntity is its 
+// parent.
+$adminEntity->addPermission($allActionsOnAllResourcesPermissionGranted);
+
+// Even though $johnDoeEntity inherits permissions from $adminEntity to 
+// perform all actions on all resources, we can add direct permissions
+// to $johnDoeEntity to override some of the inherited permissions
+// 
+// Deny $johnDoeEntity the permission to add comments to any news article
+$johnDoeEntity->addPermission($createNewsCommentPermissionDenied);
+
+// Let's create another entity called zacdoe
+$zacDoeEntity = new GenericPermissionableEntity('zacdoe');
+
+$createDeleteAndEditNewsCommentPermissions = 
+    GenericPermission::createCollection()
+        ->add($createNewsCommentPermissionGranted)
+        ->add($deleteNewsCommentPermissionGranted)
+        ->add($editNewsCommentPermissionGranted);
+
+// Grant $zacDoeEntity the permissions to create, delete and edit 
+// news article comments.
+$zacDoeEntity
+    ->addPermissions($createDeleteAndEditNewsCommentPermissions);
+
+// Grant $kateDoeEntity the permissions to delete and edit 
+// ONLY news article comments she has created.
+// Also grant her the permission to add comments to any news article.
+$kateDoeEntity->addPermission($createNewsCommentPermissionGranted)
+              ->addPermission($deleteOnlyMyOwnNewsCommentPermissionGranted)
+              ->addPermission($editOnlyMyOwnNewsCommentPermissionGranted);
 ```
 
 
 ## Checking if an Entity is allowed to perform a specifed Action on a specified Resource
 
-Three collections: getDirectPermissions(), getInheritedPermissions() & getAllPermissions(bool $directPermissionsFirst=true, PermissionsCollectionInterface $allPerms=null)
+At this point, let's list the expected permissions our entity objects should have:
 
-The first permission applicable to the specifed Action and specified Resource will be used to determine
+* **$adminEntity**
+    * Can perform all actions on all resources
+
+* **$johnDoeEntity**
+    * Can perform all actions on all resources (based on inherited permissions from $adminEntity) EXCEPT adding comments to any news article
+
+* **$zacDoeEntity**
+    * Can add comments to news articles
+    * Can delete any comment on news articles
+    * Can edit any comment on news articles
+
+* **$kateDoeEntity**
+    * Can add comments to news articles
+    * Can delete only comments created by  on news articles
+    * Can edit any comment on news articles
+
+There are three ways to check if an entity object is allowed to perform a specified action on a specified resource:
+
+1. retrieving its direct permissions collection via **getDirectPermissions()** and calling the **isAllowed(...)** method on the collection. 
+    * This method of checking if an entity object is allowed to perform a specified action on a specified resource **ignores all inherited permissions**
+
+2. retrieving its inherited permissions collection via **getInheritedPermissions(...)** and calling the **isAllowed(...)** method on the collection. 
+    * This method of checking if an entity object is allowed to perform a specified action on a specified resource **ignores all direct permissions**
+
+3. retrieving both its direct and inherited permissions in one single collection via **getAllPermissions(...)** and calling the **isAllowed(...)** method on the collection. 
+    * This method of checking if an entity object is allowed to perform a specified action on a specified resource gives direct permissions a higher priority by default but it can be made to do the reverse by passing the boolean value of **false** as the first argument to **getAllPermissions(...)**
+
+The third method is the recommended way for you to test if an entity can perform a specified action on a specified resource in your application. Only when you want to exclude **Direct Permissions** or **Inherited Permissions** should you use the first and second methods in your application.
+
+> **NOTE:** When **isAllowed(...)** is called on any of the three permissions collections described above, the first permission in the collection applicable to the specifed Action and specified Resource will be used to determine if the entity object is allowed to perform a specified action on the specified resource. <br>If there is no applicable permission in the collection, then **isAllowed(...)** would return false meaning that the entity is not allowed to perform the specified action on the specified resource. **isAllowed(...)** would also return false if the first applicable permission object in the collection returns false when **getAllowActionOnResource()** or if the assertion callback associated with the permission object or supplied as **isAllowed(...)**'s third argument returns false. 
+
+Now let's see some code to demonstrate the concepts above:
+
+```php
+<?php
+// $adminEntity has been directly granted super permissions for all actions on
+// all resources. However, since it doesn't have any parent entity, it collection
+// of inherited permissions would be empty and will always return false if
+// isAllowed is called on it
+
+// $adminEntity should be able to add comments to news articles:
+$adminEntity->getDirectPermissions()
+            ->isAllowed('create-comment', 'news-article'); // returns true
+
+$adminEntity->getInheritedPermissions()
+            ->isAllowed('create-comment', 'news-article'); // returns false
+                                                           // no inherited
+                                                           // permissions
+$adminEntity->getAllPermissions()
+            ->isAllowed('create-comment', 'news-article'); // returns true
+
+// $adminEntity should be able to edit comments on news articles:
+$adminEntity->getDirectPermissions()
+            ->isAllowed('edit-comment', 'news-article'); // returns true
+
+$adminEntity->getInheritedPermissions()
+            ->isAllowed('edit-comment', 'news-article'); // returns false
+                                                         // no inherited
+                                                         // permissions
+$adminEntity->getAllPermissions()
+            ->isAllowed('edit-comment', 'news-article'); // returns true
+
+// $adminEntity should be able to delete comments on news articles:
+$adminEntity->getDirectPermissions()
+            ->isAllowed('delete-comment', 'news-article'); // returns true
+
+$adminEntity->getInheritedPermissions()
+            ->isAllowed('delete-comment', 'news-article'); // returns false
+                                                           // no inherited
+                                                           // permissions
+$adminEntity->getAllPermissions()
+            ->isAllowed('delete-comment', 'news-article'); // returns true
+ 
+
+```
+
+SHOW HOW TO OVERRIDE CONSTRUCTOR TIME ASSERTION CALLBACKS WITH CALLBACK INJECTED INTO ISALLOWED
 
 We will be using a blog application that has a users table containing information
 about registered blog users (the users in this table are also authors in the application), 
