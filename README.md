@@ -46,25 +46,31 @@ use \SimpleAcl\GenericPermissionableEntity;
 $adminEntity = new GenericPermissionableEntity('admin'); 
 ```
 
-Typically in most applications, there are users that login and perform tasks in the application. These users can sometimes belong to one or more groups which allows them to inherit permissions from those groups. Let's create a sample user with the userid of **johndoe** and let's make that user a member of the admin group.
+Typically in most applications, there are users that login and perform tasks in the application. These users can sometimes belong to one or more groups which allows them to inherit permissions from those groups. Let's create a sample user with the userid of **johndoe** and let's make that user a member of the admin group and another sample user with the userid of **katedoe** that does not belong to any group.
 
 ```php
 <?php
-use \SimpleAcl\GenericPermissionableEntity;
-
 // an entity object representing a user with the userid of johndoe
 $johnDoeEntity = new GenericPermissionableEntity('johndoe');
 
-// we now add this user to the admin group by adding the admin entity object as this user's parent entity
+// we now add this user to the admin group by adding the admin entity 
+// object as this user's parent entity
 $johnDoeEntity->addParentEntity($adminEntity);
 
+// There's also an addParentEntities(PermissionableEntitiesCollectionInterface $entities)
+// method that allows you to add a collection of entities as parents to an entity.
 
-// Alternatively, we could create the user entity and add the user to the admin group in one step via the code below
+
+// Alternatively, we could create the user entity and add the user to the 
+// admin group in one step via the code below
 $johnDoeEntity = new GenericPermissionableEntity(
     'johndoe', 
     null,  // <== we could inject a collection of permissions for johndoe here
     GenericPermissionableEntity::createCollection()->add($adminEntity)
 );
+
+// Finally, an entity object representing a user with the userid of katedoe
+$kateDoeEntity = new GenericPermissionableEntity('katedoe');
 
 ```
 
@@ -108,7 +114,6 @@ $deleteNewsCommentPermissionGranted = new GenericPermission(
 // by other entities (users or groups) in the application. This will be achieved 
 // via injecting a callback into these permissions
 $isOwnArticleAsserter = function(string $loggedInUsersId, array $newsArticleComment) {
-    
     return $loggedInUsersId === $newsArticleComment['creators_userid'];
 }; // return true is the logged in user is the creator of $newsArticleComment
 
@@ -123,8 +128,63 @@ $deleteOnlyMyOwnNewsCommentPermissionGranted = new GenericPermission(
 );
 ```
 
+#### Special Permissions 
+
+We can create three types of special permissions:
+
+1. A permission that allows all defined actions on all defined resources in an application. 
+    * Entities with this type of permission can perform all actions on all resources and are technically super entities.
+2. A permission that allows all defined actions on a specific resource in an application.
+3. A permission that allows a specific action on all defined resources in an application.
+
+The code below illustrates how to create these special permissions:
+
+```php
+<?php
+// entities with this permission are ALLOWED to perform all actions on
+// all resources defined in the application. Such entities in an 
+// application are technically super users or super groups
+$allActionsOnAllResourcesPermissionGranted = new GenericPermission(
+    GenericPermission::getAllActionsIdentifier(),
+    GenericPermission::getAllResoucesIdentifier(),
+    true
+);
+
+// entities with this permission are ALLOWED to perform all actions on
+// the specified resource (`specified-resource`) in the application
+$allActionsOnSpecifiedResourcePermissionGranted = new GenericPermission(
+    GenericPermission::getAllActionsIdentifier(),
+    'specified-resource',
+    true
+);
+
+// entities with this permission are ALLOWED to perform the specified action
+// (`specified-action`) on all resources defined in the application
+$specifiedActionOnAllResourcesPermissionGranted = new GenericPermission(
+    'specified-action',
+    GenericPermission::getAllResoucesIdentifier(),
+    true
+);
+```
+
+> **NOTE:** You could write your own sub-class of **\SimpleAcl\GenericPermission** and then override the **getAllActionsIdentifier()** and **getAllResoucesIdentifier()** in order to define custom identifiers for your own application if the wildcard `*` string returned by these methods by default are not suitable for your application.
+
+## Adding Permissions to Entities
+
+Now that we have seen how to create entity objects and permission objects. Lets see the various ways we can inject permission objects into entity objects using the objects we created in the preceding examples.
+
+```php
+<?php
 
 
+```
+
+
+## Checking if an Entity is allowed to perform a specifed Action on a specified Resource
+
+Three collections: getDirectPermissions(), getInheritedPermissions() & getAllPermissions(bool $directPermissionsFirst=true, PermissionsCollectionInterface $allPerms=null)
+
+The first permission applicable to the specifed Action and specified Resource will be used to determine
 
 We will be using a blog application that has a users table containing information
 about registered blog users (the users in this table are also authors in the application), 
