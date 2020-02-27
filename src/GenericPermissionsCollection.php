@@ -144,4 +144,32 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
         
         return $this;
     }
+
+    /**
+     * Adds an instance of PermissionInterface to an instance of this class with the specified key.
+     * 
+     * @param \SimpleAcl\Interfaces\PermissionInterface $permission
+     * @param string $key specified key for $permission in the collection
+     * 
+     * @return $this
+     */
+    public function put(PermissionInterface $permission, string $key): \SimpleAcl\Interfaces\PermissionsCollectionInterface {
+        
+        $this->storage[$key] = $permission;
+        
+        return $this;
+    }
+    
+    /**
+     * Retrieves the permission in the collection associated with the specified key.
+     * If the key is not present in the collection, NULL should be returned
+     * 
+     * @param string $key
+     * 
+     * @return \SimpleAcl\Interfaces\PermissionInterface|null
+     */
+    public function get(string $key): ?PermissionInterface {
+        
+        return array_key_exists($key, $this->storage) ? $this->storage[$key] : null;
+    }
 }

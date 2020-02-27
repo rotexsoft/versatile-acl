@@ -100,4 +100,33 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
         
         return $this;
     }
+
+    /**
+     * Adds an instance of PermissionableEntityInterface to an instance of this class with the specified key.
+     * 
+     * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $permissionEntity
+     * @param string $key specified key for $permissionEntity in the collection
+     * 
+     * @return $this
+     */
+    public function put(PermissionableEntityInterface $permissionEntity, string $key): \SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface {
+        
+        $this->storage[$key] = $permissionEntity;
+        
+        return $this;
+    }
+
+    /**
+     * Retrieves the entity in the collection associated with the specified key.
+     * If the key is not present in the collection, NULL should be returned
+     * 
+     * @param string $key
+     * 
+     * @return \SimpleAcl\Interfaces\PermissionableEntityInterface|null
+     */
+    public function get(string $key): ?Interfaces\PermissionableEntityInterface {
+        
+        return array_key_exists($key, $this->storage) ? $this->storage[$key] : null;
+    }
+
 }

@@ -536,11 +536,13 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         
         // empty collection
         $collection = new GenericPermissionsCollection();
-        $collection->add($permissions[0]);
-        $collection->add($permissions[1]);
-        $collection->add($permissions[2]);
-        $collection->add($permission4);
-        $collection->add($permission5);
+        
+        $this->assertSame($collection, $collection->add($permissions[0]));
+        $this->assertSame($collection, $collection->add($permissions[1]));
+        $this->assertSame($collection, $collection->add($permissions[2]));
+        $this->assertSame($collection, $collection->add($permission4));
+        $this->assertSame($collection, $collection->add($permission5));
+        
         $this->assertTrue($collection->hasPermission($permissions[0]));
         $this->assertTrue($collection->hasPermission($permissions[1]));
         $this->assertTrue($collection->hasPermission($permissions[2]));
@@ -549,12 +551,84 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         
         // non-empty collection
         $collection2 = new GenericPermissionsCollection(...$permissions);
-        $collection2->add($permission4);
-        $collection2->add($permission5);
+        
+        $this->assertSame($collection2, $collection2->add($permission4));
+        $this->assertSame($collection2, $collection2->add($permission5));
+        
         $this->assertTrue($collection2->hasPermission($permission4));
         $this->assertTrue($collection2->hasPermission($permission5));
     }
     
+    public function testPutWorksAsExcpected() {
+        
+        $permissions = [
+            new GenericPermission('action-a', 'resource-a'),
+            new GenericPermission('action-b', 'resource-b'),
+            new GenericPermission('action-c', 'resource-c'),
+        ];
+        
+        $permission4 = new GenericPermission('action-d', 'resource-d');
+        $permission5 = new GenericPermission('action-e', 'resource-e');
+        
+        // empty collection
+        $collection = new GenericPermissionsCollection();
+        
+        $this->assertSame($collection, $collection->put($permissions[0], '1'));
+        $this->assertSame($collection, $collection->put($permissions[1], '2'));
+        $this->assertSame($collection, $collection->put($permissions[2], '3'));
+        $this->assertSame($collection, $collection->put($permission4, '4'));
+        $this->assertSame($collection, $collection->put($permission5, '5'));
+        
+        $this->assertTrue($collection->hasPermission($permissions[0]));
+        $this->assertTrue($collection->getKey($permissions[0]).'' === '1');
+        
+        $this->assertTrue($collection->hasPermission($permissions[1]));
+        $this->assertTrue($collection->getKey($permissions[1]).'' === '2');
+        
+        $this->assertTrue($collection->hasPermission($permissions[2]));
+        $this->assertTrue($collection->getKey($permissions[2]).'' === '3');
+        
+        $this->assertTrue($collection->hasPermission($permission4));
+        $this->assertTrue($collection->getKey($permission4).'' === '4');
+        
+        $this->assertTrue($collection->hasPermission($permission5));
+        $this->assertTrue($collection->getKey($permission5).'' === '5');
+        
+        // non-empty collection
+        $collection2 = new GenericPermissionsCollection(...$permissions);
+        
+        $this->assertSame($collection2, $collection2->put($permission4, '44'));
+        $this->assertSame($collection2, $collection2->put($permission5, '55'));
+        
+        $this->assertTrue($collection2->hasPermission($permission4));
+        $this->assertTrue($collection2->getKey($permission4).'' === '44');
+        
+        $this->assertTrue($collection2->hasPermission($permission5));
+        $this->assertTrue($collection2->getKey($permission5).'' === '55');
+    }
+    
+    public function testGetWorksAsExcpected() {
+        
+        $permissions = [
+            new GenericPermission('action-a', 'resource-a'),
+            new GenericPermission('action-b', 'resource-b'),
+            new GenericPermission('action-c', 'resource-c'),
+        ];        
+        $permission4 = new GenericPermission('action-d', 'resource-d');
+        $permission5 = new GenericPermission('action-e', 'resource-e');
+
+        // non-empty collection
+        $collection = new GenericPermissionsCollection(...$permissions);
+        $collection->add($permission4);
+        $collection->add($permission5);
+        
+        $this->assertSame($collection->get('0'), $permissions[0]);
+        $this->assertSame($collection->get('1'), $permissions[1]);
+        $this->assertSame($collection->get('2'), $permissions[2]);
+        $this->assertSame($collection->get('3'), $permission4);
+        $this->assertSame($collection->get('4'), $permission5);
+        $this->assertNull($collection->get('777'));
+    }
     
     public function testGetKeyWorksAsExcpected() {
         

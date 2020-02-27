@@ -149,6 +149,99 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->expectException(ParentCannotBeChildException::class);
         $this->expectExceptionMessage($exceptionMsg);
         $childEntity->addParentEntity($childEntitysChild); // should throw exception
+        
+        /////////////////////////////////////////////////////////
+        // Test that the correct parents collection gets updated
+        // when another parent entity equal to one of the existing 
+        // parents is added
+        /////////////////////////////////////////////////////////
+        $grandParentEntity1 = new GenericPermissionableEntity("AAA");
+        $grandParentEntity2 = new GenericPermissionableEntity("BBB");
+        
+        $parentEntity1->addParentEntity($grandParentEntity1);
+        $parentEntity1->addParentEntity($grandParentEntity2);
+        
+        $parentEntity2->addParentEntity($grandParentEntity1);
+        $parentEntity2->addParentEntity($grandParentEntity2);
+        
+        // At this point, $childEntity has 
+        // 2 direct parents:
+        //      - $parentEntity1
+        //      - $parentEntity2
+        //      
+        //  2 inherited parents ($childEntity->getAllParentEntities() returns unique parents no duplicates)
+        //      - $grandParentEntity1
+        //      - $grandParentEntity2
+        //
+        $this->assertEquals(2, $childEntity->getDirectParentEntities()->count());
+        $this->assertEquals(4, $childEntity->getAllParentEntities()->count());
+        
+        $grandParentEntity1Replacement = new GenericPermissionableEntity("AAA"); // same ID as $grandParentEntity1 but different instance
+        $grandParentEntity2Replacement = new GenericPermissionableEntity("BBB"); // same ID as $grandParentEntity2 but different instance
+        
+        // the two lines below should replace 
+        // $grandParentEntity1 & $grandParentEntity2 in both
+        // $parentEntity1->getDirectParentEntities() and
+        // $parentEntity2->getDirectParentEntities()
+        $childEntity->addParentEntity($grandParentEntity1Replacement);
+        $childEntity->addParentEntity($grandParentEntity2Replacement);
+        
+        $keyForGp1InP1 = $parentEntity1->getDirectParentEntities()->getKey($grandParentEntity1Replacement);
+        $keyForGp2InP1 = $parentEntity1->getDirectParentEntities()->getKey($grandParentEntity2Replacement);
+        
+        $keyForGp1InP2 = $parentEntity2->getDirectParentEntities()->getKey($grandParentEntity1Replacement);
+        $keyForGp2InP2 = $parentEntity2->getDirectParentEntities()->getKey($grandParentEntity2Replacement);
+        
+        $this->assertNotNull($keyForGp1InP1);
+        $this->assertNotNull($keyForGp2InP1);
+        $this->assertNotNull($keyForGp1InP2);
+        $this->assertNotNull($keyForGp2InP2);
+        
+        if ( $keyForGp1InP1 !== null ) {
+            
+            $this->assertSame($grandParentEntity1Replacement, $parentEntity1->getDirectParentEntities()->get($keyForGp1InP1));
+        }
+        
+        if ( $keyForGp2InP1 !== null ) {
+            
+            $this->assertSame($grandParentEntity2Replacement, $parentEntity1->getDirectParentEntities()->get($keyForGp2InP1));
+        }
+        
+        if ( $keyForGp1InP2 !== null ) {
+            
+            $this->assertSame($grandParentEntity1Replacement, $parentEntity2->getDirectParentEntities()->get($keyForGp1InP2));
+        }
+        
+        if ( $keyForGp2InP2 !== null ) {
+            
+            $this->assertSame($grandParentEntity2Replacement, $parentEntity2->getDirectParentEntities()->get($keyForGp2InP2));
+        }
+        
+        // verify that $grandParentEntity1 & $grandParentEntity2 are 
+        // no longer parents of $parentEntity1 and $parentEntity2
+        foreach ($parentEntity1->getAllParentEntities() as $pe) {
+            
+            $this->assertFalse($pe === $grandParentEntity1);
+            $this->assertFalse($pe === $grandParentEntity2);
+        }
+        
+        foreach ($parentEntity2->getAllParentEntities() as $pe) {
+            
+            $this->assertFalse($pe === $grandParentEntity1);
+            $this->assertFalse($pe === $grandParentEntity2);
+        }
+        
+        foreach ($parentEntity1->getDirectParentEntities() as $pe) {
+            
+            $this->assertFalse($pe === $grandParentEntity1);
+            $this->assertFalse($pe === $grandParentEntity2);
+        }
+        
+        foreach ($parentEntity2->getDirectParentEntities() as $pe) {
+            
+            $this->assertFalse($pe === $grandParentEntity1);
+            $this->assertFalse($pe === $grandParentEntity2);
+        }
     }
     
     public function testAddParentEntitiesWorksAsExcpected() {
@@ -543,6 +636,38 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals(2, $entity->getDirectPermissions()->count());
         $this->assertTrue($entity->getDirectPermissions()->hasPermission($permission1));
         $this->assertTrue($entity->getDirectPermissions()->hasPermission($permission2));
+        
+        /////////////////////////////////////////////////////////////////
+        // Test that permissions get updated when new instances that are 
+        // equal in value to existing permissions get added
+        /////////////////////////////////////////////////////////////////
+        $permission1Replacement = new GenericPermission('action-1', 'resource-1');
+        $permission2Replacement = new GenericPermission('action-2', 'resource-2');
+        
+        $entity->addPermission($permission1Replacement); // should replace $permission1
+        $entity->addPermission($permission2Replacement); // should replace $permission2
+        
+        $key1 = $entity->getDirectPermissions()->getKey($permission1Replacement);
+        $key2 = $entity->getDirectPermissions()->getKey($permission2Replacement);
+        
+        $this->assertNotNull($key1);
+        $this->assertNotNull($key2);
+        
+        if( $key1 !== null ) {
+            
+            $this->assertSame($permission1Replacement, $entity->getDirectPermissions()->get(''.$key1));
+        }
+        
+        if( $key2 !== null ) {
+            
+            $this->assertSame($permission2Replacement, $entity->getDirectPermissions()->get(''.$key2));
+        }
+        
+        foreach ($entity->getDirectPermissions() as $perm) {
+            
+            $this->assertFalse($perm === $permission1);
+            $this->assertFalse($perm === $permission2);
+        }
     }
     
     public function testAddPermissionsWorksAsExcpected() {

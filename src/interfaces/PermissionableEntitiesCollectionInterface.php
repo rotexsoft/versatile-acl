@@ -23,6 +23,16 @@ interface PermissionableEntitiesCollectionInterface extends CollectionInterface 
     public function add(PermissionableEntityInterface $permissionEntity): self;
     
     /**
+     * Adds an instance of PermissionableEntityInterface to an instance of this interface with the specified key.
+     * 
+     * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $permissionEntity
+     * @param string $key specified key for $permissionEntity in the collection
+     * 
+     * @return $this
+     */
+    public function put(PermissionableEntityInterface $permissionEntity, string $key): self;
+    
+    /**
      * Removes an instance of PermissionableEntityInterface from an instance of this interface.
      * 
      * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $permissionEntity
@@ -37,6 +47,16 @@ interface PermissionableEntitiesCollectionInterface extends CollectionInterface 
      * @return $this
      */
     public function removeAll(): self;
+    
+    /**
+     * Retrieves the entity in the collection associated with the specified key.
+     * If the key is not present in the collection, NULL should be returned
+     * 
+     * @param string $key
+     * 
+     * @return \SimpleAcl\Interfaces\PermissionableEntityInterface|null
+     */
+    public function get(string $key): ?PermissionableEntityInterface;
     
     /**
      * Retrieves the key in the collection associated with the specified object.

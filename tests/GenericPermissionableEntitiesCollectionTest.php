@@ -91,11 +91,13 @@ class GenericPermissionableEntitiesCollectionTest extends \PHPUnit\Framework\Tes
         
         // empty collection
         $collection = new GenericPermissionableEntitiesCollection();
-        $collection->add($entities[0]);
-        $collection->add($entities[1]);
-        $collection->add($entities[2]);
-        $collection->add($entity4);
-        $collection->add($entity5);
+        
+        $this->assertSame($collection, $collection->add($entities[0])); // test fluent return
+        $this->assertSame($collection, $collection->add($entities[1])); // test fluent return
+        $this->assertSame($collection, $collection->add($entities[2])); // test fluent return
+        $this->assertSame($collection, $collection->add($entity4)); // test fluent return
+        $this->assertSame($collection, $collection->add($entity5)); // test fluent return
+        
         $this->assertTrue($collection->hasEntity($entities[0]));
         $this->assertTrue($collection->hasEntity($entities[1]));
         $this->assertTrue($collection->hasEntity($entities[2]));
@@ -104,10 +106,83 @@ class GenericPermissionableEntitiesCollectionTest extends \PHPUnit\Framework\Tes
         
         // non-empty collection
         $collection2 = new GenericPermissionableEntitiesCollection(...$entities);
-        $collection2->add($entity4);
-        $collection2->add($entity5);
+        
+        $this->assertSame($collection2, $collection2->add($entity4)); // test fluent return
+        $this->assertSame($collection2, $collection2->add($entity5)); // test fluent return
+        
         $this->assertTrue($collection2->hasEntity($entity4));
         $this->assertTrue($collection2->hasEntity($entity5));
+    }
+    
+    public function testPutWorksAsExcpected() {
+        
+        $entities = [
+            new GenericPermissionableEntity('entity-a'),
+            new GenericPermissionableEntity('entity-b'),
+            new GenericPermissionableEntity('entity-c'),
+        ];
+        
+        $entity4 = new GenericPermissionableEntity('entity-d');
+        $entity5 = new GenericPermissionableEntity('entity-e');
+        
+        // empty collection
+        $collection = new GenericPermissionableEntitiesCollection();
+        
+        $this->assertSame($collection, $collection->put($entities[0], '1')); // test fluent return
+        $this->assertSame($collection, $collection->put($entities[1], '2')); // test fluent return
+        $this->assertSame($collection, $collection->put($entities[2], '3')); // test fluent return
+        $this->assertSame($collection, $collection->put($entity4, '4')); // test fluent return
+        $this->assertSame($collection, $collection->put($entity5, '5')); // test fluent return
+        
+        $this->assertTrue($collection->hasEntity($entities[0]));
+        $this->assertTrue($collection->getKey($entities[0]).'' === '1' );
+        
+        $this->assertTrue($collection->hasEntity($entities[1]));
+        $this->assertTrue($collection->getKey($entities[1]).'' === '2' );
+        
+        $this->assertTrue($collection->hasEntity($entities[2]));
+        $this->assertTrue($collection->getKey($entities[2]).'' === '3' );
+        
+        $this->assertTrue($collection->hasEntity($entity4));
+        $this->assertTrue($collection->getKey($entity4).'' === '4' );
+        
+        $this->assertTrue($collection->hasEntity($entity5));
+        $this->assertTrue($collection->getKey($entity5).'' === '5' );
+        
+        // non-empty collection
+        $collection2 = new GenericPermissionableEntitiesCollection(...$entities);
+        
+        $this->assertSame($collection2, $collection2->put($entity4, '44')); // test fluent return
+        $this->assertSame($collection2, $collection2->put($entity5, '55')); // test fluent return
+        
+        $this->assertTrue($collection2->hasEntity($entity4));
+        $this->assertTrue($collection2->getKey($entity4).'' === '44' );
+        
+        $this->assertTrue($collection2->hasEntity($entity5));
+        $this->assertTrue($collection2->getKey($entity5).'' === '55' );
+    }
+    
+    public function testGetWorksAsExcpected() {
+        
+        $entities = [
+            new GenericPermissionableEntity('entity-a'),
+            new GenericPermissionableEntity('entity-b'),
+            new GenericPermissionableEntity('entity-c'),
+        ];        
+        $entity4 = new GenericPermissionableEntity('entity-d');
+        $entity5 = new GenericPermissionableEntity('entity-e');
+
+        // non-empty collection
+        $collection = new GenericPermissionableEntitiesCollection(...$entities);
+        $collection->add($entity4);
+        $collection->add($entity5);
+        
+        $this->assertSame($collection->get('0'), $entities[0]);
+        $this->assertSame($collection->get('1'), $entities[1]);
+        $this->assertSame($collection->get('2'), $entities[2]);
+        $this->assertSame($collection->get('3'), $entity4);
+        $this->assertSame($collection->get('4'), $entity5);
+        $this->assertNull($collection->get('777'));
     }
     
     public function testGetKeyWorksAsExcpected() {

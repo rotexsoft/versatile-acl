@@ -24,6 +24,16 @@ interface PermissionsCollectionInterface extends CollectionInterface
     public function add(PermissionInterface $permission): self;
     
     /**
+     * Adds an instance of PermissionInterface to an instance of this interface with the specified key.
+     * 
+     * @param \SimpleAcl\Interfaces\PermissionInterface $permission
+     * @param string $key specified key for $permission in the collection
+     * 
+     * @return $this
+     */
+    public function put(PermissionInterface $permission, string $key): self;
+    
+    /**
      * Removes an instance of PermissionInterface from an instance of this interface.
      * 
      * @param \SimpleAcl\Interfaces\PermissionInterface $permission
@@ -38,6 +48,16 @@ interface PermissionsCollectionInterface extends CollectionInterface
      * @return $this
      */
     public function removeAll(): self;
+    
+    /**
+     * Retrieves the permission in the collection associated with the specified key.
+     * If the key is not present in the collection, NULL should be returned
+     * 
+     * @param string $key
+     * 
+     * @return \SimpleAcl\Interfaces\PermissionInterface|null
+     */
+    public function get(string $key): ?PermissionInterface;
     
     /**
      * Retrieves the key in the collection associated with the specified permission object.

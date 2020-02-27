@@ -107,6 +107,32 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
             }
             
             $this->parentEntities->add($entity);
+            
+        } else {
+            // $this->getAllParentEntities()->hasEntity($entity) === true
+ 
+            // Recursively traverse parents to find the right collection
+            // of parents in which the entity is to be updated in and then
+            // update the enity in that collection
+            $putParent = function(PermissionableEntitiesCollectionInterface $parents) use ($entity, &$putParent){
+                
+                foreach ($parents as $key => $parent) {
+                    
+                    if($entity->isEqualTo($parent)) {
+                        
+                        $parents->put($entity, ''.$key);
+                        
+                    } else {
+                        
+                        // recurse
+                        $putParent($parent->getDirectParentEntities());
+                    }
+                }
+                
+                return;
+            };
+            
+            $putParent($this->parentEntities);
         }
         return $this;
     }
@@ -311,6 +337,17 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
         if( !$this->permissions->hasPermission($perm) ) {
             
             $this->permissions->add($perm);
+            
+        } else {
+            
+            $key = $this->permissions->getKey($perm);
+            
+            if($key !== null) {
+                
+                // update the entity in the collection
+                $this->permissions->put($perm, ''.$key);
+            }
+            
         }
         return $this;
     }
