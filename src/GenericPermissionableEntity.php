@@ -510,4 +510,17 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
         
         return $objAsStr;
     }
+    
+    public function dumpForDebugging():string {
+
+        $objAsStr = static::class .' ('. spl_object_hash($this) . ')' . PHP_EOL . '{' . PHP_EOL;
+        
+        $objAsStr .= "\t"."id: `{$this->id}`" . PHP_EOL;
+        $objAsStr .= "\t"."parentEntities: " . PHP_EOL . "\t\t". str_replace(PHP_EOL, PHP_EOL."\t\t", ''.$this->parentEntities->dumpForDebugging()) . PHP_EOL;
+        $objAsStr .= "\t"."permissions: " . PHP_EOL . "\t\t". str_replace(PHP_EOL, PHP_EOL."\t\t", ''.$this->permissions->dumpForDebugging()) . PHP_EOL;
+        
+        $objAsStr .= PHP_EOL . "}" . PHP_EOL;
+        
+        return $objAsStr;
+    }
 }

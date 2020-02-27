@@ -113,4 +113,20 @@ abstract class GenericBaseCollection implements CollectionInterface {
         
         return $objAsStr;
     }
+    
+    public function dumpForDebugging():string {
+
+        $objAsStr = static::class .' ('. spl_object_hash($this) . ')' . PHP_EOL . '{' . PHP_EOL;
+
+        foreach ($this->storage as $key => $item) {
+
+            $itemStr = method_exists($item, 'dumpForDebugging')? $item->dumpForDebugging() : var_export($item, true);
+            
+            $objAsStr .=  "\t"."item[{$key}]: " . str_replace(PHP_EOL, PHP_EOL."\t", $itemStr)  . PHP_EOL;
+        }
+        
+        $objAsStr .= PHP_EOL . "}" . PHP_EOL;
+        
+        return $objAsStr;
+    }
 }
