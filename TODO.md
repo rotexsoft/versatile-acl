@@ -1,5 +1,6 @@
 # Things To Do
  * ~~Implement Generic Classes implementing the various interfaces~~ [DONE]
+ * Implement a profiling mechanism for debugging purposes that shows an audit trail of how permissions were calculated when isAllowed is invoked
  * ~~Write unit tests~~ [DONE]
  * ~~Hook up to travis and other code monitoring services~~ [DONE]
  * Implement a separate package illustrating how to implement Owner, User and Group level permission enforcement

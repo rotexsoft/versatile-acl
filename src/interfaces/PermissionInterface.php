@@ -22,9 +22,11 @@ interface PermissionInterface
     /**
      * Create a new and empty collection that is meant to house one or more instances of PermissionInterface
      *
+     * @param PermissionInterface ...$permissions zero or more instances of PermissionInterface to be added to the new collection
+     * 
      * @return PermissionsCollectionInterface a new and empty collection that is meant to house one or more instances of PermissionInterface
      */
-    public static function createCollection(): PermissionsCollectionInterface;
+    public static function createCollection(PermissionInterface ...$permissions): PermissionsCollectionInterface;
 
     /**
      * Get the string representing an action that can be performed on a resource in the system.

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use \SimpleAcl\GenericPermission;
 use \SimpleAcl\GenericPermissionsCollection;
+use \SimpleAcl\Interfaces\PermissionInterface;
 
 /**
  * Description of GenericPermissionsCollectionTest
@@ -791,6 +792,88 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $collection->add($perm3);
         
         $this->assertEquals($collection->count(), 3);
+    }
+    
+    public function testSortWorksAsExcpected() {
+        
+        $perms = new GenericPermissionsCollection(
+            new GenericPermission('a-action', 'a-resource', true),
+            new GenericPermission('d-action', 'd-resource', true),
+            new GenericPermission('c-action', 'c-resource', true),
+            new GenericPermission('b-action', 'b-resource', false),
+            new GenericPermission('b-action', 'a-resource', true),
+            new GenericPermission('c-action', 'a-resource', true),
+            new GenericPermission('a-action', 'a-resource', true),
+            new GenericPermission('a-action', 'a-resource', true),
+            new GenericPermission('a-action', 'a-resource', false)
+        );
+        
+        $sortedPerms = [
+            ['action'=>'a-action', 'resource'=>'a-resource', 'allow' =>false ],  
+            ['action'=>'a-action' , 'resource'=>'a-resource', 'allow' =>true ],
+            ['action'=>'a-action' , 'resource'=>'a-resource', 'allow' =>true ],
+            ['action'=>'a-action' , 'resource'=>'a-resource', 'allow' =>true ],
+            ['action'=>'b-action' , 'resource'=>'a-resource' , 'allow' =>true ],  
+            ['action'=>'c-action' , 'resource'=>'a-resource' , 'allow' =>true ],  
+            ['action'=>'b-action' , 'resource'=>'b-resource' , 'allow' =>false ],  
+            ['action'=>'c-action' , 'resource'=>'c-resource' , 'allow' =>true ],  
+            ['action'=>'d-action' , 'resource'=>'d-resource' , 'allow' =>true ],  
+        ];
+        
+        // default sort test
+        $perms->sort();
+        
+        /** @var GenericPermission $perm */
+        foreach ($perms as $perm) {
+            
+            $sortedPerm = array_shift($sortedPerms);
+            $this->assertTrue( $perm->getAction() === $sortedPerm['action'] );
+            $this->assertTrue( $perm->getResource() === $sortedPerm['resource'] );
+            $this->assertTrue( $perm->getAllowActionOnResource() === $sortedPerm['allow'] );
+        }
+        
+        ////////////////////////////////////////////////////////
+        // reverse sort with a specified callback
+        ////////////////////////////////////////////////////////
+        $perms2 = new GenericPermissionsCollection(
+            new GenericPermission('a-action', 'a-resource', true),
+            new GenericPermission('b-action', 'b-resource', true),
+            new GenericPermission('c-action', 'c-resource', true),
+            new GenericPermission('d-action', 'd-resource', true)
+        );
+        
+        $sortedPerms2 = [
+            ['action'=>'d-action', 'resource'=>'d-resource', 'allow' =>true ],  
+            ['action'=>'c-action' , 'resource'=>'c-resource', 'allow' =>true ],
+            ['action'=>'b-action' , 'resource'=>'b-resource', 'allow' =>true ],
+            ['action'=>'a-action' , 'resource'=>'a-resource', 'allow' =>true ], 
+        ];
+        
+        $comparator = function(PermissionInterface $a, PermissionInterface $b ) : int {
+
+            if( $a->getResource() < $b->getResource() ) {
+
+                return 1;
+
+            } else if( $a->getResource() === $b->getResource() ) {
+
+                return 0;
+            }
+
+            return -1;
+        };
+        
+        // sort with specified callback test
+        $perms2->sort($comparator);
+        
+        /** @var GenericPermission $perm */
+        foreach ($perms2 as $perm) {
+            
+            $sortedPerm = array_shift($sortedPerms2);
+            $this->assertTrue( $perm->getAction() === $sortedPerm['action'] );
+            $this->assertTrue( $perm->getResource() === $sortedPerm['resource'] );
+            $this->assertTrue( $perm->getAllowActionOnResource() === $sortedPerm['allow'] );
+        }
     }
 
     public function testDumpWorksAsExcpected() {

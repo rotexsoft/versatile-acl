@@ -63,11 +63,13 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
     /**
      * Create a new and empty collection that is meant to house one or more instances of PermissionableEntityInterface
      *
+     * @param PermissionableEntityInterface ...$permissionEntities zero or more instances of PermissionableEntityInterface to be added to the new collection
+     * 
      * @return PermissionableEntitiesCollectionInterface a new and empty collection that is meant to house one or more instances of PermissionableEntityInterface
      */
-    public static function createCollection(): PermissionableEntitiesCollectionInterface {
+    public static function createCollection(PermissionableEntityInterface ...$permissionEntities): PermissionableEntitiesCollectionInterface {
         
-        return new GenericPermissionableEntitiesCollection();
+        return new GenericPermissionableEntitiesCollection(...$permissionEntities);
     }
 
     /**
@@ -511,16 +513,16 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
         return $objAsStr;
     }
     
-    public function dumpForDebugging():string {
-
-        $objAsStr = static::class .' ('. spl_object_hash($this) . ')' . PHP_EOL . '{' . PHP_EOL;
-        
-        $objAsStr .= "\t"."id: `{$this->id}`" . PHP_EOL;
-        $objAsStr .= "\t"."parentEntities: " . PHP_EOL . "\t\t". str_replace(PHP_EOL, PHP_EOL."\t\t", ''.$this->parentEntities->dumpForDebugging()) . PHP_EOL;
-        $objAsStr .= "\t"."permissions: " . PHP_EOL . "\t\t". str_replace(PHP_EOL, PHP_EOL."\t\t", ''.$this->permissions->dumpForDebugging()) . PHP_EOL;
-        
-        $objAsStr .= PHP_EOL . "}" . PHP_EOL;
-        
-        return $objAsStr;
-    }
+//    public function dumpForDebugging():string {
+//
+//        $objAsStr = static::class .' ('. spl_object_hash($this) . ')' . PHP_EOL . '{' . PHP_EOL;
+//        
+//        $objAsStr .= "\t"."id: `{$this->id}`" . PHP_EOL;
+//        $objAsStr .= "\t"."parentEntities: " . PHP_EOL . "\t\t". str_replace(PHP_EOL, PHP_EOL."\t\t", ''.$this->parentEntities->dumpForDebugging()) . PHP_EOL;
+//        $objAsStr .= "\t"."permissions: " . PHP_EOL . "\t\t". str_replace(PHP_EOL, PHP_EOL."\t\t", ''.$this->permissions->dumpForDebugging()) . PHP_EOL;
+//        
+//        $objAsStr .= PHP_EOL . "}" . PHP_EOL;
+//        
+//        return $objAsStr;
+//    }
 }

@@ -19,9 +19,11 @@ interface PermissionableEntityInterface {
     /**
      * Create a new and empty collection that is meant to house one or more instances of PermissionableEntityInterface
      *
+     * @param PermissionableEntityInterface ...$permissionEntities zero or more instances of PermissionableEntityInterface to be added to the new collection
+     * 
      * @return PermissionableEntitiesCollectionInterface a new and empty collection that is meant to house one or more instances of PermissionableEntityInterface
      */
-    public static function createCollection(): PermissionableEntitiesCollectionInterface;
+    public static function createCollection(PermissionableEntityInterface ...$permissionEntities): PermissionableEntitiesCollectionInterface;
 
     /**
      * ======================================================================================================

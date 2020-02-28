@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use \SimpleAcl\GenericPermissionableEntity;
 use \SimpleAcl\GenericPermissionableEntitiesCollection;
+use \SimpleAcl\Interfaces\PermissionableEntityInterface;
 
 /**
  * Description of GenericBaseCollectionTest
@@ -345,6 +346,58 @@ class GenericPermissionableEntitiesCollectionTest extends \PHPUnit\Framework\Tes
         $collection->add($entity3);
         
         $this->assertEquals($collection->count(), 3);
+    }
+
+    public function testSortWorksAsExcpected() {
+        
+        $entities = new GenericPermissionableEntitiesCollection(
+            new GenericPermissionableEntity('c'),
+            new GenericPermissionableEntity('b'),
+            new GenericPermissionableEntity('a'), 
+            new GenericPermissionableEntity('a') 
+        );
+        $sortedIds = ['a', 'a', 'b', 'c'];
+        
+        // default sort test
+        $entities->sort();
+        
+        foreach ($entities as $entity) {
+            
+            $this->assertTrue( $entity->getId() === array_shift($sortedIds) );
+        }
+        
+        ////////////////////////////////////////////////////////
+        // reverse sort with a specified callback
+        ////////////////////////////////////////////////////////
+        $entities2 = new GenericPermissionableEntitiesCollection(
+            new GenericPermissionableEntity('a'),
+            new GenericPermissionableEntity('a'),
+            new GenericPermissionableEntity('b'), 
+            new GenericPermissionableEntity('c') 
+        );
+        $sortedIds2 = ['c', 'b', 'a', 'a'];
+        
+        $comparator = function( PermissionableEntityInterface $a, PermissionableEntityInterface $b ) : int {
+
+            if( $a->getId() < $b->getId() ) {
+
+                return 1;
+
+            } else if( $a->getId() === $b->getId() ) {
+
+                return 0;
+            }
+
+            return -1;
+        };
+        
+        // sort with specified callback test
+        $entities2->sort($comparator);
+        
+        foreach ($entities2 as $entity) {
+            
+            $this->assertTrue( $entity->getId() === array_shift($sortedIds2) );
+        }
     }
 
     public function testDumpWorksAsExcpected() {

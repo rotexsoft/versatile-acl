@@ -67,11 +67,13 @@ class GenericPermission implements PermissionInterface {
     /**
      * Create a new and empty collection that is meant to house one or more instances of PermissionInterface
      *
+     * @param PermissionInterface ...$permissions zero or more instances of PermissionInterface to be added to the new collection
+     * 
      * @return PermissionsCollectionInterface a new and empty collection that is meant to house one or more instances of PermissionInterface
      */
-    public static function createCollection(): PermissionsCollectionInterface {
+    public static function createCollection(PermissionInterface ...$permissions): PermissionsCollectionInterface {
         
-        return new GenericPermissionsCollection();
+        return new GenericPermissionsCollection(...$permissions);
     }
 
     /**
@@ -250,18 +252,18 @@ class GenericPermission implements PermissionInterface {
         return $objAsStr;
     }
     
-    public function dumpForDebugging():string {
-        
-        $objAsStr = static::class .' ('. spl_object_hash($this) . ')' . PHP_EOL . '{' . PHP_EOL;
-        
-        $objAsStr .= "\taction: `{$this->action}`" . PHP_EOL;
-        $objAsStr .= "\tresource: `{$this->resource}`" . PHP_EOL;
-        $objAsStr .= "\tallowActionOnResource: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->allowActionOnResource, true)) . PHP_EOL;
-        $objAsStr .= "\tadditionalAssertions: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->additionalAssertions, true)) . PHP_EOL;
-        $objAsStr .= "\targsForCallback: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->argsForCallback, true)) . PHP_EOL;
-        
-        $objAsStr .= PHP_EOL . "}" . PHP_EOL;
-        
-        return $objAsStr;
-    }
+//    public function dumpForDebugging():string {
+//        
+//        $objAsStr = static::class .' ('. spl_object_hash($this) . ')' . PHP_EOL . '{' . PHP_EOL;
+//        
+//        $objAsStr .= "\taction: `{$this->action}`" . PHP_EOL;
+//        $objAsStr .= "\tresource: `{$this->resource}`" . PHP_EOL;
+//        $objAsStr .= "\tallowActionOnResource: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->allowActionOnResource, true)) . PHP_EOL;
+//        $objAsStr .= "\tadditionalAssertions: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->additionalAssertions, true)) . PHP_EOL;
+//        $objAsStr .= "\targsForCallback: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->argsForCallback, true)) . PHP_EOL;
+//        
+//        $objAsStr .= PHP_EOL . "}" . PHP_EOL;
+//        
+//        return $objAsStr;
+//    }
 }

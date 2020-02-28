@@ -153,7 +153,7 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * 
      * @return $this
      */
-    public function put(PermissionInterface $permission, string $key): \SimpleAcl\Interfaces\PermissionsCollectionInterface {
+    public function put(PermissionInterface $permission, string $key): PermissionsCollectionInterface {
         
         $this->storage[$key] = $permission;
         
@@ -172,4 +172,64 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
         
         return array_key_exists($key, $this->storage) ? $this->storage[$key] : null;
     }
+    
+    /**
+     * Sort the collection. 
+     * If specified, use the callback to compare items in the collection when sorting or 
+     * sort according to some default criteria (up to the implementer of this method to
+     * specify what that criteria is).
+     * 
+     * If $comparator is null, this implementation would sort based on ascending order
+     * of PermissionInterface::getResource() followed by  
+     * PermissionInterface::getAction() and followed by
+     * PermissionInterface::getAllowActionOnResource()
+     * of each permission in the collection. 
+     * 
+     * @param callable $comparator has the following signature:
+     *                  function( PermissionInterface $a, PermissionInterface $b ) : int
+     *                      The comparison function must return an integer less than, 
+     *                      equal to, or greater than zero if the first argument is 
+     *                      considered to be respectively less than, equal to, 
+     *                      or greater than the second. 
+     *                  
+     * @return $this
+     */
+    public function sort(callable $comparator = null): PermissionsCollectionInterface {
+        
+        if( $comparator === null ) {
+            
+            $comparator = function(PermissionInterface $a, PermissionInterface $b ) : int {
+                
+                if( $a->getResource() < $b->getResource() ) {
+                    
+                    return -1;
+                    
+                } else if( $a->getResource() === $b->getResource() ) {
+                    
+                    if( $a->getAction() < $b->getAction() ) {
+                        
+                        return -1;
+                        
+                    } else if ( $a->getAction() === $b->getAction() ) {
+                        
+                        if( $a->getAllowActionOnResource() < $b->getAllowActionOnResource() ) {
+                            
+                            return -1;
+                            
+                        } elseif( $a->getAllowActionOnResource() === $b->getAllowActionOnResource() ) {
+                            
+                            return 0;
+                        } // if( $a->getAllowActionOnResource() < $b->getAllowActionOnResource() ) ... elseif( $a->getAllowActionOnResource() === $b->getAllowActionOnResource() )
+                    } // if( $a->getAction() < $b->getAction() ) ... else if ( $a->getAction() === $b->getAction() )
+                } // if( $a->getResource() < $b->getResource() ) ... else if( $a->getResource() === $b->getResource() )
+                
+                return 1;
+            };
+        }
+        
+        uasort($this->storage, $comparator);
+        
+        return $this;
+    }
+
 }

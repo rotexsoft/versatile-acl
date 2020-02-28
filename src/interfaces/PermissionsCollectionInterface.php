@@ -9,7 +9,7 @@ interface PermissionsCollectionInterface extends CollectionInterface
     /**
      * Constructor.
      * 
-     * @param mixed ...$items zero or more instances of PermissionInterface to be added to this collection
+     * @param mixed ...$permissions zero or more instances of PermissionInterface to be added to this collection
      *
      */
     public function __construct(PermissionInterface ...$permissions);
@@ -101,4 +101,21 @@ interface PermissionsCollectionInterface extends CollectionInterface
      * @return bool return true if one or more items in an instance of this interface signifies that a specified action can be performed on a specified resource, or false otherwise
      */
     public function isAllowed(string $action, string $resource, callable $additionalAssertions=null, ...$argsForCallback): bool;
+    
+    /**
+     * Sort the collection. 
+     * If specified, use the callback to compare items in the collection when sorting or 
+     * sort according to some default criteria (up to the implementer of this method to
+     * specify what that criteria is).
+     * 
+     * @param callable $comparator has the following signature:
+     *                  function( PermissionInterface $a, PermissionInterface $b ) : int
+     *                      The comparison function must return an integer less than, 
+     *                      equal to, or greater than zero if the first argument is 
+     *                      considered to be respectively less than, equal to, 
+     *                      or greater than the second. 
+     *                  
+     * @return $this
+     */
+    public function sort(callable $comparator=null): self;
 }

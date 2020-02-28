@@ -82,6 +82,28 @@ class GenericPermissionTest extends \PHPUnit\Framework\TestCase {
         $this->assertInstanceOf(GenericPermissionsCollection::class, GenericPermission::createCollection());
         $this->assertInstanceOf(PermissionsCollectionInterface::class, GenericPermission::createCollection());
         $this->assertEquals(0, GenericPermission::createCollection()->count());
+        
+        $perm1 = new GenericPermission('d-action', 'd-resource', true);
+        $perm2 = new GenericPermission('b-action', 'b-resource', false);
+        $perm3 = new GenericPermission('c-action', 'c-resource', true);
+        
+        $perms = GenericPermission::createCollection(
+            $perm1, $perm2, $perm3
+        );
+        
+        $this->assertCount(3, $perms);
+        $this->assertTrue($perms->hasPermission($perm1));
+        $this->assertTrue($perms->hasPermission($perm2));
+        $this->assertTrue($perms->hasPermission($perm3));
+        
+        $perms = GenericPermission::createCollection(
+            ...[$perm1, $perm2, $perm3]
+        );
+        
+        $this->assertCount(3, $perms);
+        $this->assertTrue($perms->hasPermission($perm1));
+        $this->assertTrue($perms->hasPermission($perm2));
+        $this->assertTrue($perms->hasPermission($perm3));
     }
     
     public function testGetActionWorksAsExcpected() {

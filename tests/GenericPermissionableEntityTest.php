@@ -110,6 +110,28 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->assertInstanceOf(GenericPermissionableEntitiesCollection::class, GenericPermissionableEntity::createCollection());
         $this->assertInstanceOf(PermissionableEntitiesCollectionInterface::class, GenericPermissionableEntity::createCollection());
         $this->assertEquals(0, GenericPermissionableEntity::createCollection()->count());
+        
+        $e1 = new GenericPermissionableEntity('d');
+        $e2 = new GenericPermissionableEntity('b');
+        $e3 = new GenericPermissionableEntity('c');
+        
+        $entities = GenericPermissionableEntity::createCollection(
+            $e1, $e2, $e3
+        );
+        
+        $this->assertCount(3, $entities);
+        $this->assertTrue($entities->hasEntity($e1));
+        $this->assertTrue($entities->hasEntity($e2));
+        $this->assertTrue($entities->hasEntity($e3));
+        
+        $entities = GenericPermissionableEntity::createCollection(
+            ...[$e1, $e2, $e3]
+        );
+        
+        $this->assertCount(3, $entities);
+        $this->assertTrue($entities->hasEntity($e1));
+        $this->assertTrue($entities->hasEntity($e2));
+        $this->assertTrue($entities->hasEntity($e3));
     }
     
     public function testAddParentEntityWorksAsExcpected() {
