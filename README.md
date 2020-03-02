@@ -277,7 +277,7 @@ $adminEntity->getInheritedPermissions()
             ->isAllowed('create-comment', 'news-article'); // returns false
                                                            // no inherited
                                                            // permissions
-$adminEntity->getAllPermissions()
+$adminEntity->getAllPermissions() // recommended way
             ->isAllowed('create-comment', 'news-article'); // returns true
 
 // $adminEntity should be able to edit comments on news articles:
@@ -288,7 +288,7 @@ $adminEntity->getInheritedPermissions()
             ->isAllowed('edit-comment', 'news-article'); // returns false
                                                          // no inherited
                                                          // permissions
-$adminEntity->getAllPermissions()
+$adminEntity->getAllPermissions() // recommended way
             ->isAllowed('edit-comment', 'news-article'); // returns true
 
 // $adminEntity should be able to delete comments on news articles:
@@ -299,7 +299,7 @@ $adminEntity->getInheritedPermissions()
             ->isAllowed('delete-comment', 'news-article'); // returns false
                                                            // no inherited
                                                            // permissions
-$adminEntity->getAllPermissions()
+$adminEntity->getAllPermissions() // recommended way
             ->isAllowed('delete-comment', 'news-article'); // returns true
  
 
