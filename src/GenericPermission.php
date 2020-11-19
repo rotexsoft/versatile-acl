@@ -175,10 +175,15 @@ class GenericPermission implements PermissionInterface {
      */
     public function isAllowed(string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool {
         
-        if( is_null($additionalAssertions) && !is_null($this->additionalAssertions) ) {
+        if( $additionalAssertions === null && $this->additionalAssertions !== null ) {
             
             // use callback registered via this object's constructor
             $additionalAssertions = $this->additionalAssertions;
+        }
+        
+        if($additionalAssertions !== null) {
+            
+            $additionalAssertions = Utils::getClosureFromCallable($additionalAssertions);
         }
         
         if( count($argsForCallback) === 0 && count($this->argsForCallback) > 0 ) {
@@ -198,7 +203,7 @@ class GenericPermission implements PermissionInterface {
                 || Utils::strtolower($this->getResource()) === Utils::strtolower(static::getAllResourcesIdentifier())
             )
             && $this->getAllowActionOnResource() === true
-            && ( (is_null($additionalAssertions)) ? true : (call_user_func_array($additionalAssertions, $argsForCallback) === true) );
+            && ( ($additionalAssertions === null) ? true : ($additionalAssertions(...$argsForCallback) === true) );
     }
 
     /**

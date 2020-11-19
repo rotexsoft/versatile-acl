@@ -56,8 +56,8 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
         }
         
         $this->id = Utils::strtolower($trimmedId);
-        $this->permissions = is_null($perms) ? GenericPermission::createCollection() : $perms;
-        $this->parentEntities = is_null($parentEntities) ? static::createCollection() : $parentEntities;
+        $this->permissions = ($perms === null) ? GenericPermission::createCollection() : $perms;
+        $this->parentEntities = ($parentEntities === null) ? static::createCollection() : $parentEntities;
     }
 
     /**
@@ -192,6 +192,9 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
         
         foreach ($this->getDirectParentEntities() as $entity) {
             
+            // Add entity to the collection to be returned,
+            // if not already present in the collection 
+            // to be returned.
             (!$coll->hasEntity($entity)) && $coll->add($entity);
             
             if( $entity->getDirectParentEntities()->count() > 0 ) {
@@ -397,7 +400,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
     public function getInheritedPermissions(PermissionsCollectionInterface $inheritedPerms=null): PermissionsCollectionInterface {
         
         $allParentEntities = $this->getAllParentEntities();
-        $inheritedPermsToReturn = is_null($inheritedPerms) ? GenericPermission::createCollection() : $inheritedPerms;
+        $inheritedPermsToReturn = ($inheritedPerms === null) ? GenericPermission::createCollection() : $inheritedPerms;
         
         foreach ($allParentEntities as $parent_entity) {
             foreach ($parent_entity->getDirectPermissions() as $parent_permission) {
@@ -421,7 +424,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
      */
     public function getAllPermissions(bool $directPermissionsFirst=true, PermissionsCollectionInterface $allPerms=null): PermissionsCollectionInterface {
         
-        $allPermissions = is_null($allPerms)? GenericPermission::createCollection() : $allPerms;
+        $allPermissions = ($allPerms === null)? GenericPermission::createCollection() : $allPerms;
         $directPerms = $this->getDirectPermissions();
         $inheritedPerms = $this->getInheritedPermissions();
         $collection1 = $directPerms;
