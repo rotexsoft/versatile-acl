@@ -445,6 +445,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
             
             $allPermissions->add($item);
         }
+        
         return $allPermissions;
     }
 
