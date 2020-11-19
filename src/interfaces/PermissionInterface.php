@@ -68,7 +68,7 @@ interface PermissionInterface
      *
      * @return string a string value that represents all resources in the system.
      */
-    public static function getAllResoucesIdentifier(): string;
+    public static function getAllResourcesIdentifier(): string;
 
     /**
      * Get the boolean value indicating whether or not an instance of this interface signifies that an action can be performed on a resource.
@@ -117,4 +117,11 @@ interface PermissionInterface
      * @return bool
      */
     public function isEqualTo(PermissionInterface $permission): bool;
+
+    /**
+     * Return string representation of an instance of this interface
+     *
+     * @return string
+     */
+    public function __toString(): string;
 }

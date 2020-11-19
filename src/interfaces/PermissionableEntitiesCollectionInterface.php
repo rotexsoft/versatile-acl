@@ -79,20 +79,20 @@ interface PermissionableEntitiesCollectionInterface extends CollectionInterface 
      * @return bool true if there is another entity `$x` in the current instance where $x->isEqualTo($entity) === true, otherwise return false
      */
     public function hasEntity(PermissionableEntityInterface $entity): bool;
-    
+
     /**
-     * Sort the collection. 
-     * If specified, use the callback to compare items in the collection when sorting or 
+     * Sort the collection.
+     * If specified, use the callback to compare items in the collection when sorting or
      * sort according to some default criteria (up to the implementer of this method to
      * specify what that criteria is).
-     * 
-     * @param callable $comparator has the following signature:
+     *
+     * @param callable|null $comparator has the following signature:
      *                  function( PermissionableEntityInterface $a, PermissionableEntityInterface $b ) : int
-     *                      The comparison function must return an integer less than, 
-     *                      equal to, or greater than zero if the first argument is 
-     *                      considered to be respectively less than, equal to, 
-     *                      or greater than the second. 
-     *                  
+     *                      The comparison function must return an integer less than,
+     *                      equal to, or greater than zero if the first argument is
+     *                      considered to be respectively less than, equal to,
+     *                      or greater than the second.
+     *
      * @return $this
      */
     public function sort(callable $comparator=null): self;

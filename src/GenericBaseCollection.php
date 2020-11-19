@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace SimpleAcl;
 
+use ArrayIterator;
 use SimpleAcl\Interfaces\CollectionInterface;
 use Traversable;
 
@@ -24,7 +25,7 @@ abstract class GenericBaseCollection implements CollectionInterface {
      */
     public function getIterator() {
         
-        return new \ArrayIterator($this->storage);
+        return new ArrayIterator($this->storage);
     }
 
     /**
@@ -74,12 +75,12 @@ abstract class GenericBaseCollection implements CollectionInterface {
         return (int)count($this->storage);
     }   
     
-    public function __toString() {
+    public function __toString(): string {
         
         return $this->dump();
     }
     
-    public function dump(array $propertiesToExcludeFromDump=[]):string {
+    public function dump(array $propertiesToExcludeFromDump=[]): string {
         
         static $propertiesToExcludeFromDumpAcrossAllInstances;
         
@@ -113,20 +114,4 @@ abstract class GenericBaseCollection implements CollectionInterface {
         
         return $objAsStr;
     }
-    
-//    public function dumpForDebugging():string {
-//
-//        $objAsStr = static::class .' ('. spl_object_hash($this) . ')' . PHP_EOL . '{' . PHP_EOL;
-//
-//        foreach ($this->storage as $key => $item) {
-//
-//            $itemStr = method_exists($item, 'dumpForDebugging')? $item->dumpForDebugging() : var_export($item, true);
-//            
-//            $objAsStr .=  "\t"."item[{$key}]: " . str_replace(PHP_EOL, PHP_EOL."\t", $itemStr)  . PHP_EOL;
-//        }
-//        
-//        $objAsStr .= PHP_EOL . "}" . PHP_EOL;
-//        
-//        return $objAsStr;
-//    }
 }

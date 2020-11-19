@@ -179,10 +179,10 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         /////////////////////////////////////////////////////////
         $aPermission = new GenericPermission('action-1', 'resource-1');
         $allActionsOnAllResourcesPermission = new GenericPermission(
-            GenericPermission::getAllActionsIdentifier(), GenericPermission::getAllResoucesIdentifier()
+            GenericPermission::getAllActionsIdentifier(), GenericPermission::getAllResourcesIdentifier()
         );
         $allActionsOnOneResourcePermission = new GenericPermission(GenericPermission::getAllActionsIdentifier(), 'resource-a');
-        $oneActionOnAllResourcesPermission = new GenericPermission('edit', GenericPermission::getAllResoucesIdentifier());
+        $oneActionOnAllResourcesPermission = new GenericPermission('edit', GenericPermission::getAllResourcesIdentifier());
         
         $collectionWithAllActionsOnAllResourcesPermissionAddedLast = new GenericPermissionsCollection(
             $aPermission, $allActionsOnAllResourcesPermission

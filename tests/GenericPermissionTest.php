@@ -141,9 +141,9 @@ class GenericPermissionTest extends \PHPUnit\Framework\TestCase {
         $this->assertSame('*', GenericPermission::getAllActionsIdentifier());
     }
     
-    public function testGetAllResoucesIdentifierWorksAsExcpected() {
+    public function testGetAllResourcesIdentifierWorksAsExcpected() {
         
-        $this->assertSame('*', GenericPermission::getAllResoucesIdentifier());
+        $this->assertSame('*', GenericPermission::getAllResourcesIdentifier());
     }
     
     public function testIsAllowedWorksAsExcpected() {

@@ -130,21 +130,21 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
     }
 
     /**
-     * Sort the collection. 
-     * If specified, use the callback to compare items in the collection when sorting or 
+     * Sort the collection.
+     * If specified, use the callback to compare items in the collection when sorting or
      * sort according to some default criteria (up to the implementer of this method to
      * specify what that criteria is).
-     * 
+     *
      * If $comparator is null, this implementation would sort based on ascending order
-     * of PermissionableEntityInterface::getId() of each entity in the collection. 
-     * 
-     * @param callable $comparator has the following signature:
+     * of PermissionableEntityInterface::getId() of each entity in the collection.
+     *
+     * @param callable|null $comparator has the following signature:
      *                  function( PermissionableEntityInterface $a, PermissionableEntityInterface $b ) : int
-     *                      The comparison function must return an integer less than, 
-     *                      equal to, or greater than zero if the first argument is 
-     *                      considered to be respectively less than, equal to, 
-     *                      or greater than the second. 
-     *                  
+     *                      The comparison function must return an integer less than,
+     *                      equal to, or greater than zero if the first argument is
+     *                      considered to be respectively less than, equal to,
+     *                      or greater than the second.
+     *
      * @return $this
      */
     public function sort(callable $comparator = null): PermissionableEntitiesCollectionInterface {
@@ -170,5 +170,4 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
         
         return $this;
     }
-
 }

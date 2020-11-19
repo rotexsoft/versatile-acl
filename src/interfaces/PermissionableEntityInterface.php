@@ -198,24 +198,24 @@ interface PermissionableEntityInterface {
     public function getDirectPermissions(): PermissionsCollectionInterface;
 
     /**
-     * Get a list (an instance of PermissionsCollectionInterface) of the permissions returned when 
-     * getDirectPermissions() is invoked on each of this instance's parents and their parents, 
+     * Get a list (an instance of PermissionsCollectionInterface) of the permissions returned when
+     * getDirectPermissions() is invoked on each of this instance's parents and their parents,
      * parents' parents and so on.
-     * 
-     * @param PermissionsCollectionInterface $inheritedPerms an optional collection that will contain the inherited permissions.  If null, a new collection that will contain the inherited permissions will automatically be created by this method.
+     *
+     * @param PermissionsCollectionInterface|null $inheritedPerms an optional collection that will contain the inherited permissions.  If null, a new collection that will contain the inherited permissions will automatically be created by this method.
      *
      * @return PermissionsCollectionInterface
      */
     public function getInheritedPermissions(PermissionsCollectionInterface $inheritedPerms=null): PermissionsCollectionInterface;
-    
+
     /**
-     * Get a list (an instance of PermissionsCollectionInterface) of all permissions returned by $this->getDirectPermissions() and $this->getInheritedPermissions() 
-     * 
+     * Get a list (an instance of PermissionsCollectionInterface) of all permissions returned by $this->getDirectPermissions() and $this->getInheritedPermissions()
+     *
      * @param bool $directPermissionsFirst true to place the permissions from $this->getDirectPermissions() in the beginning of the returned collection
      *                                     or false to place the permissions from $this->getInheritedPermissions() in the beginning of the returned collection
-     * 
-     * @param PermissionsCollectionInterface $allPerms an optional collection that all the permissions to be returned will be added to. If null, a new collection that will contain the all permissions will automatically be created by this method.
-     * 
+     *
+     * @param PermissionsCollectionInterface|null $allPerms an optional collection that all the permissions to be returned will be added to. If null, a new collection that will contain the all permissions will automatically be created by this method.
+     *
      * @return \SimpleAcl\Interfaces\PermissionsCollectionInterface
      */
     public function getAllPermissions(bool $directPermissionsFirst=true, PermissionsCollectionInterface $allPerms=null): PermissionsCollectionInterface;
@@ -237,4 +237,11 @@ interface PermissionableEntityInterface {
      * @return $this
      */
     public function removePermissionsThatExist(PermissionsCollectionInterface $perms): self;
+
+    /**
+     * Return string representation of an instance of this interface
+     *
+     * @return string
+     */
+    public function __toString(): string;
 }

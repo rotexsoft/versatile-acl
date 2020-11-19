@@ -2,6 +2,11 @@
 declare(strict_types=1);
 namespace SimpleAcl;
 
+use Closure;
+use Exception;
+use InvalidArgumentException;
+use Throwable;
+
 /**
  * Description of Utils
  *
@@ -13,29 +18,27 @@ class Utils {
      * 
      * @param callable $callable
      * 
-     * @return \Closure
+     * @return Closure
      */
-    public static function getClosureFromCallable(callable $callable): \Closure {
+    public static function getClosureFromCallable(callable $callable): Closure {
 
-        return ($callable instanceof \Closure)? $callable : \Closure::fromCallable($callable);
+        return ($callable instanceof Closure)? $callable : Closure::fromCallable($callable);
     }
 
     /**
      * 
-     * @param \Closure $closure
+     * @param Closure $closure
      * @param object $newthis
      * 
-     * @return \Closure
-     * @throws \InvalidArgumentException
+     * @return Closure
+     * @throws InvalidArgumentException
      */
-    public static function bindObjectAndScopeToClosure(\Closure $closure, object $newthis): \Closure {
+    public static function bindObjectAndScopeToClosure(Closure $closure, object $newthis): Closure {
 
         try {
-            $new_closure = \Closure::bind($closure, $newthis);
+            return Closure::bind($closure, $newthis);
             
-            return $new_closure;
-            
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             
             $function = __FUNCTION__;
             $class = static::class;
@@ -43,18 +46,18 @@ class Utils {
                 . PHP_EOL . PHP_EOL . static::getThrowableAsStr($ex);
 
             // The bind failed
-            throw new \InvalidArgumentException($msg);
+            throw new InvalidArgumentException($msg);
         }
     }
     
     /**
      * 
-     * @param \Throwable $e
+     * @param Throwable $e
      * @param string $eol
      * 
      * @return string
      */
-    public static function getThrowableAsStr(\Throwable $e, string $eol=PHP_EOL): string {
+    public static function getThrowableAsStr(Throwable $e, string $eol=PHP_EOL): string {
 
         $previous_throwable = $e;
         $message = '';
@@ -68,7 +71,7 @@ class Utils {
                 . $eol . "Trace: {$eol}{$previous_throwable->getTraceAsString()}{$eol}{$eol}";
                 
             $previous_throwable = $previous_throwable->getPrevious();
-        } while( $previous_throwable instanceof \Throwable );
+        } while( $previous_throwable instanceof Throwable );
         
         return $message;
     }
@@ -87,9 +90,15 @@ class Utils {
         }
         
         // polyfill
-        if( $array === [] ) { return null; }
+        $firstKey = null; // default for $array === []
 
-        foreach($array as $key => $value) { return $key; }
+        foreach($array as $key => $value) {
+            // an array with at least 1 item
+            $firstKey = $key;
+            break;
+        }
+
+        return $firstKey;
     }
 
     /**

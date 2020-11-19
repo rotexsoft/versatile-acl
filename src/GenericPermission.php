@@ -125,7 +125,7 @@ class GenericPermission implements PermissionInterface {
      *
      * @return string a string value that represents all resources in the system.
      */
-    public static function getAllResoucesIdentifier(): string {
+    public static function getAllResourcesIdentifier(): string {
         
         return '*';
     }
@@ -195,7 +195,7 @@ class GenericPermission implements PermissionInterface {
             && 
             (
                 Utils::strtolower($this->getResource()) === Utils::strtolower($resource)
-                || Utils::strtolower($this->getResource()) === Utils::strtolower(static::getAllResoucesIdentifier())
+                || Utils::strtolower($this->getResource()) === Utils::strtolower(static::getAllResourcesIdentifier())
             )
             && $this->getAllowActionOnResource() === true
             && ( (is_null($additionalAssertions)) ? true : (call_user_func_array($additionalAssertions, $argsForCallback) === true) );
@@ -218,7 +218,7 @@ class GenericPermission implements PermissionInterface {
             && Utils::strtolower($this->getResource()) === Utils::strtolower($permission->getResource());
     }
     
-    public function __toString() {
+    public function __toString(): string {
         
         return $this->dump();
     }
@@ -251,19 +251,4 @@ class GenericPermission implements PermissionInterface {
         
         return $objAsStr;
     }
-    
-//    public function dumpForDebugging():string {
-//        
-//        $objAsStr = static::class .' ('. spl_object_hash($this) . ')' . PHP_EOL . '{' . PHP_EOL;
-//        
-//        $objAsStr .= "\taction: `{$this->action}`" . PHP_EOL;
-//        $objAsStr .= "\tresource: `{$this->resource}`" . PHP_EOL;
-//        $objAsStr .= "\tallowActionOnResource: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->allowActionOnResource, true)) . PHP_EOL;
-//        $objAsStr .= "\tadditionalAssertions: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->additionalAssertions, true)) . PHP_EOL;
-//        $objAsStr .= "\targsForCallback: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->argsForCallback, true)) . PHP_EOL;
-//        
-//        $objAsStr .= PHP_EOL . "}" . PHP_EOL;
-//        
-//        return $objAsStr;
-//    }
 }

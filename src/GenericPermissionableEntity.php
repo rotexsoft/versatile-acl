@@ -115,7 +115,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
  
             // Recursively traverse parents to find the right collection
             // of parents in which the entity is to be updated in and then
-            // update the enity in that collection
+            // update the entity in that collection
             $putParent = function(PermissionableEntitiesCollectionInterface $parents) use ($entity, &$putParent){
                 
                 foreach ($parents as $key => $parent) {
@@ -130,8 +130,6 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
                         $putParent($parent->getDirectParentEntities());
                     }
                 }
-                
-                return;
             };
             
             $putParent($this->parentEntities);
@@ -388,12 +386,12 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
     }
 
     /**
-     * Get a list (an instance of PermissionsCollectionInterface) of the permissions returned when 
-     * getDirectPermissions() is invoked on each of this instance's parents and their parents, 
+     * Get a list (an instance of PermissionsCollectionInterface) of the permissions returned when
+     * getDirectPermissions() is invoked on each of this instance's parents and their parents,
      * parents' parents and so on.
-     * 
-     * @param PermissionsCollectionInterface $inheritedPerms an optional collection that will contain the inherited permissions. If null, a new collection that will contain the inherited permissions will automatically be created by this method.
-     * 
+     *
+     * @param PermissionsCollectionInterface|null $inheritedPerms an optional collection that will contain the inherited permissions. If null, a new collection that will contain the inherited permissions will automatically be created by this method.
+     *
      * @return PermissionsCollectionInterface
      */
     public function getInheritedPermissions(PermissionsCollectionInterface $inheritedPerms=null): PermissionsCollectionInterface {
@@ -412,13 +410,13 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
     }
 
     /**
-     * Get a list (an instance of PermissionsCollectionInterface) of all permissions returned by $this->getDirectPermissions() and $this->getInheritedPermissions() 
-     * 
+     * Get a list (an instance of PermissionsCollectionInterface) of all permissions returned by $this->getDirectPermissions() and $this->getInheritedPermissions()
+     *
      * @param bool $directPermissionsFirst true to place the permissions from $this->getDirectPermissions() in the beginning of the returned collection
      *                                     or false to place the permissions from $this->getInheritedPermissions() in the beginning of the returned collection
-     * 
-     * @param PermissionsCollectionInterface $allPerms an optional collection that all the permissions to be returned will be added to. If null, a new collection that will contain the all permissions will automatically be created by this method.
-     * 
+     *
+     * @param PermissionsCollectionInterface|null $allPerms an optional collection that all the permissions to be returned will be added to. If null, a new collection that will contain the all permissions will automatically be created by this method.
+     *
      * @return \SimpleAcl\Interfaces\PermissionsCollectionInterface
      */
     public function getAllPermissions(bool $directPermissionsFirst=true, PermissionsCollectionInterface $allPerms=null): PermissionsCollectionInterface {
@@ -481,7 +479,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
         return $this;
     }
     
-    public function __toString() {
+    public function __toString(): string {
         
         return $this->dump();
     }
@@ -502,7 +500,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
         
         $propertiesToExcludeFromThisCall = $propertiesToExcludeFromDumpAcrossAllInstances;
 
-        $objAsStr = static::class .' ('. spl_object_hash($this) . ')' . PHP_EOL . '{' . PHP_EOL;
+        $objAsStr = static::class ." (". spl_object_hash($this) . ")" . PHP_EOL . "{" . PHP_EOL;
         
         $objAsStr .= in_array('id', $propertiesToExcludeFromThisCall) ? '' : "\t"."id: `{$this->id}`" . PHP_EOL;
         $objAsStr .= in_array('parentEntities', $propertiesToExcludeFromThisCall) ? '' : "\t"."parentEntities: " . PHP_EOL . "\t\t". str_replace(PHP_EOL, PHP_EOL."\t\t", ''.$this->parentEntities) . PHP_EOL;
@@ -512,17 +510,4 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
         
         return $objAsStr;
     }
-    
-//    public function dumpForDebugging():string {
-//
-//        $objAsStr = static::class .' ('. spl_object_hash($this) . ')' . PHP_EOL . '{' . PHP_EOL;
-//        
-//        $objAsStr .= "\t"."id: `{$this->id}`" . PHP_EOL;
-//        $objAsStr .= "\t"."parentEntities: " . PHP_EOL . "\t\t". str_replace(PHP_EOL, PHP_EOL."\t\t", ''.$this->parentEntities->dumpForDebugging()) . PHP_EOL;
-//        $objAsStr .= "\t"."permissions: " . PHP_EOL . "\t\t". str_replace(PHP_EOL, PHP_EOL."\t\t", ''.$this->permissions->dumpForDebugging()) . PHP_EOL;
-//        
-//        $objAsStr .= PHP_EOL . "}" . PHP_EOL;
-//        
-//        return $objAsStr;
-//    }
 }

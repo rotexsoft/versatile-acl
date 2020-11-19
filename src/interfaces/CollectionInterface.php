@@ -3,7 +3,10 @@ declare(strict_types=1);
 
 namespace SimpleAcl\Interfaces;
 
-interface CollectionInterface extends \Countable, \IteratorAggregate {
+use Countable;
+use IteratorAggregate;
+
+interface CollectionInterface extends Countable, IteratorAggregate {
     
     /**
      * Remove an item with the specified key from the collection if it exists and return the removed item or null if it doesn't exist.
@@ -22,4 +25,11 @@ interface CollectionInterface extends \Countable, \IteratorAggregate {
      * @return bool
      */
     public function keyExists($key): bool;
+
+    /**
+     * Return string representation of an instance of this interface
+     *
+     * @return string
+     */
+    public function __toString(): string;
 }

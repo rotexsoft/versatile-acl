@@ -11,7 +11,7 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
     /**
      * Constructor.
      * 
-     * @param mixed ...$items zero or more instances of PermissionInterface to be added to this collection
+     * @param mixed ...$permissions zero or more instances of PermissionInterface to be added to this collection
      *
      */
     public function __construct(PermissionInterface ...$permissions) {
@@ -25,7 +25,7 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * `$perm` is present in the current instance if there is another permission `$x`
      * in the current instance where $x->isEqualTo($perm) === true.
      *
-     * @param PermissionInterface $perm
+     * @param PermissionInterface $permission
      * 
      * @return bool true if there is another permission `$x` in the current instance where $x->isEqualTo($perm) === true, otherwise return false
      */
@@ -61,7 +61,8 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
     public function isAllowed(string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool {
         
         foreach ($this->storage as $permission) {
-            
+
+            /** @var PermissionInterface $permissionClass */
             $permissionClass = get_class($permission); // for late static binding
             
             if(
@@ -74,7 +75,7 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
                 (
                     Utils::strtolower($permission->getResource()) === Utils::strtolower($resource)
                     ||
-                    Utils::strtolower($permission->getResource()) === Utils::strtolower($permissionClass::getAllResoucesIdentifier())
+                    Utils::strtolower($permission->getResource()) === Utils::strtolower($permissionClass::getAllResourcesIdentifier())
                 )
                 
             ) {
@@ -172,26 +173,26 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
         
         return array_key_exists($key, $this->storage) ? $this->storage[$key] : null;
     }
-    
+
     /**
-     * Sort the collection. 
-     * If specified, use the callback to compare items in the collection when sorting or 
+     * Sort the collection.
+     * If specified, use the callback to compare items in the collection when sorting or
      * sort according to some default criteria (up to the implementer of this method to
      * specify what that criteria is).
-     * 
+     *
      * If $comparator is null, this implementation would sort based on ascending order
-     * of PermissionInterface::getResource() followed by  
+     * of PermissionInterface::getResource() followed by
      * PermissionInterface::getAction() and followed by
      * PermissionInterface::getAllowActionOnResource()
-     * of each permission in the collection. 
-     * 
-     * @param callable $comparator has the following signature:
+     * of each permission in the collection.
+     *
+     * @param callable|null $comparator has the following signature:
      *                  function( PermissionInterface $a, PermissionInterface $b ) : int
-     *                      The comparison function must return an integer less than, 
-     *                      equal to, or greater than zero if the first argument is 
-     *                      considered to be respectively less than, equal to, 
-     *                      or greater than the second. 
-     *                  
+     *                      The comparison function must return an integer less than,
+     *                      equal to, or greater than zero if the first argument is
+     *                      considered to be respectively less than, equal to,
+     *                      or greater than the second.
+     *
      * @return $this
      */
     public function sort(callable $comparator = null): PermissionsCollectionInterface {
@@ -231,5 +232,4 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
         
         return $this;
     }
-
 }

@@ -146,7 +146,7 @@ The code below illustrates how to create these special permissions:
 // application are technically super users or super groups
 $allActionsOnAllResourcesPermissionGranted = new GenericPermission(
     GenericPermission::getAllActionsIdentifier(),
-    GenericPermission::getAllResoucesIdentifier(),
+    GenericPermission::getAllResourcesIdentifier(),
     true
 );
 
@@ -162,12 +162,12 @@ $allActionsOnSpecifiedResourcePermissionGranted = new GenericPermission(
 // (`specified-action`) on all resources defined in the application
 $specifiedActionOnAllResourcesPermissionGranted = new GenericPermission(
     'specified-action',
-    GenericPermission::getAllResoucesIdentifier(),
+    GenericPermission::getAllResourcesIdentifier(),
     true
 );
 ```
 
-> **NOTE:** You could write your own sub-class of **\SimpleAcl\GenericPermission** and then override the **getAllActionsIdentifier()** and **getAllResoucesIdentifier()** in order to define custom identifiers for your own application if the wildcard `*` string returned by these methods by default are not suitable for your application.
+> **NOTE:** You could write your own sub-class of **\SimpleAcl\GenericPermission** and then override the **getAllActionsIdentifier()** and **getAllResourcesIdentifier()** in order to define custom identifiers for your own application if the wildcard `*` string returned by these methods by default are not suitable for your application.
 
 ## Adding Permissions to Entities
 
@@ -469,7 +469,7 @@ $superuser_entity = new GenericPermissionableEntity('superuser');
 $superuser_entity->addPermission(
     new GenericPermission(
         GenericPermission::getAllActionsIdentifier(), // all actions
-        GenericPermission::getAllResoucesIdentifier() // all resources
+        GenericPermission::getAllResourcesIdentifier() // all resources
     )
 );
 
