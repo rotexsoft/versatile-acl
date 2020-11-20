@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpFullyQualifiedNameUsageInspection */
 declare(strict_types=1);
 
 use \SimpleAcl\Interfaces\PermissionsCollectionInterface;
@@ -17,9 +18,9 @@ class GenericPermissionTest extends \PHPUnit\Framework\TestCase {
         parent::setUp();
     }
     
-    public function testConstructorWorksAsExcpected() {
+    public function testConstructorWorksAsExpected() {
 
-        $calbackThreeArgs = function(bool $returnVal, bool $returnVal2, bool $returnVal3) { 
+        $callbackThreeArgs = function(bool $returnVal, bool $returnVal2, bool $returnVal3) { 
             
             return $returnVal && $returnVal2 && $returnVal3; 
         };
@@ -56,7 +57,7 @@ class GenericPermissionTest extends \PHPUnit\Framework\TestCase {
         // all args set
         //////////////////
         //////////////////
-        $permission2 = new class('action-b', 'resource-b', false, $calbackThreeArgs, ...[true, false, true]) extends GenericPermission { 
+        $permission2 = new class('action-b', 'resource-b', false, $callbackThreeArgs, ...[true, false, true]) extends GenericPermission { 
             
             public function getAdditionalAssertions() {
                 
@@ -73,11 +74,11 @@ class GenericPermissionTest extends \PHPUnit\Framework\TestCase {
         $this->assertSame('action-b', $permission2->getAction());
         $this->assertSame('resource-b', $permission2->getResource());
         $this->assertSame(false, $permission2->getAllowActionOnResource());
-        $this->assertSame($calbackThreeArgs, $permission2->getAdditionalAssertions());
+        $this->assertSame($callbackThreeArgs, $permission2->getAdditionalAssertions());
         $this->assertSame([true, false, true], $permission2->getArgsForCallback());
     }
     
-    public function testCreateCollectionWorksAsExcpected() {
+    public function testCreateCollectionWorksAsExpected() {
         
         $this->assertInstanceOf(GenericPermissionsCollection::class, GenericPermission::createCollection());
         $this->assertInstanceOf(PermissionsCollectionInterface::class, GenericPermission::createCollection());
@@ -106,19 +107,19 @@ class GenericPermissionTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($perms->hasPermission($perm3));
     }
     
-    public function testGetActionWorksAsExcpected() {
+    public function testGetActionWorksAsExpected() {
         
         $permission = new GenericPermission('action-d', 'resource-d');
         $this->assertSame('action-d', $permission->getAction());
     }
     
-    public function testGetResourceWorksAsExcpected() {
+    public function testGetResourceWorksAsExpected() {
         
         $permission = new GenericPermission('action-d', 'resource-d');
         $this->assertSame('resource-d', $permission->getResource());
     }
     
-    public function testGetAllowActionOnResourceWorksAsExcpected() {
+    public function testGetAllowActionOnResourceWorksAsExpected() {
         
         $permission = new GenericPermission('action-a', 'resource-a');
         $this->assertSame(true, $permission->getAllowActionOnResource());
@@ -127,7 +128,7 @@ class GenericPermissionTest extends \PHPUnit\Framework\TestCase {
         $this->assertSame(false, $permission2->getAllowActionOnResource());
     }
     
-    public function testSetAllowActionOnResourceWorksAsExcpected() {
+    public function testSetAllowActionOnResourceWorksAsExpected() {
         
         $permission = new GenericPermission('action-a', 'resource-a');
         $this->assertSame(true, $permission->getAllowActionOnResource());
@@ -136,32 +137,32 @@ class GenericPermissionTest extends \PHPUnit\Framework\TestCase {
         $this->assertSame(false, $permission->getAllowActionOnResource());
     }
     
-    public function testGetAllActionsIdentifierWorksAsExcpected() {
+    public function testGetAllActionsIdentifierWorksAsExpected() {
         
         $this->assertSame('*', GenericPermission::getAllActionsIdentifier());
     }
     
-    public function testGetAllResourcesIdentifierWorksAsExcpected() {
+    public function testGetAllResourcesIdentifierWorksAsExpected() {
         
         $this->assertSame('*', GenericPermission::getAllResourcesIdentifier());
     }
     
-    public function testIsAllowedWorksAsExcpected() {
+    public function testIsAllowedWorksAsExpected() {
         
-        $calbackFalseNoArg = function() { return false; };
-        $calbackTrueNoArg = function() { return true; };
-        $calbackThreeArgs = function(bool $returnVal, bool $returnVal2, bool $returnVal3) { 
+        $callbackFalseNoArg = function() { return false; };
+        $callbackTrueNoArg = function() { return true; };
+        $callbackThreeArgs = function(bool $returnVal, bool $returnVal2, bool $returnVal3) { 
             
             return $returnVal && $returnVal2 && $returnVal3; 
         };
         
         $permissionNotAllowedNoCallback = new GenericPermission('action-d', 'resource-d', false);
-        $permissionNotAllowedByArglessCallback = new GenericPermission('action-e', 'resource-e', true, $calbackFalseNoArg);
-        $permissionNotAllowedByThreeArgedCallback = new GenericPermission('action-f', 'resource-f', true, $calbackThreeArgs, true, true, false);
+        $permissionNotAllowedByArglessCallback = new GenericPermission('action-e', 'resource-e', true, $callbackFalseNoArg);
+        $permissionNotAllowedByThreeArgedCallback = new GenericPermission('action-f', 'resource-f', true, $callbackThreeArgs, true, true, false);
         
         $permissionAllowedNoCallback = new GenericPermission('action-g', 'resource-g', true);
-        $permissionAllowedByArglessCallback = new GenericPermission('action-h', 'resource-h', true, $calbackTrueNoArg);
-        $permissionAllowedByThreeArgedCallback = new GenericPermission('action-i', 'resource-i', true, $calbackThreeArgs, true, true, true);
+        $permissionAllowedByArglessCallback = new GenericPermission('action-h', 'resource-h', true, $callbackTrueNoArg);
+        $permissionAllowedByThreeArgedCallback = new GenericPermission('action-i', 'resource-i', true, $callbackThreeArgs, true, true, true);
         
         ////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////
@@ -197,37 +198,37 @@ class GenericPermissionTest extends \PHPUnit\Framework\TestCase {
         ////////////////////////////////////////////////////////////////////////////////
         
         // no default callback and args from constructor
-        $this->assertTrue($permissionAllowedNoCallback->isAllowed('action-g', 'resource-g', $calbackTrueNoArg));
-        $this->assertFalse($permissionAllowedNoCallback->isAllowed('action-z', 'resource-z', $calbackTrueNoArg)); // different action and resource
-        $this->assertFalse($permissionAllowedNoCallback->isAllowed('action-g', 'resource-g', $calbackFalseNoArg)); // falsy argless callback causes false return
-        $this->assertFalse($permissionAllowedNoCallback->isAllowed('action-z', 'resource-z', $calbackFalseNoArg)); // different action and resource
+        $this->assertTrue($permissionAllowedNoCallback->isAllowed('action-g', 'resource-g', $callbackTrueNoArg));
+        $this->assertFalse($permissionAllowedNoCallback->isAllowed('action-z', 'resource-z', $callbackTrueNoArg)); // different action and resource
+        $this->assertFalse($permissionAllowedNoCallback->isAllowed('action-g', 'resource-g', $callbackFalseNoArg)); // falsy argless callback causes false return
+        $this->assertFalse($permissionAllowedNoCallback->isAllowed('action-z', 'resource-z', $callbackFalseNoArg)); // different action and resource
         
-        $this->assertFalse($permissionNotAllowedNoCallback->isAllowed('action-d', 'resource-d', $calbackTrueNoArg));
-        $this->assertFalse($permissionNotAllowedNoCallback->isAllowed('action-z', 'resource-z', $calbackTrueNoArg)); // different action and resource
-        $this->assertFalse($permissionNotAllowedNoCallback->isAllowed('action-d', 'resource-d', $calbackFalseNoArg));
-        $this->assertFalse($permissionNotAllowedNoCallback->isAllowed('action-z', 'resource-z', $calbackFalseNoArg)); // different action and resource
+        $this->assertFalse($permissionNotAllowedNoCallback->isAllowed('action-d', 'resource-d', $callbackTrueNoArg));
+        $this->assertFalse($permissionNotAllowedNoCallback->isAllowed('action-z', 'resource-z', $callbackTrueNoArg)); // different action and resource
+        $this->assertFalse($permissionNotAllowedNoCallback->isAllowed('action-d', 'resource-d', $callbackFalseNoArg));
+        $this->assertFalse($permissionNotAllowedNoCallback->isAllowed('action-z', 'resource-z', $callbackFalseNoArg)); // different action and resource
         
-        // default argless callback from constructor overriden by argless callback
-        $this->assertTrue($permissionAllowedByArglessCallback->isAllowed('action-h', 'resource-h', $calbackTrueNoArg));
-        $this->assertFalse($permissionAllowedByArglessCallback->isAllowed('action-z', 'resource-z', $calbackTrueNoArg)); // different action and resource
-        $this->assertFalse($permissionAllowedByArglessCallback->isAllowed('action-h', 'resource-h', $calbackFalseNoArg)); // falsy argless callback overrides truthy argless default callback
-        $this->assertFalse($permissionAllowedByArglessCallback->isAllowed('action-z', 'resource-z', $calbackFalseNoArg)); // different action and resource
+        // default argless callback from constructor overridden by argless callback
+        $this->assertTrue($permissionAllowedByArglessCallback->isAllowed('action-h', 'resource-h', $callbackTrueNoArg));
+        $this->assertFalse($permissionAllowedByArglessCallback->isAllowed('action-z', 'resource-z', $callbackTrueNoArg)); // different action and resource
+        $this->assertFalse($permissionAllowedByArglessCallback->isAllowed('action-h', 'resource-h', $callbackFalseNoArg)); // falsy argless callback overrides truthy argless default callback
+        $this->assertFalse($permissionAllowedByArglessCallback->isAllowed('action-z', 'resource-z', $callbackFalseNoArg)); // different action and resource
         
-        $this->assertTrue($permissionNotAllowedByArglessCallback->isAllowed('action-e', 'resource-e', $calbackTrueNoArg)); // truthy argless callback overrides default falsy argless callback
-        $this->assertFalse($permissionNotAllowedByArglessCallback->isAllowed('action-z', 'resource-z', $calbackTrueNoArg)); // different action and resource
-        $this->assertFalse($permissionNotAllowedByArglessCallback->isAllowed('action-e', 'resource-e', $calbackFalseNoArg)); // falsy argless callback overrides default falsy argless callback
-        $this->assertFalse($permissionNotAllowedByArglessCallback->isAllowed('action-z', 'resource-z', $calbackFalseNoArg)); // different action and resource
+        $this->assertTrue($permissionNotAllowedByArglessCallback->isAllowed('action-e', 'resource-e', $callbackTrueNoArg)); // truthy argless callback overrides default falsy argless callback
+        $this->assertFalse($permissionNotAllowedByArglessCallback->isAllowed('action-z', 'resource-z', $callbackTrueNoArg)); // different action and resource
+        $this->assertFalse($permissionNotAllowedByArglessCallback->isAllowed('action-e', 'resource-e', $callbackFalseNoArg)); // falsy argless callback overrides default falsy argless callback
+        $this->assertFalse($permissionNotAllowedByArglessCallback->isAllowed('action-z', 'resource-z', $callbackFalseNoArg)); // different action and resource
         
-        // default 3 arged callback from constructor overriden by argless callback
-        $this->assertTrue($permissionAllowedByThreeArgedCallback->isAllowed('action-i', 'resource-i', $calbackTrueNoArg));
-        $this->assertFalse($permissionAllowedByThreeArgedCallback->isAllowed('action-z', 'resource-z', $calbackTrueNoArg)); // different action and resource
-        $this->assertFalse($permissionAllowedByThreeArgedCallback->isAllowed('action-i', 'resource-i', $calbackFalseNoArg)); // falsy argless callback overrides default 3 arged truthy callback
-        $this->assertFalse($permissionAllowedByThreeArgedCallback->isAllowed('action-z', 'resource-z', $calbackFalseNoArg)); // different action and resource
+        // default 3 arged callback from constructor overridden by argless callback
+        $this->assertTrue($permissionAllowedByThreeArgedCallback->isAllowed('action-i', 'resource-i', $callbackTrueNoArg));
+        $this->assertFalse($permissionAllowedByThreeArgedCallback->isAllowed('action-z', 'resource-z', $callbackTrueNoArg)); // different action and resource
+        $this->assertFalse($permissionAllowedByThreeArgedCallback->isAllowed('action-i', 'resource-i', $callbackFalseNoArg)); // falsy argless callback overrides default 3 arged truthy callback
+        $this->assertFalse($permissionAllowedByThreeArgedCallback->isAllowed('action-z', 'resource-z', $callbackFalseNoArg)); // different action and resource
         
-        $this->assertTrue($permissionNotAllowedByThreeArgedCallback->isAllowed('action-f', 'resource-f', $calbackTrueNoArg)); // truthy argless callback overrides default 3 arged falsy callback
-        $this->assertFalse($permissionNotAllowedByThreeArgedCallback->isAllowed('action-z', 'resource-z', $calbackTrueNoArg)); // different action and resource
-        $this->assertFalse($permissionNotAllowedByThreeArgedCallback->isAllowed('action-f', 'resource-f', $calbackFalseNoArg)); // falsy argless callback overrides default 3 arged falsy callback
-        $this->assertFalse($permissionNotAllowedByThreeArgedCallback->isAllowed('action-z', 'resource-z', $calbackFalseNoArg)); // different action and resource
+        $this->assertTrue($permissionNotAllowedByThreeArgedCallback->isAllowed('action-f', 'resource-f', $callbackTrueNoArg)); // truthy argless callback overrides default 3 arged falsy callback
+        $this->assertFalse($permissionNotAllowedByThreeArgedCallback->isAllowed('action-z', 'resource-z', $callbackTrueNoArg)); // different action and resource
+        $this->assertFalse($permissionNotAllowedByThreeArgedCallback->isAllowed('action-f', 'resource-f', $callbackFalseNoArg)); // falsy argless callback overrides default 3 arged falsy callback
+        $this->assertFalse($permissionNotAllowedByThreeArgedCallback->isAllowed('action-z', 'resource-z', $callbackFalseNoArg)); // different action and resource
         
         ////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////
@@ -236,34 +237,34 @@ class GenericPermissionTest extends \PHPUnit\Framework\TestCase {
         ////////////////////////////////////////////////////////////////////////////////
         
         // no default callback and args from constructor
-        $this->assertTrue($permissionAllowedNoCallback->isAllowed('action-g', 'resource-g', $calbackThreeArgs, true, true, true)); // truthy 3 arged callback specified
-        $this->assertFalse($permissionAllowedNoCallback->isAllowed('action-g', 'resource-g', $calbackThreeArgs, true, true, false)); // falsy 3 arged callback specified
-        $this->assertFalse($permissionAllowedNoCallback->isAllowed('action-z', 'resource-z', $calbackThreeArgs, true, true, true)); // different action and resource
+        $this->assertTrue($permissionAllowedNoCallback->isAllowed('action-g', 'resource-g', $callbackThreeArgs, true, true, true)); // truthy 3 arged callback specified
+        $this->assertFalse($permissionAllowedNoCallback->isAllowed('action-g', 'resource-g', $callbackThreeArgs, true, true, false)); // falsy 3 arged callback specified
+        $this->assertFalse($permissionAllowedNoCallback->isAllowed('action-z', 'resource-z', $callbackThreeArgs, true, true, true)); // different action and resource
         
-        $this->assertFalse($permissionNotAllowedNoCallback->isAllowed('action-d', 'resource-d', $calbackThreeArgs, true, true, true)); // truthy 3 arged callback specified
-        $this->assertFalse($permissionNotAllowedNoCallback->isAllowed('action-d', 'resource-d', $calbackThreeArgs, true, true, false)); // falsy 3 arged callback specified
-        $this->assertFalse($permissionNotAllowedNoCallback->isAllowed('action-z', 'resource-z', $calbackThreeArgs, true, true, true)); // different action and resource
+        $this->assertFalse($permissionNotAllowedNoCallback->isAllowed('action-d', 'resource-d', $callbackThreeArgs, true, true, true)); // truthy 3 arged callback specified
+        $this->assertFalse($permissionNotAllowedNoCallback->isAllowed('action-d', 'resource-d', $callbackThreeArgs, true, true, false)); // falsy 3 arged callback specified
+        $this->assertFalse($permissionNotAllowedNoCallback->isAllowed('action-z', 'resource-z', $callbackThreeArgs, true, true, true)); // different action and resource
         
-        // default argless callback from constructor overriden by specified 3 arged callback with 3 args 
-        $this->assertTrue($permissionAllowedByArglessCallback->isAllowed('action-h', 'resource-h', $calbackThreeArgs, true, true, true)); // truthy 3 arged callback specified overrides default truthy argless callback
-        $this->assertFalse($permissionAllowedByArglessCallback->isAllowed('action-h', 'resource-h', $calbackThreeArgs, true, true, false)); // falsy 3 arged callback specified overrides default truthy argless callback
-        $this->assertFalse($permissionAllowedByArglessCallback->isAllowed('action-z', 'resource-z', $calbackThreeArgs, true, true, true)); // different action and resource
+        // default argless callback from constructor overridden by specified 3 arged callback with 3 args 
+        $this->assertTrue($permissionAllowedByArglessCallback->isAllowed('action-h', 'resource-h', $callbackThreeArgs, true, true, true)); // truthy 3 arged callback specified overrides default truthy argless callback
+        $this->assertFalse($permissionAllowedByArglessCallback->isAllowed('action-h', 'resource-h', $callbackThreeArgs, true, true, false)); // falsy 3 arged callback specified overrides default truthy argless callback
+        $this->assertFalse($permissionAllowedByArglessCallback->isAllowed('action-z', 'resource-z', $callbackThreeArgs, true, true, true)); // different action and resource
         
-        $this->assertTrue($permissionNotAllowedByArglessCallback->isAllowed('action-e', 'resource-e', $calbackThreeArgs, true, true, true)); // truthy 3 arged callback specified overrides default falsy argless callback
-        $this->assertFalse($permissionNotAllowedByArglessCallback->isAllowed('action-e', 'resource-e', $calbackThreeArgs, true, true, false)); // falsy 3 arged callback specified overrides default falsy argless callback
-        $this->assertFalse($permissionNotAllowedByArglessCallback->isAllowed('action-z', 'resource-z', $calbackThreeArgs, true, true, true)); // different action and resource
+        $this->assertTrue($permissionNotAllowedByArglessCallback->isAllowed('action-e', 'resource-e', $callbackThreeArgs, true, true, true)); // truthy 3 arged callback specified overrides default falsy argless callback
+        $this->assertFalse($permissionNotAllowedByArglessCallback->isAllowed('action-e', 'resource-e', $callbackThreeArgs, true, true, false)); // falsy 3 arged callback specified overrides default falsy argless callback
+        $this->assertFalse($permissionNotAllowedByArglessCallback->isAllowed('action-z', 'resource-z', $callbackThreeArgs, true, true, true)); // different action and resource
         
-        // default 3 arged callback from constructor overriden by specified 3 arged callback with 3 args 
-        $this->assertTrue($permissionAllowedByThreeArgedCallback->isAllowed('action-i', 'resource-i', $calbackThreeArgs, true, true, true)); // truthy 3 arged callback specified
-        $this->assertFalse($permissionAllowedByThreeArgedCallback->isAllowed('action-i', 'resource-i', $calbackThreeArgs, true, true, false)); // falsy 3 arged callback specified
-        $this->assertFalse($permissionAllowedByThreeArgedCallback->isAllowed('action-z', 'resource-z', $calbackTrueNoArg)); // different action and resource
+        // default 3 arged callback from constructor overridden by specified 3 arged callback with 3 args 
+        $this->assertTrue($permissionAllowedByThreeArgedCallback->isAllowed('action-i', 'resource-i', $callbackThreeArgs, true, true, true)); // truthy 3 arged callback specified
+        $this->assertFalse($permissionAllowedByThreeArgedCallback->isAllowed('action-i', 'resource-i', $callbackThreeArgs, true, true, false)); // falsy 3 arged callback specified
+        $this->assertFalse($permissionAllowedByThreeArgedCallback->isAllowed('action-z', 'resource-z', $callbackTrueNoArg)); // different action and resource
         
-        $this->assertTrue($permissionNotAllowedByThreeArgedCallback->isAllowed('action-f', 'resource-f', $calbackThreeArgs, true, true, true)); // truthy 3 arged callback specified
-        $this->assertFalse($permissionNotAllowedByThreeArgedCallback->isAllowed('action-f', 'resource-f', $calbackThreeArgs, true, true, false)); // falsy 3 arged callback specified
-        $this->assertFalse($permissionNotAllowedByThreeArgedCallback->isAllowed('action-z', 'resource-z', $calbackTrueNoArg)); // different action and resource
+        $this->assertTrue($permissionNotAllowedByThreeArgedCallback->isAllowed('action-f', 'resource-f', $callbackThreeArgs, true, true, true)); // truthy 3 arged callback specified
+        $this->assertFalse($permissionNotAllowedByThreeArgedCallback->isAllowed('action-f', 'resource-f', $callbackThreeArgs, true, true, false)); // falsy 3 arged callback specified
+        $this->assertFalse($permissionNotAllowedByThreeArgedCallback->isAllowed('action-z', 'resource-z', $callbackTrueNoArg)); // different action and resource
     }
     
-    public function testIsEqualToWorksAsExcpected() {
+    public function testIsEqualToWorksAsExpected() {
         
         $permissionOther = new GenericPermission('action-a', 'resource-a', true);
         $permissionOther2 = new GenericPermission('action-d', 'resource-a', true);
@@ -289,27 +290,28 @@ class GenericPermissionTest extends \PHPUnit\Framework\TestCase {
         $this->assertFalse($permissionOther3->isEqualTo($permissionNotAllowed)); // different action and same resource
     }
     
-    public function testDumpWorksAsExcpected() {
+    public function testDumpWorksAsExpected() {
         
-        $calbackNoArg = function() { return true; };
-        $calbackOneArg = function(bool $returnVal) { return $returnVal; };
-        $calbackThreeArgs = function(bool $returnVal, bool $returnVal2, bool $returnVal3) { 
+        $callbackNoArg = function() { return true; };
+        $callbackOneArg = function(bool $returnVal) { return $returnVal; };
+        $callbackThreeArgs = function(bool $returnVal, bool $returnVal2, bool $returnVal3) { 
             
             return $returnVal && $returnVal2 && $returnVal3; 
         };
-        
+
+        /** @noinspection SpellCheckingInspection */
         $permissionAllDefaults = new GenericPermission('Action-a', 'resouRce-a');
         
         $permissionTruthyRestDefault = new GenericPermission('action-a', 'resource-a', true);
         $permissionFalsyRestDefault = new GenericPermission('action-a', 'resource-a', false);
         
-        $permissionTruthyAndArglessCallbackRestDefault = new GenericPermission('action-a', 'resource-a', true, $calbackNoArg);
+        $permissionTruthyAndArglessCallbackRestDefault = new GenericPermission('action-a', 'resource-a', true, $callbackNoArg);
         
-        $permissionTruthyAndOneArgedFalsyCallback = new GenericPermission('action-a', 'resource-a', true, $calbackOneArg, false);
-        $permissionTruthyAndOneArgedTruthyCallback = new GenericPermission('action-a', 'resource-a', true, $calbackOneArg, true);
+        $permissionTruthyAndOneArgedFalsyCallback = new GenericPermission('action-a', 'resource-a', true, $callbackOneArg, false);
+        $permissionTruthyAndOneArgedTruthyCallback = new GenericPermission('action-a', 'resource-a', true, $callbackOneArg, true);
         
-        $permissionTruthyAndThreeArgedFalsyCallback = new GenericPermission('action-a', 'resource-a', true, $calbackThreeArgs, false, true, true);
-        $permissionTruthyAndThreeArgedTruthyCallback = new GenericPermission('action-a', 'resource-a', true, $calbackThreeArgs, true, true, true);
+        $permissionTruthyAndThreeArgedFalsyCallback = new GenericPermission('action-a', 'resource-a', true, $callbackThreeArgs, false, true, true);
+        $permissionTruthyAndThreeArgedTruthyCallback = new GenericPermission('action-a', 'resource-a', true, $callbackThreeArgs, true, true, true);
         
         //$permissionAllDefaults->dump(); // should generate output below (000000007e431f63000000003db97236 will be different though)
 /**        
@@ -599,27 +601,28 @@ SimpleAcl\GenericPermission (0000000030c2abd70000000053ea6caf)
         $this->assertStringContainsString("\t)", $haystack);
     }
     
-    public function test__toStringWorksAsExcpected() {
+    public function test__toStringWorksAsExpected() {
         
-        $calbackNoArg = function() { return true; };
-        $calbackOneArg = function(bool $returnVal) { return $returnVal; };
-        $calbackThreeArgs = function(bool $returnVal, bool $returnVal2, bool $returnVal3) { 
+        $callbackNoArg = function() { return true; };
+        $callbackOneArg = function(bool $returnVal) { return $returnVal; };
+        $callbackThreeArgs = function(bool $returnVal, bool $returnVal2, bool $returnVal3) { 
             
             return $returnVal && $returnVal2 && $returnVal3; 
         };
-        
+
+        /** @noinspection SpellCheckingInspection */
         $permissionAllDefaults = new GenericPermission('Action-a', 'resouRce-a');
         
         $permissionTruthyRestDefault = new GenericPermission('action-a', 'resource-a', true);
         $permissionFalsyRestDefault = new GenericPermission('action-a', 'resource-a', false);
         
-        $permissionTruthyAndArglessCallbackRestDefault = new GenericPermission('action-a', 'resource-a', true, $calbackNoArg);
+        $permissionTruthyAndArglessCallbackRestDefault = new GenericPermission('action-a', 'resource-a', true, $callbackNoArg);
         
-        $permissionTruthyAndOneArgedFalsyCallback = new GenericPermission('action-a', 'resource-a', true, $calbackOneArg, false);
-        $permissionTruthyAndOneArgedTruthyCallback = new GenericPermission('action-a', 'resource-a', true, $calbackOneArg, true);
+        $permissionTruthyAndOneArgedFalsyCallback = new GenericPermission('action-a', 'resource-a', true, $callbackOneArg, false);
+        $permissionTruthyAndOneArgedTruthyCallback = new GenericPermission('action-a', 'resource-a', true, $callbackOneArg, true);
         
-        $permissionTruthyAndThreeArgedFalsyCallback = new GenericPermission('action-a', 'resource-a', true, $calbackThreeArgs, false, true, true);
-        $permissionTruthyAndThreeArgedTruthyCallback = new GenericPermission('action-a', 'resource-a', true, $calbackThreeArgs, true, true, true);
+        $permissionTruthyAndThreeArgedFalsyCallback = new GenericPermission('action-a', 'resource-a', true, $callbackThreeArgs, false, true, true);
+        $permissionTruthyAndThreeArgedTruthyCallback = new GenericPermission('action-a', 'resource-a', true, $callbackThreeArgs, true, true, true);
         
         //$permissionAllDefaults->__toString(); // should generate output below (000000007e431f63000000003db97236 will be different though)
 /**        

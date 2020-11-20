@@ -1,7 +1,7 @@
-<?php
+<?php /** @noinspection PhpUnusedLocalVariableInspection */
+/** @noinspection PhpFullyQualifiedNameUsageInspection */
 declare(strict_types=1);
 
-use \SimpleAcl\Interfaces\PermissionsCollectionInterface;
 use \SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface;
 
 use \SimpleAcl\GenericPermission;
@@ -24,8 +24,9 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         
         parent::setUp();
     }
-    
-    public function testConstructorWorksAsExcpected() {
+
+    /** @noinspection PhpUnhandledExceptionInspection */
+    public function testConstructorWorksAsExpected() {
     
         $entity = new GenericPermissionableEntity("C");
         
@@ -57,55 +58,55 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->assertSame($parentEntities, $entityWithInjectedCollections->getDirectParentEntities());
     }
     
-    public function testConstructorWorksAsExcpected1() {
+    public function testConstructorWorksAsExpected1() {
      
         $this->expectException(EmptyEntityIdException::class);
         $entity = new GenericPermissionableEntity("\t"); // throws exception
     }
     
-    public function testConstructorWorksAsExcpected2() {
+    public function testConstructorWorksAsExpected2() {
      
         $this->expectException(EmptyEntityIdException::class);
         $entity = new GenericPermissionableEntity("\n"); // throws exception
     }
     
-    public function testConstructorWorksAsExcpected3() {
+    public function testConstructorWorksAsExpected3() {
      
         $this->expectException(EmptyEntityIdException::class);
         $entity = new GenericPermissionableEntity("\r"); // throws exception
     }
     
-    public function testConstructorWorksAsExcpected4() {
+    public function testConstructorWorksAsExpected4() {
      
         $this->expectException(EmptyEntityIdException::class);
         $entity = new GenericPermissionableEntity("\0"); // throws exception
     }
     
-    public function testConstructorWorksAsExcpected5() {
+    public function testConstructorWorksAsExpected5() {
      
         $this->expectException(EmptyEntityIdException::class);
         $entity = new GenericPermissionableEntity("\x0B"); // throws exception
     }
     
-    public function testConstructorWorksAsExcpected6() {
+    public function testConstructorWorksAsExpected6() {
      
         $this->expectException(EmptyEntityIdException::class);
         $entity = new GenericPermissionableEntity(" "); // throws exception
     }
     
-    public function testConstructorWorksAsExcpected7() {
+    public function testConstructorWorksAsExpected7() {
      
         $this->expectException(EmptyEntityIdException::class);
         $entity = new GenericPermissionableEntity(" \t\n\r\0\x0B"); // throws exception
     }
     
-    public function testConstructorWorksAsExcpected8() {
+    public function testConstructorWorksAsExpected8() {
      
         $this->expectException(EmptyEntityIdException::class);
         $entity = new GenericPermissionableEntity(''); // throws exception
     }
     
-    public function testCreateCollectionWorksAsExcpected() {
+    public function testCreateCollectionWorksAsExpected() {
         
         $this->assertInstanceOf(GenericPermissionableEntitiesCollection::class, GenericPermissionableEntity::createCollection());
         $this->assertInstanceOf(PermissionableEntitiesCollectionInterface::class, GenericPermissionableEntity::createCollection());
@@ -133,8 +134,9 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($entities->hasEntity($e2));
         $this->assertTrue($entities->hasEntity($e3));
     }
-    
-    public function testAddParentEntityWorksAsExcpected() {
+
+    /** @noinspection PhpUnhandledExceptionInspection */
+    public function testAddParentEntityWorksAsExpected() {
     
         $childEntity = new GenericPermissionableEntity("C");
         
@@ -265,8 +267,9 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
             $this->assertFalse($pe === $grandParentEntity2);
         }
     }
-    
-    public function testAddParentEntitiesWorksAsExcpected() {
+
+    /** @noinspection PhpUnhandledExceptionInspection */
+    public function testAddParentEntitiesWorksAsExpected() {
     
         $childEntity = new GenericPermissionableEntity("C");
         
@@ -304,8 +307,9 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->expectExceptionMessage($exceptionMsg);
         $childEntity->addParentEntities($parentEntities2); // should throw exception
     }
-    
-    public function testGetAllParentEntitiesWorksAsExcpected() {
+
+    /** @noinspection PhpUnhandledExceptionInspection */
+    public function testGetAllParentEntitiesWorksAsExpected() {
     
         $greatGrandFatherEntity = new GenericPermissionableEntity("A");
         $greatGrandMotherEntity = new GenericPermissionableEntity("B");
@@ -344,8 +348,9 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($allParentEntities->hasEntity($fatherEntity));
         $this->assertTrue($allParentEntities->hasEntity($motherEntity));
     }
-    
-    public function testIsChildOfWorksAsExcpected() {
+
+    /** @noinspection PhpUnhandledExceptionInspection */
+    public function testIsChildOfWorksAsExpected() {
     
         $greatGrandFatherEntity = new GenericPermissionableEntity("A");
         $greatGrandMotherEntity = new GenericPermissionableEntity("B");
@@ -379,8 +384,9 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($childEntity->isChildOf($fatherEntity));
         $this->assertTrue($childEntity->isChildOf($motherEntity));
     }
-    
-    public function testIsChildOfEntityWithIdWorksAsExcpected() {
+
+    /** @noinspection PhpUnhandledExceptionInspection */
+    public function testIsChildOfEntityWithIdWorksAsExpected() {
     
         $greatGrandFatherEntity = new GenericPermissionableEntity("A");
         $greatGrandMotherEntity = new GenericPermissionableEntity("B");
@@ -423,7 +429,7 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($childEntity->isChildOfEntityWithId('f'));
     }
     
-    public function testGetIdWorksAsExcpected() {
+    public function testGetIdWorksAsExpected() {
     
         $entity1 = new GenericPermissionableEntity("A");
         $entity2 = new GenericPermissionableEntity("B");
@@ -434,8 +440,9 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals('b', $entity2->getId());
         $this->assertNotEquals('B', $entity2->getId());
     }
-    
-    public function testGetDirectParentEntitiesWorksAsExcpected() {
+
+    /** @noinspection PhpUnhandledExceptionInspection */
+    public function testGetDirectParentEntitiesWorksAsExpected() {
     
         $greatGrandFatherEntity = new GenericPermissionableEntity("A");
         $greatGrandMotherEntity = new GenericPermissionableEntity("B");
@@ -475,7 +482,7 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($directParentEntities->hasEntity($motherEntity));
     }
     
-    public function testIsEqualToWorksAsExcpected() {
+    public function testIsEqualToWorksAsExpected() {
     
         $entityOne = new GenericPermissionableEntity("A");
         $entityOneSame = new GenericPermissionableEntity("A");
@@ -507,8 +514,9 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->assertFalse( $entityTwoSame->isEqualTo($entityOne));
         $this->assertFalse( $entityTwoSame->isEqualTo($entityOneSame));
     }
-    
-    public function testRemoveParentIfExistsWorksAsExcpected() {
+
+    /** @noinspection PhpUnhandledExceptionInspection */
+    public function testRemoveParentIfExistsWorksAsExpected() {
     
         $fatherEntity = new GenericPermissionableEntity("A");
         $motherEntity = new GenericPermissionableEntity("B");
@@ -559,8 +567,9 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals(0, $directParentEntities->count());
         $this->assertFalse($directParentEntities->hasEntity($stepMotherEntity));
     }
-    
-    public function testRemoveParentsThatExistWorksAsExcpected() {
+
+    /** @noinspection PhpUnhandledExceptionInspection */
+    public function testRemoveParentsThatExistWorksAsExpected() {
     
         $nonParentEntity1 = new GenericPermissionableEntity("Y");
         $nonParentEntity2 = new GenericPermissionableEntity("Z");
@@ -629,7 +638,7 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->assertFalse($directParentEntities->hasEntity($stepMotherEntity));
     }
     
-    public function testAddPermissionWorksAsExcpected() {
+    public function testAddPermissionWorksAsExpected() {
     
         $entity = new GenericPermissionableEntity("A");
         $permission1 = new GenericPermission('action-1', 'resource-1');
@@ -692,7 +701,7 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         }
     }
     
-    public function testAddPermissionsWorksAsExcpected() {
+    public function testAddPermissionsWorksAsExpected() {
     
         $entity = new GenericPermissionableEntity("A");
         $permission1 = new GenericPermission('action-1', 'resource-1');
@@ -713,8 +722,9 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($entity->getDirectPermissions()->hasPermission($permission1));
         $this->assertTrue($entity->getDirectPermissions()->hasPermission($permission2));
     }
-    
-    public function testGetDirectPermissionsWorksAsExcpected() {
+
+    /** @noinspection PhpUnhandledExceptionInspection */
+    public function testGetDirectPermissionsWorksAsExpected() {
     
         $permission1 = new GenericPermission('action-1', 'resource-1');
         $permission2 = new GenericPermission('action-2', 'resource-2');
@@ -738,8 +748,9 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($entity2->getDirectPermissions()->hasPermission($permission1));
         $this->assertTrue($entity2->getDirectPermissions()->hasPermission($permission2));
     }
-    
-    public function testGetInheritedPermissionsWorksAsExcpected() {
+
+    /** @noinspection PhpUnhandledExceptionInspection */
+    public function testGetInheritedPermissionsWorksAsExpected() {
     
         $greatGrandParentPermission = new GenericPermission(
             'action-greatGrandParentPermission', 'resource-greatGrandParentPermission'
@@ -793,8 +804,9 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->assertFalse($inheritedPermissions->hasPermission($myPermission1));
         $this->assertFalse($inheritedPermissions->hasPermission($myPermission2));
     }
-    
-    public function testGetAllPermissionsWorksAsExcpected() {
+
+    /** @noinspection PhpUnhandledExceptionInspection */
+    public function testGetAllPermissionsWorksAsExpected() {
     
         $greatGrandParentPermission = new GenericPermission(
             'action-greatGrandParentPermission', 'resource-greatGrandParentPermission'
@@ -858,8 +870,9 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals(1, $allPermissions->getKey($grandParentPermission));
         $this->assertEquals(2, $allPermissions->getKey($greatGrandParentPermission));
     }
-    
-    public function testRemovePermissionIfExistsWorksAsExcpected() {
+
+    /** @noinspection PhpUnhandledExceptionInspection */
+    public function testRemovePermissionIfExistsWorksAsExpected() {
     
         $notMyPermission = new GenericPermission('action-NotMyPermission', 'resource-NotMyPermission');
         $myPermission1 = new GenericPermission('action-1', 'resource-1');
@@ -882,8 +895,9 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals(0, $entity->getDirectPermissions()->count());
         $this->assertEquals(0, $permissions->count());
     }
-    
-    public function testRemovePermissionsThatExistWorksAsExcpected() {
+
+    /** @noinspection PhpUnhandledExceptionInspection */
+    public function testRemovePermissionsThatExistWorksAsExpected() {
     
         $notMyPermission = new GenericPermission('action-NotMyPermission', 'resource-NotMyPermission');
         $notMyPermission2 = new GenericPermission('action-NotMyPermission2', 'resource-NotMyPermission2');
@@ -905,8 +919,9 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals(0, $entity->getDirectPermissions()->count());
         $this->assertEquals(0, $myPermissions->count());
     }
-    
-    public function testDumpWorksAsExcpected() {
+
+    /** @noinspection PhpUnhandledExceptionInspection */
+    public function testDumpWorksAsExpected() {
         
         $entityWithDefaultParams = new GenericPermissionableEntity("Z");
         // $entityWithDefaultParams->dump() will display the following except for 000000003bbac6d6000000000fb066f4 & the likes which will vary:
@@ -1378,8 +1393,9 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         
         $this->assertStringNotContainsString("\t\t}", $haystack);
     }
-    
-    public function test__toStringWorksAsExcpected() {
+
+    /** @noinspection PhpUnhandledExceptionInspection */
+    public function test__toStringWorksAsExpected() {
         
         $entityWithDefaultParams = new GenericPermissionableEntity("Z");
         // $entityWithDefaultParams->__toString() will display the following except for 000000003bbac6d6000000000fb066f4 & the likes which will vary:

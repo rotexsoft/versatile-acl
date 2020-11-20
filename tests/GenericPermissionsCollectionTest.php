@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpFullyQualifiedNameUsageInspection */
 declare(strict_types=1);
 
 use \SimpleAcl\GenericPermission;
@@ -17,11 +18,11 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         parent::setUp();
     }
     
-    public function testConstructorWorksAsExcpected() {
+    public function testConstructorWorksAsExpected() {
         
         // no args
         $collection = new GenericPermissionsCollection();
-        $this->assertEquals($collection->count(), 0);
+        $this->assertEquals(0, $collection->count());
         
         $permissions = [
             new GenericPermission('action-a', 'resource-a'),
@@ -31,7 +32,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         
         // args with array unpacking
         $collection2 = new GenericPermissionsCollection(...$permissions);
-        $this->assertEquals($collection2->count(), 3);
+        $this->assertEquals(3, $collection2->count());
         $this->assertTrue($collection2->hasPermission($permissions[0]));
         $this->assertTrue($collection2->hasPermission($permissions[1]));
         $this->assertTrue($collection2->hasPermission($permissions[2]));
@@ -40,13 +41,13 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $collection3 = new GenericPermissionsCollection(
             $permissions[0], $permissions[1], $permissions[2]
         );
-        $this->assertEquals($collection3->count(), 3);
+        $this->assertEquals(3, $collection3->count());
         $this->assertTrue($collection3->hasPermission($permissions[0]));
         $this->assertTrue($collection3->hasPermission($permissions[1]));
         $this->assertTrue($collection3->hasPermission($permissions[2]));
     }
     
-    public function testHasPermissionWorksAsExcpected() {
+    public function testHasPermissionWorksAsExpected() {
         
         $permissions = [
             new GenericPermission('action-a', 'resource-a'),
@@ -66,7 +67,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         
         // non-empty collection
         $collection2 = new GenericPermissionsCollection(...$permissions);
-        $this->assertEquals($collection2->count(), 3);
+        $this->assertEquals(3, $collection2->count());
         $this->assertTrue($collection2->hasPermission($permissions[0]));
         $this->assertTrue($collection2->hasPermission($permissions[1]));
         $this->assertTrue($collection2->hasPermission($permissions[2]));
@@ -79,16 +80,16 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($collection2->hasPermission($permission5));
     }
     
-    public function testIsAllowedWorksAsExcpected() {
+    public function testIsAllowedWorksAsExpected() {
         
-        $calbackFalseNoArg = function() { return false; };
-        $calbackTrueNoArg = function() { return true; };
-        $calbackOneArg = function(bool $returnVal) { return $returnVal; };
-        $calbackTwoArgs = function(bool $returnVal, bool $returnVal2) { 
+        $callbackFalseNoArg = function() { return false; };
+        $callbackTrueNoArg = function() { return true; };
+        $callbackOneArg = function(bool $returnVal) { return $returnVal; };
+        $callbackTwoArgs = function(bool $returnVal, bool $returnVal2) { 
             
             return $returnVal && $returnVal2; 
         };
-        $calbackThreeArgs = function(bool $returnVal, bool $returnVal2, bool $returnVal3) { 
+        $callbackThreeArgs = function(bool $returnVal, bool $returnVal2, bool $returnVal3) { 
             
             return $returnVal && $returnVal2 && $returnVal3; 
         };
@@ -99,32 +100,32 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
             new GenericPermission('action-c', 'resource-c'),
         ];
         $permissionNotAllowed = new GenericPermission('action-d', 'resource-d', false);
-        $permissionNotAllowedByCallback = new GenericPermission('action-e', 'resource-e', true, $calbackFalseNoArg);
-        $permissionAllowedIncludingCallback = new GenericPermission('action-f', 'resource-f', true, $calbackOneArg, true);
+        $permissionNotAllowedByCallback = new GenericPermission('action-e', 'resource-e', true, $callbackFalseNoArg);
+        $permissionAllowedIncludingCallback = new GenericPermission('action-f', 'resource-f', true, $callbackOneArg, true);
         
         // empty collection
         $collection = new GenericPermissionsCollection();
         $this->assertFalse($collection->isAllowed('action', 'resource'));
         
-        $this->assertFalse($collection->isAllowed('action', 'resource', $calbackFalseNoArg));
-        $this->assertFalse($collection->isAllowed('action', 'resource', $calbackTrueNoArg));
+        $this->assertFalse($collection->isAllowed('action', 'resource', $callbackFalseNoArg));
+        $this->assertFalse($collection->isAllowed('action', 'resource', $callbackTrueNoArg));
         
-        $this->assertFalse($collection->isAllowed('action', 'resource', $calbackOneArg, false)); // 0
-        $this->assertFalse($collection->isAllowed('action', 'resource', $calbackOneArg, true));  // 1
+        $this->assertFalse($collection->isAllowed('action', 'resource', $callbackOneArg, false)); // 0
+        $this->assertFalse($collection->isAllowed('action', 'resource', $callbackOneArg, true));  // 1
         
-        $this->assertFalse($collection->isAllowed('action', 'resource', $calbackTwoArgs, false, false));    // 0
-        $this->assertFalse($collection->isAllowed('action', 'resource', $calbackTwoArgs, false, true));     // 1
-        $this->assertFalse($collection->isAllowed('action', 'resource', $calbackTwoArgs, true, false));     // 2
-        $this->assertFalse($collection->isAllowed('action', 'resource', $calbackTwoArgs, true, true));      // 3
+        $this->assertFalse($collection->isAllowed('action', 'resource', $callbackTwoArgs, false, false));    // 0
+        $this->assertFalse($collection->isAllowed('action', 'resource', $callbackTwoArgs, false, true));     // 1
+        $this->assertFalse($collection->isAllowed('action', 'resource', $callbackTwoArgs, true, false));     // 2
+        $this->assertFalse($collection->isAllowed('action', 'resource', $callbackTwoArgs, true, true));      // 3
 
-        $this->assertFalse($collection->isAllowed('action', 'resource', $calbackThreeArgs, false, false, false));   // 0
-        $this->assertFalse($collection->isAllowed('action', 'resource', $calbackThreeArgs, false, false, true));    // 1
-        $this->assertFalse($collection->isAllowed('action', 'resource', $calbackThreeArgs, false, true, false));    // 2
-        $this->assertFalse($collection->isAllowed('action', 'resource', $calbackThreeArgs, false, true, true));     // 3
-        $this->assertFalse($collection->isAllowed('action', 'resource', $calbackThreeArgs, true, false, false));    // 4
-        $this->assertFalse($collection->isAllowed('action', 'resource', $calbackThreeArgs, true, false, true));     // 5
-        $this->assertFalse($collection->isAllowed('action', 'resource', $calbackThreeArgs, true, true, false));     // 6
-        $this->assertFalse($collection->isAllowed('action', 'resource', $calbackThreeArgs, true, true, true));      // 7
+        $this->assertFalse($collection->isAllowed('action', 'resource', $callbackThreeArgs, false, false, false));   // 0
+        $this->assertFalse($collection->isAllowed('action', 'resource', $callbackThreeArgs, false, false, true));    // 1
+        $this->assertFalse($collection->isAllowed('action', 'resource', $callbackThreeArgs, false, true, false));    // 2
+        $this->assertFalse($collection->isAllowed('action', 'resource', $callbackThreeArgs, false, true, true));     // 3
+        $this->assertFalse($collection->isAllowed('action', 'resource', $callbackThreeArgs, true, false, false));    // 4
+        $this->assertFalse($collection->isAllowed('action', 'resource', $callbackThreeArgs, true, false, true));     // 5
+        $this->assertFalse($collection->isAllowed('action', 'resource', $callbackThreeArgs, true, true, false));     // 6
+        $this->assertFalse($collection->isAllowed('action', 'resource', $callbackThreeArgs, true, true, true));      // 7
         
         // non-empty collection
         $collection->add($permissions[0]);
@@ -144,7 +145,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertFalse($collection->isAllowed('action-e', 'resource-e'));                       // existent not allowed perm by callback injected
                                                                                                     // in permission constructor
         
-        $this->assertTrue($collection->isAllowed('action-e', 'resource-e', $calbackTrueNoArg));     // existent not allowed perm by callback injected
+        $this->assertTrue($collection->isAllowed('action-e', 'resource-e', $callbackTrueNoArg));     // existent not allowed perm by callback injected
                                                                                                     // in permission constructor but now allowed by
                                                                                                     // callback injected in this call which should
                                                                                                     // override the constructor injected callback
@@ -154,25 +155,25 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($collection->isAllowed('action-f', 'resource-f'));                        // existent allowed perm by callback injected
                                                                                                     // in permission constructor
         
-        $this->assertFalse($collection->isAllowed('action-f', 'resource-f', $calbackFalseNoArg));   // existent allowed perm by callback injected
+        $this->assertFalse($collection->isAllowed('action-f', 'resource-f', $callbackFalseNoArg));   // existent allowed perm by callback injected
                                                                                                     // in permission constructor but now disallowed by
                                                                                                     // callback injected in this call which should
                                                                                                     // override the constructor injected callback
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
-        $this->assertFalse($collection->isAllowed('action', 'resource', $calbackTrueNoArg));        // non-existent perm with truthy argless callback
-        $this->assertTrue($collection->isAllowed('action-a', 'resource-a', $calbackTrueNoArg));     // existent perm with truthy argless callback
+        $this->assertFalse($collection->isAllowed('action', 'resource', $callbackTrueNoArg));        // non-existent perm with truthy argless callback
+        $this->assertTrue($collection->isAllowed('action-a', 'resource-a', $callbackTrueNoArg));     // existent perm with truthy argless callback
         
-        $this->assertFalse($collection->isAllowed('action-a', 'resource-a', $calbackFalseNoArg));    // existent allowed perm now disallowed 
+        $this->assertFalse($collection->isAllowed('action-a', 'resource-a', $callbackFalseNoArg));    // existent allowed perm now disallowed 
                                                                                                      // with falsy argless callback
         
-        $this->assertFalse($collection->isAllowed('action-a', 'resource-a', $calbackOneArg, false)); // existent allowed perm now disallowed 
+        $this->assertFalse($collection->isAllowed('action-a', 'resource-a', $callbackOneArg, false)); // existent allowed perm now disallowed 
                                                                                                      // with falsy one arged callback
         
-        $this->assertFalse($collection->isAllowed('action-a', 'resource-a', $calbackTwoArgs, true, false)); // existent allowed perm now disallowed 
+        $this->assertFalse($collection->isAllowed('action-a', 'resource-a', $callbackTwoArgs, true, false)); // existent allowed perm now disallowed 
                                                                                                             // with falsy two arged callback
         
-        $this->assertFalse($collection->isAllowed('action-a', 'resource-a', $calbackThreeArgs, true, true, false)); // existent allowed perm now disallowed 
+        $this->assertFalse($collection->isAllowed('action-a', 'resource-a', $callbackThreeArgs, true, true, false)); // existent allowed perm now disallowed 
                                                                                                                     // with falsy three arged callback
         /////////////////////////////////////////////////////////
         // test super all actions and all resources permissions
@@ -218,109 +219,109 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         ////////////////////////////////////////////////////////////////////////
         
         // non-existent action and non-existent resource with no arg callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $calbackTrueNoArg)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource', $calbackTrueNoArg)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $calbackTrueNoArg)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $calbackFalseNoArg)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource', $calbackFalseNoArg)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $calbackFalseNoArg)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $callbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource', $callbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $callbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $callbackFalseNoArg)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource', $callbackFalseNoArg)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $callbackFalseNoArg)); // falsy callback
         
         // existent action and non-existent resource with no arg callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $calbackTrueNoArg)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action-1', 'resource', $calbackTrueNoArg)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $calbackTrueNoArg)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $calbackFalseNoArg)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action-1', 'resource', $calbackFalseNoArg)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $calbackFalseNoArg)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $callbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action-1', 'resource', $callbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $callbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $callbackFalseNoArg)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action-1', 'resource', $callbackFalseNoArg)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $callbackFalseNoArg)); // falsy callback
         
         // non-existent action and existent resource with no arg callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $calbackTrueNoArg)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource-1', $calbackTrueNoArg)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $calbackTrueNoArg)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $calbackFalseNoArg)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource-1', $calbackFalseNoArg)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $calbackFalseNoArg)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $callbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource-1', $callbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $callbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $callbackFalseNoArg)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource-1', $callbackFalseNoArg)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $callbackFalseNoArg)); // falsy callback
         
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         
         // non-existent action and non-existent resource with 1 arg callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $calbackOneArg, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource', $calbackOneArg, true)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $calbackOneArg, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $calbackOneArg, false)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource', $calbackOneArg, false)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $calbackOneArg, false)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $callbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource', $callbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $callbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $callbackOneArg, false)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource', $callbackOneArg, false)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $callbackOneArg, false)); // falsy callback
         
         // existent action and non-existent resource with 1 arg callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $calbackOneArg, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action-1', 'resource', $calbackOneArg, true)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $calbackOneArg, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $calbackOneArg, false)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action-1', 'resource', $calbackOneArg, false)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $calbackOneArg, false)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $callbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action-1', 'resource', $callbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $callbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $callbackOneArg, false)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action-1', 'resource', $callbackOneArg, false)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $callbackOneArg, false)); // falsy callback
         
         // non-existent action and existent resource with 1 arg callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $calbackOneArg, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource-1', $calbackOneArg, true)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $calbackOneArg, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $calbackOneArg, false)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource-1', $calbackOneArg, false)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $calbackOneArg, false)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $callbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource-1', $callbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $callbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $callbackOneArg, false)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource-1', $callbackOneArg, false)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $callbackOneArg, false)); // falsy callback
         
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         
         // non-existent action and non-existent resource with 2 args callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $calbackTwoArgs, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource', $calbackTwoArgs, true, true)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $calbackTwoArgs, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $calbackTwoArgs, false, true)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource', $calbackTwoArgs, false, true)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $calbackTwoArgs, false, true)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $callbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource', $callbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $callbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $callbackTwoArgs, false, true)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource', $callbackTwoArgs, false, true)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $callbackTwoArgs, false, true)); // falsy callback
         
         // existent action and non-existent resource with 2 args callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $calbackTwoArgs, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action-1', 'resource', $calbackTwoArgs, true, true)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $calbackTwoArgs, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $calbackTwoArgs, false, true)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action-1', 'resource', $calbackTwoArgs, false, true)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $calbackTwoArgs, false, true)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $callbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action-1', 'resource', $callbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $callbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $callbackTwoArgs, false, true)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action-1', 'resource', $callbackTwoArgs, false, true)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $callbackTwoArgs, false, true)); // falsy callback
         
         // non-existent action and existent resource with 2 args callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $calbackTwoArgs, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource-1', $calbackTwoArgs, true, true)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $calbackTwoArgs, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $calbackTwoArgs, false, true)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource-1', $calbackTwoArgs, false, true)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $calbackTwoArgs, false, true)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $callbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource-1', $callbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $callbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $callbackTwoArgs, false, true)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource-1', $callbackTwoArgs, false, true)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $callbackTwoArgs, false, true)); // falsy callback
         
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         
         // non-existent action and non-existent resource with 3 args callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $calbackThreeArgs, true, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource', $calbackThreeArgs, true, true, true)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $calbackThreeArgs, true, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $calbackThreeArgs, false, true, true)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource', $calbackThreeArgs, false, true, true)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $calbackThreeArgs, false, true, true)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $callbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource', $callbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $callbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $callbackThreeArgs, false, true, true)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource', $callbackThreeArgs, false, true, true)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource', $callbackThreeArgs, false, true, true)); // falsy callback
         
         // existent action and non-existent resource with 3 args callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $calbackThreeArgs, true, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action-1', 'resource', $calbackThreeArgs, true, true, true)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $calbackThreeArgs, true, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $calbackThreeArgs, false, true, true)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action-1', 'resource', $calbackThreeArgs, false, true, true)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $calbackThreeArgs, false, true, true)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $callbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action-1', 'resource', $callbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $callbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $callbackThreeArgs, false, true, true)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action-1', 'resource', $callbackThreeArgs, false, true, true)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action-1', 'resource', $callbackThreeArgs, false, true, true)); // falsy callback
         
         // non-existent action and existent resource with 3 args callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $calbackThreeArgs, true, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource-1', $calbackThreeArgs, true, true, true)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $calbackThreeArgs, true, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $calbackThreeArgs, false, true, true)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource-1', $calbackThreeArgs, false, true, true)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $calbackThreeArgs, false, true, true)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $callbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource-1', $callbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $callbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $callbackThreeArgs, false, true, true)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedLast->isAllowed('action', 'resource-1', $callbackThreeArgs, false, true, true)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedLast->isAllowed('action', 'resource-1', $callbackThreeArgs, false, true, true)); // falsy callback
         
         ///////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -359,109 +360,109 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         ////////////////////////////////////////////////////////////////////////
         
         // non-existent action and non-existent resource with no arg callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $calbackTrueNoArg)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource', $calbackTrueNoArg)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $calbackTrueNoArg)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $calbackFalseNoArg)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource', $calbackFalseNoArg)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $calbackFalseNoArg)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $callbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource', $callbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $callbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $callbackFalseNoArg)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource', $callbackFalseNoArg)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $callbackFalseNoArg)); // falsy callback
         
         // existent action and non-existent resource with no arg callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $calbackTrueNoArg)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action-1', 'resource', $calbackTrueNoArg)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $calbackTrueNoArg)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $calbackFalseNoArg)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action-1', 'resource', $calbackFalseNoArg)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $calbackFalseNoArg)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $callbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action-1', 'resource', $callbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $callbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $callbackFalseNoArg)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action-1', 'resource', $callbackFalseNoArg)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $callbackFalseNoArg)); // falsy callback
         
         // non-existent action and existent resource with no arg callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $calbackTrueNoArg)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource-1', $calbackTrueNoArg)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $calbackTrueNoArg)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $calbackFalseNoArg)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource-1', $calbackFalseNoArg)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $calbackFalseNoArg)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $callbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource-1', $callbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $callbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $callbackFalseNoArg)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource-1', $callbackFalseNoArg)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $callbackFalseNoArg)); // falsy callback
 
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         
         // non-existent action and non-existent resource with 1 arg callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $calbackOneArg, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource', $calbackOneArg, true)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $calbackOneArg, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $calbackOneArg, false)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource', $calbackOneArg, false)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $calbackOneArg, false)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $callbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource', $callbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $callbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $callbackOneArg, false)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource', $callbackOneArg, false)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $callbackOneArg, false)); // falsy callback
         
         // existent action and non-existent resource with 1 arg callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $calbackOneArg, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action-1', 'resource', $calbackOneArg, true)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $calbackOneArg, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $calbackOneArg, false)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action-1', 'resource', $calbackOneArg, false)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $calbackOneArg, false)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $callbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action-1', 'resource', $callbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $callbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $callbackOneArg, false)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action-1', 'resource', $callbackOneArg, false)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $callbackOneArg, false)); // falsy callback
         
         // non-existent action and existent resource with 1 arg callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $calbackOneArg, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource-1', $calbackOneArg, true)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $calbackOneArg, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $calbackOneArg, false)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource-1', $calbackOneArg, false)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $calbackOneArg, false)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $callbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource-1', $callbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $callbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $callbackOneArg, false)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource-1', $callbackOneArg, false)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $callbackOneArg, false)); // falsy callback
         
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         
         // non-existent action and non-existent resource with 2 args callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $calbackTwoArgs, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource', $calbackTwoArgs, true, true)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $calbackTwoArgs, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $calbackTwoArgs, false, true)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource', $calbackTwoArgs, false, true)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $calbackTwoArgs, false, true)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $callbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource', $callbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $callbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $callbackTwoArgs, false, true)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource', $callbackTwoArgs, false, true)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $callbackTwoArgs, false, true)); // falsy callback
         
         // existent action and non-existent resource with 2 args callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $calbackTwoArgs, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action-1', 'resource', $calbackTwoArgs, true, true)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $calbackTwoArgs, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $calbackTwoArgs, false, true)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action-1', 'resource', $calbackTwoArgs, false, true)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $calbackTwoArgs, false, true)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $callbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action-1', 'resource', $callbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $callbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $callbackTwoArgs, false, true)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action-1', 'resource', $callbackTwoArgs, false, true)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $callbackTwoArgs, false, true)); // falsy callback
         
         // non-existent action and existent resource with 2 args callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $calbackTwoArgs, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource-1', $calbackTwoArgs, true, true)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $calbackTwoArgs, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $calbackTwoArgs, false, true)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource-1', $calbackTwoArgs, false, true)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $calbackTwoArgs, false, true)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $callbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource-1', $callbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $callbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $callbackTwoArgs, false, true)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource-1', $callbackTwoArgs, false, true)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $callbackTwoArgs, false, true)); // falsy callback
         
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         
         // non-existent action and non-existent resource with 3 args callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $calbackThreeArgs, true, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource', $calbackThreeArgs, true, true, true)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $calbackThreeArgs, true, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $calbackThreeArgs, false, true, true)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource', $calbackThreeArgs, false, true, true)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $calbackThreeArgs, false, true, true)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $callbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource', $callbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $callbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $callbackThreeArgs, false, true, true)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource', $callbackThreeArgs, false, true, true)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource', $callbackThreeArgs, false, true, true)); // falsy callback
         
         // existent action and non-existent resource with 3 args callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $calbackThreeArgs, true, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action-1', 'resource', $calbackThreeArgs, true, true, true)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $calbackThreeArgs, true, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $calbackThreeArgs, false, true, true)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action-1', 'resource', $calbackThreeArgs, false, true, true)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $calbackThreeArgs, false, true, true)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $callbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action-1', 'resource', $callbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $callbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $callbackThreeArgs, false, true, true)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action-1', 'resource', $callbackThreeArgs, false, true, true)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action-1', 'resource', $callbackThreeArgs, false, true, true)); // falsy callback
         
         // non-existent action and existent resource with 3 args callback
-        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $calbackThreeArgs, true, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource-1', $calbackThreeArgs, true, true, true)); // truthy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $calbackThreeArgs, true, true, true)); // truthy calback
-        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $calbackThreeArgs, false, true, true)); // falsy calback
-        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource-1', $calbackThreeArgs, false, true, true)); // falsy calback
-        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $calbackThreeArgs, false, true, true)); // falsy calback
+        $this->assertTrue($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $callbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource-1', $callbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $callbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithAllActionsOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $callbackThreeArgs, false, true, true)); // falsy callback
+        $this->assertFalse($collectionWithAllActionsOnOneResourcePermissionAddedFirst->isAllowed('action', 'resource-1', $callbackThreeArgs, false, true, true)); // falsy callback
+        $this->assertFalse($collectionWithOneActionOnAllResourcesPermissionAddedFirst->isAllowed('action', 'resource-1', $callbackThreeArgs, false, true, true)); // falsy callback
         
         ///////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -492,39 +493,39 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertFalse($collectionWithDeniedPermissionBeforeOneActionOnAllResourcesPermission->isAllowed('action-2', 'resource-2'));
         
         // no arg callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $calbackFalseNoArg)); // falsy callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnOneResourcePermission->isAllowed('action-2', 'resource-2', $calbackFalseNoArg)); // falsy callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeOneActionOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $calbackFalseNoArg)); // falsy callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $calbackTrueNoArg)); // truthy callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnOneResourcePermission->isAllowed('action-2', 'resource-2', $calbackTrueNoArg)); // truthy callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeOneActionOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $calbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $callbackFalseNoArg)); // falsy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnOneResourcePermission->isAllowed('action-2', 'resource-2', $callbackFalseNoArg)); // falsy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeOneActionOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $callbackFalseNoArg)); // falsy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $callbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnOneResourcePermission->isAllowed('action-2', 'resource-2', $callbackTrueNoArg)); // truthy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeOneActionOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $callbackTrueNoArg)); // truthy callback
         
         // 1 arged callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $calbackOneArg, false)); // falsy callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnOneResourcePermission->isAllowed('action-2', 'resource-2', $calbackOneArg, false)); // falsy callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeOneActionOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $calbackOneArg, false)); // falsy callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $calbackOneArg, true)); // truthy callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnOneResourcePermission->isAllowed('action-2', 'resource-2', $calbackOneArg, true)); // truthy callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeOneActionOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $calbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $callbackOneArg, false)); // falsy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnOneResourcePermission->isAllowed('action-2', 'resource-2', $callbackOneArg, false)); // falsy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeOneActionOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $callbackOneArg, false)); // falsy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $callbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnOneResourcePermission->isAllowed('action-2', 'resource-2', $callbackOneArg, true)); // truthy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeOneActionOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $callbackOneArg, true)); // truthy callback
         
         // 2 arged callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $calbackTwoArgs, false, true)); // falsy callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnOneResourcePermission->isAllowed('action-2', 'resource-2', $calbackTwoArgs, false, true)); // falsy callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeOneActionOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $calbackTwoArgs, false, true)); // falsy callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $calbackTwoArgs, true, true)); // truthy callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnOneResourcePermission->isAllowed('action-2', 'resource-2', $calbackTwoArgs, true, true)); // truthy callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeOneActionOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $calbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $callbackTwoArgs, false, true)); // falsy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnOneResourcePermission->isAllowed('action-2', 'resource-2', $callbackTwoArgs, false, true)); // falsy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeOneActionOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $callbackTwoArgs, false, true)); // falsy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $callbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnOneResourcePermission->isAllowed('action-2', 'resource-2', $callbackTwoArgs, true, true)); // truthy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeOneActionOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $callbackTwoArgs, true, true)); // truthy callback
         
         // 3 arged callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $calbackThreeArgs, false, true, true)); // falsy callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnOneResourcePermission->isAllowed('action-2', 'resource-2', $calbackThreeArgs, false, true, true)); // falsy callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeOneActionOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $calbackThreeArgs, false, true, true)); // falsy callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $calbackThreeArgs, true, true, true)); // truthy callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnOneResourcePermission->isAllowed('action-2', 'resource-2', $calbackThreeArgs, true, true, true)); // truthy callback
-        $this->assertFalse($collectionWithDeniedPermissionBeforeOneActionOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $calbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $callbackThreeArgs, false, true, true)); // falsy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnOneResourcePermission->isAllowed('action-2', 'resource-2', $callbackThreeArgs, false, true, true)); // falsy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeOneActionOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $callbackThreeArgs, false, true, true)); // falsy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $callbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeAllActionsOnOneResourcePermission->isAllowed('action-2', 'resource-2', $callbackThreeArgs, true, true, true)); // truthy callback
+        $this->assertFalse($collectionWithDeniedPermissionBeforeOneActionOnAllResourcesPermission->isAllowed('action-2', 'resource-2', $callbackThreeArgs, true, true, true)); // truthy callback
     }
     
-    public function testAddWorksAsExcpected() {
+    public function testAddWorksAsExpected() {
         
         $permissions = [
             new GenericPermission('action-a', 'resource-a'),
@@ -558,9 +559,14 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         
         $this->assertTrue($collection2->hasPermission($permission4));
         $this->assertTrue($collection2->hasPermission($permission5));
+        
+        // test that duplicates are not added
+        $expectedCount = $collection2->count();
+        $collection2->add($permission5); // add duplicate
+        $this->assertCount($expectedCount, $collection2);
     }
     
-    public function testPutWorksAsExcpected() {
+    public function testPutWorksAsExpected() {
         
         $permissions = [
             new GenericPermission('action-a', 'resource-a'),
@@ -608,7 +614,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($collection2->getKey($permission5).'' === '55');
     }
     
-    public function testGetWorksAsExcpected() {
+    public function testGetWorksAsExpected() {
         
         $permissions = [
             new GenericPermission('action-a', 'resource-a'),
@@ -631,7 +637,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertNull($collection->get('777'));
     }
     
-    public function testGetKeyWorksAsExcpected() {
+    public function testGetKeyWorksAsExpected() {
         
         $permissions = [
             new GenericPermission('action-a', 'resource-a'),
@@ -647,15 +653,15 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $collection->add($permission4);
         $collection->add($permission5);
         
-        $this->assertEquals($collection->getKey($permissions[0]), 0);
-        $this->assertEquals($collection->getKey($permissions[1]), 1);
-        $this->assertEquals($collection->getKey($permissions[2]), 2);
-        $this->assertEquals($collection->getKey($permission4), 3);
-        $this->assertEquals($collection->getKey($permission5), 4);
-        $this->assertEquals($collection->getKey($nonExistentPermission), null);
+        $this->assertEquals(0, $collection->getKey($permissions[0]));
+        $this->assertEquals(1, $collection->getKey($permissions[1]));
+        $this->assertEquals(2, $collection->getKey($permissions[2]));
+        $this->assertEquals(3, $collection->getKey($permission4));
+        $this->assertEquals(4, $collection->getKey($permission5));
+        $this->assertEquals(null, $collection->getKey($nonExistentPermission));
     }
     
-    public function testRemoveWorksAsExcpected() {
+    public function testRemoveWorksAsExpected() {
         
         $permissions = [
             new GenericPermission('action-a', 'resource-a'),
@@ -671,37 +677,37 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $collection->add($permission4);
         $collection->add($permission5);
         
-        $this->assertEquals($collection->count(), 5);
+        $this->assertEquals(5, $collection->count());
         $collection->remove($nonExistentPermission);
-        $this->assertEquals($collection->count(), 5);
+        $this->assertEquals(5, $collection->count());
         
         $this->assertTrue($collection->hasPermission($permissions[0]));
         $this->assertSame($collection->remove($permissions[0]), $collection);
         $this->assertFalse($collection->hasPermission($permissions[0]));
-        $this->assertEquals($collection->count(), 4);
+        $this->assertEquals(4, $collection->count());
         
         $this->assertTrue($collection->hasPermission($permissions[1]));
         $this->assertSame($collection->remove($permissions[1]), $collection);
         $this->assertFalse($collection->hasPermission($permissions[1]));
-        $this->assertEquals($collection->count(), 3);
+        $this->assertEquals(3, $collection->count());
         
         $this->assertTrue($collection->hasPermission($permissions[2]));
         $this->assertSame($collection->remove($permissions[2]), $collection);
         $this->assertFalse($collection->hasPermission($permissions[2]));
-        $this->assertEquals($collection->count(), 2);
+        $this->assertEquals(2, $collection->count());
         
         $this->assertTrue($collection->hasPermission($permission4));
         $this->assertSame($collection->remove($permission4), $collection);
         $this->assertFalse($collection->hasPermission($permission4));
-        $this->assertEquals($collection->count(), 1);
+        $this->assertEquals(1, $collection->count());
         
         $this->assertTrue($collection->hasPermission($permission5));
         $this->assertSame($collection->remove($permission5), $collection);
         $this->assertFalse($collection->hasPermission($permission5));
-        $this->assertEquals($collection->count(), 0);
+        $this->assertEquals(0, $collection->count());
     }
     
-    public function testRemoveAllWorksAsExcpected() {
+    public function testRemoveAllWorksAsExpected() {
         
         $permissions = [
             new GenericPermission('action-a', 'resource-a'),
@@ -716,9 +722,9 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $collection->add($permission4);
         $collection->add($permission5);
         
-        $this->assertEquals($collection->count(), 5);
+        $this->assertEquals(5, $collection->count());
         $collection->removeAll();
-        $this->assertEquals($collection->count(), 0);
+        $this->assertEquals(0, $collection->count());
         
         $this->assertFalse($collection->hasPermission($permissions[0]));
         $this->assertFalse($collection->hasPermission($permissions[1]));
@@ -733,13 +739,13 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
     // Test methods inherited from \SimpleAcl\GenericBaseCollection
     /////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////
-    public function testGetIteratorWorksAsExcpected() {
+    public function testGetIteratorWorksAsExpected() {
         
         $collection = new GenericPermissionsCollection();
-        $this->assertInstanceOf(\Traversable::class, $collection->getIterator());
+        $this->assertInstanceOf(Traversable::class, $collection->getIterator());
     }
 
-    public function testRemoveByKeyWorksAsExcpected() {
+    public function testRemoveByKeyWorksAsExpected() {
         
         $collection = new GenericPermissionsCollection();
         
@@ -757,7 +763,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals($perm3, $collection->removeByKey(2));
     }
 
-    public function testKeyExistsWorksAsExcpected() {
+    public function testKeyExistsWorksAsExpected() {
         
         $collection = new GenericPermissionsCollection();
         
@@ -770,6 +776,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $collection->add($perm3);
         
         $this->assertFalse($collection->keyExists('non-existent-key'));
+        /** @noinspection PhpParamsInspection */
         $this->assertFalse($collection->keyExists([]));
         $this->assertFalse($collection->keyExists(777));
         $this->assertTrue($collection->keyExists(0));
@@ -777,7 +784,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($collection->keyExists(2));
     }
 
-    public function testCountWorksAsExcpected() {
+    public function testCountWorksAsExpected() {
         
         $collection = new GenericPermissionsCollection();
         
@@ -785,16 +792,16 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $perm2 = new GenericPermission('action-b', 'resource-b');
         $perm3 = new GenericPermission('action-c', 'resource-c');
         
-        $this->assertEquals($collection->count(), 0);
+        $this->assertEquals(0, $collection->count());
         
         $collection->add($perm1);
         $collection->add($perm2);
         $collection->add($perm3);
         
-        $this->assertEquals($collection->count(), 3);
+        $this->assertEquals(3, $collection->count());
     }
     
-    public function testSortWorksAsExcpected() {
+    public function testSortWorksAsExpected() {
         
         $perms = new GenericPermissionsCollection(
             new GenericPermission('a-action', 'a-resource', true),
@@ -876,19 +883,19 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         }
     }
 
-    public function testDumpWorksAsExcpected() {
+    public function testDumpWorksAsExpected() {
         
         $collection = new GenericPermissionsCollection();
         
-        $calbackTrueNoArg = function() { return true; };
-        $calbackThreeArgs = function(bool $returnVal, bool $returnVal2, bool $returnVal3) { 
+        $callbackTrueNoArg = function() { return true; };
+        $callbackThreeArgs = function(bool $returnVal, bool $returnVal2, bool $returnVal3) { 
             
             return $returnVal && $returnVal2 && $returnVal3; 
         };
         
         $perm1 = new GenericPermission('action-a', 'resource-a');
-        $perm2 = new GenericPermission('action-b', 'resource-b', true, $calbackThreeArgs, true, true, true);
-        $perm3 = new GenericPermission('action-c', 'resource-c', false, $calbackTrueNoArg);
+        $perm2 = new GenericPermission('action-b', 'resource-b', true, $callbackThreeArgs, true, true, true);
+        $perm3 = new GenericPermission('action-c', 'resource-c', false, $callbackTrueNoArg);
         
         $haystack = $collection->dump();
         $this->assertStringContainsString('SimpleAcl\GenericPermissionsCollection (', $haystack);
@@ -983,19 +990,19 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertStringNotContainsString("\t}", $haystack2);
     }
 
-    public function test__toStringWorksAsExcpected() {
+    public function test__toStringWorksAsExpected() {
         
         $collection = new GenericPermissionsCollection();
         
-        $calbackTrueNoArg = function() { return true; };
-        $calbackThreeArgs = function(bool $returnVal, bool $returnVal2, bool $returnVal3) { 
+        $callbackTrueNoArg = function() { return true; };
+        $callbackThreeArgs = function(bool $returnVal, bool $returnVal2, bool $returnVal3) { 
             
             return $returnVal && $returnVal2 && $returnVal3; 
         };
         
         $perm1 = new GenericPermission('action-a', 'resource-a');
-        $perm2 = new GenericPermission('action-b', 'resource-b', true, $calbackThreeArgs, true, true, true);
-        $perm3 = new GenericPermission('action-c', 'resource-c', false, $calbackTrueNoArg);
+        $perm2 = new GenericPermission('action-b', 'resource-b', true, $callbackThreeArgs, true, true, true);
+        $perm3 = new GenericPermission('action-c', 'resource-c', false, $callbackTrueNoArg);
         
         $haystack = $collection->__toString();
         $this->assertStringContainsString('SimpleAcl\GenericPermissionsCollection (', $haystack);
