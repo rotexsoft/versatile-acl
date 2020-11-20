@@ -48,7 +48,16 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
      */
     public function add(PermissionableEntityInterface $permissionEntity): PermissionableEntitiesCollectionInterface {
         
-        $this->storage[] = $permissionEntity;
+        if( !$this->hasEntity($permissionEntity) ) {
+        
+            $this->storage[] = $permissionEntity;
+            
+        } else {
+            
+            // update the existing entity
+            $key = $this->getKey($permissionEntity);
+            $key !== null && $this->put($permissionEntity, ''.$key);
+        }
         
         return $this;
     }

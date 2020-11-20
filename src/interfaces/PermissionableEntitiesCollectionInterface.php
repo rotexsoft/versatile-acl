@@ -14,7 +14,8 @@ interface PermissionableEntitiesCollectionInterface extends CollectionInterface 
     public function __construct(PermissionableEntityInterface ...$permissionEntities);
     
     /**
-     * Adds an instance of PermissionableEntityInterface to an instance of this interface
+     * Adds an instance of PermissionableEntityInterface to an instance of this interface. 
+     * Duplicate PermissionableEntityInterface instances should not be allowed in the same instance of this interface.
      * 
      * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $permissionEntity
      * 

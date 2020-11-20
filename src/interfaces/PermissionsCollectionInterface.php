@@ -16,6 +16,7 @@ interface PermissionsCollectionInterface extends CollectionInterface
     
     /**
      * Adds an instance of PermissionInterface to an instance of this interface.
+     * Duplicate PermissionInterface instances should not be allowed in the same instance of this interface.
      * 
      * @param \SimpleAcl\Interfaces\PermissionInterface $permission
      * 

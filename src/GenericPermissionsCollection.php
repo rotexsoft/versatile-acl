@@ -93,8 +93,17 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * @return $this
      */
     public function add(PermissionInterface $permission): PermissionsCollectionInterface {
+                
+        if( !$this->hasPermission($permission) ) {
         
-        $this->storage[] = $permission;
+            $this->storage[] = $permission;
+            
+        } else {
+            
+            // update the existing permission
+            $key = $this->getKey($permission);
+            $key !== null && $this->put($permission, ''.$key);
+        }
         
         return $this;
     }
