@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpFullyQualifiedNameUsageInspection */
 declare(strict_types=1);
 
 use \SimpleAcl\GenericBaseCollection;
@@ -15,13 +16,13 @@ class GenericBaseCollectionTest extends \PHPUnit\Framework\TestCase {
         parent::setUp();
     }
     
-    public function testGetIteratorWorksAsExcpected() {
+    public function testGetIteratorWorksAsExpected() {
         
         $collection = new class extends GenericBaseCollection { };
-        $this->assertInstanceOf(\Traversable::class, $collection->getIterator());
+        $this->assertInstanceOf(Traversable::class, $collection->getIterator());
     }
 
-    public function testRemoveByKeyWorksAsExcpected() {
+    public function testRemoveByKeyWorksAsExpected() {
         
         $collection = new class extends GenericBaseCollection { 
             
@@ -41,7 +42,7 @@ class GenericBaseCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals('three', $collection->removeByKey(2));
     }
 
-    public function testKeyExistsWorksAsExcpected() {
+    public function testKeyExistsWorksAsExpected() {
         
         $collection = new class extends GenericBaseCollection { 
             
@@ -56,6 +57,7 @@ class GenericBaseCollectionTest extends \PHPUnit\Framework\TestCase {
         $collection->add('three');
         
         $this->assertFalse($collection->keyExists('non-existent-key'));
+        /** @noinspection PhpParamsInspection */
         $this->assertFalse($collection->keyExists([]));
         $this->assertFalse($collection->keyExists(777));
         $this->assertTrue($collection->keyExists(0));
@@ -63,7 +65,7 @@ class GenericBaseCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($collection->keyExists(2));
     }
 
-    public function testCountWorksAsExcpected() {
+    public function testCountWorksAsExpected() {
         
         $collection = new class extends GenericBaseCollection { 
             
@@ -73,16 +75,16 @@ class GenericBaseCollectionTest extends \PHPUnit\Framework\TestCase {
             }
         };
         
-        $this->assertEquals($collection->count(), 0);
+        $this->assertEquals(0, $collection->count());
         
         $collection->add('one');
         $collection->add('two');
         $collection->add('three');
         
-        $this->assertEquals($collection->count(), 3);
+        $this->assertEquals(3, $collection->count());
     }
 
-    public function testDumpWorksAsExcpected() {
+    public function testDumpWorksAsExpected() {
         
         $collection = new class extends GenericBaseCollection { 
 
@@ -115,7 +117,7 @@ class GenericBaseCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertStringNotContainsString("\titem[2]: three", $haystack2);
     }
 
-    public function test__toStringWorksAsExcpected() {
+    public function test__toStringWorksAsExpected() {
         
         $collection = new class extends GenericBaseCollection { 
 
