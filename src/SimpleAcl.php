@@ -3,10 +3,13 @@ declare(strict_types=1);
 
 namespace SimpleAcl;
 
+use InvalidArgumentException;
 use SimpleAcl\Interfaces\{
     PermissionInterface, PermissionableEntitiesCollectionInterface, 
     PermissionableEntityInterface, PermissionsCollectionInterface
 };
+use RuntimeException;
+use SimpleAcl\Exceptions\ParentCannotBeChildException;
 
 /**
  * A class for managing entities and permissions for access controlling resources in applications using this package 
@@ -45,7 +48,7 @@ class SimpleAcl {
     
     /**
      *
-     * @var PermissionableEntitiesCollectionInterface collection of entities for each instance of this class
+     * @var PermissionableEntitiesCollectionInterface|null collection of entities for each instance of this class
      */
     protected $entitiesCollection;
     
@@ -87,7 +90,6 @@ class SimpleAcl {
         $this->permissionableEntityInterfaceClassName = $permissionableEntityInterfaceClassName;
         $this->permissionsCollectionInterfaceClassName = $permissionsCollectionInterfaceClassName;
         $this->permissionableEntitiesCollectionInterfaceClassName = $permissionableEntitiesCollectionInterfaceClassName;
-        
         $this->entitiesCollection = $this->createEntityCollection();
     }
     
@@ -125,14 +127,15 @@ class SimpleAcl {
      * @param string $entityId
      * @param string $parentEntityId
      * 
-     * @return \self
+     * @return $this
      * 
-     * @throws \RuntimeException
+     * @throws RuntimeException
+     * @throws ParentCannotBeChildException
      */
     public function addParentEntity(string $entityId, string $parentEntityId): self {
         
         $existingEntity = $this->getEntity($entityId);
-        
+
         if($existingEntity === null) {
          
             $this->addEntity($entityId);
@@ -140,21 +143,21 @@ class SimpleAcl {
         }
         
         if($existingEntity instanceof PermissionableEntityInterface) {
-            
+
             $existingEntity->addParentEntity($this->createEntity($parentEntityId));
             
         } else {
             
             // We should never really get here in most cases.
-            // Something weird happened, we could not create or retreive
+            // Something weird happened, we could not create or retrieve
             // the entity to which a parent is to be added
             $class = get_class($this);
             $function = __FUNCTION__;
             $msg = "Error [{$class}::{$function}(...)]:"
-            . " Could not create or retreive the entity with an ID of `{$entityId}`"
+            . " Could not create or retrieve the entity with an ID of `{$entityId}`"
             . " to which the parent entity with an ID of `{$parentEntityId}` is to be added.";
 
-            throw new \RuntimeException($msg); 
+            throw new RuntimeException($msg);
         }
         
         return $this;
@@ -179,7 +182,7 @@ class SimpleAcl {
         if($existingEntity instanceof PermissionableEntityInterface) {
             
             $keyForParentEntity = $existingEntity->getDirectParentEntities()->getKey($this->createEntity($parentEntityId));
-            $removedParentEntity = $existingEntity->getDirectParentEntities()->get($keyForParentEntity); // get the parent entity object
+            $removedParentEntity = $existingEntity->getDirectParentEntities()->get(''.$keyForParentEntity); // get the parent entity object
             $existingEntity->getDirectParentEntities()->removeByKey($keyForParentEntity); // remove the parent
         }
         
@@ -193,34 +196,26 @@ class SimpleAcl {
      * 
      * @param string $entityId
      * 
-     * @return $this
+     * @return PermissionableEntityInterface|null
      */
     public function getEntity(string $entityId): ?PermissionableEntityInterface {
         
-        $entity = $this->createEntity($entityId);
         $entityToReturn = null; 
         
-        if(
-            $this->entitiesCollection instanceof PermissionableEntitiesCollectionInterface
-            && !$this->entitiesCollection->hasEntity($entity)
-        ) {
-            $key = $this->entitiesCollection->getKey($entity);
+        if($this->entitiesCollection instanceof PermissionableEntitiesCollectionInterface) {
             
-            if($key !== null) {
-                
-                $entityToReturn = $this->entitiesCollection->get($key);
-            }
+            $entityToReturn = $this->entitiesCollection->find($entityId);
         }
         
         return $entityToReturn;
     }
     
     /**
-     * Returns a collection of all entities added to an instance of this class via $this->addEntity(string $entityId)
+     * Returns a collection of all entities added to an instance of this class via $this->addEntity(string $entityId) or null if the collection has not yet been initialized
      * 
-     * @return PermissionableEntitiesCollectionInterface a collection of all entities added to an instance of this class via $this->addEntity(string $entityId)
+     * @return PermissionableEntitiesCollectionInterface a collection of all entities added to an instance of this class via $this->addEntity(string $entityId) or null if the collection has not yet been initialized
      */
-    public function getAllEntities() : PermissionableEntitiesCollectionInterface {
+    public function getAllEntities() : ?PermissionableEntitiesCollectionInterface {
         
         return $this->entitiesCollection;
     }
@@ -230,16 +225,16 @@ class SimpleAcl {
      * This entity will be created and added to the instance of this class upon
      * which this method is being invoked if the entity does not exist.
      * 
-     * @see PermissionInterface::__construct($action, $resource, $allowActionOnResource, $additionalAssertions, $argsForCallback) 
+     * @see PermissionInterface::__construct($action, $resource, $allowActionOnResource, $additionalAssertions, ...$argsForCallback)
      * for definitions of all but the first parameter
      * 
      * @param string $entityId
      * @param string $action
      * @param string $resource
      * @param bool $allowActionOnResource
-     * @param callable $additionalAssertions
-     * @param type $argsForCallback
-     * @return \self
+     * @param callable|null $additionalAssertions
+     * @param mixed $argsForCallback
+     * @return $this
      */
     public function addPermission(
         string $entityId, 
@@ -259,7 +254,7 @@ class SimpleAcl {
         }
         
         if($existingEntity instanceof PermissionableEntityInterface) {
-            
+
             $existingEntity->addPermission(
                 $this->createPermission($action, $resource, $allowActionOnResource, $additionalAssertions, ...$argsForCallback)
             );
@@ -267,19 +262,18 @@ class SimpleAcl {
         } else {
             
             $funcArgs = func_get_args();
-            $funcArgsMinusFirstArg = array_shift($funcArgs);
+            array_shift($funcArgs);
             
-            // We should never really get here in most cases.
-            // Something weird happened, we could not create or retreive
-            // the entity to which a parent is to be added
+            // We should never really get here in most cases. Something weird happened, 
+            // we could not create or retrieve the entity to which a parent is to be added
             $class = get_class($this);
             $function = __FUNCTION__;
             $msg = "Error [{$class}::{$function}(...)]:"
-            . " Could not create or retreive the entity with an ID of `{$entityId}`"
+            . " Could not create or retrieve the entity with an ID of `{$entityId}`"
             . " to which the following permission is to be added:"
-            . PHP_EOL . PHP_EOL . var_export($funcArgsMinusFirstArg, true);
+            . PHP_EOL . PHP_EOL . var_export($funcArgs, true);
 
-            throw new \RuntimeException($msg); 
+            throw new RuntimeException($msg);
         }
         
         return $this;
@@ -296,7 +290,7 @@ class SimpleAcl {
      * @param string $action
      * @param string $resource
      * @param bool $allowActionOnResource
-     * @param callable $additionalAssertions
+     * @param callable|null $additionalAssertions
      * @param mixed $argsForCallback
      * 
      * @return PermissionInterface|null
@@ -325,7 +319,7 @@ class SimpleAcl {
                                         ...$argsForCallback
                                     )
                                 );
-            $removedPermission = $existingEntity->getDirectPermissions()->get($keyForPermission); // get the permission object
+            $removedPermission = $existingEntity->getDirectPermissions()->get(''.$keyForPermission); // get the permission object
             $existingEntity->getDirectPermissions()->removeByKey($keyForPermission); // remove the permission
         }
         
@@ -348,7 +342,7 @@ class SimpleAcl {
      *                                          this method is being invoked on.
      * @param string $action                    See the see section above
      * @param string $resource                  See the see section above
-     * @param callable $additionalAssertions    See the see section above
+     * @param callable|null $additionalAssertions    See the see section above
      * @param mixed $argsForCallback            See the see section above
      * 
      * @return bool
@@ -391,44 +385,28 @@ class SimpleAcl {
         return $isAllowed;
     }
     
-    ////////////////////////////////////////////////////////////////////////////
-    //////////////////// non-public methods ////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    
-    protected function throwInvalidArgExceptionDueToWrongClassName(
-        string $class, string $function, string $wrongClassName, 
-        string $expectedIntefaceName, string $positionthParameter
-    ) {
-        $msg = "Error [{$class}::{$function}(...)]:"
-        . " You must specify the fully qualified name of a class that implements `{$expectedIntefaceName}` "
-        . " as the {$positionthParameter} parameter to {$class}::{$function}(...)."
-        . PHP_EOL . " You supplied a wrong value of: `{$wrongClassName}` ";
-        
-        throw new \InvalidArgumentException($msg); 
-    }
-    
-    protected function createEntityCollection(): PermissionableEntitiesCollectionInterface {
+    public function createEntityCollection(): PermissionableEntitiesCollectionInterface {
         
         $collectionClassName = $this->permissionableEntitiesCollectionInterfaceClassName;
         
         return new $collectionClassName();
     }
     
-    protected function createPermissionCollection(): PermissionsCollectionInterface {
+    public function createPermissionCollection(): PermissionsCollectionInterface {
         
         $collectionClassName = $this->permissionsCollectionInterfaceClassName;
         
         return new $collectionClassName();
     }
     
-    protected function createEntity(string $entityId): PermissionableEntityInterface {
+    public function createEntity(string $entityId): PermissionableEntityInterface {
         
         $entityClassName = $this->permissionableEntityInterfaceClassName;
         
         return new $entityClassName($entityId, $this->createPermissionCollection(), $this->createEntityCollection());
     }
     
-    protected function createPermission(
+    public function createPermission(
         string $action, string $resource, bool $allowActionOnResource = true, callable $additionalAssertions = null, ...$argsForCallback
     ): PermissionInterface {
         
@@ -437,4 +415,19 @@ class SimpleAcl {
         return new $permissionClassName($action, $resource, $allowActionOnResource, $additionalAssertions, ...$argsForCallback);
     }
     
+    ////////////////////////////////////////////////////////////////////////////
+    //////////////////// non-public methods ////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+    
+    protected function throwInvalidArgExceptionDueToWrongClassName(
+        string $class, string $function, string $wrongClassName, 
+        string $expectedInterfaceName, string $positionthParameter
+    ) {
+        $msg = "Error [{$class}::{$function}(...)]:"
+        . " You must specify the fully qualified name of a class that implements `{$expectedInterfaceName}` "
+        . " as the {$positionthParameter} parameter to {$class}::{$function}(...)."
+        . PHP_EOL . " You supplied a wrong value of: `{$wrongClassName}` ";
+        
+        throw new InvalidArgumentException($msg);
+    }    
 }
