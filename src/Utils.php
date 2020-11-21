@@ -85,7 +85,8 @@ class Utils {
     public static function array_key_first(array $array) {
 
         if( function_exists('array_key_first') ) {
-            
+
+            /** @noinspection PhpFullyQualifiedNameUsageInspection */
             return \array_key_first($array);
         }
         
@@ -111,6 +112,7 @@ class Utils {
 
         if( function_exists('array_key_last') ) {
 
+            /** @noinspection PhpFullyQualifiedNameUsageInspection */
             return \array_key_last($array);
         }
         
