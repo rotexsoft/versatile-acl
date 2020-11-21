@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpIllegalPsrClassPathInspection */
+
 use SimpleAcl\Utils;
 use SimpleAcl\GenericBaseCollection;
 use SimpleAcl\Interfaces\PermissionInterface;
@@ -90,7 +91,7 @@ class CustomPermissionsCollection extends GenericBaseCollection implements Permi
     /**
      * Adds an instance of PermissionInterface to an instance of this class.
      * 
-     * @param \SimpleAcl\Interfaces\PermissionInterface $permission
+     * @param PermissionInterface $permission
      * 
      * @return $this
      */
@@ -114,7 +115,7 @@ class CustomPermissionsCollection extends GenericBaseCollection implements Permi
      * Retrieves the key in the collection associated with the specified permission object.
      * If the object is not present in the collection, NULL should be returned
      * 
-     * @param \SimpleAcl\Interfaces\PermissionInterface $permission
+     * @param PermissionInterface $permission
      * 
      * @return string|int|null
      */
@@ -131,7 +132,7 @@ class CustomPermissionsCollection extends GenericBaseCollection implements Permi
     /**
      * Removes an instance of PermissionInterface from an instance of this class.
      * 
-     * @param \SimpleAcl\Interfaces\PermissionInterface $permission
+     * @param PermissionInterface $permission
      * 
      * @return $this
      */
@@ -160,7 +161,7 @@ class CustomPermissionsCollection extends GenericBaseCollection implements Permi
     /**
      * Adds an instance of PermissionInterface to an instance of this class with the specified key.
      * 
-     * @param \SimpleAcl\Interfaces\PermissionInterface $permission
+     * @param PermissionInterface $permission
      * @param string $key specified key for $permission in the collection
      * 
      * @return $this
@@ -178,7 +179,7 @@ class CustomPermissionsCollection extends GenericBaseCollection implements Permi
      * 
      * @param string $key
      * 
-     * @return \SimpleAcl\Interfaces\PermissionInterface|null
+     * @return PermissionInterface|null
      */
     public function get(string $key): ?PermissionInterface {
         
@@ -255,7 +256,7 @@ class CustomPermissionsCollection extends GenericBaseCollection implements Permi
      * @param string $action
      * @param string $resource
      * 
-     * @return \SimpleAcl\Interfaces\PermissionInterface|null
+     * @return PermissionInterface|null
      */
     public function findOne(string $action='', string $resource=''): ?PermissionInterface {
         
@@ -306,7 +307,7 @@ class CustomPermissionsCollection extends GenericBaseCollection implements Permi
      * @param string $action
      * @param string $resource
      * 
-     * @return \SimpleAcl\Interfaces\PermissionsCollectionInterface
+     * @return PermissionsCollectionInterface
      */
     public function findAll(string $action='', string $resource=''): PermissionsCollectionInterface {
         
