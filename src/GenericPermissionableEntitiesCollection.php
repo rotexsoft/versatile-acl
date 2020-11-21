@@ -1,9 +1,9 @@
 <?php
+/** @noinspection PhpRedundantVariableDocTypeInspection */
 declare(strict_types=1);
 
 namespace SimpleAcl;
 
-use SimpleAcl\Utils;
 use SimpleAcl\Interfaces\PermissionableEntityInterface;
 use SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface;
 
@@ -43,7 +43,7 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
     /**
      * Adds an instance of PermissionableEntityInterface to an instance of this class
      * 
-     * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $permissionEntity
+     * @param PermissionableEntityInterface $permissionEntity
      * 
      * @return $this
      */
@@ -67,7 +67,7 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
      * Retrieves the key in the collection associated with the specified object.
      * If the object is not present in the collection, NULL should be returned
      * 
-     * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $entity
+     * @param PermissionableEntityInterface $entity
      * 
      * @return string|int|null
      */
@@ -84,7 +84,7 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
     /**
      * Removes an instance of PermissionableEntityInterface from an instance of this class.
      * 
-     * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $permissionEntity
+     * @param PermissionableEntityInterface $permissionEntity
      * 
      * @return $this
      */
@@ -114,7 +114,7 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
     /**
      * Adds an instance of PermissionableEntityInterface to an instance of this class with the specified key.
      * 
-     * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $permissionEntity
+     * @param PermissionableEntityInterface $permissionEntity
      * @param string $key specified key for $permissionEntity in the collection
      * 
      * @return $this
@@ -132,7 +132,7 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
      * 
      * @param string $key
      * 
-     * @return \SimpleAcl\Interfaces\PermissionableEntityInterface|null
+     * @return PermissionableEntityInterface|null
      */
     public function get(string $key): ?PermissionableEntityInterface {
         
@@ -193,11 +193,11 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
      * 
      * @param string $entityId the ID of the entity we are searching for
      * 
-     * @return \SimpleAcl\Interfaces\PermissionableEntityInterface|null an entity that matches the specified $entityId or NULL if such an entity was not found in the collection
+     * @return PermissionableEntityInterface|null an entity that matches the specified $entityId or NULL if such an entity was not found in the collection
      */
     public function find(string $entityId): ?PermissionableEntityInterface {
         
-        /** @var SimpleAcl\Interfaces\PermissionableEntityInterface $entity */
+        /** @var PermissionableEntityInterface $entity */
         foreach ($this->storage as $entity) {
             if( Utils::strtolower($entity->getId()) === Utils::strtolower($entityId) ) {
                 return $entity;
