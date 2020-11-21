@@ -515,4 +515,30 @@ class GenericPermissionableEntitiesCollectionTest extends \PHPUnit\Framework\Tes
         
         $this->assertStringContainsString('}', $haystack1);
     }
+    
+    public function testFindWorksAsExpected() {
+        
+        $collection = new GenericPermissionableEntitiesCollection();
+        
+        $entity1 = new GenericPermissionableEntity('one');
+        $entity2 = new GenericPermissionableEntity('two');
+        $entity3 = new GenericPermissionableEntity('three');
+        
+        $this->assertEquals(0, $collection->count());
+        
+        $collection->add($entity1);
+        $collection->add($entity2);
+        $collection->add($entity3);
+        
+        $this->assertSame($entity1, $collection->find('one'));
+        $this->assertSame($entity2, $collection->find('two'));
+        $this->assertSame($entity3, $collection->find('three'));
+        $this->assertNull($collection->find('non-existent-entity'));
+        
+        // test case insensitivity
+        $this->assertSame($entity2, $collection->find('TWO'));
+        $this->assertSame($entity2, $collection->find('Two'));
+        $this->assertSame($entity2, $collection->find('tWo'));
+        $this->assertSame($entity2, $collection->find('twO'));
+    }
 }

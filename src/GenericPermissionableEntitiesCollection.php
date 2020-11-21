@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace SimpleAcl;
 
+use SimpleAcl\Utils;
 use SimpleAcl\Interfaces\PermissionableEntityInterface;
 use SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface;
 
@@ -178,5 +179,30 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
         uasort($this->storage, $comparator);
         
         return $this;
+    }
+    
+    /**
+     * Find an entity in the collection matching the specified $entityId. 
+     * Return NULL if no matching entity exists in the collection.
+     * 
+     * The $entityId should be matched in a case-insensitive manner:
+     *  - 'BoB', 'bOb' and 'bob' will all match an entity with the ID 'BOB'
+     * 
+     * NOTE: The ID for an entity is what is returned by 
+     * PermissionableEntityInterface::getId()
+     * 
+     * @param string $entityId the ID of the entity we are searching for
+     * 
+     * @return \SimpleAcl\Interfaces\PermissionableEntityInterface|null an entity that matches the specified $entityId or NULL if such an entity was not found in the collection
+     */
+    public function find(string $entityId): ?PermissionableEntityInterface {
+        
+        /** @var SimpleAcl\Interfaces\PermissionableEntityInterface $entity */
+        foreach ($this->storage as $entity) {
+            if( Utils::strtolower($entity->getId()) === Utils::strtolower($entityId) ) {
+                return $entity;
+            }
+        }
+        return null;
     }
 }

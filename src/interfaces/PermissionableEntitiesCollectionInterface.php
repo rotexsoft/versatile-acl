@@ -50,7 +50,23 @@ interface PermissionableEntitiesCollectionInterface extends CollectionInterface 
     public function removeAll(): self;
     
     /**
-     * Retrieves the entity in the collection associated with the specified key.
+     * Find an entity in the collection matching the specified $entityId. 
+     * Return NULL if no matching entity exists in the collection.
+     * 
+     * The $entityId should be matched in a case-insensitive manner:
+     *  - 'BoB', 'bOb' and 'bob' will all match an entity with the ID 'BOB'
+     * 
+     * NOTE: The ID for an entity is what is returned by 
+     * PermissionableEntityInterface::getId()
+     * 
+     * @param string $entityId the ID of the entity we are searching for
+     * 
+     * @return \SimpleAcl\Interfaces\PermissionableEntityInterface|null an entity that matches the specified $entityId or NULL if such an entity was not found in the collection
+     */
+    public function find(string $entityId): ?PermissionableEntityInterface;
+    
+    /**
+     * Retrieves the entity in the collection associated with the specified collection key.
      * If the key is not present in the collection, NULL should be returned
      * 
      * @param string $key
