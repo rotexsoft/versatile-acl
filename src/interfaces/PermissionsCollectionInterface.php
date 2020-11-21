@@ -51,10 +51,10 @@ interface PermissionsCollectionInterface extends CollectionInterface
     public function removeAll(): self;
     
     /**
-     * Retrieves the permission in the collection associated with the specified key.
+     * Retrieves the permission in the collection associated with the specified collection key.
      * If the key is not present in the collection, NULL should be returned
      * 
-     * @param string $key
+     * @param string $key a key in the collection instance this method is being called on
      * 
      * @return \SimpleAcl\Interfaces\PermissionInterface|null
      */
@@ -119,4 +119,34 @@ interface PermissionsCollectionInterface extends CollectionInterface
      * @return $this
      */
     public function sort(callable $comparator=null): self;
+    
+    /**
+     * Find and return the first permission in the collection that matches the specified $action and / or $resource.
+     * NULL should be returned if there was no match.
+     * The match should be case-insensitive
+     * If $action has an empty string value, do not use it for the match
+     * If $resource has an empty string value, do not use it for the match
+     * If both $action & $resource have empty string values, return NULL
+     * 
+     * @param string $action
+     * @param string $resource
+     * 
+     * @return \SimpleAcl\Interfaces\PermissionInterface|null
+     */
+    public function findOne(string $action='', string $resource=''): ?PermissionInterface;
+    
+    /**
+     * Find and return the all permissions in the collection that match the specified $action and / or $resource.
+     * An empty collection should be returned if there was no match.
+     * The match should be case-insensitive
+     * If $action has an empty string value, do not use it for the match
+     * If $resource has an empty string value, do not use it for the match
+     * If both $action & $resource have empty string values, return an empty collection
+     * 
+     * @param string $action
+     * @param string $resource
+     * 
+     * @return \SimpleAcl\Interfaces\PermissionsCollectionInterface
+     */
+    public function findAll(string $action='', string $resource=''): PermissionsCollectionInterface;
 }

@@ -1053,4 +1053,135 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         
         $this->assertStringContainsString('}', $haystack1);
     }
+    
+    public function testFindOneWorksAsExpected() {
+        
+        $collection = new GenericPermissionsCollection();
+        
+        $perm1 = new GenericPermission('action-a', 'resource-a');
+        $perm2 = new GenericPermission('action-b', 'resource-b');
+        $perm3 = new GenericPermission('action-c', 'resource-c');
+        $perm4 = new GenericPermission('action-c', 'resource-a');
+        $perm5 = new GenericPermission('action-c', 'resource-b');
+        $perm6 = new GenericPermission('action-a', 'resource-c');
+        
+        $this->assertEquals(0, $collection->count());
+        
+        // test return null scenarios
+        $this->assertNull($collection->findOne());
+        $this->assertNull($collection->findOne('', ''));
+        $this->assertNull($collection->findOne('non-existent-action', 'non-existent-resource'));
+        
+        $collection->add($perm1);
+        $collection->add($perm2);
+        $collection->add($perm3);
+        $collection->add($perm4);
+        $collection->add($perm5);
+        $collection->add($perm6);
+        
+        $this->assertEquals(6, $collection->count());
+        
+        // test return null scenarios again
+        $this->assertNull($collection->findOne());
+        $this->assertNull($collection->findOne('', ''));
+        $this->assertNull($collection->findOne('non-existent-action', 'non-existent-resource'));
+        $this->assertNull($collection->findOne('action-a', 'non-existent-resource'));
+        $this->assertNull($collection->findOne('non-existent-action', 'resource-a'));
+        
+        $this->assertSame($perm1, $collection->findOne('action-a', 'resource-a'));
+        $this->assertSame($perm1, $collection->findOne('action-a', ''));
+        $this->assertSame($perm1, $collection->findOne('', 'resource-a'));
+        
+        $this->assertSame($perm3, $collection->findOne('action-c', 'resource-c'));
+        $this->assertSame($perm3, $collection->findOne('action-c', ''));
+        $this->assertSame($perm3, $collection->findOne('', 'resource-c'));
+
+        $this->assertSame($perm4, $collection->findOne('action-c', 'resource-a'));
+        $this->assertSame($perm5, $collection->findOne('action-c', 'resource-b'));
+        $this->assertSame($perm6, $collection->findOne('action-a', 'resource-c'));
+        
+        // test case insensitivity
+        $this->assertSame($perm1, $collection->findOne('ActioN-a', 'rEsouRce-A'));
+        $this->assertSame($perm1, $collection->findOne('ACTION-A', 'RESOURCE-A'));
+    }
+    
+    public function testFindAllWorksAsExpected() {
+        
+        $collection = new GenericPermissionsCollection();
+        
+        $perm1 = new GenericPermission('action-a', 'resource-a');
+        $perm2 = new GenericPermission('action-b', 'resource-b');
+        $perm3 = new GenericPermission('action-c', 'resource-c');
+        $perm4 = new GenericPermission('action-c', 'resource-a');
+        $perm5 = new GenericPermission('action-c', 'resource-b');
+        $perm6 = new GenericPermission('action-a', 'resource-c');
+        
+        $this->assertEquals(0, $collection->count());
+        
+        // test return empty collection scenarios
+        $this->assertCount(0, $collection->findAll());
+        $this->assertCount(0, $collection->findAll('', ''));
+        $this->assertCount(0, $collection->findAll('non-existent-action', 'non-existent-resource'));
+        
+        $collection->add($perm1);
+        $collection->add($perm2);
+        $collection->add($perm3);
+        $collection->add($perm4);
+        $collection->add($perm5);
+        $collection->add($perm6);
+        
+        $this->assertEquals(6, $collection->count());
+        
+        // test return empty collection scenarios again
+        $this->assertCount(0, $collection->findAll());
+        $this->assertCount(0, $collection->findAll('', ''));
+        $this->assertCount(0, $collection->findAll('non-existent-action', 'non-existent-resource'));
+        $this->assertCount(0, $collection->findAll('action-a', 'non-existent-resource'));
+        $this->assertCount(0, $collection->findAll('non-existent-action', 'resource-a'));
+        
+        
+        // query by both action and resource
+        $this->assertCount(1, $collection->findAll('action-a', 'resource-a'));
+        $this->assertCount(1, $collection->findAll('action-b', 'resource-b'));
+        $this->assertCount(1, $collection->findAll('action-c', 'resource-c'));
+        $this->assertCount(1, $collection->findAll('action-c', 'resource-a'));
+        $this->assertCount(1, $collection->findAll('action-c', 'resource-b'));
+        $this->assertCount(1, $collection->findAll('action-a', 'resource-c'));
+        
+        $this->assertTrue( $collection->findAll('action-a', 'resource-a')->hasPermission($perm1));
+        $this->assertTrue( $collection->findAll('action-b', 'resource-b')->hasPermission($perm2));
+        $this->assertTrue( $collection->findAll('action-c', 'resource-c')->hasPermission($perm3));
+        $this->assertTrue( $collection->findAll('action-c', 'resource-a')->hasPermission($perm4));
+        $this->assertTrue( $collection->findAll('action-c', 'resource-b')->hasPermission($perm5));
+        $this->assertTrue( $collection->findAll('action-a', 'resource-c')->hasPermission($perm6));
+        
+        // query by one attribute, action or resource alone
+        $this->assertCount(2, $collection->findAll('action-a', ''));
+        $this->assertTrue($collection->findAll('action-a', '')->hasPermission($perm1));
+        $this->assertTrue($collection->findAll('action-a', '')->hasPermission($perm6));
+        
+        $this->assertCount(1, $collection->findAll('action-b', ''));
+        $this->assertTrue($collection->findAll('action-b', '')->hasPermission($perm2));
+        
+        $this->assertCount(3, $collection->findAll('action-c', ''));
+        $this->assertTrue($collection->findAll('action-c', '')->hasPermission($perm3));
+        $this->assertTrue($collection->findAll('action-c', '')->hasPermission($perm4));
+        $this->assertTrue($collection->findAll('action-c', '')->hasPermission($perm5));
+        
+        $this->assertCount(2, $collection->findAll('', 'resource-a'));
+        $this->assertTrue($collection->findAll('', 'resource-a')->hasPermission($perm1));
+        $this->assertTrue($collection->findAll('', 'resource-a')->hasPermission($perm4));
+        
+        $this->assertCount(2, $collection->findAll('', 'resource-b'));
+        $this->assertTrue($collection->findAll('', 'resource-b')->hasPermission($perm2));
+        $this->assertTrue($collection->findAll('', 'resource-b')->hasPermission($perm5));
+        
+        $this->assertCount(2, $collection->findAll('', 'resource-c'));
+        $this->assertTrue($collection->findAll('', 'resource-c')->hasPermission($perm3));
+        $this->assertTrue($collection->findAll('', 'resource-c')->hasPermission($perm6));
+        
+        // test case insensitivity
+        $this->assertTrue( $collection->findAll('aCTiOn-A', 'ResOUrCE-a')->hasPermission($perm1));
+        $this->assertTrue( $collection->findAll('ACTION-A', 'RESOURCE-A')->hasPermission($perm1));
+    }
 }

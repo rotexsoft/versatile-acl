@@ -1,14 +1,15 @@
 <?php
-declare(strict_types=1);
-
-namespace SimpleAcl;
-
 use SimpleAcl\Utils;
+use SimpleAcl\GenericBaseCollection;
 use SimpleAcl\Interfaces\PermissionInterface;
 use SimpleAcl\Interfaces\PermissionsCollectionInterface;
 
-class GenericPermissionsCollection extends GenericBaseCollection implements PermissionsCollectionInterface {
-    
+/**
+ * Description of CustomPermissionableEntitiesCollection
+ *
+ * @author rotimi
+ */
+class CustomPermissionsCollection extends GenericBaseCollection implements PermissionsCollectionInterface {
     /**
      * Constructor.
      * 
