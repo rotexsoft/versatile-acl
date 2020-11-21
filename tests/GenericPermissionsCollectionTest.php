@@ -1101,6 +1101,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertSame($perm6, $collection->findOne('action-a', 'resource-c'));
         
         // test case insensitivity
+        /** @noinspection SpellCheckingInspection */
         $this->assertSame($perm1, $collection->findOne('ActioN-a', 'rEsouRce-A'));
         $this->assertSame($perm1, $collection->findOne('ACTION-A', 'RESOURCE-A'));
     }
