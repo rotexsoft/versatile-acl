@@ -17,7 +17,7 @@ interface PermissionableEntitiesCollectionInterface extends CollectionInterface 
      * Adds an instance of PermissionableEntityInterface to an instance of this interface. 
      * Duplicate PermissionableEntityInterface instances should not be allowed in the same instance of this interface.
      * 
-     * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $permissionEntity
+     * @param PermissionableEntityInterface $permissionEntity
      * 
      * @return $this
      */
@@ -26,7 +26,7 @@ interface PermissionableEntitiesCollectionInterface extends CollectionInterface 
     /**
      * Adds an instance of PermissionableEntityInterface to an instance of this interface with the specified key.
      * 
-     * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $permissionEntity
+     * @param PermissionableEntityInterface $permissionEntity
      * @param string $key specified key for $permissionEntity in the collection
      * 
      * @return $this
@@ -36,7 +36,7 @@ interface PermissionableEntitiesCollectionInterface extends CollectionInterface 
     /**
      * Removes an instance of PermissionableEntityInterface from an instance of this interface.
      * 
-     * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $permissionEntity
+     * @param PermissionableEntityInterface $permissionEntity
      * 
      * @return $this
      */
@@ -61,7 +61,7 @@ interface PermissionableEntitiesCollectionInterface extends CollectionInterface 
      * 
      * @param string $entityId the ID of the entity we are searching for
      * 
-     * @return \SimpleAcl\Interfaces\PermissionableEntityInterface|null an entity that matches the specified $entityId or NULL if such an entity was not found in the collection
+     * @return PermissionableEntityInterface|null an entity that matches the specified $entityId or NULL if such an entity was not found in the collection
      */
     public function find(string $entityId): ?PermissionableEntityInterface;
     
@@ -71,7 +71,7 @@ interface PermissionableEntitiesCollectionInterface extends CollectionInterface 
      * 
      * @param string $key
      * 
-     * @return \SimpleAcl\Interfaces\PermissionableEntityInterface|null
+     * @return PermissionableEntityInterface|null
      */
     public function get(string $key): ?PermissionableEntityInterface;
     
@@ -79,7 +79,7 @@ interface PermissionableEntitiesCollectionInterface extends CollectionInterface 
      * Retrieves the key in the collection associated with the specified object.
      * If the object is not present in the collection, NULL should be returned
      * 
-     * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $entity
+     * @param PermissionableEntityInterface $entity
      * 
      * @return string|int|null
      */
