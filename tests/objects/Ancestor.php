@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpIllegalPsrClassPathInspection */
+
 /**
  * Description of Ancestor
  *
