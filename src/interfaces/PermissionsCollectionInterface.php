@@ -18,7 +18,7 @@ interface PermissionsCollectionInterface extends CollectionInterface
      * Adds an instance of PermissionInterface to an instance of this interface.
      * Duplicate PermissionInterface instances should not be allowed in the same instance of this interface.
      * 
-     * @param \SimpleAcl\Interfaces\PermissionInterface $permission
+     * @param PermissionInterface $permission
      * 
      * @return $this
      */
@@ -27,7 +27,7 @@ interface PermissionsCollectionInterface extends CollectionInterface
     /**
      * Adds an instance of PermissionInterface to an instance of this interface with the specified key.
      * 
-     * @param \SimpleAcl\Interfaces\PermissionInterface $permission
+     * @param PermissionInterface $permission
      * @param string $key specified key for $permission in the collection
      * 
      * @return $this
@@ -37,7 +37,7 @@ interface PermissionsCollectionInterface extends CollectionInterface
     /**
      * Removes an instance of PermissionInterface from an instance of this interface.
      * 
-     * @param \SimpleAcl\Interfaces\PermissionInterface $permission
+     * @param PermissionInterface $permission
      * 
      * @return $this
      */
@@ -56,7 +56,7 @@ interface PermissionsCollectionInterface extends CollectionInterface
      * 
      * @param string $key a key in the collection instance this method is being called on
      * 
-     * @return \SimpleAcl\Interfaces\PermissionInterface|null
+     * @return PermissionInterface|null
      */
     public function get(string $key): ?PermissionInterface;
     
@@ -64,7 +64,7 @@ interface PermissionsCollectionInterface extends CollectionInterface
      * Retrieves the key in the collection associated with the specified permission object.
      * If the object is not present in the collection, NULL should be returned
      * 
-     * @param \SimpleAcl\Interfaces\PermissionInterface $permission
+     * @param PermissionInterface $permission
      * 
      * @return string|int|null
      */
@@ -131,7 +131,7 @@ interface PermissionsCollectionInterface extends CollectionInterface
      * @param string $action
      * @param string $resource
      * 
-     * @return \SimpleAcl\Interfaces\PermissionInterface|null
+     * @return PermissionInterface|null
      */
     public function findOne(string $action='', string $resource=''): ?PermissionInterface;
     
@@ -146,7 +146,7 @@ interface PermissionsCollectionInterface extends CollectionInterface
      * @param string $action
      * @param string $resource
      * 
-     * @return \SimpleAcl\Interfaces\PermissionsCollectionInterface
+     * @return PermissionsCollectionInterface
      */
     public function findAll(string $action='', string $resource=''): PermissionsCollectionInterface;
 }
