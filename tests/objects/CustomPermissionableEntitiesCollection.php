@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpIllegalPsrClassPathInspection */
+
 use SimpleAcl\Utils;
 use SimpleAcl\GenericBaseCollection;
 use SimpleAcl\Interfaces\PermissionableEntityInterface;
@@ -46,7 +47,7 @@ class CustomPermissionableEntitiesCollection extends GenericBaseCollection imple
     /**
      * Adds an instance of PermissionableEntityInterface to an instance of this class
      * 
-     * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $permissionEntity
+     * @param PermissionableEntityInterface $permissionEntity
      * 
      * @return $this
      */
@@ -70,7 +71,7 @@ class CustomPermissionableEntitiesCollection extends GenericBaseCollection imple
      * Retrieves the key in the collection associated with the specified object.
      * If the object is not present in the collection, NULL should be returned
      * 
-     * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $entity
+     * @param PermissionableEntityInterface $entity
      * 
      * @return string|int|null
      */
@@ -87,7 +88,7 @@ class CustomPermissionableEntitiesCollection extends GenericBaseCollection imple
     /**
      * Removes an instance of PermissionableEntityInterface from an instance of this class.
      * 
-     * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $permissionEntity
+     * @param PermissionableEntityInterface $permissionEntity
      * 
      * @return $this
      */
@@ -117,7 +118,7 @@ class CustomPermissionableEntitiesCollection extends GenericBaseCollection imple
     /**
      * Adds an instance of PermissionableEntityInterface to an instance of this class with the specified key.
      * 
-     * @param \SimpleAcl\Interfaces\PermissionableEntityInterface $permissionEntity
+     * @param PermissionableEntityInterface $permissionEntity
      * @param string $key specified key for $permissionEntity in the collection
      * 
      * @return $this
@@ -135,7 +136,7 @@ class CustomPermissionableEntitiesCollection extends GenericBaseCollection imple
      * 
      * @param string $key
      * 
-     * @return \SimpleAcl\Interfaces\PermissionableEntityInterface|null
+     * @return PermissionableEntityInterface|null
      */
     public function get(string $key): ?PermissionableEntityInterface {
         
@@ -196,7 +197,8 @@ class CustomPermissionableEntitiesCollection extends GenericBaseCollection imple
      * 
      * @param string $entityId the ID of the entity we are searching for
      * 
-     * @return \SimpleAcl\Interfaces\PermissionableEntityInterface|null an entity that matches the specified $entityId or NULL if such an entity was not found in the collection
+     * @return PermissionableEntityInterface|null an entity that matches the specified $entityId or NULL if such an entity was not found in the collection
+     * @noinspection PhpRedundantVariableDocTypeInspection
      */
     public function find(string $entityId): ?PermissionableEntityInterface {
         
