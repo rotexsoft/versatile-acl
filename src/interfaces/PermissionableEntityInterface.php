@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace SimpleAcl\Interfaces;
 
+use SimpleAcl\Exceptions\EmptyEntityIdException;
+use SimpleAcl\Exceptions\ParentCannotBeChildException;
+
 interface PermissionableEntityInterface {
     
     /**
@@ -12,7 +15,7 @@ interface PermissionableEntityInterface {
      * @param PermissionsCollectionInterface|null $perms optional permissions for the new instance of PermissionableEntityInterface
      * @param PermissionableEntitiesCollectionInterface|null $parentEntities optional parent entities for the new instance of PermissionableEntityInterface
      * 
-     * @throws \SimpleAcl\Exceptions\EmptyEntityIdException if $id is an empty string after these characters (" \t\n\r\0\x0B") are stripped from the front and back of the string 
+     * @throws EmptyEntityIdException if $id is an empty string after these characters (" \t\n\r\0\x0B") are stripped from the front and back of the string
      */
     public function __construct(string $id, PermissionsCollectionInterface $perms=null, PermissionableEntitiesCollectionInterface $parentEntities=null);
 
@@ -48,7 +51,7 @@ interface PermissionableEntityInterface {
      * 
      * @return $this
      * 
-     * @throws \SimpleAcl\Exceptions\ParentCannotBeChildException
+     * @throws ParentCannotBeChildException
      */
     public function addParentEntity(PermissionableEntityInterface $entity): self;
 
@@ -69,7 +72,7 @@ interface PermissionableEntityInterface {
      * 
      * @return $this
      * 
-     * @throws \SimpleAcl\Exceptions\ParentCannotBeChildException
+     * @throws ParentCannotBeChildException
      */
     public function addParentEntities(PermissionableEntitiesCollectionInterface $entities): self;
 
@@ -216,7 +219,7 @@ interface PermissionableEntityInterface {
      *
      * @param PermissionsCollectionInterface|null $allPerms an optional collection that all the permissions to be returned will be added to. If null, a new collection that will contain the all permissions will automatically be created by this method.
      *
-     * @return \SimpleAcl\Interfaces\PermissionsCollectionInterface
+     * @return PermissionsCollectionInterface
      */
     public function getAllPermissions(bool $directPermissionsFirst=true, PermissionsCollectionInterface $allPerms=null): PermissionsCollectionInterface;
 
