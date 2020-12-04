@@ -14,32 +14,6 @@ class UtilsTest extends \PHPUnit\Framework\TestCase{
         
         parent::setUp();
     }
-
-    public function testThat_array_key_first_WorksAsExpected() {
-        
-        $arr = [];
-        $arr1 = ['One', 'Two', 'Three', 'Four'];
-        $arr2 = ['a'=>'One', 'Two', 'Three', 'Four'];
-        $arr3 = ['z'=>'One', 'Two', 'Three', 'Four'];
-      
-        $this->assertEquals(null, Utils::array_key_first($arr));
-        $this->assertEquals(0, Utils::array_key_first($arr1));
-        $this->assertEquals('a', Utils::array_key_first($arr2));
-        $this->assertEquals('z', Utils::array_key_first($arr3));
-    }
-    
-    public function testThat_array_key_last_WorksAsExpected() {
-        
-        $arr = [];
-        $arr1 = ['One', 'Two', 'Three', 'Four'];
-        $arr2 = ['One', 'Two', 'Three', 'a'=>'Four'];
-        $arr3 = ['One', 'Two', 'Three', 'z'=>'Four'];
-
-        $this->assertEquals(null, Utils::array_key_last($arr));
-        $this->assertEquals(3, Utils::array_key_last($arr1));
-        $this->assertEquals('a', Utils::array_key_last($arr2));
-        $this->assertEquals('z', Utils::array_key_last($arr3));
-    }
     
     public function testThatGetClosureFromCallableWorksAsExpected() {
         
