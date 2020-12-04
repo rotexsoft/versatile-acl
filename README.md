@@ -631,7 +631,11 @@ var_dump(
 
 > **NOTE:** You can override the **$additionalAssertions** callable supplied to **SimpleAcl::addPermission(...)** by passing another callback as the fourth argument to  **SimpleAcl::isAllowed(...)**. In all the examples above, we passed **null** as the fourth argument to **SimpleAcl::isAllowed(...)**, meaning that we want the **$additionalAssertions** callable supplied to **SimpleAcl::addPermission(...)** to be used instead (if present).
 
-This is just an example of how this package can be used to enforce access control in an application. You can obviously come up with other more creative ways to adapt this package to your specific use case.
+This is just an example of how this package can be used to enforce access control in an application. 
+You can obviously come up with other more creative ways to adapt this package to your specific use case.
+
+Study the [class diagram](class-diagram.png) for this package to get a better understanding of how the 
+various classes interact.
 
 <br>
 
