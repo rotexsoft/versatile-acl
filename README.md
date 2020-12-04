@@ -301,10 +301,10 @@ Let's start with the user **'frankwhite'** that belongs to the **'admin'**  grou
 ```php
 <?php
 
-var_dump( $sAclObj->isAllowed('frankwhite', 'approve', 'comment') ); // === true
-var_dump( $sAclObj->isAllowed('frankwhite', 'delete', 'comment') ); // === true
-var_dump( $sAclObj->isAllowed('frankwhite', 'approve', 'post') ); // === true
-var_dump( $sAclObj->isAllowed('frankwhite', 'delete', 'post') ); // === true
+var_dump( $usersSaclObj->isAllowed('frankwhite', 'approve', 'comment') ); // === true
+var_dump( $usersSaclObj->isAllowed('frankwhite', 'delete', 'comment') ); // === true
+var_dump( $usersSaclObj->isAllowed('frankwhite', 'approve', 'post') ); // === true
+var_dump( $usersSaclObj->isAllowed('frankwhite', 'delete', 'post') ); // === true
 ```
 
 Now let's continue with the user **'ginawhite'** that belongs to the **'comments-moderators'**  group. This user should be able to only approve and delete comments in the application (the user should also be able to approve and delete posts they have created):
@@ -312,10 +312,10 @@ Now let's continue with the user **'ginawhite'** that belongs to the **'comments
 ```php
 <?php
 
-var_dump( $sAclObj->isAllowed('ginawhite', 'approve', 'comment') ); // === true
-var_dump( $sAclObj->isAllowed('ginawhite', 'delete', 'comment') ); // === true
-var_dump( $sAclObj->isAllowed('ginawhite', 'approve', 'post') ); // === false
-var_dump( $sAclObj->isAllowed('ginawhite', 'delete', 'post') ); // === false
+var_dump( $usersSaclObj->isAllowed('ginawhite', 'approve', 'comment') ); // === true
+var_dump( $usersSaclObj->isAllowed('ginawhite', 'delete', 'comment') ); // === true
+var_dump( $usersSaclObj->isAllowed('ginawhite', 'approve', 'post') ); // === false
+var_dump( $usersSaclObj->isAllowed('ginawhite', 'delete', 'post') ); // === false
 
 // Assuming we have the post record below and the user record for 'ginawhite' below
 $postRecord = [
@@ -335,7 +335,7 @@ $userRecord = [
 
 // Here's how we would check if 'ginawhite' can approve and delete posts she has created
 var_dump( 
-    $sAclObj->isAllowed(
+    $usersSaclObj->isAllowed(
         'ginawhite', 
         'approve', 
         'post',
@@ -346,7 +346,7 @@ var_dump(
 ); // === true
 
 var_dump( 
-    $sAclObj->isAllowed(
+    $usersSaclObj->isAllowed(
         'ginawhite', 
         'delete', 
         'post',
