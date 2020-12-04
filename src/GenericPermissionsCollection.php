@@ -5,6 +5,9 @@ namespace SimpleAcl;
 
 use SimpleAcl\Interfaces\PermissionInterface;
 use SimpleAcl\Interfaces\PermissionsCollectionInterface;
+use function array_key_exists;
+use function get_class;
+use function uasort;
 
 class GenericPermissionsCollection extends GenericBaseCollection implements PermissionsCollectionInterface {
     
@@ -202,33 +205,36 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      *                      considered to be respectively less than, equal to,
      *                      or greater than the second.
      *
+     * @noRector
      * @return $this
+     * @noinspection PhpDocSignatureInspection
      */
     public function sort(callable $comparator = null): PermissionsCollectionInterface {
         
         if( $comparator === null ) {
-            
+            /** @noRector */
             $comparator = function(PermissionInterface $a, PermissionInterface $b ) : int {
-                
+                /** @noRector */
                 if( $a->getResource() < $b->getResource() ) {
-                    
+                    /** @noRector */
                     return -1;
-                    
+                /** @noRector */
                 } else if( $a->getResource() === $b->getResource() ) {
-                    
+                    /** @noRector */
                     if( $a->getAction() < $b->getAction() ) {
-                        
+                        /** @noRector */
                         return -1;
-                        
+                    /** @noRector */
                     } else if ( $a->getAction() === $b->getAction() ) {
-                        
+                        /** @noRector */
                         if( $a->getAllowActionOnResource() < $b->getAllowActionOnResource() ) {
-                            
+                            /** @noRector */
                             return -1;
-                            
+                        /** @noRector */
                         } elseif( $a->getAllowActionOnResource() === $b->getAllowActionOnResource() ) {
-                            
+                            /** @noRector */
                             return 0;
+                            /** @noRector */
                         } // if( $a->getAllowActionOnResource() < $b->getAllowActionOnResource() ) ... elseif( $a->getAllowActionOnResource() === $b->getAllowActionOnResource() )
                     } // if( $a->getAction() < $b->getAction() ) ... else if ( $a->getAction() === $b->getAction() )
                 } // if( $a->getResource() < $b->getResource() ) ... else if( $a->getResource() === $b->getResource() )
@@ -255,12 +261,13 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * 
      * @return PermissionInterface|null
      * @noinspection DuplicatedCode
+     * @psalm-suppress RedundantCondition
      */
     public function findOne(string $action='', string $resource=''): ?PermissionInterface {
-        
+        /** @noRector */
         if( !($action === '' && $resource === '') ) {
-            
-             /** @var PermissionInterface $permission */
+            /** @noRector */
+            /** @var PermissionInterface $permission */
             foreach ($this->storage as $permission) {
 
                 if( 
@@ -304,17 +311,21 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * 
      * @param string $action
      * @param string $resource
-     * 
+     *
+     * @noRector
      * @return PermissionsCollectionInterface
+     * 
      * @noinspection DuplicatedCode
+     * @psalm-suppress RedundantCondition
+     * @psalm-suppress UnsafeInstantiation
      */
     public function findAll(string $action='', string $resource=''): PermissionsCollectionInterface {
-        
+
         $permissionsCollection = new static();
         
-        if( !($action === '' && $resource === '') ) {
-                        
-             /** @var PermissionInterface $permission */
+        if($action !== '' || $resource !== '') {
+
+            /** @var PermissionInterface $permission */
             foreach ($this->storage as $permission) {
 
                 if( 
