@@ -30,9 +30,20 @@ which is implemented by **[\SimpleAcl\GenericPermissionableEntity](src/GenericPe
 Click [here](class-diagram.png) to see the full Class Diagram of this library.
 
 ## Example Usage
-In your applications, you will be mostly working with instances of **[\SimpleAcl\GenericPermissionableEntity](src/GenericPermissionableEntity.php)**
-and **[\SimpleAcl\GenericPermission](src/GenericPermission.php)**. Both classes have a static **createCollection()** method that can be used to 
-create the appropriate collection object to house one or more instances of each class respectively.
+In your applications, you will be mostly be working with instances of **[SimpleAcl\SimpleAcl](src/SimpleAcl.php)**; this class exposes most of the functionality of the underlying classes in this package listed below: 
+* **[\SimpleAcl\GenericPermissionableEntity](src/GenericPermissionableEntity.php) :** Represents an entity in your application
+
+* **[\SimpleAcl\GenericPermissionableEntitiesCollection](src/GenericPermissionableEntitiesCollection.php) :** A collection class for storing one or more entities in your application
+
+* **[\SimpleAcl\GenericPermission](src/GenericPermission.php) :** Represents a permission to be assigned to an entity in your application
+
+* **[\SimpleAcl\GenericPermissionsCollection](src/GenericPermissionsCollection.php) :** A collection class for storing one or more permissions belonging to a particular entity in your application. It is possible to assign the same instance of this class to more than one entity, but it is recommended that you maintain separate instances of this class for each entity in your application.
+
+
+### Public Methods of **[SimpleAcl\SimpleAcl](src/SimpleAcl.php)**
+
+
+
 
 ### Creating Entities
 
