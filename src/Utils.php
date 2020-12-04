@@ -6,6 +6,10 @@ use Closure;
 use Exception;
 use InvalidArgumentException;
 use Throwable;
+use function function_exists;
+use function get_class;
+use function strtolower;
+
 
 /**
  * Description of Utils
@@ -75,64 +79,19 @@ class Utils {
         
         return $message;
     }
-
-    /**
-     * 
-     * @param array $array
-     * 
-     * @return mixed
-     */
-    public static function array_key_first(array $array) {
-
-        if( function_exists('array_key_first') ) {
-
-            /** @noinspection PhpFullyQualifiedNameUsageInspection */
-            return \array_key_first($array);
-        }
-        
-        // polyfill
-        $firstKey = null; // default for $array === []
-
-        foreach($array as $key => $value) {
-            // an array with at least 1 item
-            $firstKey = $key;
-            break;
-        }
-
-        return $firstKey;
-    }
-
-    /**
-     * 
-     * @param array $array
-     * 
-     * @return mixed
-     */
-    public static function array_key_last(array $array) {
-
-        if( function_exists('array_key_last') ) {
-
-            /** @noinspection PhpFullyQualifiedNameUsageInspection */
-            return \array_key_last($array);
-        }
-        
-        // polyfill
-        if( $array === [] ) { return null; }
-
-        return static::array_key_first(array_slice($array, -1, null, true));
-    }
     
     /**
      * 
      * @param string $str
      * 
      * @return string
+     * @noinspection PhpFullyQualifiedNameUsageInspection
      */
     public static function strtolower(string $str): string {
           
         if( function_exists('mb_strtolower') ) {
 
-            return mb_strtolower($str, 'UTF-8');
+            return \mb_strtolower($str, 'UTF-8');
         }
 
         return strtolower($str);
