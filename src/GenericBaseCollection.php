@@ -6,6 +6,13 @@ namespace SimpleAcl;
 use ArrayIterator;
 use SimpleAcl\Interfaces\CollectionInterface;
 use Traversable;
+use function array_key_exists;
+use function count;
+use function in_array;
+use function is_int;
+use function is_string;
+use function spl_object_hash;
+use function str_replace;
 
 abstract class GenericBaseCollection implements CollectionInterface {
 
@@ -53,6 +60,7 @@ abstract class GenericBaseCollection implements CollectionInterface {
      * @param string|int $key
      * 
      * @return bool
+     * @psalm-suppress RedundantConditionGivenDocblockType
      */
     public function keyExists($key): bool {
         
@@ -110,8 +118,6 @@ abstract class GenericBaseCollection implements CollectionInterface {
             }
         }
         
-        $objAsStr .= PHP_EOL . "}" . PHP_EOL;
-        
-        return $objAsStr;
+        return $objAsStr . (PHP_EOL . "}" . PHP_EOL);
     }
 }
