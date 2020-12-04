@@ -33,10 +33,10 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals('c', $entity->getId()); // case-insensitivity
         
         $this->assertInstanceOf(GenericPermissionsCollection::class, $entity->getDirectPermissions());
-        $this->assertInstanceOf(GenericPermissionableEntitiesCollection::class, $entity->getDirectParentEntities());
+        $this->assertInstanceOf(GenericPermissionableEntitiesCollection::class, $entity->getDirectParents());
         
         $this->assertEquals(0, $entity->getDirectPermissions()->count());
-        $this->assertEquals(0, $entity->getDirectParentEntities()->count());
+        $this->assertEquals(0, $entity->getDirectParents()->count());
         
         $parentEntities = new GenericPermissionableEntitiesCollection(
             new GenericPermissionableEntity("A"), 
@@ -55,7 +55,7 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals('d', $entityWithInjectedCollections->getId()); // case-insensitivity
         
         $this->assertSame($permissions, $entityWithInjectedCollections->getDirectPermissions());
-        $this->assertSame($parentEntities, $entityWithInjectedCollections->getDirectParentEntities());
+        $this->assertSame($parentEntities, $entityWithInjectedCollections->getDirectParents());
     }
     
     public function testConstructorWorksAsExpected1() {
@@ -121,18 +121,18 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         );
         
         $this->assertCount(3, $entities);
-        $this->assertTrue($entities->hasEntity($e1));
-        $this->assertTrue($entities->hasEntity($e2));
-        $this->assertTrue($entities->hasEntity($e3));
+        $this->assertTrue($entities->has($e1));
+        $this->assertTrue($entities->has($e2));
+        $this->assertTrue($entities->has($e3));
         
         $entities = GenericPermissionableEntity::createCollection(
             ...[$e1, $e2, $e3]
         );
         
         $this->assertCount(3, $entities);
-        $this->assertTrue($entities->hasEntity($e1));
-        $this->assertTrue($entities->hasEntity($e2));
-        $this->assertTrue($entities->hasEntity($e3));
+        $this->assertTrue($entities->has($e1));
+        $this->assertTrue($entities->has($e2));
+        $this->assertTrue($entities->has($e3));
     }
 
     /** @noinspection PhpUnhandledExceptionInspection */
@@ -143,36 +143,36 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $parentEntity1 = new GenericPermissionableEntity("A");
         $parentEntity2 = new GenericPermissionableEntity("B");
         
-        $this->assertEquals(0, $childEntity->getDirectParentEntities()->count());
+        $this->assertEquals(0, $childEntity->getDirectParents()->count());
         
         // add parent entities and make sure the instance of the object the 
         // addParentEntity method was called on is exactly what is returned
-        $this->assertSame($childEntity, $childEntity->addParentEntity($parentEntity1));
-        $this->assertEquals(1, $childEntity->getDirectParentEntities()->count());
+        $this->assertSame($childEntity, $childEntity->addParent($parentEntity1));
+        $this->assertEquals(1, $childEntity->getDirectParents()->count());
         
-        $this->assertSame($childEntity, $childEntity->addParentEntity($parentEntity2));
-        $this->assertEquals(2, $childEntity->getDirectParentEntities()->count());
+        $this->assertSame($childEntity, $childEntity->addParent($parentEntity2));
+        $this->assertEquals(2, $childEntity->getDirectParents()->count());
         
-        $this->assertSame($childEntity, $childEntity->addParentEntity($parentEntity1)); // should have no effect trying to add an existing parent
-        $this->assertEquals(2, $childEntity->getDirectParentEntities()->count());
+        $this->assertSame($childEntity, $childEntity->addParent($parentEntity1)); // should have no effect trying to add an existing parent
+        $this->assertEquals(2, $childEntity->getDirectParents()->count());
         
-        $this->assertSame($childEntity, $childEntity->addParentEntity($parentEntity2)); // should have no effect trying to add an existing parent
-        $this->assertEquals(2, $childEntity->getDirectParentEntities()->count());
+        $this->assertSame($childEntity, $childEntity->addParent($parentEntity2)); // should have no effect trying to add an existing parent
+        $this->assertEquals(2, $childEntity->getDirectParents()->count());
         
-        $this->assertTrue($childEntity->getDirectParentEntities()->hasEntity($parentEntity1));
-        $this->assertTrue($childEntity->getDirectParentEntities()->hasEntity($parentEntity2));
+        $this->assertTrue($childEntity->getDirectParents()->has($parentEntity1));
+        $this->assertTrue($childEntity->getDirectParents()->has($parentEntity2));
         
         /////////////////////////////////////
         // Test ParentCannotBeChildException
         /////////////////////////////////////
         $childEntitysChild = new GenericPermissionableEntity("D");
-        $childEntitysChild->addParentEntity($childEntity);
+        $childEntitysChild->addParent($childEntity);
         $exceptionMsg = "Cannot make Entity with id `{$childEntitysChild->getId()}`"
                          . " a parent to Entity with id `{$childEntity->getId()}`."
                          . " Child cannot be parent.";
         $this->expectException(ParentCannotBeChildException::class);
         $this->expectExceptionMessage($exceptionMsg);
-        $childEntity->addParentEntity($childEntitysChild); // should throw exception
+        $childEntity->addParent($childEntitysChild); // should throw exception
         
         /////////////////////////////////////////////////////////
         // Test that the correct parents collection gets updated
@@ -182,11 +182,11 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $grandParentEntity1 = new GenericPermissionableEntity("AAA");
         $grandParentEntity2 = new GenericPermissionableEntity("BBB");
         
-        $parentEntity1->addParentEntity($grandParentEntity1);
-        $parentEntity1->addParentEntity($grandParentEntity2);
+        $parentEntity1->addParent($grandParentEntity1);
+        $parentEntity1->addParent($grandParentEntity2);
         
-        $parentEntity2->addParentEntity($grandParentEntity1);
-        $parentEntity2->addParentEntity($grandParentEntity2);
+        $parentEntity2->addParent($grandParentEntity1);
+        $parentEntity2->addParent($grandParentEntity2);
         
         // At this point, $childEntity has 
         // 2 direct parents:
@@ -197,24 +197,24 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         //      - $grandParentEntity1
         //      - $grandParentEntity2
         //
-        $this->assertEquals(2, $childEntity->getDirectParentEntities()->count());
-        $this->assertEquals(4, $childEntity->getAllParentEntities()->count());
+        $this->assertEquals(2, $childEntity->getDirectParents()->count());
+        $this->assertEquals(4, $childEntity->getAllParents()->count());
         
         $grandParentEntity1Replacement = new GenericPermissionableEntity("AAA"); // same ID as $grandParentEntity1 but different instance
         $grandParentEntity2Replacement = new GenericPermissionableEntity("BBB"); // same ID as $grandParentEntity2 but different instance
         
         // the two lines below should replace 
         // $grandParentEntity1 & $grandParentEntity2 in both
-        // $parentEntity1->getDirectParentEntities() and
-        // $parentEntity2->getDirectParentEntities()
-        $childEntity->addParentEntity($grandParentEntity1Replacement);
-        $childEntity->addParentEntity($grandParentEntity2Replacement);
+        // $parentEntity1->getDirectParents() and
+        // $parentEntity2->getDirectParents()
+        $childEntity->addParent($grandParentEntity1Replacement);
+        $childEntity->addParent($grandParentEntity2Replacement);
         
-        $keyForGp1InP1 = $parentEntity1->getDirectParentEntities()->getKey($grandParentEntity1Replacement);
-        $keyForGp2InP1 = $parentEntity1->getDirectParentEntities()->getKey($grandParentEntity2Replacement);
+        $keyForGp1InP1 = $parentEntity1->getDirectParents()->getKey($grandParentEntity1Replacement);
+        $keyForGp2InP1 = $parentEntity1->getDirectParents()->getKey($grandParentEntity2Replacement);
         
-        $keyForGp1InP2 = $parentEntity2->getDirectParentEntities()->getKey($grandParentEntity1Replacement);
-        $keyForGp2InP2 = $parentEntity2->getDirectParentEntities()->getKey($grandParentEntity2Replacement);
+        $keyForGp1InP2 = $parentEntity2->getDirectParents()->getKey($grandParentEntity1Replacement);
+        $keyForGp2InP2 = $parentEntity2->getDirectParents()->getKey($grandParentEntity2Replacement);
         
         $this->assertNotNull($keyForGp1InP1);
         $this->assertNotNull($keyForGp2InP1);
@@ -223,45 +223,45 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         
         if ( $keyForGp1InP1 !== null ) {
             
-            $this->assertSame($grandParentEntity1Replacement, $parentEntity1->getDirectParentEntities()->get($keyForGp1InP1));
+            $this->assertSame($grandParentEntity1Replacement, $parentEntity1->getDirectParents()->get($keyForGp1InP1));
         }
         
         if ( $keyForGp2InP1 !== null ) {
             
-            $this->assertSame($grandParentEntity2Replacement, $parentEntity1->getDirectParentEntities()->get($keyForGp2InP1));
+            $this->assertSame($grandParentEntity2Replacement, $parentEntity1->getDirectParents()->get($keyForGp2InP1));
         }
         
         if ( $keyForGp1InP2 !== null ) {
             
-            $this->assertSame($grandParentEntity1Replacement, $parentEntity2->getDirectParentEntities()->get($keyForGp1InP2));
+            $this->assertSame($grandParentEntity1Replacement, $parentEntity2->getDirectParents()->get($keyForGp1InP2));
         }
         
         if ( $keyForGp2InP2 !== null ) {
             
-            $this->assertSame($grandParentEntity2Replacement, $parentEntity2->getDirectParentEntities()->get($keyForGp2InP2));
+            $this->assertSame($grandParentEntity2Replacement, $parentEntity2->getDirectParents()->get($keyForGp2InP2));
         }
         
         // verify that $grandParentEntity1 & $grandParentEntity2 are 
         // no longer parents of $parentEntity1 and $parentEntity2
-        foreach ($parentEntity1->getAllParentEntities() as $pe) {
+        foreach ($parentEntity1->getAllParents() as $pe) {
             
             $this->assertFalse($pe === $grandParentEntity1);
             $this->assertFalse($pe === $grandParentEntity2);
         }
         
-        foreach ($parentEntity2->getAllParentEntities() as $pe) {
+        foreach ($parentEntity2->getAllParents() as $pe) {
             
             $this->assertFalse($pe === $grandParentEntity1);
             $this->assertFalse($pe === $grandParentEntity2);
         }
         
-        foreach ($parentEntity1->getDirectParentEntities() as $pe) {
+        foreach ($parentEntity1->getDirectParents() as $pe) {
             
             $this->assertFalse($pe === $grandParentEntity1);
             $this->assertFalse($pe === $grandParentEntity2);
         }
         
-        foreach ($parentEntity2->getDirectParentEntities() as $pe) {
+        foreach ($parentEntity2->getDirectParents() as $pe) {
             
             $this->assertFalse($pe === $grandParentEntity1);
             $this->assertFalse($pe === $grandParentEntity2);
@@ -279,18 +279,18 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
             $parentEntity1, $parentEntity2
         );
         
-        $this->assertEquals(0, $childEntity->getDirectParentEntities()->count());
+        $this->assertEquals(0, $childEntity->getDirectParents()->count());
         
         // add parent entities and make sure the instance of the object the 
         // addParentEntities method was called on is exactly what is returned
-        $this->assertSame($childEntity, $childEntity->addParentEntities($parentEntities));
-        $this->assertEquals(2, $childEntity->getDirectParentEntities()->count());
+        $this->assertSame($childEntity, $childEntity->addParents($parentEntities));
+        $this->assertEquals(2, $childEntity->getDirectParents()->count());
                 
-        $this->assertSame($childEntity, $childEntity->addParentEntities($parentEntities)); // should have no effect trying to add an existing parents
-        $this->assertEquals(2, $childEntity->getDirectParentEntities()->count());
+        $this->assertSame($childEntity, $childEntity->addParents($parentEntities)); // should have no effect trying to add an existing parents
+        $this->assertEquals(2, $childEntity->getDirectParents()->count());
         
-        $this->assertTrue($childEntity->getDirectParentEntities()->hasEntity($parentEntity1));
-        $this->assertTrue($childEntity->getDirectParentEntities()->hasEntity($parentEntity2));
+        $this->assertTrue($childEntity->getDirectParents()->has($parentEntity1));
+        $this->assertTrue($childEntity->getDirectParents()->has($parentEntity2));
         
         /////////////////////////////////////
         // Test ParentCannotBeChildException
@@ -299,13 +299,13 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $parentEntities2 = new GenericPermissionableEntitiesCollection(
             $childEntitysChild
         );
-        $childEntitysChild->addParentEntity($childEntity);
+        $childEntitysChild->addParent($childEntity);
         $exceptionMsg = "Cannot make Entity with id `{$childEntitysChild->getId()}`"
                          . " a parent to Entity with id `{$childEntity->getId()}`."
                          . " Child cannot be parent.";
         $this->expectException(ParentCannotBeChildException::class);
         $this->expectExceptionMessage($exceptionMsg);
-        $childEntity->addParentEntities($parentEntities2); // should throw exception
+        $childEntity->addParents($parentEntities2); // should throw exception
     }
 
     /** @noinspection PhpUnhandledExceptionInspection */
@@ -317,36 +317,36 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $grandFatherEntity = new GenericPermissionableEntity("C");
         $grandMotherEntity = new GenericPermissionableEntity("D");
         
-        $grandFatherEntity->addParentEntity($greatGrandFatherEntity)
-                          ->addParentEntity($greatGrandMotherEntity);
-        $grandMotherEntity->addParentEntity($greatGrandFatherEntity)
-                          ->addParentEntity($greatGrandMotherEntity);
+        $grandFatherEntity->addParent($greatGrandFatherEntity)
+                          ->addParent($greatGrandMotherEntity);
+        $grandMotherEntity->addParent($greatGrandFatherEntity)
+                          ->addParent($greatGrandMotherEntity);
     
         $fatherEntity = new GenericPermissionableEntity("E");
         $motherEntity = new GenericPermissionableEntity("F");
         
-        $fatherEntity->addParentEntity($grandFatherEntity)
-                     ->addParentEntity($grandMotherEntity);        
-        $motherEntity->addParentEntity($grandFatherEntity)
-                     ->addParentEntity($grandMotherEntity);
+        $fatherEntity->addParent($grandFatherEntity)
+                     ->addParent($grandMotherEntity);        
+        $motherEntity->addParent($grandFatherEntity)
+                     ->addParent($grandMotherEntity);
         
         $childEntity = new GenericPermissionableEntity("G");
         
-        $childEntity->addParentEntity($fatherEntity)
-                    ->addParentEntity($motherEntity);
+        $childEntity->addParent($fatherEntity)
+                    ->addParent($motherEntity);
         
-        $allParentEntities = $childEntity->getAllParentEntities();
+        $allParentEntities = $childEntity->getAllParents();
         
         $this->assertInstanceOf(PermissionableEntitiesCollectionInterface::class, $allParentEntities);
         $this->assertInstanceOf(GenericPermissionableEntitiesCollection::class, $allParentEntities);
         $this->assertEquals(6, $allParentEntities->count());
-        $this->assertFalse($allParentEntities->hasEntity($childEntity));
-        $this->assertTrue($allParentEntities->hasEntity($greatGrandFatherEntity));
-        $this->assertTrue($allParentEntities->hasEntity($greatGrandMotherEntity));
-        $this->assertTrue($allParentEntities->hasEntity($grandFatherEntity));
-        $this->assertTrue($allParentEntities->hasEntity($grandMotherEntity));
-        $this->assertTrue($allParentEntities->hasEntity($fatherEntity));
-        $this->assertTrue($allParentEntities->hasEntity($motherEntity));
+        $this->assertFalse($allParentEntities->has($childEntity));
+        $this->assertTrue($allParentEntities->has($greatGrandFatherEntity));
+        $this->assertTrue($allParentEntities->has($greatGrandMotherEntity));
+        $this->assertTrue($allParentEntities->has($grandFatherEntity));
+        $this->assertTrue($allParentEntities->has($grandMotherEntity));
+        $this->assertTrue($allParentEntities->has($fatherEntity));
+        $this->assertTrue($allParentEntities->has($motherEntity));
     }
 
     /** @noinspection PhpUnhandledExceptionInspection */
@@ -358,23 +358,23 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $grandFatherEntity = new GenericPermissionableEntity("C");
         $grandMotherEntity = new GenericPermissionableEntity("D");
         
-        $grandFatherEntity->addParentEntity($greatGrandFatherEntity)
-                          ->addParentEntity($greatGrandMotherEntity);
-        $grandMotherEntity->addParentEntity($greatGrandFatherEntity)
-                          ->addParentEntity($greatGrandMotherEntity);
+        $grandFatherEntity->addParent($greatGrandFatherEntity)
+                          ->addParent($greatGrandMotherEntity);
+        $grandMotherEntity->addParent($greatGrandFatherEntity)
+                          ->addParent($greatGrandMotherEntity);
     
         $fatherEntity = new GenericPermissionableEntity("E");
         $motherEntity = new GenericPermissionableEntity("F");
         
-        $fatherEntity->addParentEntity($grandFatherEntity)
-                     ->addParentEntity($grandMotherEntity);        
-        $motherEntity->addParentEntity($grandFatherEntity)
-                     ->addParentEntity($grandMotherEntity);
+        $fatherEntity->addParent($grandFatherEntity)
+                     ->addParent($grandMotherEntity);        
+        $motherEntity->addParent($grandFatherEntity)
+                     ->addParent($grandMotherEntity);
         
         $childEntity = new GenericPermissionableEntity("G");
         
-        $childEntity->addParentEntity($fatherEntity)
-                    ->addParentEntity($motherEntity);
+        $childEntity->addParent($fatherEntity)
+                    ->addParent($motherEntity);
         
         $this->assertFalse($childEntity->isChildOf($childEntity));
         $this->assertTrue($childEntity->isChildOf($greatGrandFatherEntity));
@@ -394,23 +394,23 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $grandFatherEntity = new GenericPermissionableEntity("C");
         $grandMotherEntity = new GenericPermissionableEntity("D");
         
-        $grandFatherEntity->addParentEntity($greatGrandFatherEntity)
-                          ->addParentEntity($greatGrandMotherEntity);
-        $grandMotherEntity->addParentEntity($greatGrandFatherEntity)
-                          ->addParentEntity($greatGrandMotherEntity);
+        $grandFatherEntity->addParent($greatGrandFatherEntity)
+                          ->addParent($greatGrandMotherEntity);
+        $grandMotherEntity->addParent($greatGrandFatherEntity)
+                          ->addParent($greatGrandMotherEntity);
     
         $fatherEntity = new GenericPermissionableEntity("E");
         $motherEntity = new GenericPermissionableEntity("F");
         
-        $fatherEntity->addParentEntity($grandFatherEntity)
-                     ->addParentEntity($grandMotherEntity);        
-        $motherEntity->addParentEntity($grandFatherEntity)
-                     ->addParentEntity($grandMotherEntity);
+        $fatherEntity->addParent($grandFatherEntity)
+                     ->addParent($grandMotherEntity);        
+        $motherEntity->addParent($grandFatherEntity)
+                     ->addParent($grandMotherEntity);
         
         $childEntity = new GenericPermissionableEntity("G");
         
-        $childEntity->addParentEntity($fatherEntity)
-                    ->addParentEntity($motherEntity);
+        $childEntity->addParent($fatherEntity)
+                    ->addParent($motherEntity);
         
         $this->assertFalse($childEntity->isChildOfEntityWithId('G'));
         $this->assertFalse($childEntity->isChildOfEntityWithId('g'));
@@ -442,7 +442,7 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
     }
 
     /** @noinspection PhpUnhandledExceptionInspection */
-    public function testGetDirectParentEntitiesWorksAsExpected() {
+    public function testGetDirectParentsWorksAsExpected() {
     
         $greatGrandFatherEntity = new GenericPermissionableEntity("A");
         $greatGrandMotherEntity = new GenericPermissionableEntity("B");
@@ -450,36 +450,36 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $grandFatherEntity = new GenericPermissionableEntity("C");
         $grandMotherEntity = new GenericPermissionableEntity("D");
         
-        $grandFatherEntity->addParentEntity($greatGrandFatherEntity)
-                          ->addParentEntity($greatGrandMotherEntity);
-        $grandMotherEntity->addParentEntity($greatGrandFatherEntity)
-                          ->addParentEntity($greatGrandMotherEntity);
+        $grandFatherEntity->addParent($greatGrandFatherEntity)
+                          ->addParent($greatGrandMotherEntity);
+        $grandMotherEntity->addParent($greatGrandFatherEntity)
+                          ->addParent($greatGrandMotherEntity);
     
         $fatherEntity = new GenericPermissionableEntity("E");
         $motherEntity = new GenericPermissionableEntity("F");
         
-        $fatherEntity->addParentEntity($grandFatherEntity)
-                     ->addParentEntity($grandMotherEntity);        
-        $motherEntity->addParentEntity($grandFatherEntity)
-                     ->addParentEntity($grandMotherEntity);
+        $fatherEntity->addParent($grandFatherEntity)
+                     ->addParent($grandMotherEntity);        
+        $motherEntity->addParent($grandFatherEntity)
+                     ->addParent($grandMotherEntity);
         
         $childEntity = new GenericPermissionableEntity("G");
         
-        $childEntity->addParentEntity($fatherEntity)
-                    ->addParentEntity($motherEntity);
+        $childEntity->addParent($fatherEntity)
+                    ->addParent($motherEntity);
         
-        $directParentEntities = $childEntity->getDirectParentEntities();
+        $directParentEntities = $childEntity->getDirectParents();
         
         $this->assertInstanceOf(PermissionableEntitiesCollectionInterface::class, $directParentEntities);
         $this->assertInstanceOf(GenericPermissionableEntitiesCollection::class, $directParentEntities);
         $this->assertEquals(2, $directParentEntities->count());
-        $this->assertFalse($directParentEntities->hasEntity($childEntity));
-        $this->assertFalse($directParentEntities->hasEntity($greatGrandFatherEntity));
-        $this->assertFalse($directParentEntities->hasEntity($greatGrandMotherEntity));
-        $this->assertFalse($directParentEntities->hasEntity($grandFatherEntity));
-        $this->assertFalse($directParentEntities->hasEntity($grandMotherEntity));
-        $this->assertTrue($directParentEntities->hasEntity($fatherEntity));
-        $this->assertTrue($directParentEntities->hasEntity($motherEntity));
+        $this->assertFalse($directParentEntities->has($childEntity));
+        $this->assertFalse($directParentEntities->has($greatGrandFatherEntity));
+        $this->assertFalse($directParentEntities->has($greatGrandMotherEntity));
+        $this->assertFalse($directParentEntities->has($grandFatherEntity));
+        $this->assertFalse($directParentEntities->has($grandMotherEntity));
+        $this->assertTrue($directParentEntities->has($fatherEntity));
+        $this->assertTrue($directParentEntities->has($motherEntity));
     }
     
     public function testIsEqualToWorksAsExpected() {
@@ -524,12 +524,12 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $stepMotherEntity = new GenericPermissionableEntity("D");
         $childEntity = new GenericPermissionableEntity("E");
         
-        $childEntity->addParentEntity($fatherEntity)
-                    ->addParentEntity($motherEntity)
-                    ->addParentEntity($stepFatherEntity)
-                    ->addParentEntity($stepMotherEntity);
+        $childEntity->addParent($fatherEntity)
+                    ->addParent($motherEntity)
+                    ->addParent($stepFatherEntity)
+                    ->addParent($stepMotherEntity);
         
-        $directParentEntities = $childEntity->getDirectParentEntities();
+        $directParentEntities = $childEntity->getDirectParents();
         
         $this->assertInstanceOf(PermissionableEntitiesCollectionInterface::class, $directParentEntities);
         $this->assertInstanceOf(GenericPermissionableEntitiesCollection::class, $directParentEntities);
@@ -537,35 +537,35 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         
         $this->assertSame($childEntity, $childEntity->removeParentIfExists($fatherEntity));
         $this->assertEquals(3, $directParentEntities->count());
-        $this->assertFalse($directParentEntities->hasEntity($fatherEntity));
+        $this->assertFalse($directParentEntities->has($fatherEntity));
         
         $this->assertSame($childEntity, $childEntity->removeParentIfExists($fatherEntity)); // no effect
         $this->assertEquals(3, $directParentEntities->count());
-        $this->assertFalse($directParentEntities->hasEntity($fatherEntity));
+        $this->assertFalse($directParentEntities->has($fatherEntity));
         
         $this->assertSame($childEntity, $childEntity->removeParentIfExists($motherEntity));
         $this->assertEquals(2, $directParentEntities->count());
-        $this->assertFalse($directParentEntities->hasEntity($motherEntity));
+        $this->assertFalse($directParentEntities->has($motherEntity));
         
         $this->assertSame($childEntity, $childEntity->removeParentIfExists($motherEntity)); // no effect
         $this->assertEquals(2, $directParentEntities->count());
-        $this->assertFalse($directParentEntities->hasEntity($motherEntity));
+        $this->assertFalse($directParentEntities->has($motherEntity));
         
         $this->assertSame($childEntity, $childEntity->removeParentIfExists($stepFatherEntity));
         $this->assertEquals(1, $directParentEntities->count());
-        $this->assertFalse($directParentEntities->hasEntity($stepFatherEntity));
+        $this->assertFalse($directParentEntities->has($stepFatherEntity));
         
         $this->assertSame($childEntity, $childEntity->removeParentIfExists($stepFatherEntity)); // no effect
         $this->assertEquals(1, $directParentEntities->count());
-        $this->assertFalse($directParentEntities->hasEntity($stepFatherEntity));
+        $this->assertFalse($directParentEntities->has($stepFatherEntity));
         
         $this->assertSame($childEntity, $childEntity->removeParentIfExists($stepMotherEntity));
         $this->assertEquals(0, $directParentEntities->count());
-        $this->assertFalse($directParentEntities->hasEntity($stepMotherEntity));
+        $this->assertFalse($directParentEntities->has($stepMotherEntity));
         
         $this->assertSame($childEntity, $childEntity->removeParentIfExists($stepMotherEntity)); // no effect
         $this->assertEquals(0, $directParentEntities->count());
-        $this->assertFalse($directParentEntities->hasEntity($stepMotherEntity));
+        $this->assertFalse($directParentEntities->has($stepMotherEntity));
     }
 
     /** @noinspection PhpUnhandledExceptionInspection */
@@ -591,12 +591,12 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
             $nonParentEntity1, $nonParentEntity2
         );
         
-        $childEntity->addParentEntity($fatherEntity)
-                    ->addParentEntity($motherEntity)
-                    ->addParentEntity($stepFatherEntity)
-                    ->addParentEntity($stepMotherEntity);
+        $childEntity->addParent($fatherEntity)
+                    ->addParent($motherEntity)
+                    ->addParent($stepFatherEntity)
+                    ->addParent($stepMotherEntity);
         
-        $directParentEntities = $childEntity->getDirectParentEntities();
+        $directParentEntities = $childEntity->getDirectParents();
         
         $this->assertInstanceOf(PermissionableEntitiesCollectionInterface::class, $directParentEntities);
         $this->assertInstanceOf(GenericPermissionableEntitiesCollection::class, $directParentEntities);
@@ -604,38 +604,38 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         
         $this->assertSame($childEntity, $childEntity->removeParentsThatExist($nonParentEntitiesCollection)); // no effect
         $this->assertEquals(4, $directParentEntities->count());
-        $this->assertTrue($directParentEntities->hasEntity($fatherEntity));
-        $this->assertTrue($directParentEntities->hasEntity($motherEntity));
-        $this->assertTrue($directParentEntities->hasEntity($stepFatherEntity));
-        $this->assertTrue($directParentEntities->hasEntity($stepMotherEntity));
+        $this->assertTrue($directParentEntities->has($fatherEntity));
+        $this->assertTrue($directParentEntities->has($motherEntity));
+        $this->assertTrue($directParentEntities->has($stepFatherEntity));
+        $this->assertTrue($directParentEntities->has($stepMotherEntity));
         
         $this->assertSame($childEntity, $childEntity->removeParentsThatExist($fatherMotherCollection));
         $this->assertEquals(2, $directParentEntities->count());
-        $this->assertFalse($directParentEntities->hasEntity($fatherEntity));
-        $this->assertFalse($directParentEntities->hasEntity($motherEntity));
-        $this->assertTrue($directParentEntities->hasEntity($stepFatherEntity));
-        $this->assertTrue($directParentEntities->hasEntity($stepMotherEntity));
+        $this->assertFalse($directParentEntities->has($fatherEntity));
+        $this->assertFalse($directParentEntities->has($motherEntity));
+        $this->assertTrue($directParentEntities->has($stepFatherEntity));
+        $this->assertTrue($directParentEntities->has($stepMotherEntity));
         
         $this->assertSame($childEntity, $childEntity->removeParentsThatExist($fatherMotherCollection)); // no effect
         $this->assertEquals(2, $directParentEntities->count());
-        $this->assertFalse($directParentEntities->hasEntity($fatherEntity));
-        $this->assertFalse($directParentEntities->hasEntity($motherEntity));
-        $this->assertTrue($directParentEntities->hasEntity($stepFatherEntity));
-        $this->assertTrue($directParentEntities->hasEntity($stepMotherEntity));
+        $this->assertFalse($directParentEntities->has($fatherEntity));
+        $this->assertFalse($directParentEntities->has($motherEntity));
+        $this->assertTrue($directParentEntities->has($stepFatherEntity));
+        $this->assertTrue($directParentEntities->has($stepMotherEntity));
         
         $this->assertSame($childEntity, $childEntity->removeParentsThatExist($stepFatherStepMotherCollection));
         $this->assertEquals(0, $directParentEntities->count());
-        $this->assertFalse($directParentEntities->hasEntity($fatherEntity));
-        $this->assertFalse($directParentEntities->hasEntity($motherEntity));
-        $this->assertFalse($directParentEntities->hasEntity($stepFatherEntity));
-        $this->assertFalse($directParentEntities->hasEntity($stepMotherEntity));
+        $this->assertFalse($directParentEntities->has($fatherEntity));
+        $this->assertFalse($directParentEntities->has($motherEntity));
+        $this->assertFalse($directParentEntities->has($stepFatherEntity));
+        $this->assertFalse($directParentEntities->has($stepMotherEntity));
         
         $this->assertSame($childEntity, $childEntity->removeParentsThatExist($stepFatherStepMotherCollection)); // no effect
         $this->assertEquals(0, $directParentEntities->count());
-        $this->assertFalse($directParentEntities->hasEntity($fatherEntity));
-        $this->assertFalse($directParentEntities->hasEntity($motherEntity));
-        $this->assertFalse($directParentEntities->hasEntity($stepFatherEntity));
-        $this->assertFalse($directParentEntities->hasEntity($stepMotherEntity));
+        $this->assertFalse($directParentEntities->has($fatherEntity));
+        $this->assertFalse($directParentEntities->has($motherEntity));
+        $this->assertFalse($directParentEntities->has($stepFatherEntity));
+        $this->assertFalse($directParentEntities->has($stepMotherEntity));
     }
     
     public function testAddPermissionWorksAsExpected() {
@@ -770,14 +770,14 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $grandParent->addPermission($grandParentPermission);
         $parent->addPermission($parentPermission);
         
-        $grandParent->addParentEntity($greatGrandParent);
-        $parent->addParentEntity($grandParent);
+        $grandParent->addParent($greatGrandParent);
+        $parent->addParent($grandParent);
         
         $myPermission1 = new GenericPermission('action-1', 'resource-1');
         $myPermission2 = new GenericPermission('action-2', 'resource-2');
         $permissions = new GenericPermissionsCollection($myPermission1, $myPermission2);
         $entity = new GenericPermissionableEntity("A", $permissions);
-        $entity->addParentEntity($parent);
+        $entity->addParent($parent);
         
         $this->assertSame($permissions, $entity->getDirectPermissions());
         $this->assertEquals(2, $entity->getDirectPermissions()->count());
@@ -826,14 +826,14 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $grandParent->addPermission($grandParentPermission);
         $parent->addPermission($parentPermission);
         
-        $grandParent->addParentEntity($greatGrandParent);
-        $parent->addParentEntity($grandParent);
+        $grandParent->addParent($greatGrandParent);
+        $parent->addParent($grandParent);
         
         $myPermission1 = new GenericPermission('action-1', 'resource-1');
         $myPermission2 = new GenericPermission('action-2', 'resource-2');
         $permissions = new GenericPermissionsCollection($myPermission1, $myPermission2);
         $entity = new GenericPermissionableEntity("A", $permissions);
-        $entity->addParentEntity($parent);
+        $entity->addParent($parent);
                 
         $allPermissions = $entity->getAllPermissions();
         $this->assertEquals(5, $allPermissions->count());
