@@ -662,11 +662,11 @@ dump(
     (an instance of **\SimpleAcl\Interfaces\PermissionsCollectionInterface**) to an instance of 
     **\SimpleAcl\Interfaces\PermissionableEntityInterface**.
 
-    * **getAllParentEntities(): PermissionableEntitiesCollectionInterface:** returns a collection (an instance of
+    * **getAllParents(): PermissionableEntitiesCollectionInterface:** returns a collection (an instance of
     **\SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface**) containing all parent entities added via 
     **addParentEntities** and **addParentEntity** and their parents and parents' parents and so on.
 
-    * **getDirectParentEntities(): PermissionableEntitiesCollectionInterface:** returns a collection (an instance of
+    * **getDirectParents(): PermissionableEntitiesCollectionInterface:** returns a collection (an instance of
     **\SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface**) containing all parent entities added via 
     **addParentEntities** and **addParentEntity** to an instance of **\SimpleAcl\Interfaces\PermissionableEntityInterface**. 
     The returned collection does not include the parents of the direct parents and so on. 
@@ -682,5 +682,5 @@ dump(
 
     * **getInheritedPermissions(): PermissionsCollectionInterface:** returns a collection
     (an instance of **\SimpleAcl\Interfaces\PermissionsCollectionInterface**) containing all permissions returned 
-    when **getDirectPermissions()** is invoked on each parent entity returned by **getAllParentEntities()** on an 
+    when **getDirectPermissions()** is invoked on each parent entity returned by **getAllParents()** on an 
     instance of **\SimpleAcl\Interfaces\PermissionableEntityInterface**.
