@@ -73,14 +73,14 @@ interface PermissionsCollectionInterface extends CollectionInterface
     /**
      * Checks whether or not a permission exists in the current instance.
      *
-     * `$perm` is present in the current instance if there is another permission `$x`
-     * in the current instance where $x->isEqualTo($perm) === true.
+     * `$permission` is present in the current instance if there is another permission `$x`
+     * in the current instance where $x->isEqualTo($permission) === true.
      *
-     * @param PermissionInterface $perm
+     * @param PermissionInterface $permission
      * 
-     * @return bool true if there is another permission `$x` in the current instance where $x->isEqualTo($perm) === true, otherwise return false
+     * @return bool true if there is another permission `$x` in the current instance where $x->isEqualTo($permission) === true, otherwise return false
      */
-    public function hasPermission(PermissionInterface $perm): bool;
+    public function hasPermission(PermissionInterface $permission): bool;
 
     /**
      * Calculates and returns a boolean value indicating whether or not one or more items in an instance of this interface
