@@ -34,7 +34,7 @@ class CustomPermissionableEntitiesCollection extends GenericBaseCollection imple
      * 
      * @return bool true if there is another entity `$x` in the current instance where $x->isEqualTo($entity) === true, otherwise return false
      */
-    public function hasEntity(PermissionableEntityInterface $entity): bool {
+    public function has(PermissionableEntityInterface $entity): bool {
         
         foreach ($this->storage as $other_entity) {
             if( $entity->isEqualTo($other_entity) ) {
@@ -53,7 +53,7 @@ class CustomPermissionableEntitiesCollection extends GenericBaseCollection imple
      */
     public function add(PermissionableEntityInterface $permissionEntity): PermissionableEntitiesCollectionInterface {
         
-        if( !$this->hasEntity($permissionEntity) ) {
+        if( !$this->has($permissionEntity) ) {
         
             $this->storage[] = $permissionEntity;
             
