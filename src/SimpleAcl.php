@@ -539,7 +539,7 @@ class SimpleAcl {
 
     /**
      * Remove a permission from the entity with an ID value of $entityId and return the removed permission
-     * or return null if either the entity of permission do not exist.
+     * or return null if either the entity and / or permission do not exist.
      *
      * @param string $entityId
      * @param string $action
