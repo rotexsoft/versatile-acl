@@ -35,7 +35,6 @@ interface PermissionableEntityInterface {
      * =======================================================================================================
      * =======================================================================================================
      */
-
     /**
      * Add another instance of PermissionableEntityInterface as a parent to the current instance.
      *
@@ -48,12 +47,12 @@ interface PermissionableEntityInterface {
      * if the list of instance B's parents contains an object `C` where C->isEqualTo(A) === true
      *
      * @param PermissionableEntityInterface $entity
-     * 
+     *
      * @return $this
-     * 
+     *
      * @throws ParentCannotBeChildException
      */
-    public function addParentEntity(PermissionableEntityInterface $entity): self;
+    public function addParent(PermissionableEntityInterface $entity): self;
 
     /**
      * Add one or more instances of PermissionableEntityInterface as parent(s) to the current instance.
@@ -74,7 +73,7 @@ interface PermissionableEntityInterface {
      * 
      * @throws ParentCannotBeChildException
      */
-    public function addParentEntities(PermissionableEntitiesCollectionInterface $entities): self;
+    public function addParents(PermissionableEntitiesCollectionInterface $entities): self;
 
     /**
      * Checks whether or not the current instance has the specified entity `$entity` as one of its parents.
@@ -111,7 +110,7 @@ interface PermissionableEntityInterface {
      *
      * @return PermissionableEntitiesCollectionInterface a list of all parent entities added to the current instance. It excludes parents' parents and so on
      */
-    public function getDirectParentEntities(): PermissionableEntitiesCollectionInterface;
+    public function getDirectParents(): PermissionableEntitiesCollectionInterface;
 
     /**
      * Return a list (instance of PermissionableEntitiesCollectionInterface) of all parent entities 
@@ -119,7 +118,7 @@ interface PermissionableEntityInterface {
      *
      * @return PermissionableEntitiesCollectionInterface a list of all parent entities and their parents' parents and so on for an instance of this interface
      */
-    public function getAllParentEntities(): PermissionableEntitiesCollectionInterface;
+    public function getAllParents(): PermissionableEntitiesCollectionInterface;
     
     /**
      * Checks whether the specified entity object has an equal value to the current instance.
@@ -163,7 +162,6 @@ interface PermissionableEntityInterface {
      * =======================================================================================================
      * =======================================================================================================
      */
-
     /**
      * Add an instance of PermissionInterface to the list of the current instance's permissions if the permission is not already present in the list.
      *
@@ -172,7 +170,7 @@ interface PermissionableEntityInterface {
      * nothing should happen, this method should just return the current instance (a.k.a $this).
      *
      * @param PermissionInterface $perm
-     * 
+     *
      * @return $this
      */
     public function addPermission(PermissionInterface $perm): self;
