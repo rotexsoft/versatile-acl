@@ -5,6 +5,11 @@ namespace SimpleAcl;
 
 use SimpleAcl\Interfaces\PermissionInterface;
 use SimpleAcl\Interfaces\PermissionsCollectionInterface;
+use function count;
+use function in_array;
+use function spl_object_hash;
+use function str_replace;
+use function var_export;
 
 class GenericPermission implements PermissionInterface {
     
@@ -32,7 +37,7 @@ class GenericPermission implements PermissionInterface {
     /**
      * 
      * @var callable|null
-     * 
+     * @noRector
      */
     protected $additionalAssertions = null;
 
@@ -252,8 +257,6 @@ class GenericPermission implements PermissionInterface {
         $objAsStr .= in_array('additionalAssertions', $propertiesToExcludeFromThisCall) ? '' : "\tadditionalAssertions: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->additionalAssertions, true)) . PHP_EOL;
         $objAsStr .= in_array('argsForCallback', $propertiesToExcludeFromThisCall) ? '' : "\targsForCallback: " . str_replace(PHP_EOL, PHP_EOL."\t", var_export($this->argsForCallback, true)) . PHP_EOL;
         
-        $objAsStr .= PHP_EOL . "}" . PHP_EOL;
-        
-        return $objAsStr;
+        return $objAsStr . (PHP_EOL . "}" . PHP_EOL);
     }
 }
