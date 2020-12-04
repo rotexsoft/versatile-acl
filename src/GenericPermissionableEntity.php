@@ -9,6 +9,11 @@ use SimpleAcl\Interfaces\PermissionInterface;
 use SimpleAcl\Interfaces\PermissionsCollectionInterface;
 use SimpleAcl\Exceptions\ParentCannotBeChildException;
 use SimpleAcl\Exceptions\EmptyEntityIdException;
+use function get_class;
+use function in_array;
+use function spl_object_hash;
+use function str_replace;
+use function trim;
 
 class GenericPermissionableEntity implements PermissionableEntityInterface {
     
@@ -50,7 +55,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
         if( $trimmedId === '' ) {
             
             throw new EmptyEntityIdException(
-                "An instance of " . get_class($this) 
+                "An instance of " . get_class($this)
                 . " cannot be created with an empty `Id`." 
             );
         }
@@ -93,9 +98,9 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
      * 
      * @throws ParentCannotBeChildException
      */
-    public function addParentEntity(PermissionableEntityInterface $entity): PermissionableEntityInterface {
+    public function addParent(PermissionableEntityInterface $entity): PermissionableEntityInterface {
         
-        if( !$this->getAllParentEntities()->hasEntity($entity) ) {
+        if( !$this->getAllParents()->has($entity) ) {
             
             if( $entity->isChildOf($this) ) {
                 
@@ -116,8 +121,13 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
             // Recursively traverse parents to find the right collection
             // of parents in which the entity is to be updated in and then
             // update the entity in that collection
-            $putParent = function(PermissionableEntitiesCollectionInterface $parents) use ($entity, &$putParent){
+            /**
+             * @param PermissionableEntitiesCollectionInterface $parents a collection containing parent entities
+             * @noRector
+             */
+            $putParent = function(PermissionableEntitiesCollectionInterface $parents) use ($entity, &$putParent): void{
                 
+                /** @var PermissionableEntityInterface $parent */
                 foreach ($parents as $key => $parent) {
                     
                     if($entity->isEqualTo($parent)) {
@@ -127,7 +137,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
                     } else {
                         
                         // recurse
-                        $putParent($parent->getDirectParentEntities());
+                        $putParent($parent->getDirectParents());
                     }
                 }
             };
@@ -161,11 +171,11 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
      * 
      * @throws ParentCannotBeChildException
      */
-    public function addParentEntities(PermissionableEntitiesCollectionInterface $entities): PermissionableEntityInterface {
+    public function addParents(PermissionableEntitiesCollectionInterface $entities): PermissionableEntityInterface {
         
         foreach ($entities as $entity) {
             
-            $this->addParentEntity($entity);
+            $this->addParent($entity);
         }
         return $this;
     }
@@ -176,7 +186,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
      *
      * @return PermissionableEntitiesCollectionInterface a list of all parent entities and their parents' parents and so on for an instance of this interface
      */
-    public function getAllParentEntities(): PermissionableEntitiesCollectionInterface {
+    public function getAllParents(): PermissionableEntitiesCollectionInterface {
         
         return $this->doGetAllParentEntities(static::createCollection());
     }
@@ -187,17 +197,20 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
      * @param PermissionableEntitiesCollectionInterface $coll
      * 
      * @return PermissionableEntitiesCollectionInterface
+     * 
+     * @psalm-suppress UndefinedInterfaceMethod
      */
-    protected function doGetAllParentEntities(PermissionableEntitiesCollectionInterface $coll) {
+    protected function doGetAllParentEntities(PermissionableEntitiesCollectionInterface $coll): PermissionableEntitiesCollectionInterface {
         
-        foreach ($this->getDirectParentEntities() as $entity) {
+        /** @var PermissionableEntityInterface $entity */
+        foreach ($this->getDirectParents() as $entity) {
             
             // Add entity to the collection to be returned,
             // if not already present in the collection 
             // to be returned.
-            (!$coll->hasEntity($entity)) && $coll->add($entity);
+            (!$coll->has($entity)) && $coll->add($entity);
             
-            if( $entity->getDirectParentEntities()->count() > 0 ) {
+            if( $entity->getDirectParents()->count() > 0 ) {
                 
                 // recurse
                 $entity->doGetAllParentEntities($coll);
@@ -222,7 +235,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
      */
     public function isChildOf(PermissionableEntityInterface $entity): bool {
         
-        return $this->getAllParentEntities()->hasEntity($entity);
+        return $this->getAllParents()->has($entity);
     }
 
     /**
@@ -238,7 +251,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
      */
     public function isChildOfEntityWithId(string $entityId): bool {
         
-        foreach ($this->getAllParentEntities() as $parent) {
+        foreach ($this->getAllParents() as $parent) {
             
             if( Utils::strtolower($parent->getId()) === Utils::strtolower($entityId) ) {
                 
@@ -265,7 +278,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
      *
      * @return PermissionableEntitiesCollectionInterface a list of all parent entities added to the current instance. It excludes parents' parents and so on
      */
-    public function getDirectParentEntities(): PermissionableEntitiesCollectionInterface {
+    public function getDirectParents(): PermissionableEntitiesCollectionInterface {
         
         return $this->parentEntities;
     }
@@ -399,7 +412,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
      */
     public function getInheritedPermissions(PermissionsCollectionInterface $inheritedPerms=null): PermissionsCollectionInterface {
         
-        $allParentEntities = $this->getAllParentEntities();
+        $allParentEntities = $this->getAllParents();
         $inheritedPermsToReturn = ($inheritedPerms === null) ? GenericPermission::createCollection() : $inheritedPerms;
         
         foreach ($allParentEntities as $parent_entity) {
@@ -509,9 +522,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
         $objAsStr .= in_array('id', $propertiesToExcludeFromThisCall) ? '' : "\t"."id: `{$this->id}`" . PHP_EOL;
         $objAsStr .= in_array('parentEntities', $propertiesToExcludeFromThisCall) ? '' : "\t"."parentEntities: " . PHP_EOL . "\t\t". str_replace(PHP_EOL, PHP_EOL."\t\t", ''.$this->parentEntities) . PHP_EOL;
         $objAsStr .= in_array('permissions', $propertiesToExcludeFromThisCall) ? '' : "\t"."permissions: " . PHP_EOL . "\t\t". str_replace(PHP_EOL, PHP_EOL."\t\t", ''.$this->permissions) . PHP_EOL;
-        
-        $objAsStr .= PHP_EOL . "}" . PHP_EOL;
-        
-        return $objAsStr;
+                
+        return $objAsStr . (PHP_EOL . "}" . PHP_EOL);
     }
 }
