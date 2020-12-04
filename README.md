@@ -39,30 +39,7 @@ In your applications, you will be mostly be working with instances of **[SimpleA
 * **[\SimpleAcl\GenericPermissionsCollection](src/GenericPermissionsCollection.php) :** A collection class for storing one or more permissions belonging to a particular entity in your application. It is possible to assign the same instance of this class to more than one entity, but it is recommended that you maintain separate instances of this class for each entity in your application.
 
 
-### Public Methods of **[SimpleAcl\SimpleAcl](src/SimpleAcl.php)**
-| Method | Description |
-|--------|-------------|
-| **__construct( <br> string $permissionableEntityInterfaceClassName = GenericPermissionableEntity::class, <br> string $permissionInterfaceClassName = GenericPermission::class, <br> string $permissionableEntitiesCollectionInterfaceClassName = GenericPermissionableEntitiesCollection::class, <br> string $permissionsCollectionInterfaceClassName = GenericPermissionsCollection::class <br>)** | The constructor through which you can specify alternate fully qualified class names of classes that implement **[PermissionableEntityInterface](src/interfaces/PermissionableEntityInterface.php)**, **[PermissionInterface](src/interfaces/PermissionInterface.php)**, **[PermissionableEntitiesCollectionInterface](src/interfaces/PermissionableEntitiesCollectionInterface.php)** and **[PermissionsCollectionInterface](src/interfaces/PermissionsCollectionInterface.php)** .|
-| **addEntity(string $entityId): self** | Adds an entity to an instance of this class if it doesn't already exist. Entity IDs are treated in a case-insensitive manner, meaning that 'ALice' and 'alicE' both refer to the same entity |
-| **addParentEntity(string $entityId, string $parentEntityId): self** | Add an entity with an ID value of $parentEntityId as a parent entity to another entity with an ID value of $entityId in an instance of this class. <br> If an entity with an ID value of $entityId does not exist in the instance of this class upon which this method is called, the entity will be created and added first before the parent entity is added to it. <br>Both IDs are treated in a case-insensitive manner, meaning that if **$entityId** has a value of 'ALice' or 'alicE' both will refer to the same entity or if **$parentEntityId** has a value of 'ALice' or 'alicE' both will refer to the same parent entity. <br> You can use this method as a shortcut to creating both an entity and its associated parent entities, eliminating the need for calling **addEntity** first before calling this method. |
-| **addPermission( <br> string $entityId, <br> string $action, <br> string $resource, <br> bool $allowActionOnResource = true, <br> callable $additionalAssertions = null, <br> ...$argsForCallback <br>): self** | Used for adding a permission to an entity with the specified ID. If the entity does not exist, it will be created and the permission will be added to it. <br>See **__construct** in **[PermissionInterface](src/interfaces/PermissionInterface.php)** for more information about all the parameters to this method (except the first). |
-| **clearAuditTrail(): self** | Empties the contents of the Audit Trail containing the trace of all logged internal activities. |
-| **createEntity(string $entityId): PermissionableEntityInterface** | A helper method for creating entity objects which you would be responsible for managing outside of this class. You would not normally need to use this method except if you want to more control over how the entities and permissions in your application are managed. |
-| **createEntityCollection(): PermissionableEntitiesCollectionInterface** | A helper method for creating collection objects used to store entity objects which you would be responsible for managing outside of this class. You would not normally need to use this method except if you want to more control over how the entities and permissions in your application are managed. |
-| **createPermission( <br>string $action, <br>string $resource, <br>bool $allowActionOnResource = true, <br>callable $additionalAssertions = null, <br>...$argsForCallback <br>): PermissionInterface** | A helper method for creating permission objects which you would be responsible for managing outside of this class. You would not normally need to use this method except if you want to more control over how the entities and permissions in your application are managed. <br>See **__construct** in **[PermissionInterface](src/interfaces/PermissionInterface.php)** for more information about the parameters to this method.|
-| **createPermissionCollection(): PermissionsCollectionInterface** | A helper method for creating collection objects used to store permission objects which you would be responsible for managing outside of this class. You would not normally need to use this method except if you want to more control over how the entities and permissions in your application are managed. |
-| **enableAuditTrail(bool $canAudit=true): self** | Enables or disables the logging of internal activities performed in some of the important public methods of this class. |
-| **enableVerboseAudit(bool $performVerboseAudit=true): self** | Enables or disables verbose logging of internal activities performed in some of the important public methods of this class. This method only increases or decreases the level of detail of the internal activities that are logged. It does not not disable logging. |
-| **getAllEntities() : ?PermissionableEntitiesCollectionInterface** | Returns a collection of all entities added to an instance of this class or null if the collection has not yet been initialized. |
-| **getAuditTrail(): string** | Returns a string containing a trace of all logged internal activities performed in some of the important public methods of this class. |
-| **getEntity(string $entityId): ?PermissionableEntityInterface** | Gets and returns an entity with specified Id from an instance of this class or returns NULL if an entity with specified Id doesn't already exist. |
-| **isAllowed(string $entityId, string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool** | Check if the specified action in **$action** can be performed on the specified resource in **$resource** based on the existing permissions associated with either the specified entity with an ID value in **$entityId** or all entities associated with the instance  of this class this method is being invoked on if **$entityId** === ''. <br>See **PermissionInterface::isAllowed($action, $resource, $additionalAssertions, ...$argsForCallback)** for definitions of all but the first parameter. |
-| **removeEntity(string $entityId): ?PermissionableEntityInterface** | Removes an entity from an instance of this class if it exists and returns the removed entity or NULL if the entity does not exist. |
-| **removeParentEntity(string $entityId, string $parentEntityId): ?PermissionableEntityInterface** | Remove and return an entity with an ID value in **$parentEntityId** that is a parent entity to another entity with an ID value in **$entityId**, if the instance of this class upon which this method is being called contains an entity with the ID value in **$entityId**, else NULL is returned. |
-| **removePermission(string $entityId, string $action, string $resource, bool $allowActionOnResource = true, callable $additionalAssertions = null, ...$argsForCallback): ?PermissionInterface** | Remove a permission from the entity with an ID value specified in **$entityId** and return the removed permission or return null if either the entity and / or permission do not exist. |
-
-
-<br>
+## Example Real-world Usage
 
 We will be using a blog application that has a users table containing information
 about registered blog users (the users in this table are also authors of blog posts and commentators on blog posts in the application), a posts table and a comments table. Below is the schema for the sample application:
@@ -300,4 +277,78 @@ $sAclObj->addEntity('all')
 
 ```
 
-Now that we have set up or groups, users and permissions, let's see how to check if a user is allowed to perform an action on a resource in our application
+Now that we have set up or groups, users and permissions, let's see how to check if a user is allowed to perform an action on a resource in our application.
+
+Let's start with the user **'frankwhite'** that belongs to the **'admin'**  group. This user should be able to perform any action on any resource in the application:
+
+
+```php
+<?php
+
+$sAclObj->isAllowed('frankwhite', 'approve', 'comment'); // === true
+$sAclObj->isAllowed('frankwhite', 'delete', 'comment'); // === true
+$sAclObj->isAllowed('frankwhite', 'approve', 'post'); // === true
+$sAclObj->isAllowed('frankwhite', 'delete', 'post'); // === true
+```
+
+Now let's continue with the user **'ginawhite'** that belongs to the **'comments-moderators'**  group. This user should be able to only approve and delete comments in the application (the user should also be able to approve and delete posts they have created):
+
+```php
+<?php
+$sAclObj->isAllowed('ginawhite', 'approve', 'comment'); // === true
+$sAclObj->isAllowed('ginawhite', 'delete', 'comment'); // === true
+$sAclObj->isAllowed('ginawhite', 'approve', 'post'); // === false
+$sAclObj->isAllowed('ginawhite', 'delete', 'post'); // === false
+
+// Assuming we have the post and comment records below and the user record for 'ginawhite' below
+$postRecord = [
+    'id' => 2,
+    'body' => 'Some random post',
+    'creators_id' => 'ginawhite',
+    'last_updaters_id' => 'ginawhite',
+    'date_created' => '2019-08-01 13:43:21',
+    'last_updated' => '2019-08-01 13:43:21',
+    'is_approved' => '0',
+];
+
+$commentRecord = [
+    'id' => 1,
+    'post_id' => 2,
+    'commenter_id' => 'ginawhite',
+    'comment' => 'Some random comment',
+    'date_created' => '2019-08-01 13:43:21',
+    'last_updated' => '2019-08-01 13:43:21',
+    'is_approved' => '0',
+];
+
+$userRecord = [
+    'id' => 'ginawhite',
+    'password' => 'TydlfEUSqnVMu'
+];
+
+```
+
+
+
+
+### Public Methods of **[SimpleAcl\SimpleAcl](src/SimpleAcl.php)**
+| Method | Description |
+|--------|-------------|
+| **__construct( <br> string $permissionableEntityInterfaceClassName = GenericPermissionableEntity::class, <br> string $permissionInterfaceClassName = GenericPermission::class, <br> string $permissionableEntitiesCollectionInterfaceClassName = GenericPermissionableEntitiesCollection::class, <br> string $permissionsCollectionInterfaceClassName = GenericPermissionsCollection::class <br>)** | The constructor through which you can specify alternate fully qualified class names of classes that implement **[PermissionableEntityInterface](src/interfaces/PermissionableEntityInterface.php)**, **[PermissionInterface](src/interfaces/PermissionInterface.php)**, **[PermissionableEntitiesCollectionInterface](src/interfaces/PermissionableEntitiesCollectionInterface.php)** and **[PermissionsCollectionInterface](src/interfaces/PermissionsCollectionInterface.php)** .|
+| **addEntity(string $entityId): self** | Adds an entity to an instance of this class if it doesn't already exist. Entity IDs are treated in a case-insensitive manner, meaning that 'ALice' and 'alicE' both refer to the same entity |
+| **addParentEntity(string $entityId, string $parentEntityId): self** | Add an entity with an ID value of $parentEntityId as a parent entity to another entity with an ID value of $entityId in an instance of this class. <br> If an entity with an ID value of $entityId does not exist in the instance of this class upon which this method is called, the entity will be created and added first before the parent entity is added to it. <br>Both IDs are treated in a case-insensitive manner, meaning that if **$entityId** has a value of 'ALice' or 'alicE' both will refer to the same entity or if **$parentEntityId** has a value of 'ALice' or 'alicE' both will refer to the same parent entity. <br> You can use this method as a shortcut to creating both an entity and its associated parent entities, eliminating the need for calling **addEntity** first before calling this method. |
+| **addPermission( <br> string $entityId, <br> string $action, <br> string $resource, <br> bool $allowActionOnResource = true, <br> callable $additionalAssertions = null, <br> ...$argsForCallback <br>): self** | Used for adding a permission to an entity with the specified ID. If the entity does not exist, it will be created and the permission will be added to it. <br>See **__construct** in **[PermissionInterface](src/interfaces/PermissionInterface.php)** for more information about all the parameters to this method (except the first). |
+| **clearAuditTrail(): self** | Empties the contents of the Audit Trail containing the trace of all logged internal activities. |
+| **createEntity(string $entityId): PermissionableEntityInterface** | A helper method for creating entity objects which you would be responsible for managing outside of this class. You would not normally need to use this method except if you want to more control over how the entities and permissions in your application are managed. |
+| **createEntityCollection(): PermissionableEntitiesCollectionInterface** | A helper method for creating collection objects used to store entity objects which you would be responsible for managing outside of this class. You would not normally need to use this method except if you want to more control over how the entities and permissions in your application are managed. |
+| **createPermission( <br>string $action, <br>string $resource, <br>bool $allowActionOnResource = true, <br>callable $additionalAssertions = null, <br>...$argsForCallback <br>): PermissionInterface** | A helper method for creating permission objects which you would be responsible for managing outside of this class. You would not normally need to use this method except if you want to more control over how the entities and permissions in your application are managed. <br>See **__construct** in **[PermissionInterface](src/interfaces/PermissionInterface.php)** for more information about the parameters to this method.|
+| **createPermissionCollection(): PermissionsCollectionInterface** | A helper method for creating collection objects used to store permission objects which you would be responsible for managing outside of this class. You would not normally need to use this method except if you want to more control over how the entities and permissions in your application are managed. |
+| **enableAuditTrail(bool $canAudit=true): self** | Enables or disables the logging of internal activities performed in some of the important public methods of this class. |
+| **enableVerboseAudit(bool $performVerboseAudit=true): self** | Enables or disables verbose logging of internal activities performed in some of the important public methods of this class. This method only increases or decreases the level of detail of the internal activities that are logged. It does not not disable logging. |
+| **getAllEntities() : ?PermissionableEntitiesCollectionInterface** | Returns a collection of all entities added to an instance of this class or null if the collection has not yet been initialized. |
+| **getAuditTrail(): string** | Returns a string containing a trace of all logged internal activities performed in some of the important public methods of this class. |
+| **getEntity(string $entityId): ?PermissionableEntityInterface** | Gets and returns an entity with specified Id from an instance of this class or returns NULL if an entity with specified Id doesn't already exist. |
+| **isAllowed(string $entityId, string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool** | Check if the specified action in **$action** can be performed on the specified resource in **$resource** based on the existing permissions associated with either the specified entity with an ID value in **$entityId** or all entities associated with the instance  of this class this method is being invoked on if **$entityId** === ''. <br>See **PermissionInterface::isAllowed($action, $resource, $additionalAssertions, ...$argsForCallback)** for definitions of all but the first parameter. |
+| **removeEntity(string $entityId): ?PermissionableEntityInterface** | Removes an entity from an instance of this class if it exists and returns the removed entity or NULL if the entity does not exist. |
+| **removeParentEntity(string $entityId, string $parentEntityId): ?PermissionableEntityInterface** | Remove and return an entity with an ID value in **$parentEntityId** that is a parent entity to another entity with an ID value in **$entityId**, if the instance of this class upon which this method is being called contains an entity with the ID value in **$entityId**, else NULL is returned. |
+| **removePermission(string $entityId, string $action, string $resource, bool $allowActionOnResource = true, callable $additionalAssertions = null, ...$argsForCallback): ?PermissionInterface** | Remove a permission from the entity with an ID value specified in **$entityId** and return the removed permission or return null if either the entity and / or permission do not exist. |
