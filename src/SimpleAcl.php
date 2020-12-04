@@ -3,13 +3,29 @@ declare(strict_types=1);
 
 namespace SimpleAcl;
 
+use DateTime;
+use ReflectionMethod;
 use InvalidArgumentException;
 use SimpleAcl\Interfaces\{
     PermissionInterface, PermissionableEntitiesCollectionInterface, 
     PermissionableEntityInterface, PermissionsCollectionInterface
 };
+use ReflectionParameter;
 use RuntimeException;
 use SimpleAcl\Exceptions\ParentCannotBeChildException;
+
+use function array_key_exists;
+use function array_shift;
+use function func_get_args;
+use function get_class;
+use function gettype;
+use function is_object;
+use function is_subclass_of;
+use function method_exists;
+use function str_repeat;
+use function str_replace;
+use function trim;
+use function var_export;
 
 /**
  * A class for managing entities and permissions for access controlling resources in applications using this package 
@@ -52,6 +68,45 @@ class SimpleAcl {
      */
     protected $entitiesCollection;
     
+    /**
+     *
+     * @var string tracks activities performed in methods in this class
+     */
+    protected $auditTrail = '';
+    
+    /**
+     *
+     * @var bool true for activities performed in methods in this class to be tracked by concatenating descriptive messages to $this->auditTrail, false for no tracking
+     */
+    protected $auditActivities = false;
+    
+    /**
+     * An integer to be used within $this->logActivity(..) to control the number of tabs to prepend to its return value
+     *  
+     * 
+     * @var int 
+     */
+    protected $numTabsForIndentingAudit = 0;
+    
+    /**
+     * True means that $this->logActivity(string $description, string $shortDescription='') 
+     * should use the first parameter for auditing, false means that it should use the second
+     * parameter if not empty (else it will use the first parameter).
+     * 
+     * If $this->auditActivities === false, then the value of this property is irrelevant.
+     * 
+     * @var bool
+     */
+    protected $performVerboseAudit = true;
+
+
+    /**
+     * 
+     * @param string $permissionableEntityInterfaceClassName
+     * @param string $permissionInterfaceClassName
+     * @param string $permissionableEntitiesCollectionInterfaceClassName
+     * @param string $permissionsCollectionInterfaceClassName
+     */
     public function __construct(
         string $permissionableEntityInterfaceClassName = GenericPermissionableEntity::class,
         string $permissionInterfaceClassName = GenericPermission::class,
@@ -96,25 +151,101 @@ class SimpleAcl {
     /**
      * Adds an entity to an instance of this class if it doesn't already exist.
      * 
-     * @param string $entityId
+     * @param string $entityId ID of the entity to be added. It is treated in a case-insensitive manner, meaning that 'ALice' and 'alicE' both refer to the same entity
      * 
      * @return $this
      */
     public function addEntity(string $entityId): self {
         
+        $this->auditActivities
+            && ++$this->numTabsForIndentingAudit // increment on first call to logActivity within a method
+            && $this->logActivity(
+                    "Entered " . __METHOD__ . "('{$entityId}') trying to create and add a new entity whose ID will be `{$entityId}`",
+                    "Entered " . __METHOD__ . "('{$entityId}')"
+                );
+        
         $entity = $this->createEntity($entityId);
+        
+        $this->auditActivities &&  $this->logActivity("Entity created", "Entity created");
         
         if(!($this->entitiesCollection instanceof PermissionableEntitiesCollectionInterface)) {
             
             $this->entitiesCollection = $this->createEntityCollection();
+            
+            $this->auditActivities 
+                && $this->logActivity(
+                    "Initialized " . get_class($this) 
+                    . '::entitiesCollection to a new empty instance of ' 
+                    . get_class($this->entitiesCollection),
+                    "Initialized " . get_class($this) . '::entitiesCollection'
+                );
         }
         
-        if(!$this->entitiesCollection->hasEntity($entity)) {
+        if(!$this->entitiesCollection->has($entity)) {
             
             $this->entitiesCollection->add($entity);
+            
+            $this->auditActivities 
+                && $this->logActivity( 
+                        "Successfully added the following entity:" .PHP_EOL . trim(''.$entity),
+                        "Successfully added the entity whose ID is `{$entityId}`"
+                   );
+            
+        } else {
+            
+            $this->auditActivities 
+                && $this->logActivity(
+                        "An entity with the specified entity ID `{$entityId}` already exists in the entities collection, no need to add",
+                        "An entity with the specified entity ID `{$entityId}` already exists"
+                   );
         }
         
+        $this->auditActivities
+            && $this->logActivity("Exiting " . __METHOD__ . "('{$entityId}')")
+            && $this->numTabsForIndentingAudit--; // decrement on last call to logActivity within a method
+        
         return $this;
+    }
+    
+    /**
+     * Removes an entity from an instance of this class if it exists.
+     * 
+     * @param string $entityId ID of the entity to be removed. It is treated in a case-insensitive manner, meaning that 'ALice' and 'alicE' both refer to the same entity
+     * 
+     * @return PermissionableEntityInterface|null the removed entity object or NULL if no such entity exists
+     * 
+     * @psalm-suppress PossiblyNullReference
+     */
+    public function removeEntity(string $entityId): ?PermissionableEntityInterface {
+        
+        $this->auditActivities
+            && ++$this->numTabsForIndentingAudit // increment on first call to logActivity within a method
+            && $this->logActivity(
+                    "Entered " . __METHOD__ . "('{$entityId}') trying to remove the entity whose ID is `{$entityId}`",
+                    "Entered " . __METHOD__ . "('{$entityId}')"
+                );
+        
+        $entity = $this->getEntity($entityId);
+        
+        if($entity !== null) {
+            
+            $this->entitiesCollection->remove($entity);
+            $this->auditActivities 
+                && $this->logActivity("Successfully removed the entity whose ID is `{$entityId}`.");
+        } else {
+            
+            $this->auditActivities 
+                && $this->logActivity("The entity whose ID is `{$entityId}` does not exist, no need for removal.");
+        }
+        
+        $this->auditActivities
+            && $this->logActivity(
+                    "Exiting " . __METHOD__ . "('{$entityId}')" . $this->formatReturnValueForAudit($entity),
+                    "Exiting " . __METHOD__ . "('{$entityId}')"
+                )
+            && $this->numTabsForIndentingAudit--; // decrement on last call to logActivity within a method
+        
+        return $entity;
     }
     
     /**
@@ -134,17 +265,32 @@ class SimpleAcl {
      */
     public function addParentEntity(string $entityId, string $parentEntityId): self {
         
+        $this->auditActivities
+            && ++$this->numTabsForIndentingAudit // increment on first call to logActivity within a method
+            && $this->logActivity(
+                    "Entered " . __METHOD__ . "('{$entityId}', '{$parentEntityId}')"
+                    . " trying to add a new parent entity whose ID will be `{$parentEntityId}` to "
+                    . " the entity whose ID is `{$entityId}`",
+                    "Entered " . __METHOD__ . "('{$entityId}', '{$parentEntityId}')"
+                );
+        
         $existingEntity = $this->getEntity($entityId);
 
         if($existingEntity === null) {
          
+            $this->auditActivities 
+                && $this->logActivity("The entity whose ID is `{$entityId}` is not yet created, trying to create it now");
+            
             $this->addEntity($entityId);
             $existingEntity = $this->getEntity($entityId);
         }
         
         if($existingEntity instanceof PermissionableEntityInterface) {
 
-            $existingEntity->addParentEntity($this->createEntity($parentEntityId));
+            $existingEntity->addParent($this->createEntity($parentEntityId));
+            
+            $this->auditActivities 
+                && $this->logActivity("Parent entity whose ID is `{$parentEntityId}` has been added to the entity whose ID is `{$entityId}`");
             
         } else {
             
@@ -159,6 +305,12 @@ class SimpleAcl {
 
             throw new RuntimeException($msg);
         }
+        
+        $this->auditActivities
+            && $this->logActivity(
+                    "Exiting " . __METHOD__ . "('{$entityId}', '{$parentEntityId}')"
+                )
+            && $this->numTabsForIndentingAudit--; // decrement on last call to logActivity within a method
         
         return $this;
     }
@@ -176,15 +328,41 @@ class SimpleAcl {
      */
     public function removeParentEntity(string $entityId, string $parentEntityId): ?PermissionableEntityInterface {
         
+        $this->auditActivities
+            && ++$this->numTabsForIndentingAudit // increment on first call to logActivity within a method
+            && $this->logActivity(
+                    "Entered " . __METHOD__ . "('{$entityId}', '{$parentEntityId}')"
+                    . " trying to remove the parent entity whose ID is `{$parentEntityId}` from "
+                    . " the entity whose ID is `{$entityId}`",
+                    "Entered " . __METHOD__ . "('{$entityId}', '{$parentEntityId}')"
+                );
+        
         $removedParentEntity = null;
         $existingEntity = $this->getEntity($entityId);
         
         if($existingEntity instanceof PermissionableEntityInterface) {
             
-            $keyForParentEntity = $existingEntity->getDirectParentEntities()->getKey($this->createEntity($parentEntityId));
-            $removedParentEntity = $existingEntity->getDirectParentEntities()->get(''.$keyForParentEntity); // get the parent entity object
-            $existingEntity->getDirectParentEntities()->removeByKey($keyForParentEntity); // remove the parent
+            $keyForParentEntity = $existingEntity->getDirectParents()->getKey($this->createEntity($parentEntityId));
+            $removedParentEntity = $existingEntity->getDirectParents()->get(''.$keyForParentEntity); // get the parent entity object
+            $keyForParentEntity !== null
+                && $existingEntity->getDirectParents()->removeByKey($keyForParentEntity); // remove the parent
+            
+            $this->auditActivities 
+                && $this->logActivity("Parent entity has been successfully removed.");
+            
+        } else {
+            
+            $this->auditActivities 
+                && $this->logActivity("The entity whose ID is `{$entityId}` doesn't exist, no need trying to remove a parent entity.");
         }
+        
+        $this->auditActivities
+            && $this->logActivity(
+                    "Exiting " . __METHOD__ . "('{$entityId}', '{$parentEntityId}')"
+                    . $this->formatReturnValueForAudit($removedParentEntity),
+                    "Exiting " . __METHOD__ . "('{$entityId}', '{$parentEntityId}')"
+                )
+            && $this->numTabsForIndentingAudit--; // decrement on last call to logActivity within a method
         
         return $removedParentEntity;
     }
@@ -200,12 +378,42 @@ class SimpleAcl {
      */
     public function getEntity(string $entityId): ?PermissionableEntityInterface {
         
+        $this->auditActivities
+            && ++$this->numTabsForIndentingAudit // increment on first call to logActivity within a method
+            && $this->logActivity(
+                    "Entered " . __METHOD__ . "('{$entityId}') trying to retrieve the entity whose ID is `{$entityId}`",
+                    "Entered " . __METHOD__ . "('{$entityId}')"
+               );
+        
         $entityToReturn = null; 
         
         if($this->entitiesCollection instanceof PermissionableEntitiesCollectionInterface) {
             
             $entityToReturn = $this->entitiesCollection->find($entityId);
+            
+            $this->auditActivities 
+                && $this->logActivity(
+                        "Retrieved the following item: "
+                        . (
+                            ($entityToReturn instanceof PermissionableEntityInterface) 
+                                ? trim(((string)$entityToReturn))
+                                : trim(var_export($entityToReturn, true))
+                        ),
+                        (
+                            ($entityToReturn instanceof PermissionableEntityInterface) 
+                                ? "Successfully retrieved the desired entity." // avoid dumping the string representation of the entity for non-verbose audit
+                                : "Retrieved the following item: " . trim(var_export($entityToReturn, true))
+                        )
+                    );
         }
+        
+        $this->auditActivities
+            && $this->logActivity(
+                    "Exiting " . __METHOD__ . "('{$entityId}')"
+                    . $this->formatReturnValueForAudit($entityToReturn),
+                    "Exiting " . __METHOD__ . "('{$entityId}')"
+                )
+            && $this->numTabsForIndentingAudit--; // decrement on last call to logActivity within a method
         
         return $entityToReturn;
     }
@@ -225,9 +433,6 @@ class SimpleAcl {
      * This entity will be created and added to the instance of this class upon
      * which this method is being invoked if the entity does not exist.
      * 
-     * @see PermissionInterface::__construct($action, $resource, $allowActionOnResource, $additionalAssertions, ...$argsForCallback)
-     * for definitions of all but the first parameter
-     * 
      * @param string $entityId
      * @param string $action
      * @param string $resource
@@ -235,6 +440,11 @@ class SimpleAcl {
      * @param callable|null $additionalAssertions
      * @param mixed $argsForCallback
      * @return $this
+     * @noinspection PhpUnhandledExceptionInspection
+     * @see PermissionInterface::__construct($action, $resource, $allowActionOnResource, $additionalAssertions, ...$argsForCallback)
+     * for definitions of all but the first parameter
+     *
+     * @noinspection PhpDocMissingThrowsInspection
      */
     public function addPermission(
         string $entityId, 
@@ -244,11 +454,38 @@ class SimpleAcl {
         callable $additionalAssertions = null, 
         ...$argsForCallback
     ): self {
+
+        $this->auditActivities
+            && ++$this->numTabsForIndentingAudit // increment on first call to logActivity within a method
+            && $this->logActivity(
+                    "Entered " . __METHOD__ . "(...) to try to add a permission to "
+                    . " the entity whose ID is `{$entityId}`. Method Parameters: "
+                    . PHP_EOL 
+                    . 
+                    trim(
+                        var_export(
+                            $this->getMethodParameterNamesAndVals(
+                                __FUNCTION__,
+                                [ 
+                                    $entityId, $action, $resource, 
+                                    $allowActionOnResource, 
+                                    $additionalAssertions, 
+                                    $argsForCallback
+                                ]
+                            ), 
+                            true
+                        )
+                    ),
+                    "Entered " . __METHOD__ . "(...)"
+                );
         
         $existingEntity = $this->getEntity($entityId);
         
         if($existingEntity === null) {
          
+            $this->auditActivities 
+                && $this->logActivity("The entity whose ID is `{$entityId}` has not yet been created, trying to create it now");
+            
             $this->addEntity($entityId);
             $existingEntity = $this->getEntity($entityId);
         }
@@ -258,6 +495,16 @@ class SimpleAcl {
             $existingEntity->addPermission(
                 $this->createPermission($action, $resource, $allowActionOnResource, $additionalAssertions, ...$argsForCallback)
             );
+            
+            $this->auditActivities 
+                && $this->logActivity(
+                    "Permission with the parameters below has been added to the entity whose ID is `{$entityId}`:"
+                    . PHP_EOL . "action: `{$action}`"
+                    . PHP_EOL . "resource: `{$resource}`"
+                    . PHP_EOL . "allowActionOnResource: " . var_export($allowActionOnResource, true)
+                    . PHP_EOL . "additionalAssertions: " . var_export($additionalAssertions, true)
+                    . PHP_EOL . "argsForCallback: " . var_export($argsForCallback, true)
+                );
             
         } else {
             
@@ -271,29 +518,42 @@ class SimpleAcl {
             $msg = "Error [{$class}::{$function}(...)]:"
             . " Could not create or retrieve the entity with an ID of `{$entityId}`"
             . " to which the following permission is to be added:"
-            . PHP_EOL . PHP_EOL . var_export($funcArgs, true);
+            . PHP_EOL 
+            . PHP_EOL . "action: `{$action}`"
+            . PHP_EOL . "resource: `{$resource}`"
+            . PHP_EOL . "allowActionOnResource: " . var_export($allowActionOnResource, true)
+            . PHP_EOL . "additionalAssertions: " . var_export($additionalAssertions, true)
+            . PHP_EOL . "argsForCallback: " . var_export($argsForCallback, true);
 
             throw new RuntimeException($msg);
         }
         
+        $this->auditActivities
+            && $this->logActivity(
+                    "Exiting " . __METHOD__ . "(...)"
+                )
+            && $this->numTabsForIndentingAudit--; // decrement on last call to logActivity within a method
+        
         return $this;
     }
-    
+
     /**
      * Remove a permission from the entity with an ID value of $entityId and return the removed permission
      * or return null if either the entity of permission do not exist.
-     * 
-     * @see PermissionInterface::__construct($action, $resource, $allowActionOnResource, $additionalAssertions, $argsForCallback) 
-     * for definitions of all but the first parameter
-     * 
+     *
      * @param string $entityId
      * @param string $action
      * @param string $resource
      * @param bool $allowActionOnResource
      * @param callable|null $additionalAssertions
      * @param mixed $argsForCallback
-     * 
+     *
      * @return PermissionInterface|null
+     * @noinspection PhpUnhandledExceptionInspection
+     * @see PermissionInterface::__construct($action, $resource, $allowActionOnResource, $additionalAssertions, $argsForCallback)
+     * for definitions of all but the first parameter
+     *
+     * @noinspection PhpDocMissingThrowsInspection
      */
     public function removePermission(
         string $entityId, 
@@ -303,6 +563,30 @@ class SimpleAcl {
         callable $additionalAssertions = null, 
         ...$argsForCallback
     ): ?PermissionInterface {
+
+        $this->auditActivities
+            && ++$this->numTabsForIndentingAudit // increment on first call to logActivity within a method
+            && $this->logActivity(
+                    "Entered " . __METHOD__ . "(...) to try to remove a permission from "
+                    . " the entity whose ID is `{$entityId}`. Method Parameters: "
+                    . PHP_EOL 
+                    . 
+                    trim(
+                        var_export(
+                            $this->getMethodParameterNamesAndVals(
+                                __FUNCTION__,
+                                [ 
+                                    $entityId, $action, $resource, 
+                                    $allowActionOnResource, 
+                                    $additionalAssertions, 
+                                    $argsForCallback
+                                ]
+                            ), 
+                            true
+                        )
+                    ),
+                    "Entered " . __METHOD__ . "(...)"
+                );
         
         $removedPermission = null;
         $existingEntity = $this->getEntity($entityId);
@@ -320,55 +604,147 @@ class SimpleAcl {
                                     )
                                 );
             $removedPermission = $existingEntity->getDirectPermissions()->get(''.$keyForPermission); // get the permission object
-            $existingEntity->getDirectPermissions()->removeByKey($keyForPermission); // remove the permission
+            $keyForPermission !== null
+                && $existingEntity->getDirectPermissions()->removeByKey($keyForPermission); // remove the permission
+            
+            $this->auditActivities 
+                && $this->logActivity(
+                    "Permission with the parameters below has been removed from the entity whose ID is `{$entityId}`:"
+                    . PHP_EOL . "action: `{$action}`"
+                    . PHP_EOL . "resource: `{$resource}`"
+                    . PHP_EOL . "allowActionOnResource: " . var_export($allowActionOnResource, true)
+                    . PHP_EOL . "additionalAssertions: " . var_export($additionalAssertions, true)
+                    . PHP_EOL . "argsForCallback: " . var_export($argsForCallback, true)
+                );
+        } else {
+            
+            $this->auditActivities 
+                && $this->logActivity("The entity whose ID is `{$entityId}` doesn't exist, no need trying to remove the specified permission.");
         }
+        
+        $this->auditActivities
+            && $this->logActivity(
+                    "Exiting " . __METHOD__ . "(....)"
+                    . $this->formatReturnValueForAudit($removedPermission),
+                    "Exiting " . __METHOD__ . "(....)"
+                )
+            && $this->numTabsForIndentingAudit--; // decrement on last call to logActivity within a method
         
         return $removedPermission;
     }
-    
+
     /**
-     * Check if the specified action $action can be performed on the specified 
+     * Check if the specified action $action can be performed on the specified
      * resource $resource based on the existing permissions associated with
      * either the specified entity with an ID of $entityId or all entities
      * associated with the instance  of this class this method is being invoked
      * on if $entityId === ''
-     * 
-     * @see PermissionInterface::isAllowed($action, $resource, $additionalAssertions, ...$argsForCallback) 
-     * for definitions of all but the first parameter
-     * 
-     * @param string $entityId                  ID of the entity whose permissions will be searched. 
-     *                                          Pass an empty string to search the permissions for 
-     *                                          all entities added to the instance of this class 
+     *
+     * @param string $entityId ID of the entity whose permissions will be searched.
+     *                                          Pass an empty string to search the permissions for
+     *                                          all entities added to the instance of this class
      *                                          this method is being invoked on.
-     * @param string $action                    See the see section above
-     * @param string $resource                  See the see section above
-     * @param callable|null $additionalAssertions    See the see section above
-     * @param mixed $argsForCallback            See the see section above
-     * 
+     * @param string $action See the see section above
+     * @param string $resource See the see section above
+     * @param callable|null $additionalAssertions See the see section above
+     * @param mixed $argsForCallback See the see section above
+     *
      * @return bool
+     * @see PermissionInterface::isAllowed($action, $resource, $additionalAssertions, ...$argsForCallback)
+     * for definitions of all but the first parameter
+     *
+     * @noinspection PhpUnhandledExceptionInspection
+     * @noinspection PhpDocMissingThrowsInspection
+     * 
+     * @psalm-suppress MoreSpecificReturnType
      */
     public function isAllowed(string $entityId, string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool  {
         
+        $this->auditActivities
+            && ++$this->numTabsForIndentingAudit // increment on first call to logActivity within a method
+            && $this->logActivity(
+                    "Entered " . __METHOD__ . "(...) to check if the entity `{$entityId}`"
+                    . " is allowed to perform the specified action `{$action}` on the"
+                    . " specified resource `{$resource}`.  "
+                    . PHP_EOL . 'Supplied Method Parameters:'
+                    . PHP_EOL 
+                    . 
+                    trim(
+                        var_export(
+                            $this->getMethodParameterNamesAndVals(
+                                __FUNCTION__,
+                                [ 
+                                    $entityId, 
+                                    $action, $resource,
+                                    $additionalAssertions, 
+                                    $argsForCallback
+                                ]
+                            ), 
+                            true
+                        )
+                    ),
+                    "Entered " . __METHOD__ . "(...)"
+                );
+        
         $isAllowed = false;
         
-        if( $entityId === '' && $this->entitiesCollection instanceof PermissionableEntitiesCollectionInterface ) {
+        if( $entityId === '' ) {
             
-            // loop through all entities
-            /** @var PermissionableEntityInterface $currentEntity */
-            foreach ($this->entitiesCollection as $currentEntity) {
-                
-                // Get all permissions including inherited ones and check if 
-                // permission test evaluates to true for any of the permissions.
-                if( 
-                    $currentEntity->getAllPermissions(true, $this->createPermissionCollection())
-                                  ->isAllowed($action, $resource, $additionalAssertions, ...$argsForCallback)
-                ) {
-                    $isAllowed = true;
-                    break;
+            $this->auditActivities 
+                && $this->logActivity(
+                        "An empty string was supplied as the entity ID, so we"
+                        . " are searching through permissions for all existing"
+                        . " entities until we get the first match"
+                    );
+            
+            if($this->entitiesCollection instanceof PermissionableEntitiesCollectionInterface) {
+                 // loop through all entities
+                /** @var PermissionableEntityInterface $currentEntity */
+                foreach ($this->entitiesCollection as $currentEntity) {
+
+                    $this->auditActivities 
+                        && $this->logActivity(
+                                "Currently searching through the permissions for the entity whose ID is `{$currentEntity->getId()}`"
+                            );
+
+                    // Get all permissions including inherited ones and check if 
+                    // permission test evaluates to true for any of the permissions.
+                    if( 
+                        $currentEntity->getAllPermissions(true, $this->createPermissionCollection())
+                                      ->isAllowed($action, $resource, $additionalAssertions, ...$argsForCallback)
+                    ) {
+                        $this->auditActivities 
+                            && $this->logActivity(
+                                    "Found a permission belonging to the entity"
+                                    . " whose ID is `{$currentEntity->getId()}`"
+                                    . " that allows the specified action `{$action}`"
+                                    . " to be performed on the specified resource `{$resource}`."
+                                );
+                        $isAllowed = true;
+                        break;
+                    }
                 }
+            } // if($this->entitiesCollection instanceof PermissionableEntitiesCollectionInterface) 
+            
+            if(!$isAllowed) {
+                $this->auditActivities 
+                    && $this->logActivity(
+                            "Did not find any permission belonging to any entity"
+                            . " that allows the specified action `{$action}`"
+                            . " to be performed on the specified resource `{$resource}`."
+                            . PHP_EOL . PHP_EOL . "Either no entity"
+                            . " has such a permission or an entity has a permission that explicitly"
+                            . " denies the specified action `{$action}` from being performed"
+                            . " on the specified resource `{$resource}`"
+                        );
             }
             
         } else {
+            
+            $this->auditActivities 
+                && $this->logActivity(
+                        "Trying to retrieve the entity object associated with specified entity ID `{$entityId}`"
+                    );
             
             // get specified entity if it exists and check through its permissions
             // including inherited ones, to if the permission test evaluates to 
@@ -377,14 +753,71 @@ class SimpleAcl {
             
             if($specifiedEntity instanceof PermissionableEntityInterface) {
                 
+                $this->auditActivities 
+                    && $this->logActivity(
+                            "Successfully retrieved the entity object associated with specified entity ID `{$entityId}`."
+                        );
+                            
+                $this->auditActivities 
+                    && $this->logActivity(
+                            "Searching through the permissions for the entity whose ID is `{$entityId}`"
+                        );
+                
                 $isAllowed = $specifiedEntity->getAllPermissions(true, $this->createPermissionCollection())
                                              ->isAllowed($action, $resource, $additionalAssertions, ...$argsForCallback);
+                
+                if($isAllowed) {
+                    
+                    $this->auditActivities 
+                        && $this->logActivity(
+                                "Found a permission belonging to the entity"
+                                . " whose ID is `{$entityId}`"
+                                . " that allows the specified action `{$action}`"
+                                . " to be performed on the specified resource `{$resource}`."
+                            );
+                } else {
+                    
+                    $this->auditActivities 
+                        && $this->logActivity(
+                                "Did not find any permission belonging to the entity"
+                                . " whose ID is `{$entityId}`"
+                                . " that allows the specified action `{$action}`"
+                                . " to be performed on the specified resource `{$resource}`."
+                                . PHP_EOL . PHP_EOL . "Either the entity whose ID is `{$entityId}`"
+                                . " has no such permission or has a permission that explicitly"
+                                . " denies the specified action `{$action}` from being performed"
+                                . " on the specified resource `{$resource}`"
+                            );
+                }
+                
+            } else {
+                
+                $this->auditActivities 
+                    && $this->logActivity(
+                            "Could not retrieve the entity object associated with specified entity ID `{$entityId}`."
+                        );
             }
         }
+        
+        $this->auditActivities 
+            && $this->logActivity(
+                    "Exiting " . __METHOD__ . "(....)" 
+                    .$this->formatReturnValueForAudit($isAllowed),
+                    "Exiting " . __METHOD__ . "(....)" 
+                )
+            && $this->numTabsForIndentingAudit--; // decrement on last call to logActivity within a method
         
         return $isAllowed;
     }
     
+    /**
+     * 
+     * @return PermissionableEntitiesCollectionInterface
+     * 
+     * @psalm-suppress LessSpecificReturnStatement
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress InvalidStringClass
+     */
     public function createEntityCollection(): PermissionableEntitiesCollectionInterface {
         
         $collectionClassName = $this->permissionableEntitiesCollectionInterfaceClassName;
@@ -392,20 +825,53 @@ class SimpleAcl {
         return new $collectionClassName();
     }
     
+    /**
+     * 
+     * @return PermissionsCollectionInterface
+     * 
+     * @psalm-suppress LessSpecificReturnStatement
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress InvalidStringClass
+     */
     public function createPermissionCollection(): PermissionsCollectionInterface {
         
         $collectionClassName = $this->permissionsCollectionInterfaceClassName;
         
         return new $collectionClassName();
     }
-    
+
+    /**
+     * @param string $entityId the ID of the entity to be created
+     *
+     * @return PermissionableEntityInterface the created entity object
+     * 
+     * @psalm-suppress LessSpecificReturnStatement
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress InvalidStringClass
+     */
     public function createEntity(string $entityId): PermissionableEntityInterface {
         
         $entityClassName = $this->permissionableEntityInterfaceClassName;
         
         return new $entityClassName($entityId, $this->createPermissionCollection(), $this->createEntityCollection());
     }
-    
+
+    /**
+     * @see PermissionInterface::__construct($action, $resource, $allowActionOnResource, $additionalAssertions, ...$argsForCallback)
+     * for definitions of all the parameters of this method
+     *
+     * @param string $action
+     * @param string $resource
+     * @param bool $allowActionOnResource
+     * @param callable|null $additionalAssertions
+     * @param mixed ...$argsForCallback
+     *
+     * @return PermissionInterface
+     * 
+     * @psalm-suppress LessSpecificReturnStatement
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress InvalidStringClass
+     */
     public function createPermission(
         string $action, string $resource, bool $allowActionOnResource = true, callable $additionalAssertions = null, ...$argsForCallback
     ): PermissionInterface {
@@ -415,19 +881,173 @@ class SimpleAcl {
         return new $permissionClassName($action, $resource, $allowActionOnResource, $additionalAssertions, ...$argsForCallback);
     }
     
+    
+    /**
+     * Empties the contents of the Audit Trail containing the trace of all logged internal activities 
+     * 
+     * @return $this
+     */
+    public function clearAuditTrail(): self {
+        
+        $this->auditTrail = '';
+        
+        return $this;
+    }
+    
+    /**
+     * Returns a string containing a trace of all logged internal activities 
+     * 
+     * @return string
+     */
+    public function getAuditTrail(): string {
+        
+        return $this->auditTrail;
+    }
+    
+    /**
+     * Enables or disables the logging of internal activities performed in the public methods of this class
+     * 
+     * @param bool $canAudit true to start logging internal activities, false to stop logging internal activities
+     * 
+     * @return $this
+     */
+    public function enableAuditTrail(bool $canAudit=true): self {
+        
+        $this->auditActivities = $canAudit;
+        
+        return $this;
+    }
+    
+    /**
+     * Sets a boolean value for $this->performVerboseAudit.
+     * 
+     * True means that $this->logActivity(string $description, string $shortDescription='') 
+     * should use the first parameter for auditing, false means that it should use the second
+     * parameter if not empty (else it will use the first parameter).
+     * 
+     * @param bool $performVerboseAudit
+     * 
+     * @return $this
+     */
+    public function enableVerboseAudit(bool $performVerboseAudit=true): self {
+        
+        $this->performVerboseAudit = $performVerboseAudit;
+        
+        return $this;
+    }
+    
     ////////////////////////////////////////////////////////////////////////////
     //////////////////// non-public methods ////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     
+    protected function logActivity(string $description, string $shortDescription=''): self {
+        
+        if($this->auditActivities) {
+            
+            $useShortDescr = $shortDescription !== '' && (!$this->performVerboseAudit);
+            
+            $this->auditTrail .= 
+                (($this->numTabsForIndentingAudit <= 1) ? '' : str_repeat("\t", $this->numTabsForIndentingAudit))
+                . '[' . (new DateTime())->format('Y-m-d H:i:s') . ']: '
+                . 
+                (
+                    ($this->numTabsForIndentingAudit <= 1) 
+                    ? 
+                        (
+                            $useShortDescr
+                            ? $shortDescription
+                            : $description 
+                        )
+                    : 
+                        (
+                            $useShortDescr
+                            ? str_replace(PHP_EOL, PHP_EOL . str_repeat("\t", $this->numTabsForIndentingAudit), $shortDescription)
+                            : str_replace(PHP_EOL, PHP_EOL . str_repeat("\t", $this->numTabsForIndentingAudit), $description)
+                        )
+                )
+                . PHP_EOL .PHP_EOL .PHP_EOL;
+        }
+        
+        return $this;
+    }
+    
     protected function throwInvalidArgExceptionDueToWrongClassName(
         string $class, string $function, string $wrongClassName, 
         string $expectedInterfaceName, string $positionthParameter
-    ) {
+    ): void {
         $msg = "Error [{$class}::{$function}(...)]:"
         . " You must specify the fully qualified name of a class that implements `{$expectedInterfaceName}` "
         . " as the {$positionthParameter} parameter to {$class}::{$function}(...)."
         . PHP_EOL . " You supplied a wrong value of: `{$wrongClassName}` ";
         
         throw new InvalidArgumentException($msg);
-    }    
+    }
+
+    /**
+     * Returns an associative array whose keys are the names of the parameters for the specified method ($methodName) and the values are the values in $paramVals
+     *
+     * @param string $methodName name of a method in this class
+     * @param array $paramVals an array of values supplied as arguments to the method named by $methodName
+     *
+     * @return array an associative array whose keys are the names of the parameters for the specified method ($methodName) and the values are the values in $paramVals
+     * @noinspection PhpRedundantVariableDocTypeInspection
+     * @throws \ReflectionException if $methodName is not the name of an actual method in this class
+     * @noinspection PhpFullyQualifiedNameUsageInspection
+     */
+    protected function getMethodParameterNamesAndVals(string $methodName, array $paramVals): array {
+        
+        $paramPosToNameMap = [];
+        
+        if(method_exists($this, $methodName)) {
+        
+            $refMethodObj = new ReflectionMethod($this, $methodName);
+
+            $parameters = $refMethodObj->getParameters();
+
+            /** @var ReflectionParameter $parameter */
+            foreach ($parameters as $parameter) {
+
+                $pos = $parameter->getPosition();
+                
+                if(array_key_exists($pos, $paramVals)) {
+                    
+                    $paramPosToNameMap[$parameter->getName()] = $paramVals[$pos];
+                }
+            }
+        }
+        
+        return $paramPosToNameMap;
+    }
+    
+    /**
+     * Helper method to describe the value in $returnVal
+     * 
+     * @param mixed $returnVal
+     * 
+     * @return string description of the value in $returnVal
+     */
+    protected function formatReturnValueForAudit($returnVal): string {
+
+        $returnType = gettype($returnVal);
+        $formattedSentence = 
+            " with a return type of `$returnType` and actual return value of "
+            . trim(var_export($returnVal, true));
+        
+        if(is_object($returnVal)) {
+            
+            $formattedSentence = 
+                " with a return type of `object` that is an instance of" 
+                . " `" . get_class($returnVal) . "` with the following"
+                . " string representation: "
+                . PHP_EOL
+                . 
+                    (
+                        (method_exists($returnVal, '__toString'))
+                        ? trim(((string)$returnVal))
+                        : trim(var_export($returnVal, true))
+                    );
+        }
+        
+        return $formattedSentence;
+    }
 }
