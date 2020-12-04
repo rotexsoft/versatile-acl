@@ -95,7 +95,7 @@ interface PermissionableEntitiesCollectionInterface extends CollectionInterface 
      * 
      * @return bool true if there is another entity `$x` in the current instance where $x->isEqualTo($entity) === true, otherwise return false
      */
-    public function hasEntity(PermissionableEntityInterface $entity): bool;
+    public function has(PermissionableEntityInterface $entity): bool;
 
     /**
      * Sort the collection.
