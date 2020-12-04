@@ -2189,12 +2189,12 @@ array (
         // matches stuff like:
         //  [2020-12-01 18:15:40]
         $datePrefixRegex = '/\[[0-9][0-9][0-9][0-9]\-[0-9][0-9]\-[0-9][0-9] [0-9][0-9]:[0-9][0-9]:[0-9][0-9]\]/';
-        $this->assertMatchesRegularExpression($datePrefixRegex, $logStr);
+        $this->assertMatchesRegularExpression72($datePrefixRegex, $logStr);
         
         // matches stuff like below prefixed with a tab:
         //  [2020-12-01 18:15:40]
         $datePrefixRegexWithTab = '/\t\[[0-9][0-9][0-9][0-9]\-[0-9][0-9]\-[0-9][0-9] [0-9][0-9]:[0-9][0-9]:[0-9][0-9]\]/';
-        $this->assertMatchesRegularExpression($datePrefixRegexWithTab, $logStr);
+        $this->assertMatchesRegularExpression72($datePrefixRegexWithTab, $logStr);
                 
         $shortLogStr = $sAclObj->clearAuditTrail()
                           ->enableVerboseAudit(false)
@@ -2204,25 +2204,25 @@ array (
         
         // matches stuff like:
         //  [2020-12-01 18:15:40]
-        $this->assertMatchesRegularExpression($datePrefixRegex, $shortLogStr);
+        $this->assertMatchesRegularExpression72($datePrefixRegex, $shortLogStr);
         
         // matches stuff like below prefixed with a tab:
         //  [2020-12-01 18:15:40]
-        $this->assertMatchesRegularExpression($datePrefixRegexWithTab, $shortLogStr);
+        $this->assertMatchesRegularExpression72($datePrefixRegexWithTab, $shortLogStr);
         
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         $strWithRegularDescription = $sAclObj->clearAuditTrail()
                                              ->logActivityPublic('Regular description', '')
                                              ->getAuditTrail();
-        $this->assertMatchesRegularExpression($datePrefixRegex, $strWithRegularDescription);
+        $this->assertMatchesRegularExpression72($datePrefixRegex, $strWithRegularDescription);
         $this->assertStringContainsString('Regular description', $strWithRegularDescription);
         
         $strWithShortDescription = $sAclObj->clearAuditTrail()
                                            ->enableVerboseAudit(false)
                                            ->logActivityPublic('Regular description', 'Short description')
                                            ->getAuditTrail();
-        $this->assertMatchesRegularExpression($datePrefixRegex, $strWithShortDescription);
+        $this->assertMatchesRegularExpression72($datePrefixRegex, $strWithShortDescription);
         $this->assertStringContainsString('Short description', $strWithShortDescription);
         
         // Test that regular description is used when non-verbose audit
@@ -2231,7 +2231,7 @@ array (
                                            ->enableVerboseAudit(false)
                                            ->logActivityPublic('Regular description', '')
                                            ->getAuditTrail();
-        $this->assertMatchesRegularExpression($datePrefixRegex, $strWithShortDescription2);
+        $this->assertMatchesRegularExpression72($datePrefixRegex, $strWithShortDescription2);
         $this->assertStringContainsString('Regular description', $strWithShortDescription2);
         $this->assertStringNotContainsString('Short description', $strWithShortDescription2);
     }
@@ -2312,4 +2312,14 @@ array (
             }
         };
     }
+    
+    public function assertMatchesRegularExpression72(string $pattern, string $string, string $message = ''): void {
+        
+        if (method_exists(parent::class, 'assertMatchesRegularExpression')) {
+            parent::assertMatchesRegularExpression($pattern, $string, $message);
+        } else {
+            static::assertRegExp($pattern, $string, $message);
+        }
+    }
+    
 }

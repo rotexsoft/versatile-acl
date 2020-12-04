@@ -255,8 +255,8 @@ class SimpleAcl {
      * of this class upon which this method is called, the entity will be created
      * and added first before the parent entity is added to it.
      * 
-     * @param string $entityId
-     * @param string $parentEntityId
+     * @param string $entityId ID of the entity to which a parent entity is to be added. It is treated in a case-insensitive manner, meaning that 'ALice' and 'alicE' both refer to the same entity
+     * @param string $parentEntityId ID of the parent entity to be added. It is treated in a case-insensitive manner, meaning that 'ALice' and 'alicE' both refer to the same entity
      * 
      * @return $this
      * 
@@ -433,7 +433,7 @@ class SimpleAcl {
      * This entity will be created and added to the instance of this class upon
      * which this method is being invoked if the entity does not exist.
      * 
-     * @param string $entityId
+     * @param string $entityId the ID of the entity to which the permission is to be added
      * @param string $action
      * @param string $resource
      * @param bool $allowActionOnResource
