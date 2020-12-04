@@ -33,18 +33,18 @@ class GenericPermissionableEntitiesCollectionTest extends \PHPUnit\Framework\Tes
         // args with array unpacking
         $collection2 = new GenericPermissionableEntitiesCollection(...$entities);
         $this->assertEquals(3, $collection2->count());
-        $this->assertTrue($collection2->hasEntity($entities[0]));
-        $this->assertTrue($collection2->hasEntity($entities[1]));
-        $this->assertTrue($collection2->hasEntity($entities[2]));
+        $this->assertTrue($collection2->has($entities[0]));
+        $this->assertTrue($collection2->has($entities[1]));
+        $this->assertTrue($collection2->has($entities[2]));
         
         // multiple args non-array unpacking
         $collection3 = new GenericPermissionableEntitiesCollection(
             $entities[0], $entities[1], $entities[2]
         );
         $this->assertEquals(3, $collection3->count());
-        $this->assertTrue($collection3->hasEntity($entities[0]));
-        $this->assertTrue($collection3->hasEntity($entities[1]));
-        $this->assertTrue($collection3->hasEntity($entities[2]));
+        $this->assertTrue($collection3->has($entities[0]));
+        $this->assertTrue($collection3->has($entities[1]));
+        $this->assertTrue($collection3->has($entities[2]));
     }
     
     public function testHasEntityWorksAsExpected() {
@@ -60,24 +60,24 @@ class GenericPermissionableEntitiesCollectionTest extends \PHPUnit\Framework\Tes
         
         // empty collection
         $collection = new GenericPermissionableEntitiesCollection();
-        $this->assertFalse($collection->hasEntity($entities[0]));
-        $this->assertFalse($collection->hasEntity($entities[1]));
-        $this->assertFalse($collection->hasEntity($entities[2]));
-        $this->assertFalse($collection->hasEntity($entity4));
-        $this->assertFalse($collection->hasEntity($entity5));
+        $this->assertFalse($collection->has($entities[0]));
+        $this->assertFalse($collection->has($entities[1]));
+        $this->assertFalse($collection->has($entities[2]));
+        $this->assertFalse($collection->has($entity4));
+        $this->assertFalse($collection->has($entity5));
         
         // non-empty collection
         $collection2 = new GenericPermissionableEntitiesCollection(...$entities);
         $this->assertEquals(3, $collection2->count());
-        $this->assertTrue($collection2->hasEntity($entities[0]));
-        $this->assertTrue($collection2->hasEntity($entities[1]));
-        $this->assertTrue($collection2->hasEntity($entities[2]));
-        $this->assertFalse($collection2->hasEntity($entity4));
-        $this->assertFalse($collection2->hasEntity($entity5));
+        $this->assertTrue($collection2->has($entities[0]));
+        $this->assertTrue($collection2->has($entities[1]));
+        $this->assertTrue($collection2->has($entities[2]));
+        $this->assertFalse($collection2->has($entity4));
+        $this->assertFalse($collection2->has($entity5));
         $collection2->add($entity4);
         $collection2->add($entity5);
-        $this->assertTrue($collection2->hasEntity($entity4));
-        $this->assertTrue($collection2->hasEntity($entity5));
+        $this->assertTrue($collection2->has($entity4));
+        $this->assertTrue($collection2->has($entity5));
     }
     
     public function testAddWorksAsExpected() {
@@ -100,11 +100,11 @@ class GenericPermissionableEntitiesCollectionTest extends \PHPUnit\Framework\Tes
         $this->assertSame($collection, $collection->add($entity4)); // test fluent return
         $this->assertSame($collection, $collection->add($entity5)); // test fluent return
         
-        $this->assertTrue($collection->hasEntity($entities[0]));
-        $this->assertTrue($collection->hasEntity($entities[1]));
-        $this->assertTrue($collection->hasEntity($entities[2]));
-        $this->assertTrue($collection->hasEntity($entity4));
-        $this->assertTrue($collection->hasEntity($entity5));
+        $this->assertTrue($collection->has($entities[0]));
+        $this->assertTrue($collection->has($entities[1]));
+        $this->assertTrue($collection->has($entities[2]));
+        $this->assertTrue($collection->has($entity4));
+        $this->assertTrue($collection->has($entity5));
         
         // non-empty collection
         $collection2 = new GenericPermissionableEntitiesCollection(...$entities);
@@ -112,8 +112,8 @@ class GenericPermissionableEntitiesCollectionTest extends \PHPUnit\Framework\Tes
         $this->assertSame($collection2, $collection2->add($entity4)); // test fluent return
         $this->assertSame($collection2, $collection2->add($entity5)); // test fluent return
         
-        $this->assertTrue($collection2->hasEntity($entity4));
-        $this->assertTrue($collection2->hasEntity($entity5));
+        $this->assertTrue($collection2->has($entity4));
+        $this->assertTrue($collection2->has($entity5));
         
         // test that duplicates are not added
         $expectedCount = $collection2->count();
@@ -141,19 +141,19 @@ class GenericPermissionableEntitiesCollectionTest extends \PHPUnit\Framework\Tes
         $this->assertSame($collection, $collection->put($entity4, '4')); // test fluent return
         $this->assertSame($collection, $collection->put($entity5, '5')); // test fluent return
         
-        $this->assertTrue($collection->hasEntity($entities[0]));
+        $this->assertTrue($collection->has($entities[0]));
         $this->assertTrue($collection->getKey($entities[0]).'' === '1' );
         
-        $this->assertTrue($collection->hasEntity($entities[1]));
+        $this->assertTrue($collection->has($entities[1]));
         $this->assertTrue($collection->getKey($entities[1]).'' === '2' );
         
-        $this->assertTrue($collection->hasEntity($entities[2]));
+        $this->assertTrue($collection->has($entities[2]));
         $this->assertTrue($collection->getKey($entities[2]).'' === '3' );
         
-        $this->assertTrue($collection->hasEntity($entity4));
+        $this->assertTrue($collection->has($entity4));
         $this->assertTrue($collection->getKey($entity4).'' === '4' );
         
-        $this->assertTrue($collection->hasEntity($entity5));
+        $this->assertTrue($collection->has($entity5));
         $this->assertTrue($collection->getKey($entity5).'' === '5' );
         
         // non-empty collection
@@ -162,10 +162,10 @@ class GenericPermissionableEntitiesCollectionTest extends \PHPUnit\Framework\Tes
         $this->assertSame($collection2, $collection2->put($entity4, '44')); // test fluent return
         $this->assertSame($collection2, $collection2->put($entity5, '55')); // test fluent return
         
-        $this->assertTrue($collection2->hasEntity($entity4));
+        $this->assertTrue($collection2->has($entity4));
         $this->assertTrue($collection2->getKey($entity4).'' === '44' );
         
-        $this->assertTrue($collection2->hasEntity($entity5));
+        $this->assertTrue($collection2->has($entity5));
         $this->assertTrue($collection2->getKey($entity5).'' === '55' );
     }
     
@@ -236,29 +236,29 @@ class GenericPermissionableEntitiesCollectionTest extends \PHPUnit\Framework\Tes
         $collection->remove($nonExistentEntity);
         $this->assertEquals(5, $collection->count());
         
-        $this->assertTrue($collection->hasEntity($entities[0]));
+        $this->assertTrue($collection->has($entities[0]));
         $this->assertSame($collection->remove($entities[0]), $collection);
-        $this->assertFalse($collection->hasEntity($entities[0]));
+        $this->assertFalse($collection->has($entities[0]));
         $this->assertEquals(4, $collection->count());
         
-        $this->assertTrue($collection->hasEntity($entities[1]));
+        $this->assertTrue($collection->has($entities[1]));
         $this->assertSame($collection->remove($entities[1]), $collection);
-        $this->assertFalse($collection->hasEntity($entities[1]));
+        $this->assertFalse($collection->has($entities[1]));
         $this->assertEquals(3, $collection->count());
         
-        $this->assertTrue($collection->hasEntity($entities[2]));
+        $this->assertTrue($collection->has($entities[2]));
         $this->assertSame($collection->remove($entities[2]), $collection);
-        $this->assertFalse($collection->hasEntity($entities[2]));
+        $this->assertFalse($collection->has($entities[2]));
         $this->assertEquals(2, $collection->count());
         
-        $this->assertTrue($collection->hasEntity($entity4));
+        $this->assertTrue($collection->has($entity4));
         $this->assertSame($collection->remove($entity4), $collection);
-        $this->assertFalse($collection->hasEntity($entity4));
+        $this->assertFalse($collection->has($entity4));
         $this->assertEquals(1, $collection->count());
         
-        $this->assertTrue($collection->hasEntity($entity5));
+        $this->assertTrue($collection->has($entity5));
         $this->assertSame($collection->remove($entity5), $collection);
-        $this->assertFalse($collection->hasEntity($entity5));
+        $this->assertFalse($collection->has($entity5));
         $this->assertEquals(0, $collection->count());
     }
     
@@ -281,11 +281,11 @@ class GenericPermissionableEntitiesCollectionTest extends \PHPUnit\Framework\Tes
         $collection->removeAll();
         $this->assertEquals(0, $collection->count());
         
-        $this->assertFalse($collection->hasEntity($entities[0]));
-        $this->assertFalse($collection->hasEntity($entities[1]));
-        $this->assertFalse($collection->hasEntity($entities[2]));
-        $this->assertFalse($collection->hasEntity($entity4));
-        $this->assertFalse($collection->hasEntity($entity5));
+        $this->assertFalse($collection->has($entities[0]));
+        $this->assertFalse($collection->has($entities[1]));
+        $this->assertFalse($collection->has($entities[2]));
+        $this->assertFalse($collection->has($entity4));
+        $this->assertFalse($collection->has($entity5));
     }
     
     /////////////////////////////////////////////////////////////////
