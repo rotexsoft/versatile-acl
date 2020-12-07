@@ -293,7 +293,7 @@ $usersSaclObj->getEntity('jillbauer')
              );
 ```
 
-Now that we have set up or groups, users and permissions, let's see how to check if a user is allowed to perform an action on a resource in our application.
+Now that we have set up our groups, users and permissions, let's see how to check if a user is allowed to perform an action on a resource in our application.
 
 Let's start with the user **'frankwhite'** that belongs to the **'admin'**  group. This user should be able to perform any action on any resource in the application:
 
