@@ -3,7 +3,7 @@
 [![Build Status](https://img.shields.io/travis/rotexsoft/simple-acl/master.png?style=flat-square)](https://travis-ci.org/rotexsoft/simple-acl) &nbsp; 
 [![Release](https://img.shields.io/github/release/rotexsoft/simple-acl.png?style=flat-square)](https://github.com/rotexsoft/simple-acl/releases/latest) &nbsp; 
 [![License](https://img.shields.io/badge/license-BSD-brightgreen.png?style=flat-square)](https://github.com/rotexsoft/simple-acl/blob/master/LICENSE) &nbsp; 
-![PHP Tests and Code Quality Tools](https://github.com/rotexsoft/simple-acl/workflows/Run%20PHP%20Tests%20and%20Code%20Quality%20Tools/badge.svg) &nbsp;
+[![PHP Tests and Code Quality Tools](https://github.com/rotexsoft/simple-acl/workflows/Run%20PHP%20Tests%20and%20Code%20Quality%20Tools/badge.svg)](https://github.com/rotexsoft/simple-acl/actions?query=workflow%3A%22Run+PHP+Tests+and+Code+Quality+Tools%22) &nbsp;
 
 A simple, highly flexible and customizable access control library for PHP applications.
 
