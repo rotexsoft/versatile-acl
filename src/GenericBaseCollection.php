@@ -77,6 +77,7 @@ abstract class GenericBaseCollection implements CollectionInterface {
      * @link https://php.net/manual/en/countable.count.php
      * 
      * @return int The custom count as an integer.
+     * @psalm-suppress RedundantCast
      */
     public function count(): int {
         
