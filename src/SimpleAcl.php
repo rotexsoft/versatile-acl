@@ -343,7 +343,7 @@ class SimpleAcl {
         if($existingEntity instanceof PermissionableEntityInterface) {
             
             $keyForParentEntity = $existingEntity->getDirectParents()->getKey($this->createEntity($parentEntityId));
-            $removedParentEntity = $existingEntity->getDirectParents()->get(''.$keyForParentEntity); // get the parent entity object
+            $removedParentEntity = $existingEntity->getDirectParents()->get(($keyForParentEntity === null)? '' : ''.$keyForParentEntity); // get the parent entity object
             $keyForParentEntity !== null
                 && $existingEntity->getDirectParents()->removeByKey($keyForParentEntity); // remove the parent
             
@@ -603,7 +603,7 @@ class SimpleAcl {
                                         ...$argsForCallback
                                     )
                                 );
-            $removedPermission = $existingEntity->getDirectPermissions()->get(''.$keyForPermission); // get the permission object
+            $removedPermission = $existingEntity->getDirectPermissions()->get(($keyForPermission === null) ? '' : ''.$keyForPermission); // get the permission object
             $keyForPermission !== null
                 && $existingEntity->getDirectPermissions()->removeByKey($keyForPermission); // remove the permission
             
