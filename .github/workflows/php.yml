@@ -69,7 +69,7 @@ jobs:
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
     - name: Run PHPUnit Test Suite
-      run: composer run-script test
+      run: vendor/bin/phpunit
 
     - name: Run Rector
       run: vendor/bin/rector process src --dry-run
