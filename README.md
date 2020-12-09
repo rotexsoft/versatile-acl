@@ -10,7 +10,7 @@ A simple, highly flexible and customizable access control library for PHP applic
 
 ## Installation 
 
-**Via composer:** (Requires PHP 7.2+). 
+**Via composer:** (Requires PHP 7.2+ or PHP 8.0+). 
 
     composer require rotexsoft/simple-acl
 
