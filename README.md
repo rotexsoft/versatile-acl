@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/license-BSD-brightgreen.png?style=flat-square)](https://github.com/rotexsoft/simple-acl/blob/master/LICENSE) &nbsp; 
 [![PHP Tests and Code Quality Tools](https://github.com/rotexsoft/simple-acl/workflows/Run%20PHP%20Tests%20and%20Code%20Quality%20Tools/badge.svg)](https://github.com/rotexsoft/simple-acl/actions?query=workflow%3A%22Run+PHP+Tests+and+Code+Quality+Tools%22) &nbsp;
 
-A simple, highly flexible and customizable access control library for PHP applications.
+A simple, highly flexible and customizable access control package for PHP applications.
 
 
 ## Installation 
@@ -15,19 +15,22 @@ A simple, highly flexible and customizable access control library for PHP applic
     composer require rotexsoft/simple-acl
 
 ## Introduction
-A PHP application can use this library to define **Permissionable Entities** (e.g. application users or groups that users can belong to).
+A PHP application can use this package to define **Permissionable Entities** (e.g. application users or groups that users can belong to).
 * Each entity is an instance of **[\SimpleAcl\Interfaces\PermissionableEntityInterface](src/interfaces/PermissionableEntityInterface.php)** 
 which is implemented by **[\SimpleAcl\GenericPermissionableEntity](src/GenericPermissionableEntity.php)** in this package.
 * Each entity can be associated to another entity as a parent Entity. 
 * Each entity can have one or more permissions defined. These are **direct permissions**
-    * A **permission** in this library is an object that represents whether or not an **action** (represented by a case-insensitive string) can be performed by an entity on a **resource** (represented by a case-insensitive string).
+    * A **permission** in this package is an object that represents whether or not an **action** (represented by a case-insensitive string) can be performed by an entity on a **resource** (represented by a case-insensitive string).
     * A permission is an instance of **[\SimpleAcl\Interfaces\PermissionInterface](src/interfaces/PermissionInterface.php)** which is implemented by 
     **[\SimpleAcl\GenericPermission](src/GenericPermission.php)** in this package.
 * Each entity also inherits permissions from its parent entities.
-    * The library allows you to give direct permissions a higher priority than inherited permissions (the default behavior) and also allows you to do the reverse, if you so desire.
+    * The package allows you to give direct permissions a higher priority than inherited permissions (the default behavior) and also allows you to do the reverse, if you so desire.
 
+Below is an overview of the classes in this package:
+
+![example blog database schema](class-diagram-lite.svg)
  
-Click [here](class-diagram.png) to see the full Class Diagram of this library.
+Click [here](class-diagram.png) to see the full Class Diagram for this package.
 
 In your applications, you will be mostly be working with instances of **[SimpleAcl\SimpleAcl](src/SimpleAcl.php)**; this class exposes most of the functionality of the underlying classes in this package listed below: 
 * **[\SimpleAcl\GenericPermissionableEntity](src/GenericPermissionableEntity.php) :** Represents an entity in your application
