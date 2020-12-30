@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace SimpleAcl;
+namespace VersatileAcl;
 
-use SimpleAcl\Interfaces\PermissionInterface;
-use SimpleAcl\Interfaces\PermissionsCollectionInterface;
+use VersatileAcl\Interfaces\PermissionInterface;
+use VersatileAcl\Interfaces\PermissionsCollectionInterface;
 use function array_key_exists;
 use function get_class;
 use function uasort;
@@ -247,7 +247,7 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
         
         return $this;
     }
-    
+
     /**
      * Find and return the first permission in the collection that matches the specified $action and / or $resource.
      * NULL should be returned if there was no match.
@@ -255,11 +255,14 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * If $action has an empty string value, do not use it for the match
      * If $resource has an empty string value, do not use it for the match
      * If both $action & $resource have empty string values, return NULL
-     * 
+     *
      * @param string $action
      * @param string $resource
-     * 
+     *
      * @return PermissionInterface|null
+     * @noinspection PhpFullyQualifiedNameUsageInspection
+     * @noinspection PhpRedundantOptionalArgumentInspection
+     * @throws \Exception
      */
     public function findOne(string $action='', string $resource=''): ?PermissionInterface {
         
@@ -309,7 +312,7 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * If both $action & $resource have empty string values, return an empty collection
      * 
      * If $n < 1, this method internally bumps it up to 1 and returns either 
-     * a collection contain only 1 mathching permission object or an empty collection 
+     * a collection contain only 1 matching permission object or an empty collection
      * 
      * @param string $action
      * @param string $resource

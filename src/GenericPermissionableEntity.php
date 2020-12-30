@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace SimpleAcl;
+namespace VersatileAcl;
 
-use SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface;
-use SimpleAcl\Interfaces\PermissionableEntityInterface;
-use SimpleAcl\Interfaces\PermissionInterface;
-use SimpleAcl\Interfaces\PermissionsCollectionInterface;
-use SimpleAcl\Exceptions\ParentCannotBeChildException;
-use SimpleAcl\Exceptions\EmptyEntityIdException;
+use VersatileAcl\Interfaces\PermissionableEntitiesCollectionInterface;
+use VersatileAcl\Interfaces\PermissionableEntityInterface;
+use VersatileAcl\Interfaces\PermissionInterface;
+use VersatileAcl\Interfaces\PermissionsCollectionInterface;
+use VersatileAcl\Exceptions\ParentCannotBeChildException;
+use VersatileAcl\Exceptions\EmptyEntityIdException;
 use function get_class;
 use function in_array;
 use function spl_object_hash;
@@ -88,7 +88,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
      * parents' parents etc.) to see if $entity matches any of those parents, which will mean 
      * that $entity is already a parent and nothing needs to be done.
      *
-     * A \SimpleAcl\Exceptions\ParentCannotBeChildException must be thrown if the current instance is already a parent to $entity.
+     * A \VersatileAcl\Exceptions\ParentCannotBeChildException must be thrown if the current instance is already a parent to $entity.
      * An instance `A` of PermissionableEntityInterface is a parent to another instance `B` of PermissionableEntityInterface
      * if the list of instance B's parents contains an object `C` where C->isEqualTo(A) === true
      *
@@ -160,7 +160,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
      * which will mean that such an entity is already a parent and doesn't need to be added
      * as a parent.
      * 
-     * A \SimpleAcl\Exceptions\ParentCannotBeChildException must be thrown if the current instance is already a parent to at least
+     * A \VersatileAcl\Exceptions\ParentCannotBeChildException must be thrown if the current instance is already a parent to at least
      * one entity in $entities. Parent(s) added before the exception was thrown are still valid and should not be removed.
      * An instance `A` of PermissionableEntityInterface is a parent to another instance `B` of PermissionableEntityInterface
      * if the list of instance B's parents contains an object `C` where C->isEqualTo(A) === true
