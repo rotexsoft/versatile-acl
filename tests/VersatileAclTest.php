@@ -2,24 +2,24 @@
 /** @noinspection PhpUnusedLocalVariableInspection */
 declare(strict_types=1);
 
-use SimpleAcl\SimpleAcl;
+use VersatileAcl\VersatileAcl;
 
-use SimpleAcl\{
+use VersatileAcl\{
     GenericPermissionableEntity, GenericPermission, 
     GenericPermissionableEntitiesCollection, GenericPermissionsCollection
 };
 
-use SimpleAcl\Interfaces\{
+use VersatileAcl\Interfaces\{
     PermissionInterface, PermissionableEntitiesCollectionInterface, 
     PermissionableEntityInterface, PermissionsCollectionInterface
 };
 
 /**
- * Description of SimpleAclTest
+ * Description of VersatileAclTest
  *
  * @author rotimi
  */
-class SimpleAclTest extends \PHPUnit\Framework\TestCase {
+class VersatileAclTest extends \PHPUnit\Framework\TestCase {
 
     protected function setUp(): void { 
         
@@ -31,24 +31,24 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
         $anExceptionWasThrown = false;
 
         try {
-            $sAclObj = new SimpleAcl(); // no params
+            $sAclObj = new VersatileAcl(); // no params
             
-            $sAclObj1 = new SimpleAcl(
+            $sAclObj1 = new VersatileAcl(
                 GenericPermissionableEntity::class
             ); // one valid arg
             
-            $sAclObj2 = new SimpleAcl(
+            $sAclObj2 = new VersatileAcl(
                 GenericPermissionableEntity::class, 
                 GenericPermission::class
             ); // two valid args
             
-            $sAclObj3 = new SimpleAcl(
+            $sAclObj3 = new VersatileAcl(
                 GenericPermissionableEntity::class, 
                 GenericPermission::class,
                 GenericPermissionableEntitiesCollection::class
             ); // three valid args
             
-            $sAclObj4 = new SimpleAcl(
+            $sAclObj4 = new VersatileAcl(
                 GenericPermissionableEntity::class, 
                 GenericPermission::class,
                 GenericPermissionableEntitiesCollection::class,
@@ -74,7 +74,7 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessageMatches('*Bad First Parameter*');
         
-        $sAclObj = new SimpleAcl('Bad First Parameter');
+        $sAclObj = new VersatileAcl('Bad First Parameter');
     }
     
     public function testThatConstructorWithBadSecondArgWorksAsExpected() {
@@ -82,7 +82,7 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessageMatches('*Bad Second Parameter*');
         
-        $sAclObj = new SimpleAcl(
+        $sAclObj = new VersatileAcl(
             GenericPermissionableEntity::class, 
             'Bad Second Parameter'
         );
@@ -93,7 +93,7 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessageMatches('*Bad Third Parameter*');
         
-        $sAclObj = new SimpleAcl(
+        $sAclObj = new VersatileAcl(
             GenericPermissionableEntity::class, 
             GenericPermission::class,
             'Bad Third Parameter'
@@ -105,7 +105,7 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessageMatches('*Bad Fourth Parameter*');
         
-        $sAclObj = new SimpleAcl(
+        $sAclObj = new VersatileAcl(
             GenericPermissionableEntity::class, 
             GenericPermission::class,
             GenericPermissionableEntitiesCollection::class,
@@ -115,16 +115,16 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
     
     public function testThatGetAllEntitiesWorksAsExpected() {
         
-        $sAclObj = new SimpleAcl();
+        $sAclObj = new VersatileAcl();
 
-        $sAclObj1 = new SimpleAcl(
+        $sAclObj1 = new VersatileAcl(
             GenericPermissionableEntity::class, 
             GenericPermission::class,
             GenericPermissionableEntitiesCollection::class,
             GenericPermissionsCollection::class
         ); // four valid args
 
-        $sAclObj2 = new SimpleAcl(
+        $sAclObj2 = new VersatileAcl(
             GenericPermissionableEntity::class, 
             GenericPermission::class,
             CustomPermissionableEntitiesCollection::class,
@@ -141,7 +141,7 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
         $this->assertInstanceOf(CustomPermissionableEntitiesCollection::class, $sAclObj2->getAllEntities());
         $this->assertNotInstanceOf(GenericPermissionableEntitiesCollection::class, $sAclObj2->getAllEntities());
         
-        $sAclObj3 = $this->createNewSimpleAclExposingNonPublicMethods(
+        $sAclObj3 = $this->createNewVersatileAclExposingNonPublicMethods(
             GenericPermissionableEntity::class, 
             GenericPermission::class,
             GenericPermissionableEntitiesCollection::class,
@@ -155,7 +155,7 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
     
     public function testThatAddEntityWorksAsExpected() {
         
-        $sAclObj = new SimpleAcl();
+        $sAclObj = new VersatileAcl();
         
         $this->assertCount(0, $sAclObj->getAllEntities());
         
@@ -172,7 +172,7 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
         
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
-        $sAclObj1 = $this->createNewSimpleAclExposingNonPublicMethods(
+        $sAclObj1 = $this->createNewVersatileAclExposingNonPublicMethods(
             GenericPermissionableEntity::class, 
             GenericPermission::class,
             GenericPermissionableEntitiesCollection::class,
@@ -191,7 +191,7 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
     
     public function testThatAddParentEntityWorksAsExpected() {
         
-        $sAclObj = new SimpleAcl();
+        $sAclObj = new VersatileAcl();
         
         $this->assertCount(0, $sAclObj->getAllEntities());
 
@@ -218,7 +218,7 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
         
-        $sAclObj2 = $this->createNewSimpleAclExposingNonPublicMethods();
+        $sAclObj2 = $this->createNewVersatileAclExposingNonPublicMethods();
         $sAclObj2->doNothingDuringAddEntity = true;
         
         $this->expectException(RuntimeException::class);
@@ -239,7 +239,7 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
     
     public function testThatClearAuditTrailWorksAsExpected() {
         
-        $sAclObj = new SimpleAcl();
+        $sAclObj = new VersatileAcl();
 
         $sAclObj->enableAuditTrail(true)->addEntity('bob');
         
@@ -250,7 +250,7 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
     
     public function testThatEnableAuditTrailWorksAsExpected() {
         
-        $sAclObj = new SimpleAcl();
+        $sAclObj = new VersatileAcl();
 
         $sAclObj->enableAuditTrail(true)->addEntity('bob');
         
@@ -264,7 +264,7 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
     
     public function testThatEnableVerboseAuditWorksAsExpected() {
         
-        $sAclObj = new SimpleAcl();
+        $sAclObj = new VersatileAcl();
 
         $sAclObj->enableAuditTrail(true)
                 ->enableVerboseAudit(true)
@@ -289,7 +289,7 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
     
     public function testThatGetAuditTrailWorksAsExpected() {
         
-        $sAclObj = new SimpleAcl();
+        $sAclObj = new VersatileAcl();
 
         $sAclObj->enableAuditTrail(true);
         
@@ -299,7 +299,7 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
         
         $this->assertTrue( (strlen($sAclObj->getAuditTrail()) > 0) );
         
-        $sAclObj2 = new SimpleAcl();
+        $sAclObj2 = new VersatileAcl();
 
         $sAclObj2->enableAuditTrail(false);
         
@@ -312,7 +312,7 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
     
     public function testThatGetAuditTrailOutputsWorksAsExpected() {
         
-        $sAclObj = $this->createNewSimpleAclExposingNonPublicMethods(
+        $sAclObj = $this->createNewVersatileAclExposingNonPublicMethods(
             GenericPermissionableEntity::class, 
             GenericPermission::class,
             GenericPermissionableEntitiesCollection::class,
@@ -330,18 +330,18 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
                             ->enableVerboseAudit(true)
                             ->addEntity('bob')
                             ->getAuditTrail();
-        $this->assertStringContainsString("Entered SimpleAcl\SimpleAcl::addEntity('bob') trying to create and add a new entity whose ID will be `bob`", $auditStr);
+        $this->assertStringContainsString("Entered VersatileAcl\VersatileAcl::addEntity('bob') trying to create and add a new entity whose ID will be `bob`", $auditStr);
         $this->assertStringContainsString("Entity created", $auditStr);
         $this->assertStringContainsString("Initialized ", $auditStr);
-        $this->assertStringContainsString("::entitiesCollection to a new empty instance of SimpleAcl\GenericPermissionableEntitiesCollection", $auditStr);
+        $this->assertStringContainsString("::entitiesCollection to a new empty instance of VersatileAcl\GenericPermissionableEntitiesCollection", $auditStr);
         $this->assertStringContainsString("Successfully added the following entity:".PHP_EOL, $auditStr);
-        $this->assertStringContainsString("SimpleAcl\GenericPermissionableEntity ", $auditStr);
+        $this->assertStringContainsString("VersatileAcl\GenericPermissionableEntity ", $auditStr);
         $this->assertStringContainsString("id: `bob`", $auditStr);
         $this->assertStringContainsString("parentEntities:", $auditStr);
-        $this->assertStringContainsString("SimpleAcl\GenericPermissionableEntitiesCollection (", $auditStr);
+        $this->assertStringContainsString("VersatileAcl\GenericPermissionableEntitiesCollection (", $auditStr);
         $this->assertStringContainsString("permissions: ", $auditStr);
-        $this->assertStringContainsString("SimpleAcl\GenericPermissionsCollection (", $auditStr);
-        $this->assertStringContainsString("Exiting SimpleAcl\SimpleAcl::addEntity('bob')", $auditStr);
+        $this->assertStringContainsString("VersatileAcl\GenericPermissionsCollection (", $auditStr);
+        $this->assertStringContainsString("Exiting VersatileAcl\VersatileAcl::addEntity('bob')", $auditStr);
 
         $sAclObj->removeEntity('bob');
         $auditStr = $sAclObj->clearAuditTrail()
@@ -349,10 +349,10 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
                             ->enableVerboseAudit(false)
                             ->addEntity('bob')
                             ->getAuditTrail();
-        $this->assertStringContainsString("Entered SimpleAcl\SimpleAcl::addEntity('bob')", $auditStr);
+        $this->assertStringContainsString("Entered VersatileAcl\VersatileAcl::addEntity('bob')", $auditStr);
         $this->assertStringContainsString("Entity created", $auditStr);
         $this->assertStringContainsString("Successfully added the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("Exiting SimpleAcl\SimpleAcl::addEntity('bob')", $auditStr);
+        $this->assertStringContainsString("Exiting VersatileAcl\VersatileAcl::addEntity('bob')", $auditStr);
         
         $sAclObj->removeEntity('bob');
         $auditStr = $sAclObj->clearAuditTrail()
@@ -361,10 +361,10 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
                             ->enableVerboseAudit(false)
                             ->addEntity('bob')
                             ->getAuditTrail();
-        $this->assertStringContainsString("Entered SimpleAcl\SimpleAcl::addEntity('bob')", $auditStr);
+        $this->assertStringContainsString("Entered VersatileAcl\VersatileAcl::addEntity('bob')", $auditStr);
         $this->assertStringContainsString("Entity created", $auditStr);
         $this->assertStringContainsString("An entity with the specified entity ID `bob` already exists", $auditStr);
-        $this->assertStringContainsString("Exiting SimpleAcl\SimpleAcl::addEntity('bob')", $auditStr);
+        $this->assertStringContainsString("Exiting VersatileAcl\VersatileAcl::addEntity('bob')", $auditStr);
         
         $sAclObj->removeEntity('bob');
         $auditStr = $sAclObj->clearAuditTrail()
@@ -373,10 +373,10 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
                             ->enableVerboseAudit(true)
                             ->addEntity('bob')
                             ->getAuditTrail();
-        $this->assertStringContainsString("Entered SimpleAcl\SimpleAcl::addEntity('bob') trying to create and add a new entity whose ID will be `bob`", $auditStr);
+        $this->assertStringContainsString("Entered VersatileAcl\VersatileAcl::addEntity('bob') trying to create and add a new entity whose ID will be `bob`", $auditStr);
         $this->assertStringContainsString("Entity created", $auditStr);
         $this->assertStringContainsString("An entity with the specified entity ID `bob` already exists in the entities collection, no need to add", $auditStr);
-        $this->assertStringContainsString("Exiting SimpleAcl\SimpleAcl::addEntity('bob')", $auditStr);
+        $this->assertStringContainsString("Exiting VersatileAcl\VersatileAcl::addEntity('bob')", $auditStr);
         
 
         ////////////////////////////////////////////////////////////////////////
@@ -390,29 +390,29 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
                             ->enableVerboseAudit(true)
                             ->addParentEntity('bob', 'parent')
                             ->getAuditTrail();
-        $this->assertStringContainsString("Entered SimpleAcl\SimpleAcl::addParentEntity('bob', 'parent') trying to add a new parent entity whose ID will be `parent` to  the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("Entered SimpleAcl\SimpleAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString("Entered VersatileAcl\VersatileAcl::addParentEntity('bob', 'parent') trying to add a new parent entity whose ID will be `parent` to  the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString("Entered VersatileAcl\VersatileAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
         $this->assertStringContainsString("Retrieved the following item: NULL", $auditStr);
-        $this->assertStringContainsString("Exiting SimpleAcl\SimpleAcl::getEntity('bob') with a return type of `NULL` and actual return value of NULL", $auditStr);
+        $this->assertStringContainsString("Exiting VersatileAcl\VersatileAcl::getEntity('bob') with a return type of `NULL` and actual return value of NULL", $auditStr);
         $this->assertStringContainsString("The entity whose ID is `bob` is not yet created, trying to create it now", $auditStr);
-        $this->assertStringContainsString("Entered SimpleAcl\SimpleAcl::addEntity('bob') trying to create and add a new entity whose ID will be `bob`", $auditStr);
+        $this->assertStringContainsString("Entered VersatileAcl\VersatileAcl::addEntity('bob') trying to create and add a new entity whose ID will be `bob`", $auditStr);
         $this->assertStringContainsString("Entity created", $auditStr);
         $this->assertStringContainsString("Successfully added the following entity:", $auditStr);
-        $this->assertStringContainsString("		SimpleAcl\GenericPermissionableEntity", $auditStr);
+        $this->assertStringContainsString("		VersatileAcl\GenericPermissionableEntity", $auditStr);
         $this->assertStringContainsString("		{", $auditStr);
         $this->assertStringContainsString("			id: `bob`", $auditStr);
         $this->assertStringContainsString("			parentEntities:", $auditStr);
-        $this->assertStringContainsString("				SimpleAcl\GenericPermissionableEntitiesCollection", $auditStr);
+        $this->assertStringContainsString("				VersatileAcl\GenericPermissionableEntitiesCollection", $auditStr);
         $this->assertStringContainsString("				{", $auditStr);
         $this->assertStringContainsString("				}", $auditStr);
         $this->assertStringContainsString("			permissions:", $auditStr);
-        $this->assertStringContainsString("				SimpleAcl\GenericPermissionsCollection", $auditStr);
+        $this->assertStringContainsString("				VersatileAcl\GenericPermissionsCollection", $auditStr);
         $this->assertStringContainsString("		}", $auditStr);
-        $this->assertStringContainsString("Exiting SimpleAcl\SimpleAcl::addEntity('bob')", $auditStr);
-        $this->assertStringContainsString("Retrieved the following item: SimpleAcl\GenericPermissionableEntity", $auditStr);
-        $this->assertStringContainsString("Exiting SimpleAcl\SimpleAcl::getEntity('bob') with a return type of `object` that is an instance of `SimpleAcl\GenericPermissionableEntity` with the following string representation:", $auditStr);
+        $this->assertStringContainsString("Exiting VersatileAcl\VersatileAcl::addEntity('bob')", $auditStr);
+        $this->assertStringContainsString("Retrieved the following item: VersatileAcl\GenericPermissionableEntity", $auditStr);
+        $this->assertStringContainsString("Exiting VersatileAcl\VersatileAcl::getEntity('bob') with a return type of `object` that is an instance of `VersatileAcl\GenericPermissionableEntity` with the following string representation:", $auditStr);
         $this->assertStringContainsString("Parent entity whose ID is `parent` has been added to the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("Exiting SimpleAcl\SimpleAcl::addParentEntity('bob', 'parent')", $auditStr);
+        $this->assertStringContainsString("Exiting VersatileAcl\VersatileAcl::addParentEntity('bob', 'parent')", $auditStr);
         
         
         $sAclObj->removeEntity('bob');
@@ -421,20 +421,20 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
                             ->enableVerboseAudit(false)
                             ->addParentEntity('bob', 'parent')
                             ->getAuditTrail();
-        $this->assertStringContainsString("Entered SimpleAcl\SimpleAcl::addParentEntity('bob', 'parent')", $auditStr);
-        $this->assertStringContainsString("Entered SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("Entered VersatileAcl\VersatileAcl::addParentEntity('bob', 'parent')", $auditStr);
+        $this->assertStringContainsString("Entered VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("Retrieved the following item: NULL", $auditStr);
-        $this->assertStringContainsString("Exiting SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("Exiting VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("The entity whose ID is `bob` is not yet created, trying to create it now", $auditStr);
-        $this->assertStringContainsString("Entered SimpleAcl\SimpleAcl::addEntity('bob')", $auditStr);
+        $this->assertStringContainsString("Entered VersatileAcl\VersatileAcl::addEntity('bob')", $auditStr);
         $this->assertStringContainsString("Entity created", $auditStr);
         $this->assertStringContainsString("Successfully added the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("Exiting SimpleAcl\SimpleAcl::addEntity('bob')", $auditStr);
-        $this->assertStringContainsString("Entered SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("Exiting VersatileAcl\VersatileAcl::addEntity('bob')", $auditStr);
+        $this->assertStringContainsString("Entered VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("Successfully retrieved the desired entity.", $auditStr);
-        $this->assertStringContainsString("Exiting SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("Exiting VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("Parent entity whose ID is `parent` has been added to the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("Exiting SimpleAcl\SimpleAcl::addParentEntity('bob', 'parent')", $auditStr);
+        $this->assertStringContainsString("Exiting VersatileAcl\VersatileAcl::addParentEntity('bob', 'parent')", $auditStr);
         
         
         $sAclObj->removeEntity('bob');
@@ -444,12 +444,12 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
                             ->enableVerboseAudit(false)
                             ->addParentEntity('bob', 'parent')
                             ->getAuditTrail();
-        $this->assertStringContainsString("Entered SimpleAcl\SimpleAcl::addParentEntity('bob', 'parent')", $auditStr);
-        $this->assertStringContainsString("Entered SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("Entered VersatileAcl\VersatileAcl::addParentEntity('bob', 'parent')", $auditStr);
+        $this->assertStringContainsString("Entered VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("Successfully retrieved the desired entity.", $auditStr);
-        $this->assertStringContainsString("Exiting SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("Exiting VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("Parent entity whose ID is `parent` has been added to the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("Exiting SimpleAcl\SimpleAcl::addParentEntity('bob', 'parent')", $auditStr);
+        $this->assertStringContainsString("Exiting VersatileAcl\VersatileAcl::addParentEntity('bob', 'parent')", $auditStr);
         
         
         $sAclObj->removeEntity('bob');
@@ -459,23 +459,23 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
                             ->enableVerboseAudit(true)
                             ->addParentEntity('bob', 'parent')
                             ->getAuditTrail();
-        $this->assertStringContainsString("Entered SimpleAcl\SimpleAcl::addParentEntity('bob', 'parent') trying to add a new parent entity whose ID will be `parent` to  the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("Entered SimpleAcl\SimpleAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("Retrieved the following item: SimpleAcl\GenericPermissionableEntity", $auditStr);
+        $this->assertStringContainsString("Entered VersatileAcl\VersatileAcl::addParentEntity('bob', 'parent') trying to add a new parent entity whose ID will be `parent` to  the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString("Entered VersatileAcl\VersatileAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString("Retrieved the following item: VersatileAcl\GenericPermissionableEntity", $auditStr);
         $this->assertStringContainsString("		{", $auditStr);
         $this->assertStringContainsString("			id: `bob`", $auditStr);
         $this->assertStringContainsString("			parentEntities: ", $auditStr);
-        $this->assertStringContainsString("				SimpleAcl\GenericPermissionableEntitiesCollection", $auditStr);
+        $this->assertStringContainsString("				VersatileAcl\GenericPermissionableEntitiesCollection", $auditStr);
         $this->assertStringContainsString("				{", $auditStr);
         $this->assertStringContainsString("				}", $auditStr);
         $this->assertStringContainsString("			permissions:", $auditStr);
-        $this->assertStringContainsString("				SimpleAcl\GenericPermissionsCollection", $auditStr);
+        $this->assertStringContainsString("				VersatileAcl\GenericPermissionsCollection", $auditStr);
         $this->assertStringContainsString("				{", $auditStr);
         $this->assertStringContainsString("				}", $auditStr);
         $this->assertStringContainsString("		}", $auditStr);
-        $this->assertStringContainsString("Exiting SimpleAcl\SimpleAcl::getEntity('bob') with a return type of `object` that is an instance of `SimpleAcl\GenericPermissionableEntity` with the following string representation:", $auditStr);
+        $this->assertStringContainsString("Exiting VersatileAcl\VersatileAcl::getEntity('bob') with a return type of `object` that is an instance of `VersatileAcl\GenericPermissionableEntity` with the following string representation:", $auditStr);
         $this->assertStringContainsString("Parent entity whose ID is `parent` has been added to the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("Exiting SimpleAcl\SimpleAcl::addParentEntity('bob', 'parent')", $auditStr);
+        $this->assertStringContainsString("Exiting VersatileAcl\VersatileAcl::addParentEntity('bob', 'parent')", $auditStr);
         
 
         ////////////////////////////////////////////////////////////////////////
@@ -498,7 +498,7 @@ class SimpleAclTest extends \PHPUnit\Framework\TestCase {
                                false
                             )
                             ->getAuditTrail();
-        $this->assertStringContainsString(": Entered SimpleAcl\SimpleAcl::addPermission(...) to try to add a permission to  the entity whose ID is `bob`. Method Parameters:", $auditStr);
+        $this->assertStringContainsString(": Entered VersatileAcl\VersatileAcl::addPermission(...) to try to add a permission to  the entity whose ID is `bob`. Method Parameters:", $auditStr);
         $this->assertStringContainsString(
             "
 array (
@@ -515,20 +515,20 @@ array (
     1 => false,
   ),
 )", $auditStr);
-        $this->assertStringContainsString(": Entered SimpleAcl\SimpleAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString(": Entered VersatileAcl\VersatileAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
         $this->assertStringContainsString(": Retrieved the following item: NULL", $auditStr);
-        $this->assertStringContainsString(": Exiting SimpleAcl\SimpleAcl::getEntity('bob') with a return type of `NULL` and actual return value of NULL", $auditStr);
+        $this->assertStringContainsString(": Exiting VersatileAcl\VersatileAcl::getEntity('bob') with a return type of `NULL` and actual return value of NULL", $auditStr);
         $this->assertStringContainsString(": The entity whose ID is `bob` has not yet been created, trying to create it now", $auditStr);
-        $this->assertStringContainsString(": Entered SimpleAcl\SimpleAcl::addEntity('bob') trying to create and add a new entity whose ID will be `bob`", $auditStr);
+        $this->assertStringContainsString(": Entered VersatileAcl\VersatileAcl::addEntity('bob') trying to create and add a new entity whose ID will be `bob`", $auditStr);
         $this->assertStringContainsString(": Entity created", $auditStr);
         $this->assertStringContainsString(": Successfully added the following entity:", $auditStr);
-        $this->assertStringContainsString("SimpleAcl\GenericPermissionableEntity (", $auditStr);
+        $this->assertStringContainsString("VersatileAcl\GenericPermissionableEntity (", $auditStr);
         $this->assertStringContainsString(
             "
 		{
 			id: `bob`
 			parentEntities: 
-				SimpleAcl\GenericPermissionableEntitiesCollection (", 
+				VersatileAcl\GenericPermissionableEntitiesCollection (", 
             $auditStr);
         $this->assertStringContainsString(
             "
@@ -537,7 +537,7 @@ array (
 				}
 				
 			permissions: 
-				SimpleAcl\GenericPermissionsCollection (", 
+				VersatileAcl\GenericPermissionsCollection (", 
             $auditStr);
         $this->assertStringContainsString(
             "
@@ -548,10 +548,10 @@ array (
 		
 		}", 
             $auditStr);
-        $this->assertStringContainsString(": Exiting SimpleAcl\SimpleAcl::addEntity('bob')", $auditStr);
-        $this->assertStringContainsString(": Entered SimpleAcl\SimpleAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString(": Retrieved the following item: SimpleAcl\GenericPermissionableEntity (", $auditStr);
-        $this->assertStringContainsString(": Exiting SimpleAcl\SimpleAcl::getEntity('bob') with a return type of `object` that is an instance of `SimpleAcl\GenericPermissionableEntity` with the following string representation:", $auditStr);
+        $this->assertStringContainsString(": Exiting VersatileAcl\VersatileAcl::addEntity('bob')", $auditStr);
+        $this->assertStringContainsString(": Entered VersatileAcl\VersatileAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString(": Retrieved the following item: VersatileAcl\GenericPermissionableEntity (", $auditStr);
+        $this->assertStringContainsString(": Exiting VersatileAcl\VersatileAcl::getEntity('bob') with a return type of `object` that is an instance of `VersatileAcl\GenericPermissionableEntity` with the following string representation:", $auditStr);
         $this->assertStringContainsString(": Permission with the parameters below has been added to the entity whose ID is `bob`:", $auditStr);
         $this->assertStringContainsString("
 action: `edit`
@@ -564,7 +564,7 @@ argsForCallback: array (
   1 => false,
 )",      
             $auditStr);
-        $this->assertStringContainsString(": Exiting SimpleAcl\SimpleAcl::addPermission(...)", $auditStr);
+        $this->assertStringContainsString(": Exiting VersatileAcl\VersatileAcl::addPermission(...)", $auditStr);
         
         
         ////////////////////////////////////////////////////////////////////////
@@ -583,18 +583,18 @@ argsForCallback: array (
                                false
                             )
                             ->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::addPermission(...)", $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::addPermission(...)", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Retrieved the following item: NULL", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: The entity whose ID is `bob` has not yet been created, trying to create it now", $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::addEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::addEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Entity created", $auditStr);
         $this->assertStringContainsString("]: Successfully added the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::addEntity('bob')", $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::addEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Successfully retrieved the desired entity.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Permission with the parameters below has been added to the entity whose ID is `bob`:", $auditStr);
         $this->assertStringContainsString("
 action: `edit`
@@ -607,7 +607,7 @@ argsForCallback: array (
   1 => false,
 )",
             $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::addPermission(...)", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::addPermission(...)", $auditStr);
         
         
         ////////////////////////////////////////////////////////////////////////
@@ -626,7 +626,7 @@ argsForCallback: array (
                                false
                             )
                             ->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::addPermission(...) to try to add a permission to  the entity whose ID is `bob`. Method Parameters:", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::addPermission(...) to try to add a permission to  the entity whose ID is `bob`. Method Parameters:", $auditStr);
         $this->assertStringContainsString("
 array (
   'entityId' => 'bob',
@@ -643,13 +643,13 @@ array (
   ),
 )", 
             $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("]: Retrieved the following item: SimpleAcl\GenericPermissionableEntity (", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString("]: Retrieved the following item: VersatileAcl\GenericPermissionableEntity (", $auditStr);
         $this->assertStringContainsString("
 		{
 			id: `bob`
 			parentEntities: 
-				SimpleAcl\GenericPermissionableEntitiesCollection (", $auditStr);
+				VersatileAcl\GenericPermissionableEntitiesCollection (", $auditStr);
         $this->assertStringContainsString("
 				{
 				
@@ -657,7 +657,7 @@ array (
             $auditStr);
         $this->assertStringContainsString("
 			permissions: 
-				SimpleAcl\GenericPermissionsCollection (", 
+				VersatileAcl\GenericPermissionsCollection (", 
             $auditStr);
         $this->assertStringContainsString("
 				{
@@ -667,7 +667,7 @@ array (
 		
 		}", 
             $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob') with a return type of `object` that is an instance of `SimpleAcl\GenericPermissionableEntity` with the following string representation:", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob') with a return type of `object` that is an instance of `VersatileAcl\GenericPermissionableEntity` with the following string representation:", $auditStr);
         $this->assertStringContainsString("]: Permission with the parameters below has been added to the entity whose ID is `bob`:", $auditStr);
         $this->assertStringContainsString("
 action: `edit`
@@ -680,7 +680,7 @@ argsForCallback: array (
   1 => false,
 )", 
             $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::addPermission(...)", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::addPermission(...)", $auditStr);
         
         
         ////////////////////////////////////////////////////////////////////////
@@ -699,10 +699,10 @@ argsForCallback: array (
                                false
                             )
                             ->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::addPermission(...)", $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::addPermission(...)", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Successfully retrieved the desired entity.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Permission with the parameters below has been added to the entity whose ID is `bob`:", $auditStr);
         $this->assertStringContainsString("
 action: `edit`
@@ -715,7 +715,7 @@ argsForCallback: array (
   1 => false,
 )", 
             $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::addPermission(...)", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::addPermission(...)", $auditStr);
         
 
         ////////////////////////////////////////////////////////////////////////
@@ -729,9 +729,9 @@ argsForCallback: array (
                 ->enableVerboseAudit(true)
                 ->getEntity('bob');
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
         $this->assertStringContainsString("]: Retrieved the following item: NULL", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob') with a return type of `NULL` and actual return value of NULL", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob') with a return type of `NULL` and actual return value of NULL", $auditStr);
         
         ////////////////////////////////////////////////////////////////////////
         $sAclObj->removeEntity('bob');
@@ -740,9 +740,9 @@ argsForCallback: array (
                 ->enableVerboseAudit(false)
                 ->getEntity('bob');
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Retrieved the following item: NULL", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         
         
         ////////////////////////////////////////////////////////////////////////
@@ -752,13 +752,13 @@ argsForCallback: array (
                 ->enableVerboseAudit(true)
                 ->getEntity('bob');
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("]: Retrieved the following item: SimpleAcl\GenericPermissionableEntity (", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString("]: Retrieved the following item: VersatileAcl\GenericPermissionableEntity (", $auditStr);
         $this->assertStringContainsString("
 {
 	id: `bob`
 	parentEntities: 
-		SimpleAcl\GenericPermissionableEntitiesCollection (", 
+		VersatileAcl\GenericPermissionableEntitiesCollection (", 
             $auditStr);
         $this->assertStringContainsString(
 "
@@ -767,10 +767,10 @@ argsForCallback: array (
 		}
 		
 	permissions: 
-		SimpleAcl\GenericPermissionsCollection (", 
+		VersatileAcl\GenericPermissionsCollection (", 
             $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob') with a return type of `object` that is an instance of `SimpleAcl\GenericPermissionableEntity` with the following string representation: ", $auditStr);
-        $this->assertStringContainsString("SimpleAcl\GenericPermissionableEntity (", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob') with a return type of `object` that is an instance of `VersatileAcl\GenericPermissionableEntity` with the following string representation: ", $auditStr);
+        $this->assertStringContainsString("VersatileAcl\GenericPermissionableEntity (", $auditStr);
         
         
         ////////////////////////////////////////////////////////////////////////
@@ -780,9 +780,9 @@ argsForCallback: array (
                 ->enableVerboseAudit(false)
                 ->getEntity('bob');
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Successfully retrieved the desired entity.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         
 
         ////////////////////////////////////////////////////////////////////////
@@ -796,12 +796,12 @@ argsForCallback: array (
                 ->enableVerboseAudit(true)
                 ->removeEntity('bob');
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::removeEntity('bob') trying to remove the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::removeEntity('bob') trying to remove the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
         $this->assertStringContainsString("]: Retrieved the following item: NULL", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob') with a return type of `NULL` and actual return value of NULL", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob') with a return type of `NULL` and actual return value of NULL", $auditStr);
         $this->assertStringContainsString("]: The entity whose ID is `bob` does not exist, no need for removal.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::removeEntity('bob') with a return type of `NULL` and actual return value of NULL", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::removeEntity('bob') with a return type of `NULL` and actual return value of NULL", $auditStr);
         
         
         ////////////////////////////////////////////////////////////////////////
@@ -811,12 +811,12 @@ argsForCallback: array (
                 ->enableVerboseAudit(false)
                 ->removeEntity('bob');
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::removeEntity('bob')", $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::removeEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Retrieved the following item: NULL", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: The entity whose ID is `bob` does not exist, no need for removal.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::removeEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::removeEntity('bob')", $auditStr);
         
         
         ////////////////////////////////////////////////////////////////////////
@@ -826,14 +826,14 @@ argsForCallback: array (
                 ->enableVerboseAudit(true)
                 ->removeEntity('bob');
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::removeEntity('bob') trying to remove the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("]: Retrieved the following item: SimpleAcl\GenericPermissionableEntity (", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::removeEntity('bob') trying to remove the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString("]: Retrieved the following item: VersatileAcl\GenericPermissionableEntity (", $auditStr);
         $this->assertStringContainsString("
 		{
 			id: `bob`
 			parentEntities: 
-				SimpleAcl\GenericPermissionableEntitiesCollection (", 
+				VersatileAcl\GenericPermissionableEntitiesCollection (", 
             $auditStr);
         $this->assertStringContainsString("
 				{
@@ -841,7 +841,7 @@ argsForCallback: array (
 				}
 				
 			permissions: 
-				SimpleAcl\GenericPermissionsCollection (", 
+				VersatileAcl\GenericPermissionsCollection (", 
             $auditStr);
         $this->assertStringContainsString("
 				{
@@ -851,15 +851,15 @@ argsForCallback: array (
 		
 		}", 
             $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob') with a return type of `object` that is an instance of `SimpleAcl\GenericPermissionableEntity` with the following string representation:", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob') with a return type of `object` that is an instance of `VersatileAcl\GenericPermissionableEntity` with the following string representation:", $auditStr);
         $this->assertStringContainsString("]: Successfully removed the entity whose ID is `bob`.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::removeEntity('bob') with a return type of `object` that is an instance of `SimpleAcl\GenericPermissionableEntity` with the following string representation:", $auditStr);
-        $this->assertStringContainsString("SimpleAcl\GenericPermissionableEntity (", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::removeEntity('bob') with a return type of `object` that is an instance of `VersatileAcl\GenericPermissionableEntity` with the following string representation:", $auditStr);
+        $this->assertStringContainsString("VersatileAcl\GenericPermissionableEntity (", $auditStr);
         $this->assertStringContainsString("
 {
 	id: `bob`
 	parentEntities: 
-		SimpleAcl\GenericPermissionableEntitiesCollection (", 
+		VersatileAcl\GenericPermissionableEntitiesCollection (", 
             $auditStr);
         $this->assertStringContainsString("
 		{
@@ -867,7 +867,7 @@ argsForCallback: array (
 		}
 		
 	permissions: 
-		SimpleAcl\GenericPermissionsCollection (", 
+		VersatileAcl\GenericPermissionsCollection (", 
             $auditStr);
         $this->assertStringContainsString("
 		{
@@ -886,12 +886,12 @@ argsForCallback: array (
                 ->enableVerboseAudit(false)
                 ->removeEntity('bob');
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::removeEntity('bob')", $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::removeEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Successfully retrieved the desired entity.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Successfully removed the entity whose ID is `bob`.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::removeEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::removeEntity('bob')", $auditStr);
         
 
         ////////////////////////////////////////////////////////////////////////
@@ -905,12 +905,12 @@ argsForCallback: array (
                 ->enableVerboseAudit(true)
                 ->removeParentEntity('bob', 'parent');
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::removeParentEntity('bob', 'parent') trying to remove the parent entity whose ID is `parent` from  the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::removeParentEntity('bob', 'parent') trying to remove the parent entity whose ID is `parent` from  the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
         $this->assertStringContainsString("]: Retrieved the following item: NULL", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob') with a return type of `NULL` and actual return value of NULL", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob') with a return type of `NULL` and actual return value of NULL", $auditStr);
         $this->assertStringContainsString("]: The entity whose ID is `bob` doesn't exist, no need trying to remove a parent entity.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::removeParentEntity('bob', 'parent') with a return type of `NULL` and actual return value of NULL", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::removeParentEntity('bob', 'parent') with a return type of `NULL` and actual return value of NULL", $auditStr);
         
         
         ////////////////////////////////////////////////////////////////////////
@@ -920,12 +920,12 @@ argsForCallback: array (
                 ->enableVerboseAudit(false)
                 ->removeParentEntity('bob', 'parent');
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::removeParentEntity('bob', 'parent')", $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::removeParentEntity('bob', 'parent')", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Retrieved the following item: NULL", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: The entity whose ID is `bob` doesn't exist, no need trying to remove a parent entity.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::removeParentEntity('bob', 'parent')", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::removeParentEntity('bob', 'parent')", $auditStr);
         
         
         ////////////////////////////////////////////////////////////////////////
@@ -935,24 +935,24 @@ argsForCallback: array (
                 ->enableVerboseAudit(true)
                 ->removeParentEntity('bob', 'parent');
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::removeParentEntity('bob', 'parent') trying to remove the parent entity whose ID is `parent` from  the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("]: Retrieved the following item: SimpleAcl\GenericPermissionableEntity (", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::removeParentEntity('bob', 'parent') trying to remove the parent entity whose ID is `parent` from  the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString("]: Retrieved the following item: VersatileAcl\GenericPermissionableEntity (", $auditStr);
         $this->assertStringContainsString("
 		{
 			id: `bob`
 			parentEntities: 
-				SimpleAcl\GenericPermissionableEntitiesCollection (", 
+				VersatileAcl\GenericPermissionableEntitiesCollection (", 
             $auditStr);
         $this->assertStringContainsString("
 				{
-					item[0]: SimpleAcl\GenericPermissionableEntity (", 
+					item[0]: VersatileAcl\GenericPermissionableEntity (", 
             $auditStr);
         $this->assertStringContainsString("
 					{
 						id: `parent`
 						parentEntities: 
-							SimpleAcl\GenericPermissionableEntitiesCollection (", 
+							VersatileAcl\GenericPermissionableEntitiesCollection (", 
             $auditStr);
         $this->assertStringContainsString("
 							{
@@ -960,7 +960,7 @@ argsForCallback: array (
 							}
 							
 						permissions: 
-							SimpleAcl\GenericPermissionsCollection (", 
+							VersatileAcl\GenericPermissionsCollection (", 
             $auditStr);
         $this->assertStringContainsString("
 							}
@@ -972,7 +972,7 @@ argsForCallback: array (
 				}
 				
 			permissions: 
-				SimpleAcl\GenericPermissionsCollection (", 
+				VersatileAcl\GenericPermissionsCollection (", 
             $auditStr);
         $this->assertStringContainsString("
 				{
@@ -982,16 +982,16 @@ argsForCallback: array (
 		
 		}", 
             $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob') with a return type of `object` that is an instance of `SimpleAcl\GenericPermissionableEntity` with the following string representation: ", 
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob') with a return type of `object` that is an instance of `VersatileAcl\GenericPermissionableEntity` with the following string representation: ", 
             $auditStr);
         $this->assertStringContainsString("]: Parent entity has been successfully removed.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::removeParentEntity('bob', 'parent') with a return type of `object` that is an instance of `SimpleAcl\GenericPermissionableEntity` with the following string representation: ", 
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::removeParentEntity('bob', 'parent') with a return type of `object` that is an instance of `VersatileAcl\GenericPermissionableEntity` with the following string representation: ", 
             $auditStr);
         $this->assertStringContainsString("
 {
 	id: `parent`
 	parentEntities: 
-		SimpleAcl\GenericPermissionableEntitiesCollection (", 
+		VersatileAcl\GenericPermissionableEntitiesCollection (", 
             $auditStr);
         $this->assertStringContainsString("
 		{
@@ -999,7 +999,7 @@ argsForCallback: array (
 		}
 		
 	permissions: 
-		SimpleAcl\GenericPermissionsCollection (", $auditStr);
+		VersatileAcl\GenericPermissionsCollection (", $auditStr);
         $this->assertStringContainsString("
 		{
 		
@@ -1017,12 +1017,12 @@ argsForCallback: array (
                 ->enableVerboseAudit(false)
                 ->removeParentEntity('bob', 'parent');
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::removeParentEntity('bob', 'parent')", $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::removeParentEntity('bob', 'parent')", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Successfully retrieved the desired entity.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Parent entity has been successfully removed.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::removeParentEntity('bob', 'parent')", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::removeParentEntity('bob', 'parent')", $auditStr);
         
         
         ////////////////////////////////////////////////////////////////////////
@@ -1054,7 +1054,7 @@ argsForCallback: array (
                     false
                  );
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::removePermission(...) to try to remove a permission from  the entity whose ID is `bob`. Method Parameters:", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::removePermission(...) to try to remove a permission from  the entity whose ID is `bob`. Method Parameters:", $auditStr);
         $this->assertStringContainsString("
 array (
   'entityId' => 'bob',
@@ -1071,11 +1071,11 @@ array (
   ),
 )", 
             $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
         $this->assertStringContainsString("]: Retrieved the following item: NULL", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob') with a return type of `NULL` and actual return value of NULL", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob') with a return type of `NULL` and actual return value of NULL", $auditStr);
         $this->assertStringContainsString("]: The entity whose ID is `bob` doesn't exist, no need trying to remove the specified permission.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::removePermission(....) with a return type of `NULL` and actual return value of NULL", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::removePermission(....) with a return type of `NULL` and actual return value of NULL", $auditStr);
         
         
         ////////////////////////////////////////////////////////////////////////
@@ -1103,12 +1103,12 @@ array (
                     false
                  );
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::removePermission(...)", $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::removePermission(...)", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Retrieved the following item: NULL", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: The entity whose ID is `bob` doesn't exist, no need trying to remove the specified permission.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::removePermission(....)", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::removePermission(....)", $auditStr);
         
         
         ////////////////////////////////////////////////////////////////////////
@@ -1136,7 +1136,7 @@ array (
                     false
                  );
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::removePermission(...) to try to remove a permission from  the entity whose ID is `bob`. Method Parameters:", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::removePermission(...) to try to remove a permission from  the entity whose ID is `bob`. Method Parameters:", $auditStr);
         $this->assertStringContainsString("
 array (
   'entityId' => 'bob',
@@ -1153,13 +1153,13 @@ array (
   ),
 )", 
             $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("]: Retrieved the following item: SimpleAcl\GenericPermissionableEntity (", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString("]: Retrieved the following item: VersatileAcl\GenericPermissionableEntity (", $auditStr);
         $this->assertStringContainsString("
 		{
 			id: `bob`
 			parentEntities: 
-				SimpleAcl\GenericPermissionableEntitiesCollection (", 
+				VersatileAcl\GenericPermissionableEntitiesCollection (", 
             $auditStr);
         $this->assertStringContainsString("
 				{
@@ -1167,11 +1167,11 @@ array (
 				}
 				
 			permissions: 
-				SimpleAcl\GenericPermissionsCollection (", 
+				VersatileAcl\GenericPermissionsCollection (", 
             $auditStr);
         $this->assertStringContainsString("
 				{
-					item[0]: SimpleAcl\GenericPermission (", 
+					item[0]: VersatileAcl\GenericPermission (", 
             $auditStr);
         $this->assertStringContainsString("
 					{
@@ -1193,8 +1193,8 @@ array (
 		
 		}", 
             $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob') with a return type of `object` that is an instance of `SimpleAcl\GenericPermissionableEntity` with the following string representation:", $auditStr);
-        $this->assertStringContainsString("		SimpleAcl\GenericPermissionableEntity (", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob') with a return type of `object` that is an instance of `VersatileAcl\GenericPermissionableEntity` with the following string representation:", $auditStr);
+        $this->assertStringContainsString("		VersatileAcl\GenericPermissionableEntity (", $auditStr);
         $this->assertStringContainsString("]: Permission with the parameters below has been removed from the entity whose ID is `bob`:", $auditStr);
         $this->assertStringContainsString("
 action: `edit`
@@ -1207,8 +1207,8 @@ argsForCallback: array (
   1 => false,
 )", 
             $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::removePermission(....) with a return type of `object` that is an instance of `SimpleAcl\GenericPermission` with the following string representation:", $auditStr);
-        $this->assertStringContainsString("SimpleAcl\GenericPermission (", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::removePermission(....) with a return type of `object` that is an instance of `VersatileAcl\GenericPermission` with the following string representation:", $auditStr);
+        $this->assertStringContainsString("VersatileAcl\GenericPermission (", $auditStr);
         $this->assertStringContainsString("
 {
 	action: `edit`
@@ -1249,10 +1249,10 @@ argsForCallback: array (
                     false
                  );
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::removePermission(...)", $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::removePermission(...)", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Successfully retrieved the desired entity.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Permission with the parameters below has been removed from the entity whose ID is `bob`:", $auditStr);
         $this->assertStringContainsString("
 action: `edit`
@@ -1264,7 +1264,7 @@ argsForCallback: array (
   0 => true,
   1 => false,
 )", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::removePermission(....)", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::removePermission(....)", $auditStr);
         
         
         
@@ -1286,7 +1286,7 @@ argsForCallback: array (
                     false
                 );
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::isAllowed(...) to check if the entity `bob` is allowed to perform the specified action `edit` on the specified resource `blog-post`.  
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::isAllowed(...) to check if the entity `bob` is allowed to perform the specified action `edit` on the specified resource `blog-post`.  
 Supplied Method Parameters:", $auditStr);
         $this->assertStringContainsString("
 array (
@@ -1303,11 +1303,11 @@ array (
   ),
 )", $auditStr);
         $this->assertStringContainsString("]: Trying to retrieve the entity object associated with specified entity ID `bob`", $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
         $this->assertStringContainsString("]: Retrieved the following item: NULL", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob') with a return type of `NULL` and actual return value of NULL", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob') with a return type of `NULL` and actual return value of NULL", $auditStr);
         $this->assertStringContainsString("]: Could not retrieve the entity object associated with specified entity ID `bob`.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::isAllowed(....) with a return type of `boolean` and actual return value of false", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::isAllowed(....) with a return type of `boolean` and actual return value of false", $auditStr);
 
         
         ////////////////////////////////////////////////////////////////////////
@@ -1324,13 +1324,13 @@ array (
                     false
                 );
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::isAllowed(...)", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::isAllowed(...)", $auditStr);
         $this->assertStringContainsString("]: Trying to retrieve the entity object associated with specified entity ID `bob`", $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Retrieved the following item: NULL", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Could not retrieve the entity object associated with specified entity ID `bob`.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::isAllowed(....)", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::isAllowed(....)", $auditStr);
         
         
         ////////////////////////////////////////////////////////////////////////
@@ -1347,7 +1347,7 @@ array (
                     false
                 );
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::isAllowed(...) to check if the entity `` is allowed to perform the specified action `edit` on the specified resource `blog-post`.  
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::isAllowed(...) to check if the entity `` is allowed to perform the specified action `edit` on the specified resource `blog-post`.  
 Supplied Method Parameters:", $auditStr);
         $this->assertStringContainsString("
 array (
@@ -1367,7 +1367,7 @@ array (
         $this->assertStringContainsString("]: An empty string was supplied as the entity ID, so we are searching through permissions for all existing entities until we get the first match", $auditStr);
         $this->assertStringContainsString("]: Did not find any permission belonging to any entity that allows the specified action `edit` to be performed on the specified resource `blog-post`.", $auditStr);
         $this->assertStringContainsString("Either no entity has such a permission or an entity has a permission that explicitly denies the specified action `edit` from being performed on the specified resource `blog-post`", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::isAllowed(....) with a return type of `boolean` and actual return value of false", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::isAllowed(....) with a return type of `boolean` and actual return value of false", $auditStr);
         
         
         ////////////////////////////////////////////////////////////////////////
@@ -1384,11 +1384,11 @@ array (
                     false
                  );
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::isAllowed(...)", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::isAllowed(...)", $auditStr);
         $this->assertStringContainsString("]: An empty string was supplied as the entity ID, so we are searching through permissions for all existing entities until we get the first match", $auditStr);
         $this->assertStringContainsString("]: Did not find any permission belonging to any entity that allows the specified action `edit` to be performed on the specified resource `blog-post`.", $auditStr);
         $this->assertStringContainsString("Either no entity has such a permission or an entity has a permission that explicitly denies the specified action `edit` from being performed on the specified resource `blog-post`", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::isAllowed(....)", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::isAllowed(....)", $auditStr);
         
         
         ////////////////////////////////////////////////////////////////////////
@@ -1415,7 +1415,7 @@ array (
                     false
                  );
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::isAllowed(...) to check if the entity `bob` is allowed to perform the specified action `edit` on the specified resource `blog-post`.  
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::isAllowed(...) to check if the entity `bob` is allowed to perform the specified action `edit` on the specified resource `blog-post`.  
 Supplied Method Parameters:", $auditStr);
         $this->assertStringContainsString("
 array (
@@ -1432,13 +1432,13 @@ array (
   ),
 )", $auditStr);
         $this->assertStringContainsString("]: Trying to retrieve the entity object associated with specified entity ID `bob`", $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("]: Retrieved the following item: SimpleAcl\GenericPermissionableEntity (", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString("]: Retrieved the following item: VersatileAcl\GenericPermissionableEntity (", $auditStr);
         $this->assertStringContainsString("
 		{
 			id: `bob`
 			parentEntities: 
-				SimpleAcl\GenericPermissionableEntitiesCollection (", 
+				VersatileAcl\GenericPermissionableEntitiesCollection (", 
             $auditStr);
         $this->assertStringContainsString("
 				{
@@ -1446,11 +1446,11 @@ array (
 				}
 				
 			permissions: 
-				SimpleAcl\GenericPermissionsCollection (", 
+				VersatileAcl\GenericPermissionsCollection (", 
             $auditStr);
         $this->assertStringContainsString("
 				{
-					item[0]: SimpleAcl\GenericPermission (", 
+					item[0]: VersatileAcl\GenericPermission (", 
             $auditStr);
         $this->assertStringContainsString("
 					{
@@ -1472,12 +1472,12 @@ array (
 		
 		}", 
             $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob') with a return type of `object` that is an instance of `SimpleAcl\GenericPermissionableEntity` with the following string representation: ", $auditStr);
-        $this->assertStringContainsString("		SimpleAcl\GenericPermissionableEntity (", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob') with a return type of `object` that is an instance of `VersatileAcl\GenericPermissionableEntity` with the following string representation: ", $auditStr);
+        $this->assertStringContainsString("		VersatileAcl\GenericPermissionableEntity (", $auditStr);
         $this->assertStringContainsString("]: Successfully retrieved the entity object associated with specified entity ID `bob`.", $auditStr);
         $this->assertStringContainsString("]: Searching through the permissions for the entity whose ID is `bob`", $auditStr);
         $this->assertStringContainsString("]: Found a permission belonging to the entity whose ID is `bob` that allows the specified action `edit` to be performed on the specified resource `blog-post`.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::isAllowed(....) with a return type of `boolean` and actual return value of true", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::isAllowed(....) with a return type of `boolean` and actual return value of true", $auditStr);
         
         
         ////////////////////////////////////////////////////////////////////////
@@ -1504,15 +1504,15 @@ array (
                     false
                  );
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::isAllowed(...)", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::isAllowed(...)", $auditStr);
         $this->assertStringContainsString("]: Trying to retrieve the entity object associated with specified entity ID `bob`", $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Successfully retrieved the desired entity.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Successfully retrieved the entity object associated with specified entity ID `bob`.", $auditStr);
         $this->assertStringContainsString("]: Searching through the permissions for the entity whose ID is `bob`", $auditStr);
         $this->assertStringContainsString("]: Found a permission belonging to the entity whose ID is `bob` that allows the specified action `edit` to be performed on the specified resource `blog-post`.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::isAllowed(....)", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::isAllowed(....)", $auditStr);
         
         
         ////////////////////////////////////////////////////////////////////////
@@ -1539,7 +1539,7 @@ array (
                     false
                  );
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::isAllowed(...) to check if the entity `` is allowed to perform the specified action `edit` on the specified resource `blog-post`.  
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::isAllowed(...) to check if the entity `` is allowed to perform the specified action `edit` on the specified resource `blog-post`.  
 Supplied Method Parameters:", $auditStr);
         $this->assertStringContainsString("
 array (
@@ -1559,7 +1559,7 @@ array (
         $this->assertStringContainsString("]: An empty string was supplied as the entity ID, so we are searching through permissions for all existing entities until we get the first match", $auditStr);
         $this->assertStringContainsString("]: Currently searching through the permissions for the entity whose ID is `bob`", $auditStr);
         $this->assertStringContainsString("]: Found a permission belonging to the entity whose ID is `bob` that allows the specified action `edit` to be performed on the specified resource `blog-post`.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::isAllowed(....) with a return type of `boolean` and actual return value of true", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::isAllowed(....) with a return type of `boolean` and actual return value of true", $auditStr);
         
         
         ////////////////////////////////////////////////////////////////////////
@@ -1585,11 +1585,11 @@ array (
                     false
                  );
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::isAllowed(...)", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::isAllowed(...)", $auditStr);
         $this->assertStringContainsString("]: An empty string was supplied as the entity ID, so we are searching through permissions for all existing entities until we get the first match", $auditStr);
         $this->assertStringContainsString("]: Currently searching through the permissions for the entity whose ID is `bob`", $auditStr);
         $this->assertStringContainsString("]: Found a permission belonging to the entity whose ID is `bob` that allows the specified action `edit` to be performed on the specified resource `blog-post`.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::isAllowed(....)", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::isAllowed(....)", $auditStr);
         
         
         ////////////////////////////////////////////////////////////////////////
@@ -1615,7 +1615,7 @@ array (
                     false
                  );
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::isAllowed(...) to check if the entity `bob` is allowed to perform the specified action `edit` on the specified resource `blog-post`.  
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::isAllowed(...) to check if the entity `bob` is allowed to perform the specified action `edit` on the specified resource `blog-post`.  
 Supplied Method Parameters:", $auditStr);
         $this->assertStringContainsString("
 array (
@@ -1633,13 +1633,13 @@ array (
 )", 
             $auditStr);
         $this->assertStringContainsString("]: Trying to retrieve the entity object associated with specified entity ID `bob`", $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
-        $this->assertStringContainsString("]: Retrieved the following item: SimpleAcl\GenericPermissionableEntity (", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob') trying to retrieve the entity whose ID is `bob`", $auditStr);
+        $this->assertStringContainsString("]: Retrieved the following item: VersatileAcl\GenericPermissionableEntity (", $auditStr);
         $this->assertStringContainsString("
 		{
 			id: `bob`
 			parentEntities: 
-				SimpleAcl\GenericPermissionableEntitiesCollection (", 
+				VersatileAcl\GenericPermissionableEntitiesCollection (", 
             $auditStr);
         $this->assertStringContainsString("
 				{
@@ -1647,11 +1647,11 @@ array (
 				}
 				
 			permissions: 
-				SimpleAcl\GenericPermissionsCollection (", 
+				VersatileAcl\GenericPermissionsCollection (", 
             $auditStr);
         $this->assertStringContainsString("
 				{
-					item[0]: SimpleAcl\GenericPermission (", 
+					item[0]: VersatileAcl\GenericPermission (", 
             $auditStr);
         $this->assertStringContainsString("
 					{
@@ -1673,13 +1673,13 @@ array (
 		
 		}", 
             $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob') with a return type of `object` that is an instance of `SimpleAcl\GenericPermissionableEntity` with the following string representation:",  $auditStr);
-        $this->assertStringContainsString("		SimpleAcl\GenericPermissionableEntity (", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob') with a return type of `object` that is an instance of `VersatileAcl\GenericPermissionableEntity` with the following string representation:",  $auditStr);
+        $this->assertStringContainsString("		VersatileAcl\GenericPermissionableEntity (", $auditStr);
         $this->assertStringContainsString("]: Successfully retrieved the entity object associated with specified entity ID `bob`.", $auditStr);
         $this->assertStringContainsString("]: Searching through the permissions for the entity whose ID is `bob`", $auditStr);
         $this->assertStringContainsString("]: Did not find any permission belonging to the entity whose ID is `bob` that allows the specified action `edit` to be performed on the specified resource `blog-post`.", $auditStr);
         $this->assertStringContainsString("Either the entity whose ID is `bob` has no such permission or has a permission that explicitly denies the specified action `edit` from being performed on the specified resource `blog-post`", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::isAllowed(....) with a return type of `boolean` and actual return value of false", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::isAllowed(....) with a return type of `boolean` and actual return value of false", $auditStr);
         
         
         ////////////////////////////////////////////////////////////////////////
@@ -1705,21 +1705,21 @@ array (
                     false
                  );
         $auditStr = $sAclObj->getAuditTrail();
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::isAllowed(...)", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::isAllowed(...)", $auditStr);
         $this->assertStringContainsString("]: Trying to retrieve the entity object associated with specified entity ID `bob`", $auditStr);
-        $this->assertStringContainsString("]: Entered SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Entered VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Successfully retrieved the desired entity.", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::getEntity('bob')", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::getEntity('bob')", $auditStr);
         $this->assertStringContainsString("]: Successfully retrieved the entity object associated with specified entity ID `bob`.", $auditStr);
         $this->assertStringContainsString("]: Searching through the permissions for the entity whose ID is `bob`", $auditStr);
         $this->assertStringContainsString("]: Did not find any permission belonging to the entity whose ID is `bob` that allows the specified action `edit` to be performed on the specified resource `blog-post`.", $auditStr);
         $this->assertStringContainsString("Either the entity whose ID is `bob` has no such permission or has a permission that explicitly denies the specified action `edit` from being performed on the specified resource `blog-post`", $auditStr);
-        $this->assertStringContainsString("]: Exiting SimpleAcl\SimpleAcl::isAllowed(....)", $auditStr);
+        $this->assertStringContainsString("]: Exiting VersatileAcl\VersatileAcl::isAllowed(....)", $auditStr);
     }
     
     public function testThatRemoveEntityWorksAsExpected() {
         
-        $sAclObj = new SimpleAcl();
+        $sAclObj = new VersatileAcl();
 
         $this->assertNull($sAclObj->removeEntity('bob'));
         
@@ -1736,16 +1736,16 @@ array (
     
     public function testThatCreateEntityCollectionWorksAsExpected() {
         
-        $sAclObj = $this->createNewSimpleAclExposingNonPublicMethods();
+        $sAclObj = $this->createNewVersatileAclExposingNonPublicMethods();
 
-        $sAclObj1 = $this->createNewSimpleAclExposingNonPublicMethods(
+        $sAclObj1 = $this->createNewVersatileAclExposingNonPublicMethods(
             GenericPermissionableEntity::class, 
             GenericPermission::class,
             GenericPermissionableEntitiesCollection::class,
             GenericPermissionsCollection::class
         ); // four valid args
 
-        $sAclObj2 = $this->createNewSimpleAclExposingNonPublicMethods(
+        $sAclObj2 = $this->createNewVersatileAclExposingNonPublicMethods(
             GenericPermissionableEntity::class, 
             GenericPermission::class,
             CustomPermissionableEntitiesCollection::class,
@@ -1770,9 +1770,9 @@ array (
     
     public function testThatCreateEntityWorksAsExpected() {
         
-        $sAclObj = $this->createNewSimpleAclExposingNonPublicMethods();
+        $sAclObj = $this->createNewVersatileAclExposingNonPublicMethods();
 
-        $sAclObj1 = $this->createNewSimpleAclExposingNonPublicMethods(
+        $sAclObj1 = $this->createNewVersatileAclExposingNonPublicMethods(
             GenericPermissionableEntity::class, 
             GenericPermission::class,
             GenericPermissionableEntitiesCollection::class,
@@ -1795,16 +1795,16 @@ array (
     
     public function testThatCreatePermissionCollectionWorksAsExpected() {
         
-        $sAclObj = $this->createNewSimpleAclExposingNonPublicMethods();
+        $sAclObj = $this->createNewVersatileAclExposingNonPublicMethods();
 
-        $sAclObj1 = $this->createNewSimpleAclExposingNonPublicMethods(
+        $sAclObj1 = $this->createNewVersatileAclExposingNonPublicMethods(
             GenericPermissionableEntity::class, 
             GenericPermission::class,
             GenericPermissionableEntitiesCollection::class,
             GenericPermissionsCollection::class
         ); // four valid args
 
-        $sAclObj2 = $this->createNewSimpleAclExposingNonPublicMethods(
+        $sAclObj2 = $this->createNewVersatileAclExposingNonPublicMethods(
             GenericPermissionableEntity::class, 
             GenericPermission::class,
             GenericPermissionableEntitiesCollection::class,
@@ -1829,9 +1829,9 @@ array (
     
     public function testThatCreatePermissionWorksAsExpected() {
         
-        $sAclObj = $this->createNewSimpleAclExposingNonPublicMethods();
+        $sAclObj = $this->createNewVersatileAclExposingNonPublicMethods();
 
-        $sAclObj1 = $this->createNewSimpleAclExposingNonPublicMethods(
+        $sAclObj1 = $this->createNewVersatileAclExposingNonPublicMethods(
             GenericPermissionableEntity::class, 
             GenericPermission::class,
             GenericPermissionableEntitiesCollection::class,
@@ -1894,7 +1894,7 @@ array (
     
     public function testThatAddPermissionWorksAsExpected() {
         
-        $sAclObj = new SimpleAcl();
+        $sAclObj = new VersatileAcl();
         
         $this->assertCount(0, $sAclObj->getAllEntities());
         
@@ -1931,7 +1931,7 @@ array (
         $this->expectExceptionMessageMatches('*true*');
         $this->expectExceptionMessageMatches('*Closure*');
         
-        $sAclObjWeird = $this->createNewSimpleAclExposingNonPublicMethods();
+        $sAclObjWeird = $this->createNewVersatileAclExposingNonPublicMethods();
         $sAclObjWeird->doNothingDuringAddEntity = true;
         
         // call below will throw exception because the addEntity method in 
@@ -1942,7 +1942,7 @@ array (
     
     public function testThatGetEntityWorksAsExpected() {
         
-        $sAclObj = new SimpleAcl();
+        $sAclObj = new VersatileAcl();
         
         $this->assertNull($sAclObj->getEntity('non-existent'));
         
@@ -1954,7 +1954,7 @@ array (
     
     public function testThatIsAllowedWorksAsExpected() {
         
-        $sAclObj = new SimpleAcl();
+        $sAclObj = new VersatileAcl();
         
         $this->assertCount(0, $sAclObj->getAllEntities());
                 
@@ -2033,7 +2033,7 @@ array (
     
     public function testThatRemoveParentEntityWorksAsExpected() {
         
-        $sAclObj = new SimpleAcl();
+        $sAclObj = new VersatileAcl();
         
         $this->assertNull($sAclObj->removeParentEntity('non-existent-entity', 'non-existent-parent-entity'));
         
@@ -2063,7 +2063,7 @@ array (
     
     public function testThatRemovePermissionWorksAsExpected() {
         
-        $sAclObj = new SimpleAcl();
+        $sAclObj = new VersatileAcl();
         
         $this->assertNull($sAclObj->removePermission('non-existent-entity', 'non-existent-action', 'non-existent-resource'));
         
@@ -2107,7 +2107,7 @@ array (
         $this->expectExceptionMessageMatches('*'.PermissionInterface::class.'*');
         $this->expectExceptionMessageMatches('*Tenth*');
         
-        $sAclObj = $this->createNewSimpleAclExposingNonPublicMethods(
+        $sAclObj = $this->createNewVersatileAclExposingNonPublicMethods(
             GenericPermissionableEntity::class, 
             GenericPermission::class,
             GenericPermissionableEntitiesCollection::class,
@@ -2127,7 +2127,7 @@ array (
             ['yabadoo'], "string",
             777.888, 777, tmpfile(), true, false
         ];
-        $sAclObj = $this->createNewSimpleAclExposingNonPublicMethods();
+        $sAclObj = $this->createNewVersatileAclExposingNonPublicMethods();
 
         foreach ($nonObjectValues as $value) {
             
@@ -2151,7 +2151,7 @@ array (
     
     public function testThatGetMethodParameterNamesAndValsWorksAsExpected() {
         
-        $sAclObj = $this->createNewSimpleAclExposingNonPublicMethods();
+        $sAclObj = $this->createNewVersatileAclExposingNonPublicMethods();
         
         $this->assertSame([], $sAclObj->getMethodParameterNamesAndVals('nonExistentMethod', ['dont care']));
         
@@ -2178,7 +2178,7 @@ array (
     
     public function testThatLogActivityWorksAsExpected() {
         
-        $sAclObj = $this->createNewSimpleAclExposingNonPublicMethods();
+        $sAclObj = $this->createNewVersatileAclExposingNonPublicMethods();
         
         $sAclObj->enableAuditTrail(true);
         
@@ -2245,16 +2245,16 @@ array (
 
     /**
      *
-     * @param string $permissionableEntityInterfaceClassName first parameter required by SimpleAcl::__construct(....)
-     * @param string $permissionInterfaceClassName second parameter required by SimpleAcl::__construct(....)
-     * @param string $permissionableEntitiesCollectionInterfaceClassName third parameter required by SimpleAcl::__construct(....)
-     * @param string $permissionsCollectionInterfaceClassName fourth parameter required by SimpleAcl::__construct(....)
+     * @param string $permissionableEntityInterfaceClassName first parameter required by VersatileAcl::__construct(....)
+     * @param string $permissionInterfaceClassName second parameter required by VersatileAcl::__construct(....)
+     * @param string $permissionableEntitiesCollectionInterfaceClassName third parameter required by VersatileAcl::__construct(....)
+     * @param string $permissionsCollectionInterfaceClassName fourth parameter required by VersatileAcl::__construct(....)
      *
      * @param bool $dontInitializeEntitiesCollectionInConstructor
      *
-     * @return SimpleAcl an anonymous class instance that extends SimpleAcl but changes all non-public methods to public
+     * @return VersatileAcl an anonymous class instance that extends VersatileAcl but changes all non-public methods to public
      */
-    protected function createNewSimpleAclExposingNonPublicMethods(
+    protected function createNewVersatileAclExposingNonPublicMethods(
         string $permissionableEntityInterfaceClassName = GenericPermissionableEntity::class,
         string $permissionInterfaceClassName = GenericPermission::class,
         string $permissionableEntitiesCollectionInterfaceClassName = GenericPermissionableEntitiesCollection::class,
@@ -2267,7 +2267,7 @@ array (
             $permissionableEntitiesCollectionInterfaceClassName, 
             $permissionsCollectionInterfaceClassName,
             $dontInitializeEntitiesCollectionInConstructor
-        ) extends SimpleAcl {
+        ) extends VersatileAcl {
             
             public $doNothingDuringAddEntity = false;
             
@@ -2284,7 +2284,7 @@ array (
                     $dontInitializeEntitiesCollectionInConstructor ? null : $this->createEntityCollection();
             }
             
-            public function addEntity(string $entityId): SimpleAcl {
+            public function addEntity(string $entityId): VersatileAcl {
                 
                 if(!$this->doNothingDuringAddEntity) {
                     
@@ -2307,7 +2307,7 @@ array (
                 return parent::getMethodParameterNamesAndVals($methodName, $paramVals);
             }
             
-            public function logActivityPublic(string $description, string $shortDescription = ''): SimpleAcl {
+            public function logActivityPublic(string $description, string $shortDescription = ''): VersatileAcl {
                 return parent::logActivity($description, $shortDescription);
             }
         };
