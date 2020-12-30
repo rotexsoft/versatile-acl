@@ -6,15 +6,15 @@ use Closure;
 use function function_exists;
 use function strtolower;
 
-
 /**
- * Description of Utils
+ * A bunch of static helper methods used by this package
  *
  * @author Rotimi
  */
 class Utils {
 
     /**
+     * Converts a callable to an instance of \Closure
      * 
      * @param callable $callable
      * 
@@ -26,6 +26,7 @@ class Utils {
     }
     
     /**
+     * Lowers the case of all characters in a string. Uses \mb_strtolower if available in UTF-8 mode
      * 
      * @param string $str
      * 
@@ -42,6 +43,15 @@ class Utils {
         return strtolower($str);
     }
     
+    /**
+     * Checks if two strings have the same value via case-sensitive or case-insensitive comparison
+     * 
+     * @param string $str1
+     * @param string $str2
+     * @param bool $caseSensitiveComp true to perform case-sensitive comparison, false to perform case-insensitive comparison
+     * 
+     * @return bool
+     */
     public static function strSame(string $str1, string  $str2, bool $caseSensitiveComp=true): bool {
         
         return $caseSensitiveComp 
@@ -49,6 +59,14 @@ class Utils {
                     : (\strcmp(static::strToLower($str1), static::strToLower($str2)) === 0 );
     }
     
+    /**
+     * Checks if two strings have the same value via case-insensitive comparison
+     * 
+     * @param string $str1
+     * @param string $str2
+     * 
+     * @return bool true if they have the same value, false otherwise
+     */
     public static function strSameIgnoreCase(string $str1, string  $str2): bool {
         
         return static::strSame($str1, $str2, false);
