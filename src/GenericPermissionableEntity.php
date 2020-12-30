@@ -60,7 +60,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
             );
         }
         
-        $this->id = Utils::strtolower($trimmedId);
+        $this->id = Utils::strToLower($trimmedId);
         $this->permissions = ($perms === null) ? GenericPermission::createCollection() : $perms;
         $this->parentEntities = ($parentEntities === null) ? static::createCollection() : $parentEntities;
     }
@@ -253,7 +253,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
         
         foreach ($this->getAllParents() as $parent) {
             
-            if( Utils::strtolower($parent->getId()) === Utils::strtolower($entityId) ) {
+            if( Utils::strSameIgnoreCase($parent->getId(), $entityId) ) {
                 
                 return true;
             }
@@ -268,7 +268,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
      */
     public function getId(): string {
         
-        return Utils::strtolower($this->id);
+        return Utils::strToLower($this->id);
     }
 
     /**
@@ -294,7 +294,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
      */
     public function isEqualTo(PermissionableEntityInterface $entity): bool {
         
-        return Utils::strtolower($this->getId()) === Utils::strtolower($entity->getId());
+        return Utils::strSameIgnoreCase($this->getId(), $entity->getId());
     }
 
     /**
