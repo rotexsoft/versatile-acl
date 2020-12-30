@@ -1,9 +1,9 @@
-# Simple Acl
+# Versatile Acl
 
-[![Build Status](https://img.shields.io/travis/rotexsoft/simple-acl/master.png?style=flat-square)](https://travis-ci.org/rotexsoft/simple-acl) &nbsp; 
-[![Release](https://img.shields.io/github/release/rotexsoft/simple-acl.png?style=flat-square)](https://github.com/rotexsoft/simple-acl/releases/latest) &nbsp; 
-[![License](https://img.shields.io/badge/license-BSD-brightgreen.png?style=flat-square)](https://github.com/rotexsoft/simple-acl/blob/master/LICENSE) &nbsp; 
-[![PHP Tests and Code Quality Tools](https://github.com/rotexsoft/simple-acl/workflows/Run%20PHP%20Tests%20and%20Code%20Quality%20Tools/badge.svg)](https://github.com/rotexsoft/simple-acl/actions?query=workflow%3A%22Run+PHP+Tests+and+Code+Quality+Tools%22) &nbsp;
+[![PHP Tests and Code Quality Tools](https://github.com/rotexsoft/versatile-acl/workflows/Run%20PHP%20Tests%20and%20Code%20Quality%20Tools/badge.svg)](https://github.com/rotexsoft/versatile-acl/actions?query=workflow%3A%22Run+PHP+Tests+and+Code+Quality+Tools%22) &nbsp;
+[![Release](https://img.shields.io/github/release/rotexsoft/versatile-acl.png?style=flat-square)](https://github.com/rotexsoft/versatile-acl/releases/latest) &nbsp; 
+[![License](https://img.shields.io/badge/license-BSD-brightgreen.png?style=flat-square)](https://github.com/rotexsoft/versatile-acl/blob/master/LICENSE) &nbsp; 
+
 
 A simple, highly flexible and customizable access control package for PHP applications.
 
@@ -12,17 +12,17 @@ A simple, highly flexible and customizable access control package for PHP applic
 
 **Via composer:** (Requires PHP 7.2+ or PHP 8.0+). 
 
-    composer require rotexsoft/simple-acl
+    composer require rotexsoft/versatile-acl
 
 ## Introduction
 A PHP application can use this package to define **Permissionable Entities** (e.g. application users or groups that users can belong to).
-* Each entity is an instance of **[\SimpleAcl\Interfaces\PermissionableEntityInterface](src/interfaces/PermissionableEntityInterface.php)** 
-which is implemented by **[\SimpleAcl\GenericPermissionableEntity](src/GenericPermissionableEntity.php)** in this package.
+* Each entity is an instance of **[\VersatileAcl\Interfaces\PermissionableEntityInterface](src/interfaces/PermissionableEntityInterface.php)** 
+which is implemented by **[\VersatileAcl\GenericPermissionableEntity](src/GenericPermissionableEntity.php)** in this package.
 * Each entity can be associated to another entity as a parent Entity. 
 * Each entity can have one or more permissions defined. These are **direct permissions**
     * A **permission** in this package is an object that represents whether or not an **action** (represented by a case-insensitive string) can be performed by an entity on a **resource** (represented by a case-insensitive string).
-    * A permission is an instance of **[\SimpleAcl\Interfaces\PermissionInterface](src/interfaces/PermissionInterface.php)** which is implemented by 
-    **[\SimpleAcl\GenericPermission](src/GenericPermission.php)** in this package.
+    * A permission is an instance of **[\VersatileAcl\Interfaces\PermissionInterface](src/interfaces/PermissionInterface.php)** which is implemented by 
+    **[\VersatileAcl\GenericPermission](src/GenericPermission.php)** in this package.
 * Each entity also inherits permissions from its parent entities.
     * The package allows you to give direct permissions a higher priority than inherited permissions (the default behavior) and also allows you to do the reverse, if you so desire.
 
@@ -32,14 +32,14 @@ Below is an overview of the classes in this package:
  
 Click [here](class-diagram.png) to see the full Class Diagram for this package.
 
-In your applications, you will be mostly be working with instances of **[SimpleAcl\SimpleAcl](src/SimpleAcl.php)**; this class exposes most of the functionality of the underlying classes in this package listed below: 
-* **[\SimpleAcl\GenericPermissionableEntity](src/GenericPermissionableEntity.php) :** Represents an entity in your application
+In your applications, you will be mostly be working with instances of **[VersatileAcl\VersatileAcl](src/VersatileAcl.php)**; this class exposes most of the functionality of the underlying classes in this package listed below: 
+* **[\VersatileAcl\GenericPermissionableEntity](src/GenericPermissionableEntity.php) :** Represents an entity in your application
 
-* **[\SimpleAcl\GenericPermissionableEntitiesCollection](src/GenericPermissionableEntitiesCollection.php) :** A collection class for storing one or more entities in your application
+* **[\VersatileAcl\GenericPermissionableEntitiesCollection](src/GenericPermissionableEntitiesCollection.php) :** A collection class for storing one or more entities in your application
 
-* **[\SimpleAcl\GenericPermission](src/GenericPermission.php) :** Represents a permission to be assigned to an entity in your application
+* **[\VersatileAcl\GenericPermission](src/GenericPermission.php) :** Represents a permission to be assigned to an entity in your application
 
-* **[\SimpleAcl\GenericPermissionsCollection](src/GenericPermissionsCollection.php) :** A collection class for storing one or more permissions belonging to a particular entity in your application. It is possible to assign the same instance of this class to more than one entity, but it is recommended that you maintain separate instances of this class for each entity in your application.
+* **[\VersatileAcl\GenericPermissionsCollection](src/GenericPermissionsCollection.php) :** A collection class for storing one or more permissions belonging to a particular entity in your application. It is possible to assign the same instance of this class to more than one entity, but it is recommended that you maintain separate instances of this class for each entity in your application.
 
 
 ## Example Real-world Usage
@@ -69,13 +69,13 @@ Below are some access control group definitions that are relevant to this sample
 
 > **NOTE:** the permissions associated with the **comments-owners** and **posts-owners** will require an assertion callback that further checks that members of the group can only perform actions on the comments or posts they own (not comments and posts owned by other users).
 
-Let's model these groups and permissions using [SimpleAcl\SimpleAcl](src/SimpleAcl.php).
+Let's model these groups and permissions using [VersatileAcl\VersatileAcl](src/VersatileAcl.php).
 
 ```php
 <?php
-use SimpleAcl\SimpleAcl;
+use VersatileAcl\VersatileAcl;
 
-$groupsSaclObj = new SimpleAcl();
+$groupsSaclObj = new VersatileAcl();
 
 $groupsSaclObj
     ->addEntity('admin')
@@ -89,8 +89,8 @@ $groupsSaclObj
     // in an application
     ->addPermission(
       'admin', 
-      \SimpleAcl\GenericPermission::getAllActionsIdentifier(), 
-      \SimpleAcl\GenericPermission::getAllResourcesIdentifier(),
+      \VersatileAcl\GenericPermission::getAllActionsIdentifier(), 
+      \VersatileAcl\GenericPermission::getAllResourcesIdentifier(),
       true
    );
 
@@ -152,7 +152,7 @@ $groupsSaclObj
     // 'owners'
     ->addPermission(
         'owners', 
-        \SimpleAcl\GenericPermission::getAllActionsIdentifier(), 
+        \VersatileAcl\GenericPermission::getAllActionsIdentifier(), 
         'comment', 
         true,
         function(array $userRecord=[], array $commentRecord=[]){
@@ -172,7 +172,7 @@ $groupsSaclObj
     // the entity whose ID is 'owners'
     ->addPermission(
         'owners',
-        \SimpleAcl\GenericPermission::getAllActionsIdentifier(), 
+        \VersatileAcl\GenericPermission::getAllActionsIdentifier(), 
         'post', 
         true,
         function(array $userRecord=[], array $blogPostRecord=[]){
@@ -183,9 +183,9 @@ $groupsSaclObj
         }
     );
 ```
-> **NOTE:** \SimpleAcl\GenericPermission::getAllActionsIdentifier() is a special string that represents all actions any entity can perform on each resource in your application.
+> **NOTE:** \VersatileAcl\GenericPermission::getAllActionsIdentifier() is a special string that represents all actions any entity can perform on each resource in your application.
 
-> **NOTE:** \SimpleAcl\GenericPermission::getAllResourcesIdentifier() is a special string that represents all available resources in your application.
+> **NOTE:** \VersatileAcl\GenericPermission::getAllResourcesIdentifier() is a special string that represents all available resources in your application.
 
 
 
@@ -202,12 +202,12 @@ Below is a list of userids of users in the application
 * jackbauer
 * jillbauer
 
-Let's create and register entity objects for each user in our **SimpleAcl** object:
+Let's create and register entity objects for each user in our **VersatileAcl** object:
 
 ```php
 <?php
 
-$usersSaclObj = new SimpleAcl(); 
+$usersSaclObj = new VersatileAcl(); 
 $usersSaclObj->addEntity('frankwhite')
              ->addEntity('ginawhite')
              ->addEntity('johndoe')
@@ -632,7 +632,7 @@ var_dump(
 ); // === true
 ```
 
-> **NOTE:** You can override the **$additionalAssertions** callable supplied to **SimpleAcl::addPermission(...)** by passing another callback as the fourth argument to  **SimpleAcl::isAllowed(...)**. In all the examples above, we passed **null** as the fourth argument to **SimpleAcl::isAllowed(...)**, meaning that we want the **$additionalAssertions** callable supplied to **SimpleAcl::addPermission(...)** to be used instead (if present).
+> **NOTE:** You can override the **$additionalAssertions** callable supplied to **VersatileAcl::addPermission(...)** by passing another callback as the fourth argument to  **VersatileAcl::isAllowed(...)**. In all the examples above, we passed **null** as the fourth argument to **VersatileAcl::isAllowed(...)**, meaning that we want the **$additionalAssertions** callable supplied to **VersatileAcl::addPermission(...)** to be used instead (if present).
 
 This is just an example of how this package can be used to enforce access control in an application. 
 You can obviously come up with other more creative ways to adapt this package to your specific use case.
@@ -644,17 +644,17 @@ various classes interact.
 
 ## Debugging
 
-You can also get information about what's going under the hood of any instance of **[SimpleAcl\SimpleAcl](src/SimpleAcl.php)** by calling **SimpleAcl::enableAuditTrail(bool $canAudit=true)** with a value of **true** and then make calls to other methods on the instance of **[SimpleAcl\SimpleAcl](src/SimpleAcl.php)** and finally echo the contents of the string returned by **SimpleAcl::getAuditTrail()**. 
+You can also get information about what's going under the hood of any instance of **[VersatileAcl\VersatileAcl](src/VersatileAcl.php)** by calling **VersatileAcl::enableAuditTrail(bool $canAudit=true)** with a value of **true** and then make calls to other methods on the instance of **[VersatileAcl\VersatileAcl](src/VersatileAcl.php)** and finally echo the contents of the string returned by **VersatileAcl::getAuditTrail()**. 
 
-You can increase or decrease the amount of information returned by **SimpleAcl::getAuditTrail()** by calling **SimpleAcl::enableVerboseAudit(bool $performVerboseAudit=true)** with a value of **true** or **false**.
+You can increase or decrease the amount of information returned by **VersatileAcl::getAuditTrail()** by calling **VersatileAcl::enableVerboseAudit(bool $performVerboseAudit=true)** with a value of **true** or **false**.
 
-Finally, you can clear / empty / reset the string returned by **SimpleAcl::getAuditTrail()** by calling  **SimpleAcl::clearAuditTrail()**
+Finally, you can clear / empty / reset the string returned by **VersatileAcl::getAuditTrail()** by calling  **VersatileAcl::clearAuditTrail()**
 
 Here's an example below:
 
 ```php
 <?php
-$sAcl = new SimpleAcl();
+$sAcl = new VersatileAcl();
 
 // enable logging of internal activities
 $sAcl->enableAuditTrail(true);
@@ -688,24 +688,24 @@ Produces the output below:
 ```
 Outputing verbose Audit Trail:
 
-[2020-12-04 13:51:06]: Entered SimpleAcl\SimpleAcl::addEntity('jblow') trying to create and add a new entity whose ID will be `jblow`
+[2020-12-04 13:51:06]: Entered VersatileAcl\VersatileAcl::addEntity('jblow') trying to create and add a new entity whose ID will be `jblow`
 
 
 [2020-12-04 13:51:06]: Entity created
 
 
 [2020-12-04 13:51:06]: Successfully added the following entity:
-SimpleAcl\GenericPermissionableEntity (0000000038640cc1000000007974da68)
+VersatileAcl\GenericPermissionableEntity (0000000038640cc1000000007974da68)
 {
         id: `jblow`
         parentEntities:
-                SimpleAcl\GenericPermissionableEntitiesCollection (0000000038640cdf000000007974da68)
+                VersatileAcl\GenericPermissionableEntitiesCollection (0000000038640cdf000000007974da68)
                 {
 
                 }
 
         permissions:
-                SimpleAcl\GenericPermissionsCollection (0000000038640cc0000000007974da68)
+                VersatileAcl\GenericPermissionsCollection (0000000038640cc0000000007974da68)
                 {
 
                 }
@@ -714,26 +714,26 @@ SimpleAcl\GenericPermissionableEntity (0000000038640cc1000000007974da68)
 }
 
 
-[2020-12-04 13:51:06]: Exiting SimpleAcl\SimpleAcl::addEntity('jblow')
+[2020-12-04 13:51:06]: Exiting VersatileAcl\VersatileAcl::addEntity('jblow')
 
 
-[2020-12-04 13:51:06]: Entered SimpleAcl\SimpleAcl::removeEntity('jblow') trying to remove the entity whose ID is `jblow`
+[2020-12-04 13:51:06]: Entered VersatileAcl\VersatileAcl::removeEntity('jblow') trying to remove the entity whose ID is `jblow`
 
 
-                [2020-12-04 13:51:06]: Entered SimpleAcl\SimpleAcl::getEntity('jblow') trying to retrieve the entity whose ID is `jblow`
+                [2020-12-04 13:51:06]: Entered VersatileAcl\VersatileAcl::getEntity('jblow') trying to retrieve the entity whose ID is `jblow`
 
 
-                [2020-12-04 13:51:06]: Retrieved the following item: SimpleAcl\GenericPermissionableEntity (0000000038640cc1000000007974da68)
+                [2020-12-04 13:51:06]: Retrieved the following item: VersatileAcl\GenericPermissionableEntity (0000000038640cc1000000007974da68)
                 {
                         id: `jblow`
                         parentEntities:
-                                SimpleAcl\GenericPermissionableEntitiesCollection (0000000038640cdf000000007974da68)
+                                VersatileAcl\GenericPermissionableEntitiesCollection (0000000038640cdf000000007974da68)
                                 {
 
                                 }
 
                         permissions:
-                                SimpleAcl\GenericPermissionsCollection (0000000038640cc0000000007974da68)
+                                VersatileAcl\GenericPermissionsCollection (0000000038640cc0000000007974da68)
                                 {
 
                                 }
@@ -742,19 +742,19 @@ SimpleAcl\GenericPermissionableEntity (0000000038640cc1000000007974da68)
                 }
 
 
-                [2020-12-04 13:51:06]: Exiting SimpleAcl\SimpleAcl::getEntity('jblow') with a return type of `object` that is an instance of `SimpleAcl\GenericPermissionableEntity` with the following string rep
+                [2020-12-04 13:51:06]: Exiting VersatileAcl\VersatileAcl::getEntity('jblow') with a return type of `object` that is an instance of `VersatileAcl\GenericPermissionableEntity` with the following string rep
 resentation:
-                SimpleAcl\GenericPermissionableEntity (0000000038640cc1000000007974da68)
+                VersatileAcl\GenericPermissionableEntity (0000000038640cc1000000007974da68)
                 {
                         id: `jblow`
                         parentEntities:
-                                SimpleAcl\GenericPermissionableEntitiesCollection (0000000038640cdf000000007974da68)
+                                VersatileAcl\GenericPermissionableEntitiesCollection (0000000038640cdf000000007974da68)
                                 {
 
                                 }
 
                         permissions:
-                                SimpleAcl\GenericPermissionsCollection (0000000038640cc0000000007974da68)
+                                VersatileAcl\GenericPermissionsCollection (0000000038640cc0000000007974da68)
                                 {
 
                                 }
@@ -766,18 +766,18 @@ resentation:
 [2020-12-04 13:51:06]: Successfully removed the entity whose ID is `jblow`.
 
 
-[2020-12-04 13:51:06]: Exiting SimpleAcl\SimpleAcl::removeEntity('jblow') with a return type of `object` that is an instance of `SimpleAcl\GenericPermissionableEntity` with the following string representation:
-SimpleAcl\GenericPermissionableEntity (0000000038640cc1000000007974da68)
+[2020-12-04 13:51:06]: Exiting VersatileAcl\VersatileAcl::removeEntity('jblow') with a return type of `object` that is an instance of `VersatileAcl\GenericPermissionableEntity` with the following string representation:
+VersatileAcl\GenericPermissionableEntity (0000000038640cc1000000007974da68)
 {
         id: `jblow`
         parentEntities:
-                SimpleAcl\GenericPermissionableEntitiesCollection (0000000038640cdf000000007974da68)
+                VersatileAcl\GenericPermissionableEntitiesCollection (0000000038640cdf000000007974da68)
                 {
 
                 }
 
         permissions:
-                SimpleAcl\GenericPermissionsCollection (0000000038640cc0000000007974da68)
+                VersatileAcl\GenericPermissionsCollection (0000000038640cc0000000007974da68)
                 {
 
                 }
@@ -788,7 +788,7 @@ SimpleAcl\GenericPermissionableEntity (0000000038640cc1000000007974da68)
 
 Outputing non-verbose Audit Trail:
 
-[2020-12-04 13:51:06]: Entered SimpleAcl\SimpleAcl::addEntity('jblow')
+[2020-12-04 13:51:06]: Entered VersatileAcl\VersatileAcl::addEntity('jblow')
 
 
 [2020-12-04 13:51:06]: Entity created
@@ -797,32 +797,32 @@ Outputing non-verbose Audit Trail:
 [2020-12-04 13:51:06]: Successfully added the entity whose ID is `jblow`
 
 
-[2020-12-04 13:51:06]: Exiting SimpleAcl\SimpleAcl::addEntity('jblow')
+[2020-12-04 13:51:06]: Exiting VersatileAcl\VersatileAcl::addEntity('jblow')
 
 
-[2020-12-04 13:51:06]: Entered SimpleAcl\SimpleAcl::removeEntity('jblow')
+[2020-12-04 13:51:06]: Entered VersatileAcl\VersatileAcl::removeEntity('jblow')
 
 
-                [2020-12-04 13:51:06]: Entered SimpleAcl\SimpleAcl::getEntity('jblow')
+                [2020-12-04 13:51:06]: Entered VersatileAcl\VersatileAcl::getEntity('jblow')
 
 
                 [2020-12-04 13:51:06]: Successfully retrieved the desired entity.
 
 
-                [2020-12-04 13:51:06]: Exiting SimpleAcl\SimpleAcl::getEntity('jblow')
+                [2020-12-04 13:51:06]: Exiting VersatileAcl\VersatileAcl::getEntity('jblow')
 
 
 [2020-12-04 13:51:06]: Successfully removed the entity whose ID is `jblow`.
 
 
-[2020-12-04 13:51:06]: Exiting SimpleAcl\SimpleAcl::removeEntity('jblow')
+[2020-12-04 13:51:06]: Exiting VersatileAcl\VersatileAcl::removeEntity('jblow')
 
 ```
 
 
 <br>
 
-## Public Methods of **[SimpleAcl\SimpleAcl](src/SimpleAcl.php)**
+## Public Methods of **[VersatileAcl\VersatileAcl](src/VersatileAcl.php)**
 | Method | Description |
 |--------|-------------|
 | **__construct( <br> &nbsp;&nbsp;&nbsp;string $permissionableEntityInterfaceClassName = GenericPermissionableEntity::class, <br> &nbsp;&nbsp;&nbsp;string $permissionInterfaceClassName = GenericPermission::class, <br> &nbsp;&nbsp;&nbsp;string $permissionableEntitiesCollectionInterfaceClassName = GenericPermissionableEntitiesCollection::class, <br> &nbsp;&nbsp;&nbsp;string $permissionsCollectionInterfaceClassName = GenericPermissionsCollection::class <br>)** | The constructor through which you can specify alternate fully qualified class names of classes that implement **[PermissionableEntityInterface](src/interfaces/PermissionableEntityInterface.php)**, **[PermissionInterface](src/interfaces/PermissionInterface.php)**, **[PermissionableEntitiesCollectionInterface](src/interfaces/PermissionableEntitiesCollectionInterface.php)** and **[PermissionsCollectionInterface](src/interfaces/PermissionsCollectionInterface.php)** .|

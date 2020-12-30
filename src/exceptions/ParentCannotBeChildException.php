@@ -1,5 +1,5 @@
 <?php
-namespace SimpleAcl\Exceptions;
+namespace VersatileAcl\Exceptions;
 
 use Exception;
 
