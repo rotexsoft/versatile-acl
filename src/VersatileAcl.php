@@ -1,18 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace SimpleAcl;
+namespace VersatileAcl;
 
 use DateTime;
 use ReflectionMethod;
 use InvalidArgumentException;
-use SimpleAcl\Interfaces\{
+use VersatileAcl\Interfaces\{
     PermissionInterface, PermissionableEntitiesCollectionInterface, 
     PermissionableEntityInterface, PermissionsCollectionInterface
 };
 use ReflectionParameter;
 use RuntimeException;
-use SimpleAcl\Exceptions\ParentCannotBeChildException;
+use VersatileAcl\Exceptions\ParentCannotBeChildException;
 
 use function array_key_exists;
 use function array_shift;
@@ -32,7 +32,7 @@ use function var_export;
  *
  * @author rotimi
  */
-class SimpleAcl {
+class VersatileAcl {
     
     /**
      *
