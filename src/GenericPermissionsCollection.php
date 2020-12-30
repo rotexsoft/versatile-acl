@@ -70,15 +70,15 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
             
             if(
                 (
-                    Utils::strtolower($permission->getAction()) === Utils::strtolower($action)
+                    Utils::strSameIgnoreCase($permission->getAction(), $action)
                     ||
-                    Utils::strtolower($permission->getAction()) === Utils::strtolower($permissionClass::getAllActionsIdentifier())
+                    Utils::strSameIgnoreCase($permission->getAction(), $permissionClass::getAllActionsIdentifier())
                 )
                 &&
                 (
-                    Utils::strtolower($permission->getResource()) === Utils::strtolower($resource)
+                    Utils::strSameIgnoreCase($permission->getResource(), $resource)
                     ||
-                    Utils::strtolower($permission->getResource()) === Utils::strtolower($permissionClass::getAllResourcesIdentifier())
+                    Utils::strSameIgnoreCase($permission->getResource(), $permissionClass::getAllResourcesIdentifier())
                 )
                 
             ) {
@@ -260,45 +260,18 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * @param string $resource
      * 
      * @return PermissionInterface|null
-     * @noinspection DuplicatedCode
-     * @psalm-suppress RedundantCondition
      */
     public function findOne(string $action='', string $resource=''): ?PermissionInterface {
-        /** @noRector */
-        if( !($action === '' && $resource === '') ) {
-            /** @noRector */
-            /** @var PermissionInterface $permission */
-            foreach ($this->storage as $permission) {
-
-                if( 
-                    (
-                        // match by $action and $resource
-                        $action !== ''
-                        && $resource !== ''
-                        && Utils::strtolower($permission->getAction()) === Utils::strtolower($action)
-                        && Utils::strtolower($permission->getResource()) === Utils::strtolower($resource)
-                    )
-                    ||
-                    (
-                        // only match by $resource
-                        $action === ''
-                        && $resource !== ''
-                        && Utils::strtolower($permission->getResource()) === Utils::strtolower($resource)
-                    )
-                    ||
-                    (
-                        // only match by $action
-                        $action !== ''
-                        && $resource === ''
-                        && Utils::strtolower($permission->getAction()) === Utils::strtolower($action)
-                    )
-                ) {
-                    return $permission;
-                }
-            } // foreach ($this->storage as $permission)
-        } // if( !($action === '' && $resource === '') )
         
-        return null;
+        /** @noRector */
+        $firstMatch = 
+            \iterator_to_array(
+                $this->findFirstN($action, $resource, 1)
+                     ->getIterator()
+            );
+        
+        /** @noinspection PhpFullyQualifiedNameUsageInspection */
+        return (\count($firstMatch) > 0) ? \array_shift($firstMatch) : null;
     }
     
     /**
@@ -321,9 +294,45 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      */
     public function findAll(string $action='', string $resource=''): PermissionsCollectionInterface {
 
+        // can find at most $this->count() permissions matching the parameters
+        return $this->findFirstN($action, $resource, $this->count());
+    }
+    
+    /**
+     * Find and return the all permissions in the collection that match the specified $action and / or $resource.
+     * An empty collection should be returned if there was no match. The match is always case-insensitive
+     * 
+     * If $action has an empty string value, do not use it for the match
+     * 
+     * If $resource has an empty string value, do not use it for the match
+     * 
+     * If both $action & $resource have empty string values, return an empty collection
+     * 
+     * If $n < 1, this method internally bumps it up to 1 and returns either 
+     * a collection contain only 1 mathching permission object or an empty collection 
+     * 
+     * @param string $action
+     * @param string $resource
+     * @param int $n number of matching permission objects to be returned
+     *
+     * @return PermissionsCollectionInterface
+     * 
+     * @noinspection DuplicatedCode
+     * @psalm-suppress RedundantCondition
+     * @psalm-suppress UnsafeInstantiation
+     */
+    protected function findFirstN(string $action='', string $resource='', int $n=1): PermissionsCollectionInterface {
+        
         $permissionsCollection = new static();
         
-        if($action !== '' || $resource !== '') {
+        if($n < 1) { // we must try to find at least 1 permission
+            
+            $n = 1;
+        }
+        
+        if(($action !== '' || $resource !== '') && $this->count() > 0 ) {
+
+            $counter = 1;
 
             /** @var PermissionInterface $permission */
             foreach ($this->storage as $permission) {
@@ -333,26 +342,30 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
                         // match by $action and $resource
                         $action !== ''
                         && $resource !== ''
-                        && Utils::strtolower($permission->getAction()) === Utils::strtolower($action)
-                        && Utils::strtolower($permission->getResource()) === Utils::strtolower($resource)
+                        && Utils::strSameIgnoreCase($permission->getAction(), $action)
+                        && Utils::strSameIgnoreCase($permission->getResource(), $resource)
                     )
                     ||
                     (
                         // only match by $resource
                         $action === ''
                         && $resource !== ''
-                        && Utils::strtolower($permission->getResource()) === Utils::strtolower($resource)
+                        && Utils::strSameIgnoreCase($permission->getResource(), $resource)
                     )
                     ||
                     (
                         // only match by $action
                         $action !== ''
                         && $resource === ''
-                        && Utils::strtolower($permission->getAction()) === Utils::strtolower($action)
+                        && Utils::strSameIgnoreCase($permission->getAction(), $action)
                     )
                 ) {
                     $permissionsCollection->add($permission);
+                    $counter++;
                 }
+
+                if($counter > $n) { break; } // found first N permissions
+
             } // foreach ($this->storage as $permission)
         } // if( !($action === '' && $resource === '') )
         
