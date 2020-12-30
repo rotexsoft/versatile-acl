@@ -1,9 +1,9 @@
 <?php /** @noinspection PhpIllegalPsrClassPathInspection */
 
-use SimpleAcl\Utils;
-use SimpleAcl\GenericBaseCollection;
-use SimpleAcl\Interfaces\PermissionableEntityInterface;
-use SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface;
+use VersatileAcl\Utils;
+use VersatileAcl\GenericBaseCollection;
+use VersatileAcl\Interfaces\PermissionableEntityInterface;
+use VersatileAcl\Interfaces\PermissionableEntitiesCollectionInterface;
 
 /**
  * Description of CustomPermissionableEntitiesCollection
@@ -202,7 +202,7 @@ class CustomPermissionableEntitiesCollection extends GenericBaseCollection imple
      */
     public function find(string $entityId): ?PermissionableEntityInterface {
         
-        /** @var SimpleAcl\Interfaces\PermissionableEntityInterface $entity */
+        /** @var VersatileAcl\Interfaces\PermissionableEntityInterface $entity */
         foreach ($this->storage as $entity) {
             if( Utils::strToLower($entity->getId()) === Utils::strToLower($entityId) ) {
                 return $entity;

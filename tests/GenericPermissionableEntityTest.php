@@ -2,16 +2,16 @@
 /** @noinspection PhpFullyQualifiedNameUsageInspection */
 declare(strict_types=1);
 
-use \SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface;
+use \VersatileAcl\Interfaces\PermissionableEntitiesCollectionInterface;
 
-use \SimpleAcl\GenericPermission;
-use \SimpleAcl\GenericPermissionsCollection;
+use \VersatileAcl\GenericPermission;
+use \VersatileAcl\GenericPermissionsCollection;
 
-use \SimpleAcl\GenericPermissionableEntity;
-use \SimpleAcl\GenericPermissionableEntitiesCollection;
+use \VersatileAcl\GenericPermissionableEntity;
+use \VersatileAcl\GenericPermissionableEntitiesCollection;
 
-use \SimpleAcl\Exceptions\EmptyEntityIdException;
-use \SimpleAcl\Exceptions\ParentCannotBeChildException;
+use \VersatileAcl\Exceptions\EmptyEntityIdException;
+use \VersatileAcl\Exceptions\ParentCannotBeChildException;
 
 /**
  * Description of GenericPermissionableEntityTest
@@ -926,17 +926,17 @@ class GenericPermissionableEntityTest extends \PHPUnit\Framework\TestCase {
         $entityWithDefaultParams = new GenericPermissionableEntity("Z");
         // $entityWithDefaultParams->dump() will display the following except for 000000003bbac6d6000000000fb066f4 & the likes which will vary:
 /**
-SimpleAcl\GenericPermissionableEntity (000000003bbac6d6000000000fb066f4)
+VersatileAcl\GenericPermissionableEntity (000000003bbac6d6000000000fb066f4)
 {
         id: `z`
         parentEntities:
-                SimpleAcl\GenericPermissionableEntitiesCollection (000000003bbac6d1000000000fb066f4)
+                VersatileAcl\GenericPermissionableEntitiesCollection (000000003bbac6d1000000000fb066f4)
                 {
 
                 }
 
         permissions:
-                SimpleAcl\GenericPermissionsCollection (000000003bbac6d7000000000fb066f4)
+                VersatileAcl\GenericPermissionsCollection (000000003bbac6d7000000000fb066f4)
                 {
 
                 }
@@ -945,7 +945,7 @@ SimpleAcl\GenericPermissionableEntity (000000003bbac6d6000000000fb066f4)
 }
 */  
         $haystack = $entityWithDefaultParams->dump();
-        $this->assertStringContainsString('SimpleAcl\GenericPermissionableEntity (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermissionableEntity (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
@@ -953,12 +953,12 @@ SimpleAcl\GenericPermissionableEntity (000000003bbac6d6000000000fb066f4)
         $this->assertStringContainsString("\tid: `z`", $haystack);
         
         $this->assertStringContainsString("\tparentEntities:", $haystack);
-        $this->assertStringContainsString("\t\tSimpleAcl\GenericPermissionableEntitiesCollection (", $haystack);
+        $this->assertStringContainsString("\t\tVersatileAcl\GenericPermissionableEntitiesCollection (", $haystack);
         $this->assertStringContainsString("\t\t{", $haystack);
         $this->assertStringContainsString("\t\t}", $haystack);
         
         $this->assertStringContainsString("\tpermissions:", $haystack);
-        $this->assertStringContainsString("\t\tSimpleAcl\GenericPermissionsCollection (", $haystack);
+        $this->assertStringContainsString("\t\tVersatileAcl\GenericPermissionsCollection (", $haystack);
         $this->assertStringContainsString("\t\t{", $haystack);
         $this->assertStringContainsString("\t\t}", $haystack);
         
@@ -991,25 +991,25 @@ SimpleAcl\GenericPermissionableEntity (000000003bbac6d6000000000fb066f4)
         
         // $entityWithInjectedCollections->dump() will display the following except for 000000007ded34b9000000007f76b4ca & the likes which will vary:
 /**
-SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
+VersatileAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
 {
 	id: `d`
 	parentEntities: 
-		SimpleAcl\GenericPermissionableEntitiesCollection (000000007ded34a1000000007f76b4ca)
+		VersatileAcl\GenericPermissionableEntitiesCollection (000000007ded34a1000000007f76b4ca)
 		{
-			item[0]: SimpleAcl\GenericPermissionableEntity (000000007ded34a0000000007f76b4ca)
+			item[0]: VersatileAcl\GenericPermissionableEntity (000000007ded34a0000000007f76b4ca)
 			{
 				id: `a`
 				parentEntities: 
-					SimpleAcl\GenericPermissionableEntitiesCollection (000000007ded34a3000000007f76b4ca)
+					VersatileAcl\GenericPermissionableEntitiesCollection (000000007ded34a3000000007f76b4ca)
 					{
 					
 					}
 					
 				permissions: 
-					SimpleAcl\GenericPermissionsCollection (000000007ded34aa000000007f76b4ca)
+					VersatileAcl\GenericPermissionsCollection (000000007ded34aa000000007f76b4ca)
 					{
-						item[0]: SimpleAcl\GenericPermission (000000007ded34ab000000007f76b4ca)
+						item[0]: VersatileAcl\GenericPermission (000000007ded34ab000000007f76b4ca)
 						{
 							action: `add`
 							resource: `comment`
@@ -1020,7 +1020,7 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
 						
 						}
 						
-						item[1]: SimpleAcl\GenericPermission (000000007ded34ad000000007f76b4ca)
+						item[1]: VersatileAcl\GenericPermission (000000007ded34ad000000007f76b4ca)
 						{
 							action: `edit`
 							resource: `comment`
@@ -1037,19 +1037,19 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
 			
 			}
 			
-			item[1]: SimpleAcl\GenericPermissionableEntity (000000007ded34a2000000007f76b4ca)
+			item[1]: VersatileAcl\GenericPermissionableEntity (000000007ded34a2000000007f76b4ca)
 			{
 				id: `b`
 				parentEntities: 
-					SimpleAcl\GenericPermissionableEntitiesCollection (000000007ded34a5000000007f76b4ca)
+					VersatileAcl\GenericPermissionableEntitiesCollection (000000007ded34a5000000007f76b4ca)
 					{
 					
 					}
 					
 				permissions: 
-					SimpleAcl\GenericPermissionsCollection (000000007ded34ac000000007f76b4ca)
+					VersatileAcl\GenericPermissionsCollection (000000007ded34ac000000007f76b4ca)
 					{
-						item[0]: SimpleAcl\GenericPermission (000000007ded34af000000007f76b4ca)
+						item[0]: VersatileAcl\GenericPermission (000000007ded34af000000007f76b4ca)
 						{
 							action: `read`
 							resource: `comment`
@@ -1060,7 +1060,7 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
 						
 						}
 						
-						item[1]: SimpleAcl\GenericPermission (000000007ded34ae000000007f76b4ca)
+						item[1]: VersatileAcl\GenericPermission (000000007ded34ae000000007f76b4ca)
 						{
 							action: `delete`
 							resource: `comment`
@@ -1081,9 +1081,9 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
 		}
 		
 	permissions: 
-		SimpleAcl\GenericPermissionsCollection (000000007ded34a4000000007f76b4ca)
+		VersatileAcl\GenericPermissionsCollection (000000007ded34a4000000007f76b4ca)
 		{
-			item[0]: SimpleAcl\GenericPermission (000000007ded34a7000000007f76b4ca)
+			item[0]: VersatileAcl\GenericPermission (000000007ded34a7000000007f76b4ca)
 			{
 				action: `search`
 				resource: `comment`
@@ -1094,7 +1094,7 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
 			
 			}
 			
-			item[1]: SimpleAcl\GenericPermission (000000007ded34a6000000007f76b4ca)
+			item[1]: VersatileAcl\GenericPermission (000000007ded34a6000000007f76b4ca)
 			{
 				action: `browse-all`
 				resource: `comment`
@@ -1112,27 +1112,27 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
 }
 */
         $haystack = $entityWithInjectedCollections->dump();
-        $this->assertStringContainsString('SimpleAcl\GenericPermissionableEntity (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermissionableEntity (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
         
         $this->assertStringContainsString("\tid: `d`", $haystack);
         $this->assertStringContainsString("\tparentEntities:", $haystack);
-        $this->assertStringContainsString("\t\tSimpleAcl\GenericPermissionableEntitiesCollection (", $haystack);
+        $this->assertStringContainsString("\t\tVersatileAcl\GenericPermissionableEntitiesCollection (", $haystack);
         $this->assertStringContainsString("\t\t{", $haystack);
-        $this->assertStringContainsString("\t\t\titem[0]: SimpleAcl\GenericPermissionableEntity (", $haystack);
+        $this->assertStringContainsString("\t\t\titem[0]: VersatileAcl\GenericPermissionableEntity (", $haystack);
         $this->assertStringContainsString("\t\t\t{", $haystack);
         $this->assertStringContainsString("\t\t\t\tid: `a`", $haystack);
         $this->assertStringContainsString("\t\t\t\tparentEntities:", $haystack);
-        $this->assertStringContainsString("\t\t\t\t\tSimpleAcl\GenericPermissionableEntitiesCollection (", $haystack);
+        $this->assertStringContainsString("\t\t\t\t\tVersatileAcl\GenericPermissionableEntitiesCollection (", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t{", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t".PHP_EOL, $haystack);
         $this->assertStringContainsString("\t\t\t\t\t}", $haystack);
         $this->assertStringContainsString("\t\t\t\tpermissions:", $haystack);
-        $this->assertStringContainsString("\t\t\t\t\tSimpleAcl\GenericPermissionsCollection (", $haystack);
+        $this->assertStringContainsString("\t\t\t\t\tVersatileAcl\GenericPermissionsCollection (", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t{", $haystack);
-        $this->assertStringContainsString("\t\t\t\t\t\titem[0]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringContainsString("\t\t\t\t\t\titem[0]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t{", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t\taction: `add`", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t\tresource: `comment`", $haystack);
@@ -1141,7 +1141,7 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         $this->assertStringContainsString("\t\t\t\t\t\t\targsForCallback: array (", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t\t)", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t}", $haystack);
-        $this->assertStringContainsString("\t\t\t\t\t\titem[1]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringContainsString("\t\t\t\t\t\titem[1]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t{", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t\taction: `edit`", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t\tresource: `comment`", $haystack);
@@ -1152,19 +1152,19 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         $this->assertStringContainsString("\t\t\t\t\t\t}", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t}", $haystack);
         $this->assertStringContainsString("\t\t\t}", $haystack);
-        $this->assertStringContainsString("\t\t\titem[1]: SimpleAcl\GenericPermissionableEntity (", $haystack);
+        $this->assertStringContainsString("\t\t\titem[1]: VersatileAcl\GenericPermissionableEntity (", $haystack);
         $this->assertStringContainsString("\t\t\t{", $haystack);
         $this->assertStringContainsString("\t\t\t\tid: `b`", $haystack);
         $this->assertStringContainsString("\t\t\t\tparentEntities:", $haystack);
-        $this->assertStringContainsString("\t\t\t\t\tSimpleAcl\GenericPermissionableEntitiesCollection (", $haystack);
+        $this->assertStringContainsString("\t\t\t\t\tVersatileAcl\GenericPermissionableEntitiesCollection (", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t{", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t".PHP_EOL, $haystack);
         $this->assertStringContainsString("\t\t\t\t\t}", $haystack);
         $this->assertStringContainsString("\t\t\t\tpermissions:", $haystack);
-        $this->assertStringContainsString("\t\t\t\t\tSimpleAcl\GenericPermissionsCollection (", $haystack);
+        $this->assertStringContainsString("\t\t\t\t\tVersatileAcl\GenericPermissionsCollection (", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t{", $haystack);
         
-        $this->assertStringContainsString("\t\t\t\t\t\titem[0]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringContainsString("\t\t\t\t\t\titem[0]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t{", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t\taction: `read`", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t\tresource: `comment`", $haystack);
@@ -1174,7 +1174,7 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         $this->assertStringContainsString("\t\t\t\t\t\t\t)", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t}", $haystack);
         
-        $this->assertStringContainsString("\t\t\t\t\t\titem[1]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringContainsString("\t\t\t\t\t\titem[1]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t{", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t\taction: `delete`", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t\tresource: `comment`", $haystack);
@@ -1189,10 +1189,10 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         $this->assertStringContainsString("\t\t}", $haystack);
         
         $this->assertStringContainsString("\tpermissions:", $haystack);
-        $this->assertStringContainsString("\t\tSimpleAcl\GenericPermissionsCollection (", $haystack);
+        $this->assertStringContainsString("\t\tVersatileAcl\GenericPermissionsCollection (", $haystack);
         $this->assertStringContainsString("\t\t{", $haystack);
         
-        $this->assertStringContainsString("\t\t\titem[0]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringContainsString("\t\t\titem[0]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringContainsString("\t\t\t{", $haystack);
         $this->assertStringContainsString("\t\t\t\taction: `search`", $haystack);
         $this->assertStringContainsString("\t\t\t\tresource: `comment`", $haystack);
@@ -1202,7 +1202,7 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         $this->assertStringContainsString("\t\t\t\t)", $haystack);
         $this->assertStringContainsString("\t\t\t}", $haystack);
         
-        $this->assertStringContainsString("\t\t\titem[1]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringContainsString("\t\t\titem[1]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringContainsString("\t\t\t{", $haystack);
         $this->assertStringContainsString("\t\t\t\taction: `browse-all`", $haystack);
         $this->assertStringContainsString("\t\t\t\tresource: `comment`", $haystack);
@@ -1221,14 +1221,14 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         //// without parentEntities
         $haystack = $entityWithInjectedCollections->dump(['parentEntities']);
         $this->assertStringNotContainsString("\tparentEntities:", $haystack);
-        $this->assertStringNotContainsString("\t\tSimpleAcl\GenericPermissionableEntitiesCollection (", $haystack);
-        $this->assertStringNotContainsString("\t\t\titem[0]: SimpleAcl\GenericPermissionableEntity (", $haystack);
+        $this->assertStringNotContainsString("\t\tVersatileAcl\GenericPermissionableEntitiesCollection (", $haystack);
+        $this->assertStringNotContainsString("\t\t\titem[0]: VersatileAcl\GenericPermissionableEntity (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\tid: `a`", $haystack);
         $this->assertStringNotContainsString("\t\t\t\tparentEntities:", $haystack);
-        $this->assertStringNotContainsString("\t\t\t\t\tSimpleAcl\GenericPermissionableEntitiesCollection (", $haystack);
+        $this->assertStringNotContainsString("\t\t\t\t\tVersatileAcl\GenericPermissionableEntitiesCollection (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\tpermissions:", $haystack);
-        $this->assertStringNotContainsString("\t\t\t\t\tSimpleAcl\GenericPermissionsCollection (", $haystack);
-        $this->assertStringNotContainsString("\t\t\t\t\t\titem[0]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringNotContainsString("\t\t\t\t\tVersatileAcl\GenericPermissionsCollection (", $haystack);
+        $this->assertStringNotContainsString("\t\t\t\t\t\titem[0]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\taction: `add`", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\tresource: `comment`", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\tallowActionOnResource: true", $haystack);
@@ -1236,22 +1236,22 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         $this->assertStringNotContainsString("\t\t\t\t\t\t\targsForCallback: array (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\t)", $haystack);
 
-        $this->assertStringNotContainsString("\t\t\t\t\t\titem[1]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringNotContainsString("\t\t\t\t\t\titem[1]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\taction: `edit`", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\tresource: `comment`", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\tallowActionOnResource: true", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\tadditionalAssertions: NULL", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\targsForCallback: array (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\t)", $haystack);
-        $this->assertStringNotContainsString("\t\t\titem[1]: SimpleAcl\GenericPermissionableEntity (", $haystack);
+        $this->assertStringNotContainsString("\t\t\titem[1]: VersatileAcl\GenericPermissionableEntity (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\tid: `b`", $haystack);
         $this->assertStringNotContainsString("\t\t\t\tparentEntities:", $haystack);
-        $this->assertStringNotContainsString("\t\t\t\t\tSimpleAcl\GenericPermissionableEntitiesCollection (", $haystack);
+        $this->assertStringNotContainsString("\t\t\t\t\tVersatileAcl\GenericPermissionableEntitiesCollection (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\tpermissions:", $haystack);
-        $this->assertStringNotContainsString("\t\t\t\t\tSimpleAcl\GenericPermissionsCollection (", $haystack);
+        $this->assertStringNotContainsString("\t\t\t\t\tVersatileAcl\GenericPermissionsCollection (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t{", $haystack);
         
-        $this->assertStringNotContainsString("\t\t\t\t\t\titem[0]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringNotContainsString("\t\t\t\t\t\titem[0]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\taction: `read`", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\tresource: `comment`", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\tallowActionOnResource: true", $haystack);
@@ -1259,7 +1259,7 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         $this->assertStringNotContainsString("\t\t\t\t\t\t\targsForCallback: array (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\t)", $haystack);
         
-        $this->assertStringNotContainsString("\t\t\t\t\t\titem[1]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringNotContainsString("\t\t\t\t\t\titem[1]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\taction: `delete`", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\tresource: `comment`", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\tallowActionOnResource: true", $haystack);
@@ -1271,9 +1271,9 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         $haystack = $entityWithInjectedCollections->dump(['permissions']);
         
         $this->assertStringNotContainsString(PHP_EOL."\tpermissions:", $haystack);
-        $this->assertStringNotContainsString(PHP_EOL."\t\tSimpleAcl\GenericPermissionsCollection (", $haystack);
+        $this->assertStringNotContainsString(PHP_EOL."\t\tVersatileAcl\GenericPermissionsCollection (", $haystack);
         
-        $this->assertStringNotContainsString(PHP_EOL."\t\t\titem[0]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringNotContainsString(PHP_EOL."\t\t\titem[0]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\taction: `search`", $haystack);
         $this->assertStringNotContainsString(PHP_EOL."\t\t\t\tresource: `comment`", $haystack);
         $this->assertStringNotContainsString(PHP_EOL."\t\t\t\tallowActionOnResource: true", $haystack);
@@ -1281,7 +1281,7 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         $this->assertStringNotContainsString(PHP_EOL."\t\t\t\targsForCallback: array (", $haystack);
         $this->assertStringNotContainsString(PHP_EOL."\t\t\t\t)", $haystack);
         
-        $this->assertStringNotContainsString(PHP_EOL."\t\t\titem[1]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringNotContainsString(PHP_EOL."\t\t\titem[1]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\taction: `browse-all`", $haystack);
         $this->assertStringNotContainsString(PHP_EOL."\t\t\t\tresource: `comment`", $haystack);
         $this->assertStringNotContainsString(PHP_EOL."\t\t\t\tallowActionOnResource: true", $haystack);
@@ -1291,27 +1291,27 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         
         //// without 'id','permissions' and 'parentEntities'
         $haystack = $entityWithInjectedCollections->dump(['id','permissions','parentEntities']);
-        $this->assertStringContainsString('SimpleAcl\GenericPermissionableEntity (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermissionableEntity (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
         
         $this->assertStringNotContainsString("\tid: `d`", $haystack);
         $this->assertStringNotContainsString("\tparentEntities:", $haystack);
-        $this->assertStringNotContainsString("\t\tSimpleAcl\GenericPermissionableEntitiesCollection (", $haystack);
+        $this->assertStringNotContainsString("\t\tVersatileAcl\GenericPermissionableEntitiesCollection (", $haystack);
         $this->assertStringNotContainsString("\t\t{", $haystack);
-        $this->assertStringNotContainsString("\t\t\titem[0]: SimpleAcl\GenericPermissionableEntity (", $haystack);
+        $this->assertStringNotContainsString("\t\t\titem[0]: VersatileAcl\GenericPermissionableEntity (", $haystack);
         $this->assertStringNotContainsString("\t\t\t{", $haystack);
         $this->assertStringNotContainsString("\t\t\t\tid: `a`", $haystack);
         $this->assertStringNotContainsString("\t\t\t\tparentEntities:", $haystack);
-        $this->assertStringNotContainsString("\t\t\t\t\tSimpleAcl\GenericPermissionableEntitiesCollection (", $haystack);
+        $this->assertStringNotContainsString("\t\t\t\t\tVersatileAcl\GenericPermissionableEntitiesCollection (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t{", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t".PHP_EOL, $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t}", $haystack);
         $this->assertStringNotContainsString("\t\t\t\tpermissions:", $haystack);
-        $this->assertStringNotContainsString("\t\t\t\t\tSimpleAcl\GenericPermissionsCollection (", $haystack);
+        $this->assertStringNotContainsString("\t\t\t\t\tVersatileAcl\GenericPermissionsCollection (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t{", $haystack);
-        $this->assertStringNotContainsString("\t\t\t\t\t\titem[0]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringNotContainsString("\t\t\t\t\t\titem[0]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t{", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\taction: `add`", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\tresource: `comment`", $haystack);
@@ -1320,7 +1320,7 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         $this->assertStringNotContainsString("\t\t\t\t\t\t\targsForCallback: array (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\t)", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t}", $haystack);
-        $this->assertStringNotContainsString("\t\t\t\t\t\titem[1]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringNotContainsString("\t\t\t\t\t\titem[1]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t{", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\taction: `edit`", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\tresource: `comment`", $haystack);
@@ -1331,19 +1331,19 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         $this->assertStringNotContainsString("\t\t\t\t\t\t}", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t}", $haystack);
         $this->assertStringNotContainsString("\t\t\t}", $haystack);
-        $this->assertStringNotContainsString("\t\t\titem[1]: SimpleAcl\GenericPermissionableEntity (", $haystack);
+        $this->assertStringNotContainsString("\t\t\titem[1]: VersatileAcl\GenericPermissionableEntity (", $haystack);
         $this->assertStringNotContainsString("\t\t\t{", $haystack);
         $this->assertStringNotContainsString("\t\t\t\tid: `b`", $haystack);
         $this->assertStringNotContainsString("\t\t\t\tparentEntities:", $haystack);
-        $this->assertStringNotContainsString("\t\t\t\t\tSimpleAcl\GenericPermissionableEntitiesCollection (", $haystack);
+        $this->assertStringNotContainsString("\t\t\t\t\tVersatileAcl\GenericPermissionableEntitiesCollection (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t{", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t".PHP_EOL, $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t}", $haystack);
         $this->assertStringNotContainsString("\t\t\t\tpermissions:", $haystack);
-        $this->assertStringNotContainsString("\t\t\t\t\tSimpleAcl\GenericPermissionsCollection (", $haystack);
+        $this->assertStringNotContainsString("\t\t\t\t\tVersatileAcl\GenericPermissionsCollection (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t{", $haystack);
         
-        $this->assertStringNotContainsString("\t\t\t\t\t\titem[0]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringNotContainsString("\t\t\t\t\t\titem[0]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t{", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\taction: `read`", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\tresource: `comment`", $haystack);
@@ -1353,7 +1353,7 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         $this->assertStringNotContainsString("\t\t\t\t\t\t\t)", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t}", $haystack);
         
-        $this->assertStringNotContainsString("\t\t\t\t\t\titem[1]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringNotContainsString("\t\t\t\t\t\titem[1]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t{", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\taction: `delete`", $haystack);
         $this->assertStringNotContainsString("\t\t\t\t\t\t\tresource: `comment`", $haystack);
@@ -1368,10 +1368,10 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         $this->assertStringNotContainsString("\t\t}", $haystack);
         
         $this->assertStringNotContainsString("\tpermissions:", $haystack);
-        $this->assertStringNotContainsString("\t\tSimpleAcl\GenericPermissionsCollection (", $haystack);
+        $this->assertStringNotContainsString("\t\tVersatileAcl\GenericPermissionsCollection (", $haystack);
         $this->assertStringNotContainsString("\t\t{", $haystack);
         
-        $this->assertStringNotContainsString("\t\t\titem[0]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringNotContainsString("\t\t\titem[0]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringNotContainsString("\t\t\t{", $haystack);
         $this->assertStringNotContainsString("\t\t\t\taction: `search`", $haystack);
         $this->assertStringNotContainsString("\t\t\t\tresource: `comment`", $haystack);
@@ -1381,7 +1381,7 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         $this->assertStringNotContainsString("\t\t\t\t)", $haystack);
         $this->assertStringNotContainsString("\t\t\t}", $haystack);
         
-        $this->assertStringNotContainsString("\t\t\titem[1]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringNotContainsString("\t\t\titem[1]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringNotContainsString("\t\t\t{", $haystack);
         $this->assertStringNotContainsString("\t\t\t\taction: `browse-all`", $haystack);
         $this->assertStringNotContainsString("\t\t\t\tresource: `comment`", $haystack);
@@ -1400,17 +1400,17 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         $entityWithDefaultParams = new GenericPermissionableEntity("Z");
         // $entityWithDefaultParams->__toString() will display the following except for 000000003bbac6d6000000000fb066f4 & the likes which will vary:
 /**
-SimpleAcl\GenericPermissionableEntity (000000003bbac6d6000000000fb066f4)
+VersatileAcl\GenericPermissionableEntity (000000003bbac6d6000000000fb066f4)
 {
         id: `z`
         parentEntities:
-                SimpleAcl\GenericPermissionableEntitiesCollection (000000003bbac6d1000000000fb066f4)
+                VersatileAcl\GenericPermissionableEntitiesCollection (000000003bbac6d1000000000fb066f4)
                 {
 
                 }
 
         permissions:
-                SimpleAcl\GenericPermissionsCollection (000000003bbac6d7000000000fb066f4)
+                VersatileAcl\GenericPermissionsCollection (000000003bbac6d7000000000fb066f4)
                 {
 
                 }
@@ -1419,7 +1419,7 @@ SimpleAcl\GenericPermissionableEntity (000000003bbac6d6000000000fb066f4)
 }
 */  
         $haystack = $entityWithDefaultParams->__toString();
-        $this->assertStringContainsString('SimpleAcl\GenericPermissionableEntity (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermissionableEntity (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
@@ -1427,12 +1427,12 @@ SimpleAcl\GenericPermissionableEntity (000000003bbac6d6000000000fb066f4)
         $this->assertStringContainsString("\tid: `z`", $haystack);
         
         $this->assertStringContainsString("\tparentEntities:", $haystack);
-        $this->assertStringContainsString("\t\tSimpleAcl\GenericPermissionableEntitiesCollection (", $haystack);
+        $this->assertStringContainsString("\t\tVersatileAcl\GenericPermissionableEntitiesCollection (", $haystack);
         $this->assertStringContainsString("\t\t{", $haystack);
         $this->assertStringContainsString("\t\t}", $haystack);
         
         $this->assertStringContainsString("\tpermissions:", $haystack);
-        $this->assertStringContainsString("\t\tSimpleAcl\GenericPermissionsCollection (", $haystack);
+        $this->assertStringContainsString("\t\tVersatileAcl\GenericPermissionsCollection (", $haystack);
         $this->assertStringContainsString("\t\t{", $haystack);
         $this->assertStringContainsString("\t\t}", $haystack);
         
@@ -1465,25 +1465,25 @@ SimpleAcl\GenericPermissionableEntity (000000003bbac6d6000000000fb066f4)
         
         // $entityWithInjectedCollections->__toString() will display the following except for 000000007ded34b9000000007f76b4ca & the likes which will vary:
 /**
-SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
+VersatileAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
 {
 	id: `d`
 	parentEntities: 
-		SimpleAcl\GenericPermissionableEntitiesCollection (000000007ded34a1000000007f76b4ca)
+		VersatileAcl\GenericPermissionableEntitiesCollection (000000007ded34a1000000007f76b4ca)
 		{
-			item[0]: SimpleAcl\GenericPermissionableEntity (000000007ded34a0000000007f76b4ca)
+			item[0]: VersatileAcl\GenericPermissionableEntity (000000007ded34a0000000007f76b4ca)
 			{
 				id: `a`
 				parentEntities: 
-					SimpleAcl\GenericPermissionableEntitiesCollection (000000007ded34a3000000007f76b4ca)
+					VersatileAcl\GenericPermissionableEntitiesCollection (000000007ded34a3000000007f76b4ca)
 					{
 					
 					}
 					
 				permissions: 
-					SimpleAcl\GenericPermissionsCollection (000000007ded34aa000000007f76b4ca)
+					VersatileAcl\GenericPermissionsCollection (000000007ded34aa000000007f76b4ca)
 					{
-						item[0]: SimpleAcl\GenericPermission (000000007ded34ab000000007f76b4ca)
+						item[0]: VersatileAcl\GenericPermission (000000007ded34ab000000007f76b4ca)
 						{
 							action: `add`
 							resource: `comment`
@@ -1494,7 +1494,7 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
 						
 						}
 						
-						item[1]: SimpleAcl\GenericPermission (000000007ded34ad000000007f76b4ca)
+						item[1]: VersatileAcl\GenericPermission (000000007ded34ad000000007f76b4ca)
 						{
 							action: `edit`
 							resource: `comment`
@@ -1511,19 +1511,19 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
 			
 			}
 			
-			item[1]: SimpleAcl\GenericPermissionableEntity (000000007ded34a2000000007f76b4ca)
+			item[1]: VersatileAcl\GenericPermissionableEntity (000000007ded34a2000000007f76b4ca)
 			{
 				id: `b`
 				parentEntities: 
-					SimpleAcl\GenericPermissionableEntitiesCollection (000000007ded34a5000000007f76b4ca)
+					VersatileAcl\GenericPermissionableEntitiesCollection (000000007ded34a5000000007f76b4ca)
 					{
 					
 					}
 					
 				permissions: 
-					SimpleAcl\GenericPermissionsCollection (000000007ded34ac000000007f76b4ca)
+					VersatileAcl\GenericPermissionsCollection (000000007ded34ac000000007f76b4ca)
 					{
-						item[0]: SimpleAcl\GenericPermission (000000007ded34af000000007f76b4ca)
+						item[0]: VersatileAcl\GenericPermission (000000007ded34af000000007f76b4ca)
 						{
 							action: `read`
 							resource: `comment`
@@ -1534,7 +1534,7 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
 						
 						}
 						
-						item[1]: SimpleAcl\GenericPermission (000000007ded34ae000000007f76b4ca)
+						item[1]: VersatileAcl\GenericPermission (000000007ded34ae000000007f76b4ca)
 						{
 							action: `delete`
 							resource: `comment`
@@ -1555,9 +1555,9 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
 		}
 		
 	permissions: 
-		SimpleAcl\GenericPermissionsCollection (000000007ded34a4000000007f76b4ca)
+		VersatileAcl\GenericPermissionsCollection (000000007ded34a4000000007f76b4ca)
 		{
-			item[0]: SimpleAcl\GenericPermission (000000007ded34a7000000007f76b4ca)
+			item[0]: VersatileAcl\GenericPermission (000000007ded34a7000000007f76b4ca)
 			{
 				action: `search`
 				resource: `comment`
@@ -1568,7 +1568,7 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
 			
 			}
 			
-			item[1]: SimpleAcl\GenericPermission (000000007ded34a6000000007f76b4ca)
+			item[1]: VersatileAcl\GenericPermission (000000007ded34a6000000007f76b4ca)
 			{
 				action: `browse-all`
 				resource: `comment`
@@ -1586,27 +1586,27 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
 }
 */
         $haystack = $entityWithInjectedCollections->__toString();
-        $this->assertStringContainsString('SimpleAcl\GenericPermissionableEntity (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermissionableEntity (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
         
         $this->assertStringContainsString("\tid: `d`", $haystack);
         $this->assertStringContainsString("\tparentEntities:", $haystack);
-        $this->assertStringContainsString("\t\tSimpleAcl\GenericPermissionableEntitiesCollection (", $haystack);
+        $this->assertStringContainsString("\t\tVersatileAcl\GenericPermissionableEntitiesCollection (", $haystack);
         $this->assertStringContainsString("\t\t{", $haystack);
-        $this->assertStringContainsString("\t\t\titem[0]: SimpleAcl\GenericPermissionableEntity (", $haystack);
+        $this->assertStringContainsString("\t\t\titem[0]: VersatileAcl\GenericPermissionableEntity (", $haystack);
         $this->assertStringContainsString("\t\t\t{", $haystack);
         $this->assertStringContainsString("\t\t\t\tid: `a`", $haystack);
         $this->assertStringContainsString("\t\t\t\tparentEntities:", $haystack);
-        $this->assertStringContainsString("\t\t\t\t\tSimpleAcl\GenericPermissionableEntitiesCollection (", $haystack);
+        $this->assertStringContainsString("\t\t\t\t\tVersatileAcl\GenericPermissionableEntitiesCollection (", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t{", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t".PHP_EOL, $haystack);
         $this->assertStringContainsString("\t\t\t\t\t}", $haystack);
         $this->assertStringContainsString("\t\t\t\tpermissions:", $haystack);
-        $this->assertStringContainsString("\t\t\t\t\tSimpleAcl\GenericPermissionsCollection (", $haystack);
+        $this->assertStringContainsString("\t\t\t\t\tVersatileAcl\GenericPermissionsCollection (", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t{", $haystack);
-        $this->assertStringContainsString("\t\t\t\t\t\titem[0]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringContainsString("\t\t\t\t\t\titem[0]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t{", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t\taction: `add`", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t\tresource: `comment`", $haystack);
@@ -1615,7 +1615,7 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         $this->assertStringContainsString("\t\t\t\t\t\t\targsForCallback: array (", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t\t)", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t}", $haystack);
-        $this->assertStringContainsString("\t\t\t\t\t\titem[1]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringContainsString("\t\t\t\t\t\titem[1]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t{", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t\taction: `edit`", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t\tresource: `comment`", $haystack);
@@ -1626,19 +1626,19 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         $this->assertStringContainsString("\t\t\t\t\t\t}", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t}", $haystack);
         $this->assertStringContainsString("\t\t\t}", $haystack);
-        $this->assertStringContainsString("\t\t\titem[1]: SimpleAcl\GenericPermissionableEntity (", $haystack);
+        $this->assertStringContainsString("\t\t\titem[1]: VersatileAcl\GenericPermissionableEntity (", $haystack);
         $this->assertStringContainsString("\t\t\t{", $haystack);
         $this->assertStringContainsString("\t\t\t\tid: `b`", $haystack);
         $this->assertStringContainsString("\t\t\t\tparentEntities:", $haystack);
-        $this->assertStringContainsString("\t\t\t\t\tSimpleAcl\GenericPermissionableEntitiesCollection (", $haystack);
+        $this->assertStringContainsString("\t\t\t\t\tVersatileAcl\GenericPermissionableEntitiesCollection (", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t{", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t".PHP_EOL, $haystack);
         $this->assertStringContainsString("\t\t\t\t\t}", $haystack);
         $this->assertStringContainsString("\t\t\t\tpermissions:", $haystack);
-        $this->assertStringContainsString("\t\t\t\t\tSimpleAcl\GenericPermissionsCollection (", $haystack);
+        $this->assertStringContainsString("\t\t\t\t\tVersatileAcl\GenericPermissionsCollection (", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t{", $haystack);
         
-        $this->assertStringContainsString("\t\t\t\t\t\titem[0]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringContainsString("\t\t\t\t\t\titem[0]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t{", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t\taction: `read`", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t\tresource: `comment`", $haystack);
@@ -1648,7 +1648,7 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         $this->assertStringContainsString("\t\t\t\t\t\t\t)", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t}", $haystack);
         
-        $this->assertStringContainsString("\t\t\t\t\t\titem[1]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringContainsString("\t\t\t\t\t\titem[1]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t{", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t\taction: `delete`", $haystack);
         $this->assertStringContainsString("\t\t\t\t\t\t\tresource: `comment`", $haystack);
@@ -1663,10 +1663,10 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         $this->assertStringContainsString("\t\t}", $haystack);
         
         $this->assertStringContainsString("\tpermissions:", $haystack);
-        $this->assertStringContainsString("\t\tSimpleAcl\GenericPermissionsCollection (", $haystack);
+        $this->assertStringContainsString("\t\tVersatileAcl\GenericPermissionsCollection (", $haystack);
         $this->assertStringContainsString("\t\t{", $haystack);
         
-        $this->assertStringContainsString("\t\t\titem[0]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringContainsString("\t\t\titem[0]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringContainsString("\t\t\t{", $haystack);
         $this->assertStringContainsString("\t\t\t\taction: `search`", $haystack);
         $this->assertStringContainsString("\t\t\t\tresource: `comment`", $haystack);
@@ -1676,7 +1676,7 @@ SimpleAcl\GenericPermissionableEntity (000000007ded34b9000000007f76b4ca)
         $this->assertStringContainsString("\t\t\t\t)", $haystack);
         $this->assertStringContainsString("\t\t\t}", $haystack);
         
-        $this->assertStringContainsString("\t\t\titem[1]: SimpleAcl\GenericPermission (", $haystack);
+        $this->assertStringContainsString("\t\t\titem[1]: VersatileAcl\GenericPermission (", $haystack);
         $this->assertStringContainsString("\t\t\t{", $haystack);
         $this->assertStringContainsString("\t\t\t\taction: `browse-all`", $haystack);
         $this->assertStringContainsString("\t\t\t\tresource: `comment`", $haystack);

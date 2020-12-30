@@ -2,9 +2,9 @@
 /** @noinspection PhpFullyQualifiedNameUsageInspection */
 declare(strict_types=1);
 
-use \SimpleAcl\Interfaces\PermissionsCollectionInterface;
-use \SimpleAcl\GenericPermission;
-use \SimpleAcl\GenericPermissionsCollection;
+use \VersatileAcl\Interfaces\PermissionsCollectionInterface;
+use \VersatileAcl\GenericPermission;
+use \VersatileAcl\GenericPermissionsCollection;
 
 /**
  * Description of GenericPermissionTest
@@ -315,7 +315,7 @@ class GenericPermissionTest extends \PHPUnit\Framework\TestCase {
         
         //$permissionAllDefaults->dump(); // should generate output below (000000007e431f63000000003db97236 will be different though)
 /**        
-SimpleAcl\GenericPermission (000000007e431f63000000003db97236)
+VersatileAcl\GenericPermission (000000007e431f63000000003db97236)
 {
         action: `action-a`
         resource: `resource-a`
@@ -327,7 +327,7 @@ SimpleAcl\GenericPermission (000000007e431f63000000003db97236)
 }
 */
         $haystack = $permissionAllDefaults->dump();
-        $this->assertStringContainsString('SimpleAcl\GenericPermission (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermission (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
@@ -403,7 +403,7 @@ SimpleAcl\GenericPermission (000000007e431f63000000003db97236)
         
         //$permissionTruthyRestDefault->dump(); // should generate output below (0000000066367b3e000000006ec99fdf will be different though)
 /**        
-SimpleAcl\GenericPermission (0000000066367b3e000000006ec99fdf)
+VersatileAcl\GenericPermission (0000000066367b3e000000006ec99fdf)
 {
         action: `action-a`
         resource: `resource-a`
@@ -415,7 +415,7 @@ SimpleAcl\GenericPermission (0000000066367b3e000000006ec99fdf)
 }
 */
         $haystack = $permissionTruthyRestDefault->dump();
-        $this->assertStringContainsString('SimpleAcl\GenericPermission (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermission (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
@@ -428,7 +428,7 @@ SimpleAcl\GenericPermission (0000000066367b3e000000006ec99fdf)
         
         //$permissionFalsyRestDefault->dump(); // should generate output below (0000000066367b3e000000006ec99fdf will be different though)
 /**        
-SimpleAcl\GenericPermission (0000000066367b3e000000006ec99fdf)
+VersatileAcl\GenericPermission (0000000066367b3e000000006ec99fdf)
 {
         action: `action-a`
         resource: `resource-a`
@@ -440,7 +440,7 @@ SimpleAcl\GenericPermission (0000000066367b3e000000006ec99fdf)
 }
 */
         $haystack = $permissionFalsyRestDefault->dump();
-        $this->assertStringContainsString('SimpleAcl\GenericPermission (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermission (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
@@ -453,7 +453,7 @@ SimpleAcl\GenericPermission (0000000066367b3e000000006ec99fdf)
        
         //$permissionTruthyAndArglessCallbackRestDefault->dump(); // should generate output below (0000000010c6e6c2000000002e73da65 will be different though)
 /**
-SimpleAcl\GenericPermission (0000000010c6e6c2000000002e73da65)
+VersatileAcl\GenericPermission (0000000010c6e6c2000000002e73da65)
 {
         action: `action-a`
         resource: `resource-a`
@@ -466,7 +466,7 @@ SimpleAcl\GenericPermission (0000000010c6e6c2000000002e73da65)
 }
 */
         $haystack = $permissionTruthyAndArglessCallbackRestDefault->dump();
-        $this->assertStringContainsString('SimpleAcl\GenericPermission (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermission (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
@@ -480,7 +480,7 @@ SimpleAcl\GenericPermission (0000000010c6e6c2000000002e73da65)
         
     //$permissionTruthyAndOneArgedFalsyCallback->dump(); // should generate output below (0000000078ef9ee800000000588db454 will be different though)
 /**
-SimpleAcl\GenericPermission (0000000078ef9ee800000000588db454)
+VersatileAcl\GenericPermission (0000000078ef9ee800000000588db454)
 {
         action: `action-a`
         resource: `resource-a`
@@ -494,7 +494,7 @@ SimpleAcl\GenericPermission (0000000078ef9ee800000000588db454)
 }
 */
         $haystack = $permissionTruthyAndOneArgedFalsyCallback->dump();
-        $this->assertStringContainsString('SimpleAcl\GenericPermission (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermission (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
@@ -509,7 +509,7 @@ SimpleAcl\GenericPermission (0000000078ef9ee800000000588db454)
         
     //$permissionTruthyAndOneArgedTruthyCallback->dump(); // should generate output below (0000000078ef9ee800000000588db454 will be different though)
 /**
-SimpleAcl\GenericPermission (0000000078ef9ee800000000588db454)
+VersatileAcl\GenericPermission (0000000078ef9ee800000000588db454)
 {
         action: `action-a`
         resource: `resource-a`
@@ -523,7 +523,7 @@ SimpleAcl\GenericPermission (0000000078ef9ee800000000588db454)
 }
 */
         $haystack = $permissionTruthyAndOneArgedTruthyCallback->dump();
-        $this->assertStringContainsString('SimpleAcl\GenericPermission (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermission (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
@@ -538,7 +538,7 @@ SimpleAcl\GenericPermission (0000000078ef9ee800000000588db454)
         
     //$permissionTruthyAndThreeArgedFalsyCallback->dump(); // should generate output below (0000000030c2abd70000000053ea6caf will be different though)
 /**
-SimpleAcl\GenericPermission (0000000030c2abd70000000053ea6caf)
+VersatileAcl\GenericPermission (0000000030c2abd70000000053ea6caf)
 {
         action: `action-a`
         resource: `resource-a`
@@ -553,7 +553,7 @@ SimpleAcl\GenericPermission (0000000030c2abd70000000053ea6caf)
 }
 */
         $haystack = $permissionTruthyAndThreeArgedFalsyCallback->dump();
-        $this->assertStringContainsString('SimpleAcl\GenericPermission (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermission (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
@@ -570,7 +570,7 @@ SimpleAcl\GenericPermission (0000000030c2abd70000000053ea6caf)
         
     //$permissionTruthyAndThreeArgedTruthyCallback->dump(); // should generate output below (0000000030c2abd70000000053ea6caf will be different though)
 /**
-SimpleAcl\GenericPermission (0000000030c2abd70000000053ea6caf)
+VersatileAcl\GenericPermission (0000000030c2abd70000000053ea6caf)
 {
         action: `action-a`
         resource: `resource-a`
@@ -585,7 +585,7 @@ SimpleAcl\GenericPermission (0000000030c2abd70000000053ea6caf)
 }
 */
         $haystack = $permissionTruthyAndThreeArgedTruthyCallback->dump();
-        $this->assertStringContainsString('SimpleAcl\GenericPermission (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermission (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
@@ -626,7 +626,7 @@ SimpleAcl\GenericPermission (0000000030c2abd70000000053ea6caf)
         
         //$permissionAllDefaults->__toString(); // should generate output below (000000007e431f63000000003db97236 will be different though)
 /**        
-SimpleAcl\GenericPermission (000000007e431f63000000003db97236)
+VersatileAcl\GenericPermission (000000007e431f63000000003db97236)
 {
         action: `action-a`
         resource: `resource-a`
@@ -638,7 +638,7 @@ SimpleAcl\GenericPermission (000000007e431f63000000003db97236)
 }
 */
         $haystack = $permissionAllDefaults->__toString();
-        $this->assertStringContainsString('SimpleAcl\GenericPermission (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermission (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
@@ -651,7 +651,7 @@ SimpleAcl\GenericPermission (000000007e431f63000000003db97236)
 
         //$permissionTruthyRestDefault->__toString(); // should generate output below (0000000066367b3e000000006ec99fdf will be different though)
 /**        
-SimpleAcl\GenericPermission (0000000066367b3e000000006ec99fdf)
+VersatileAcl\GenericPermission (0000000066367b3e000000006ec99fdf)
 {
         action: `action-a`
         resource: `resource-a`
@@ -663,7 +663,7 @@ SimpleAcl\GenericPermission (0000000066367b3e000000006ec99fdf)
 }
 */
         $haystack = $permissionTruthyRestDefault->__toString();
-        $this->assertStringContainsString('SimpleAcl\GenericPermission (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermission (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
@@ -676,7 +676,7 @@ SimpleAcl\GenericPermission (0000000066367b3e000000006ec99fdf)
         
         //$permissionFalsyRestDefault->__toString(); // should generate output below (0000000066367b3e000000006ec99fdf will be different though)
 /**        
-SimpleAcl\GenericPermission (0000000066367b3e000000006ec99fdf)
+VersatileAcl\GenericPermission (0000000066367b3e000000006ec99fdf)
 {
         action: `action-a`
         resource: `resource-a`
@@ -688,7 +688,7 @@ SimpleAcl\GenericPermission (0000000066367b3e000000006ec99fdf)
 }
 */
         $haystack = $permissionFalsyRestDefault->__toString();
-        $this->assertStringContainsString('SimpleAcl\GenericPermission (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermission (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
@@ -701,7 +701,7 @@ SimpleAcl\GenericPermission (0000000066367b3e000000006ec99fdf)
        
         //$permissionTruthyAndArglessCallbackRestDefault->__toString(); // should generate output below (0000000010c6e6c2000000002e73da65 will be different though)
 /**
-SimpleAcl\GenericPermission (0000000010c6e6c2000000002e73da65)
+VersatileAcl\GenericPermission (0000000010c6e6c2000000002e73da65)
 {
         action: `action-a`
         resource: `resource-a`
@@ -714,7 +714,7 @@ SimpleAcl\GenericPermission (0000000010c6e6c2000000002e73da65)
 }
 */
         $haystack = $permissionTruthyAndArglessCallbackRestDefault->__toString();
-        $this->assertStringContainsString('SimpleAcl\GenericPermission (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermission (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
@@ -728,7 +728,7 @@ SimpleAcl\GenericPermission (0000000010c6e6c2000000002e73da65)
         
     //$permissionTruthyAndOneArgedFalsyCallback->__toString(); // should generate output below (0000000078ef9ee800000000588db454 will be different though)
 /**
-SimpleAcl\GenericPermission (0000000078ef9ee800000000588db454)
+VersatileAcl\GenericPermission (0000000078ef9ee800000000588db454)
 {
         action: `action-a`
         resource: `resource-a`
@@ -742,7 +742,7 @@ SimpleAcl\GenericPermission (0000000078ef9ee800000000588db454)
 }
 */
         $haystack = $permissionTruthyAndOneArgedFalsyCallback->__toString();
-        $this->assertStringContainsString('SimpleAcl\GenericPermission (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermission (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
@@ -757,7 +757,7 @@ SimpleAcl\GenericPermission (0000000078ef9ee800000000588db454)
         
     //$permissionTruthyAndOneArgedTruthyCallback->__toString(); // should generate output below (0000000078ef9ee800000000588db454 will be different though)
 /**
-SimpleAcl\GenericPermission (0000000078ef9ee800000000588db454)
+VersatileAcl\GenericPermission (0000000078ef9ee800000000588db454)
 {
         action: `action-a`
         resource: `resource-a`
@@ -771,7 +771,7 @@ SimpleAcl\GenericPermission (0000000078ef9ee800000000588db454)
 }
 */
         $haystack = $permissionTruthyAndOneArgedTruthyCallback->__toString();
-        $this->assertStringContainsString('SimpleAcl\GenericPermission (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermission (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
@@ -786,7 +786,7 @@ SimpleAcl\GenericPermission (0000000078ef9ee800000000588db454)
         
     //$permissionTruthyAndThreeArgedFalsyCallback->__toString(); // should generate output below (0000000030c2abd70000000053ea6caf will be different though)
 /**
-SimpleAcl\GenericPermission (0000000030c2abd70000000053ea6caf)
+VersatileAcl\GenericPermission (0000000030c2abd70000000053ea6caf)
 {
         action: `action-a`
         resource: `resource-a`
@@ -801,7 +801,7 @@ SimpleAcl\GenericPermission (0000000030c2abd70000000053ea6caf)
 }
 */
         $haystack = $permissionTruthyAndThreeArgedFalsyCallback->__toString();
-        $this->assertStringContainsString('SimpleAcl\GenericPermission (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermission (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
@@ -818,7 +818,7 @@ SimpleAcl\GenericPermission (0000000030c2abd70000000053ea6caf)
         
     //$permissionTruthyAndThreeArgedTruthyCallback->__toString(); // should generate output below (0000000030c2abd70000000053ea6caf will be different though)
 /**
-SimpleAcl\GenericPermission (0000000030c2abd70000000053ea6caf)
+VersatileAcl\GenericPermission (0000000030c2abd70000000053ea6caf)
 {
         action: `action-a`
         resource: `resource-a`
@@ -833,7 +833,7 @@ SimpleAcl\GenericPermission (0000000030c2abd70000000053ea6caf)
 }
 */
         $haystack = $permissionTruthyAndThreeArgedTruthyCallback->__toString();
-        $this->assertStringContainsString('SimpleAcl\GenericPermission (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermission (', $haystack);
         
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);

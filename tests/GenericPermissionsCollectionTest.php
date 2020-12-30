@@ -2,9 +2,9 @@
 /** @noinspection PhpFullyQualifiedNameUsageInspection */
 declare(strict_types=1);
 
-use \SimpleAcl\GenericPermission;
-use \SimpleAcl\GenericPermissionsCollection;
-use \SimpleAcl\Interfaces\PermissionInterface;
+use \VersatileAcl\GenericPermission;
+use \VersatileAcl\GenericPermissionsCollection;
+use \VersatileAcl\Interfaces\PermissionInterface;
 
 /**
  * Description of GenericPermissionsCollectionTest
@@ -736,7 +736,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
     
     /////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////
-    // Test methods inherited from \SimpleAcl\GenericBaseCollection
+    // Test methods inherited from \VersatileAcl\GenericBaseCollection
     /////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////
     public function testGetIteratorWorksAsExpected() {
@@ -898,7 +898,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $perm3 = new GenericPermission('action-c', 'resource-c', false, $callbackTrueNoArg);
         
         $haystack = $collection->dump();
-        $this->assertStringContainsString('SimpleAcl\GenericPermissionsCollection (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermissionsCollection (', $haystack);
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
         
@@ -909,7 +909,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $haystack1 = $collection->dump();
         $this->assertStringContainsString('{', $haystack1);
        
-        $this->assertStringContainsString("\titem[0]: SimpleAcl\GenericPermission (", $haystack1);
+        $this->assertStringContainsString("\titem[0]: VersatileAcl\GenericPermission (", $haystack1);
         $this->assertStringContainsString("\t{", $haystack1);
         $this->assertStringContainsString("\t\taction: `action-a`", $haystack1);
         $this->assertStringContainsString("\t\tresource: `resource-a`", $haystack1);
@@ -919,7 +919,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertStringContainsString("\t\t)", $haystack1);
         $this->assertStringContainsString("\t}", $haystack1);
        
-        $this->assertStringContainsString("\titem[1]: SimpleAcl\GenericPermission (", $haystack1);
+        $this->assertStringContainsString("\titem[1]: VersatileAcl\GenericPermission (", $haystack1);
         $this->assertStringContainsString("\t{", $haystack1);
         $this->assertStringContainsString("\t\taction: `action-b`", $haystack1);
         $this->assertStringContainsString("\t\tresource: `resource-b`", $haystack1);
@@ -933,7 +933,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertStringContainsString("\t\t)", $haystack1);
         $this->assertStringContainsString("\t}", $haystack1);
        
-        $this->assertStringContainsString("\titem[2]: SimpleAcl\GenericPermission (", $haystack1);
+        $this->assertStringContainsString("\titem[2]: VersatileAcl\GenericPermission (", $haystack1);
         $this->assertStringContainsString("\t{", $haystack1);
         $this->assertStringContainsString("\t\taction: `action-c`", $haystack1);
         $this->assertStringContainsString("\t\tresource: `resource-c`", $haystack1);
@@ -954,7 +954,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertStringContainsString('{', $haystack2);
         $this->assertStringContainsString('}', $haystack2);
         
-        $this->assertStringNotContainsString("\titem[0]: SimpleAcl\GenericPermission (", $haystack2);
+        $this->assertStringNotContainsString("\titem[0]: VersatileAcl\GenericPermission (", $haystack2);
         $this->assertStringNotContainsString("\t{", $haystack2);
         $this->assertStringNotContainsString("\t\taction: `action-a`", $haystack2);
         $this->assertStringNotContainsString("\t\tresource: `resource-a`", $haystack2);
@@ -964,7 +964,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertStringNotContainsString("\t\t)", $haystack2);
         $this->assertStringNotContainsString("\t}", $haystack2);
        
-        $this->assertStringNotContainsString("\titem[1]: SimpleAcl\GenericPermission (", $haystack2);
+        $this->assertStringNotContainsString("\titem[1]: VersatileAcl\GenericPermission (", $haystack2);
         $this->assertStringNotContainsString("\t{", $haystack2);
         $this->assertStringNotContainsString("\t\taction: `action-b`", $haystack2);
         $this->assertStringNotContainsString("\t\tresource: `resource-b`", $haystack2);
@@ -978,7 +978,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertStringNotContainsString("\t\t)", $haystack2);
         $this->assertStringNotContainsString("\t}", $haystack2);
        
-        $this->assertStringNotContainsString("\titem[2]: SimpleAcl\GenericPermission (", $haystack2);
+        $this->assertStringNotContainsString("\titem[2]: VersatileAcl\GenericPermission (", $haystack2);
         $this->assertStringNotContainsString("\t{", $haystack2);
         $this->assertStringNotContainsString("\t\taction: `action-c`", $haystack2);
         $this->assertStringNotContainsString("\t\tresource: `resource-c`", $haystack2);
@@ -1005,7 +1005,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $perm3 = new GenericPermission('action-c', 'resource-c', false, $callbackTrueNoArg);
         
         $haystack = $collection->__toString();
-        $this->assertStringContainsString('SimpleAcl\GenericPermissionsCollection (', $haystack);
+        $this->assertStringContainsString('VersatileAcl\GenericPermissionsCollection (', $haystack);
         $this->assertStringContainsString('{', $haystack);
         $this->assertStringContainsString('}', $haystack);
         
@@ -1016,7 +1016,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $haystack1 = $collection->__toString();
         $this->assertStringContainsString('{', $haystack1);
        
-        $this->assertStringContainsString("\titem[0]: SimpleAcl\GenericPermission (", $haystack1);
+        $this->assertStringContainsString("\titem[0]: VersatileAcl\GenericPermission (", $haystack1);
         $this->assertStringContainsString("\t{", $haystack1);
         $this->assertStringContainsString("\t\taction: `action-a`", $haystack1);
         $this->assertStringContainsString("\t\tresource: `resource-a`", $haystack1);
@@ -1026,7 +1026,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertStringContainsString("\t\t)", $haystack1);
         $this->assertStringContainsString("\t}", $haystack1);
        
-        $this->assertStringContainsString("\titem[1]: SimpleAcl\GenericPermission (", $haystack1);
+        $this->assertStringContainsString("\titem[1]: VersatileAcl\GenericPermission (", $haystack1);
         $this->assertStringContainsString("\t{", $haystack1);
         $this->assertStringContainsString("\t\taction: `action-b`", $haystack1);
         $this->assertStringContainsString("\t\tresource: `resource-b`", $haystack1);
@@ -1040,7 +1040,7 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertStringContainsString("\t\t)", $haystack1);
         $this->assertStringContainsString("\t}", $haystack1);
        
-        $this->assertStringContainsString("\titem[2]: SimpleAcl\GenericPermission (", $haystack1);
+        $this->assertStringContainsString("\titem[2]: VersatileAcl\GenericPermission (", $haystack1);
         $this->assertStringContainsString("\t{", $haystack1);
         $this->assertStringContainsString("\t\taction: `action-c`", $haystack1);
         $this->assertStringContainsString("\t\tresource: `resource-c`", $haystack1);

@@ -2,9 +2,9 @@
 /** @noinspection PhpFullyQualifiedNameUsageInspection */
 declare(strict_types=1);
 
-use \SimpleAcl\GenericPermissionableEntity;
-use \SimpleAcl\GenericPermissionableEntitiesCollection;
-use \SimpleAcl\Interfaces\PermissionableEntityInterface;
+use \VersatileAcl\GenericPermissionableEntity;
+use \VersatileAcl\GenericPermissionableEntitiesCollection;
+use \VersatileAcl\Interfaces\PermissionableEntityInterface;
 
 /**
  * Description of GenericBaseCollectionTest
@@ -290,7 +290,7 @@ class GenericPermissionableEntitiesCollectionTest extends \PHPUnit\Framework\Tes
     
     /////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////
-    // Test methods inherited from \SimpleAcl\GenericBaseCollection
+    // Test methods inherited from \VersatileAcl\GenericBaseCollection
     /////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////
     public function testGetIteratorWorksAsExpected() {
@@ -426,23 +426,23 @@ class GenericPermissionableEntitiesCollectionTest extends \PHPUnit\Framework\Tes
         $haystack1 = $collection->dump();
         $this->assertStringContainsString('{', $haystack1);
         
-        $this->assertStringContainsString("\titem[0]: SimpleAcl\GenericPermissionableEntity (", $haystack1);
+        $this->assertStringContainsString("\titem[0]: VersatileAcl\GenericPermissionableEntity (", $haystack1);
         $this->assertStringContainsString("\t{", $haystack1);
         $this->assertStringContainsString("\t\tid: `one`", $haystack1);
         $this->assertStringContainsString("\t\tparentEntities:", $haystack1);
-        $this->assertStringContainsString("\t\t\tSimpleAcl\GenericPermissionableEntitiesCollection (", $haystack1);
+        $this->assertStringContainsString("\t\t\tVersatileAcl\GenericPermissionableEntitiesCollection (", $haystack1);
         $this->assertStringContainsString("\t\t\t{", $haystack1);
         $this->assertStringContainsString("\t\t\t}", $haystack1);
         $this->assertStringContainsString("\t\tpermissions:", $haystack1);
-        $this->assertStringContainsString("\t\t\tSimpleAcl\GenericPermissionsCollection (", $haystack1);
+        $this->assertStringContainsString("\t\t\tVersatileAcl\GenericPermissionsCollection (", $haystack1);
         $this->assertStringContainsString("\t\t\t{", $haystack1);
         $this->assertStringContainsString("\t\t\t}", $haystack1);
         $this->assertStringContainsString("\t}", $haystack1);
         
-        $this->assertStringContainsString("\titem[1]: SimpleAcl\GenericPermissionableEntity (", $haystack1);
+        $this->assertStringContainsString("\titem[1]: VersatileAcl\GenericPermissionableEntity (", $haystack1);
         $this->assertStringContainsString("\t\tid: `two`", $haystack1);
         
-        $this->assertStringContainsString("\titem[2]: SimpleAcl\GenericPermissionableEntity (", $haystack1);
+        $this->assertStringContainsString("\titem[2]: VersatileAcl\GenericPermissionableEntity (", $haystack1);
         $this->assertStringContainsString("\t\tid: `three`", $haystack1);
         
         $this->assertStringContainsString('}', $haystack1);
@@ -455,23 +455,23 @@ class GenericPermissionableEntitiesCollectionTest extends \PHPUnit\Framework\Tes
         $this->assertStringContainsString('{', $haystack2);
         $this->assertStringContainsString('}', $haystack2);
         
-        $this->assertStringNotContainsString("\titem[0]: SimpleAcl\GenericPermissionableEntity (", $haystack2);
+        $this->assertStringNotContainsString("\titem[0]: VersatileAcl\GenericPermissionableEntity (", $haystack2);
         $this->assertStringNotContainsString("\t{", $haystack2);
         $this->assertStringNotContainsString("\t\tid: `one`", $haystack2);
         $this->assertStringNotContainsString("\t\tparentEntities:", $haystack2);
-        $this->assertStringNotContainsString("\t\t\tSimpleAcl\GenericPermissionableEntitiesCollection (", $haystack2);
+        $this->assertStringNotContainsString("\t\t\tVersatileAcl\GenericPermissionableEntitiesCollection (", $haystack2);
         $this->assertStringNotContainsString("\t\t\t{", $haystack2);
         $this->assertStringNotContainsString("\t\t\t}", $haystack2);
         $this->assertStringNotContainsString("\t\tpermissions:", $haystack2);
-        $this->assertStringNotContainsString("\t\t\tSimpleAcl\GenericPermissionsCollection (", $haystack2);
+        $this->assertStringNotContainsString("\t\t\tVersatileAcl\GenericPermissionsCollection (", $haystack2);
         $this->assertStringNotContainsString("\t\t\t{", $haystack2);
         $this->assertStringNotContainsString("\t\t\t}", $haystack2);
         $this->assertStringNotContainsString("\t}", $haystack2);
         
-        $this->assertStringNotContainsString("\titem[1]: SimpleAcl\GenericPermissionableEntity (", $haystack2);
+        $this->assertStringNotContainsString("\titem[1]: VersatileAcl\GenericPermissionableEntity (", $haystack2);
         $this->assertStringNotContainsString("\t\tid: `two`", $haystack2);
         
-        $this->assertStringNotContainsString("\titem[2]: SimpleAcl\GenericPermissionableEntity (", $haystack2);
+        $this->assertStringNotContainsString("\titem[2]: VersatileAcl\GenericPermissionableEntity (", $haystack2);
         $this->assertStringNotContainsString("\t\tid: `three`", $haystack2);
     }
 
@@ -494,23 +494,23 @@ class GenericPermissionableEntitiesCollectionTest extends \PHPUnit\Framework\Tes
         $haystack1 = $collection->__toString();
         $this->assertStringContainsString('{', $haystack1);
         
-        $this->assertStringContainsString("\titem[0]: SimpleAcl\GenericPermissionableEntity (", $haystack1);
+        $this->assertStringContainsString("\titem[0]: VersatileAcl\GenericPermissionableEntity (", $haystack1);
         $this->assertStringContainsString("\t{", $haystack1);
         $this->assertStringContainsString("\t\tid: `one`", $haystack1);
         $this->assertStringContainsString("\t\tparentEntities:", $haystack1);
-        $this->assertStringContainsString("\t\t\tSimpleAcl\GenericPermissionableEntitiesCollection (", $haystack1);
+        $this->assertStringContainsString("\t\t\tVersatileAcl\GenericPermissionableEntitiesCollection (", $haystack1);
         $this->assertStringContainsString("\t\t\t{", $haystack1);
         $this->assertStringContainsString("\t\t\t}", $haystack1);
         $this->assertStringContainsString("\t\tpermissions:", $haystack1);
-        $this->assertStringContainsString("\t\t\tSimpleAcl\GenericPermissionsCollection (", $haystack1);
+        $this->assertStringContainsString("\t\t\tVersatileAcl\GenericPermissionsCollection (", $haystack1);
         $this->assertStringContainsString("\t\t\t{", $haystack1);
         $this->assertStringContainsString("\t\t\t}", $haystack1);
         $this->assertStringContainsString("\t}", $haystack1);
         
-        $this->assertStringContainsString("\titem[1]: SimpleAcl\GenericPermissionableEntity (", $haystack1);
+        $this->assertStringContainsString("\titem[1]: VersatileAcl\GenericPermissionableEntity (", $haystack1);
         $this->assertStringContainsString("\t\tid: `two`", $haystack1);
         
-        $this->assertStringContainsString("\titem[2]: SimpleAcl\GenericPermissionableEntity (", $haystack1);
+        $this->assertStringContainsString("\titem[2]: VersatileAcl\GenericPermissionableEntity (", $haystack1);
         $this->assertStringContainsString("\t\tid: `three`", $haystack1);
         
         $this->assertStringContainsString('}', $haystack1);

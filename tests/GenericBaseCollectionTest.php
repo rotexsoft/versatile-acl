@@ -2,7 +2,7 @@
 /** @noinspection PhpFullyQualifiedNameUsageInspection */
 declare(strict_types=1);
 
-use \SimpleAcl\GenericBaseCollection;
+use \VersatileAcl\GenericBaseCollection;
 
 /**
  * Description of GenericBaseCollectionTest

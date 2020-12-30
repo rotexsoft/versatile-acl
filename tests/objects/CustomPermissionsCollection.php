@@ -1,9 +1,9 @@
 <?php /** @noinspection PhpIllegalPsrClassPathInspection */
 
-use SimpleAcl\Utils;
-use SimpleAcl\GenericBaseCollection;
-use SimpleAcl\Interfaces\PermissionInterface;
-use SimpleAcl\Interfaces\PermissionsCollectionInterface;
+use VersatileAcl\Utils;
+use VersatileAcl\GenericBaseCollection;
+use VersatileAcl\Interfaces\PermissionInterface;
+use VersatileAcl\Interfaces\PermissionsCollectionInterface;
 
 /**
  * Description of CustomPermissionableEntitiesCollection
