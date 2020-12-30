@@ -63,8 +63,8 @@ class GenericPermission implements PermissionInterface {
      */
     public function __construct(string $action, string $resource, bool $allowActionOnResource = true, callable $additionalAssertions = null, ...$argsForCallback) {
         
-        $this->action = Utils::strtolower($action);
-        $this->resource = Utils::strtolower($resource);
+        $this->action = Utils::strToLower($action);
+        $this->resource = Utils::strToLower($resource);
         $this->allowActionOnResource = $allowActionOnResource;
         $this->additionalAssertions = $additionalAssertions;
         $this->argsForCallback = $argsForCallback;
@@ -200,13 +200,13 @@ class GenericPermission implements PermissionInterface {
         
         return 
             (
-                Utils::strtolower($this->getAction()) === Utils::strtolower($action)
-                || Utils::strtolower($this->getAction()) === Utils::strtolower(static::getAllActionsIdentifier())
+                Utils::strSameIgnoreCase($this->getAction(), $action)
+                || Utils::strSameIgnoreCase($this->getAction(), static::getAllActionsIdentifier())
             )
             && 
             (
-                Utils::strtolower($this->getResource()) === Utils::strtolower($resource)
-                || Utils::strtolower($this->getResource()) === Utils::strtolower(static::getAllResourcesIdentifier())
+                Utils::strSameIgnoreCase($this->getResource(), $resource)
+                || Utils::strSameIgnoreCase($this->getResource(), static::getAllResourcesIdentifier())
             )
             && $this->getAllowActionOnResource() === true
             && ( ($additionalAssertions === null) ? true : ($additionalAssertions(...$argsForCallback) === true) );
@@ -225,8 +225,8 @@ class GenericPermission implements PermissionInterface {
      */
     public function isEqualTo(PermissionInterface $permission): bool {
         
-        return Utils::strtolower($this->getAction()) === Utils::strtolower($permission->getAction())
-            && Utils::strtolower($this->getResource()) === Utils::strtolower($permission->getResource());
+        return Utils::strSameIgnoreCase($this->getAction(), $permission->getAction())
+            && Utils::strSameIgnoreCase($this->getResource(), $permission->getResource());
     }
     
     public function __toString(): string {
