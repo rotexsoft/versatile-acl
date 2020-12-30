@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace SimpleAcl;
+namespace VersatileAcl;
 
-use SimpleAcl\Interfaces\PermissionInterface;
-use SimpleAcl\Interfaces\PermissionsCollectionInterface;
+use VersatileAcl\Interfaces\PermissionInterface;
+use VersatileAcl\Interfaces\PermissionsCollectionInterface;
 use function count;
 use function in_array;
 use function spl_object_hash;

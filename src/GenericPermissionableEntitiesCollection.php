@@ -2,10 +2,10 @@
 /** @noinspection PhpRedundantVariableDocTypeInspection */
 declare(strict_types=1);
 
-namespace SimpleAcl;
+namespace VersatileAcl;
 
-use SimpleAcl\Interfaces\PermissionableEntityInterface;
-use SimpleAcl\Interfaces\PermissionableEntitiesCollectionInterface;
+use VersatileAcl\Interfaces\PermissionableEntityInterface;
+use VersatileAcl\Interfaces\PermissionableEntitiesCollectionInterface;
 use function array_key_exists;
 use function uasort;
 

@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace SimpleAcl;
+namespace VersatileAcl;
 
 use ArrayIterator;
-use SimpleAcl\Interfaces\CollectionInterface;
+use VersatileAcl\Interfaces\CollectionInterface;
 use Traversable;
 use function array_key_exists;
 use function count;
