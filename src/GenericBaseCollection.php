@@ -77,11 +77,10 @@ abstract class GenericBaseCollection implements CollectionInterface {
      * @link https://php.net/manual/en/countable.count.php
      * 
      * @return int The custom count as an integer.
-     * @psalm-suppress RedundantCast
      */
     public function count(): int {
         
-        return (int)count($this->storage);
+        return count($this->storage);
     }   
     
     public function __toString(): string {
@@ -90,32 +89,13 @@ abstract class GenericBaseCollection implements CollectionInterface {
     }
     
     public function dump(array $propertiesToExcludeFromDump=[]): string {
-        
-        static $propertiesToExcludeFromDumpAcrossAllInstances;
-        
-        if(!$propertiesToExcludeFromDumpAcrossAllInstances) {
-            
-            $propertiesToExcludeFromDumpAcrossAllInstances = [];
-        }
-        
-        if(
-            !isset($propertiesToExcludeFromDumpAcrossAllInstances[static::class]) // first call
-            || 
-            (
-                $propertiesToExcludeFromDumpAcrossAllInstances[static::class] !== $propertiesToExcludeFromDump
-            ) // handle multiple calls with different values of $propertiesToExcludeFromDump
-        ) {
-            $propertiesToExcludeFromDumpAcrossAllInstances[static::class] = $propertiesToExcludeFromDump;
-        }
-        
-        $propertiesToExcludeFromThisCall = $propertiesToExcludeFromDumpAcrossAllInstances[static::class];
 
         $objAsStr = static::class .' ('. spl_object_hash($this) . ')' . PHP_EOL . '{' . PHP_EOL;
         
-        if( !in_array('storage', $propertiesToExcludeFromThisCall) ) {
+        if( !in_array('storage', $propertiesToExcludeFromDump) ) {
             foreach ($this->storage as $key => $item) {
-
-                $objAsStr .=  "\t"."item[{$key}]: " . str_replace(PHP_EOL, PHP_EOL."\t", ''.$item)  . PHP_EOL;
+                // $item will either be a permission or entity object which both have __toString()
+                $objAsStr .=  "\t"."item[{$key}]: " . str_replace(PHP_EOL, PHP_EOL."\t", ((string)$item))  . PHP_EOL;
             }
         }
         
