@@ -10,141 +10,147 @@
         <path d="M-20 -20 L892 -20 L892 680 L-20 680 L-20 -20 Z"/>
       </clipPath>
       <clipPath clipPathUnits="userSpaceOnUse" id="clipPath3">
-        <path d="M-329 -495 L583 -495 L583 205 L-329 205 L-329 -495 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath4">
-        <path d="M0 0 L0 28 L182 28 L182 0 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath5">
-        <path d="M0 0 L0 27 L182 27 L182 0 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath6">
         <path d="M-370 -180 L542 -180 L542 520 L-370 520 L-370 -180 Z"/>
       </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath7">
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath4">
         <path d="M0 0 L0 28 L102 28 L102 0 Z"/>
       </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath8">
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath5">
         <path d="M0 0 L0 27 L102 27 L102 0 Z"/>
       </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath9">
-        <path d="M-20 -650 L892 -650 L892 50 L-20 50 L-20 -650 Z"/>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath6">
+        <path d="M-177 -650 L735 -650 L735 50 L-177 50 L-177 -650 Z"/>
       </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath10">
-        <path d="M-169 -650 L743 -650 L743 50 L-169 50 L-169 -650 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath11">
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath7">
         <path d="M0 0 L0 28 L70 28 L70 0 Z"/>
       </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath12">
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath8">
         <path d="M0 0 L0 27 L70 27 L70 0 Z"/>
       </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath13">
-        <path d="M-337 -575 L575 -575 L575 125 L-337 125 L-337 -575 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath14">
-        <path d="M0 0 L0 28 L166 28 L166 0 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath15">
-        <path d="M0 0 L0 27 L166 27 L166 0 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath16">
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath9">
         <path d="M-494 -180 L418 -180 L418 520 L-494 520 L-494 -180 Z"/>
       </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath17">
-        <path d="M-400 -340 L512 -340 L512 360 L-400 360 L-400 -340 Z"/>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath10">
+        <path d="M0 0 L0 28 L166 28 L166 0 Z"/>
       </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath18">
-        <path d="M0 0 L0 28 L198 28 L198 0 Z"/>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath11">
+        <path d="M0 0 L0 27 L166 27 L166 0 Z"/>
       </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath19">
-        <path d="M0 0 L0 27 L198 27 L198 0 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath20">
-        <path d="M-28 -575 L884 -575 L884 125 L-28 125 L-28 -575 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath21">
-        <path d="M0 0 L0 28 L246 28 L246 0 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath22">
-        <path d="M0 0 L0 27 L246 27 L246 0 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath23">
-        <path d="M-558 -495 L354 -495 L354 205 L-558 205 L-558 -495 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath24">
-        <path d="M0 0 L0 28 L110 28 L110 0 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath25">
-        <path d="M0 0 L0 27 L110 27 L110 0 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath26">
-        <path d="M-715 -495 L197 -495 L197 205 L-715 205 L-715 -495 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath27">
-        <path d="M-153 -420 L759 -420 L759 280 L-153 280 L-153 -420 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath28">
-        <path d="M0 0 L0 28 L342 28 L342 0 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath29">
-        <path d="M0 0 L0 27 L342 27 L342 0 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath30">
-        <path d="M-525 -420 L387 -420 L387 280 L-525 280 L-525 -420 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath31">
-        <path d="M0 0 L0 28 L254 28 L254 0 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath32">
-        <path d="M0 0 L0 27 L254 27 L254 0 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath33">
-        <path d="M-20 -495 L892 -495 L892 205 L-20 205 L-20 -495 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath34">
-        <path d="M0 0 L0 28 L262 28 L262 0 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath35">
-        <path d="M0 0 L0 27 L262 27 L262 0 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath36">
-        <path d="M-408 -260 L504 -260 L504 440 L-408 440 L-408 -260 Z"/>
-      </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath37">
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath12">
         <path d="M-620 -340 L292 -340 L292 360 L-620 360 L-620 -340 Z"/>
       </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath38">
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath13">
         <path d="M0 0 L0 28 L270 28 L270 0 Z"/>
       </clipPath>
-      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath39">
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath14">
         <path d="M0 0 L0 27 L270 27 L270 0 Z"/>
       </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath15">
+        <path d="M-408 -260 L504 -260 L504 440 L-408 440 L-408 -260 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath16">
+        <path d="M0 0 L0 28 L182 28 L182 0 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath17">
+        <path d="M0 0 L0 27 L182 27 L182 0 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath18">
+        <path d="M-731 -495 L181 -495 L181 205 L-731 205 L-731 -495 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath19">
+        <path d="M0 0 L0 28 L110 28 L110 0 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath20">
+        <path d="M0 0 L0 27 L110 27 L110 0 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath21">
+        <path d="M-20 -650 L892 -650 L892 50 L-20 50 L-20 -650 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath22">
+        <path d="M-558 -495 L354 -495 L354 205 L-558 205 L-558 -495 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath23">
+        <path d="M0 0 L0 28 L126 28 L126 0 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath24">
+        <path d="M0 0 L0 27 L126 27 L126 0 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath25">
+        <path d="M-525 -420 L387 -420 L387 280 L-525 280 L-525 -420 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath26">
+        <path d="M0 0 L0 28 L254 28 L254 0 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath27">
+        <path d="M0 0 L0 27 L254 27 L254 0 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath28">
+        <path d="M-20 -495 L892 -495 L892 205 L-20 205 L-20 -495 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath29">
+        <path d="M0 0 L0 28 L262 28 L262 0 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath30">
+        <path d="M0 0 L0 27 L262 27 L262 0 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath31">
+        <path d="M-329 -495 L583 -495 L583 205 L-329 205 L-329 -495 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath32">
+        <path d="M-400 -340 L512 -340 L512 360 L-400 360 L-400 -340 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath33">
+        <path d="M0 0 L0 28 L198 28 L198 0 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath34">
+        <path d="M0 0 L0 27 L198 27 L198 0 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath35">
+        <path d="M-337 -575 L575 -575 L575 125 L-337 125 L-337 -575 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath36">
+        <path d="M-153 -420 L759 -420 L759 280 L-153 280 L-153 -420 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath37">
+        <path d="M0 0 L0 28 L342 28 L342 0 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath38">
+        <path d="M0 0 L0 27 L342 27 L342 0 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath39">
+        <path d="M-28 -575 L884 -575 L884 125 L-28 125 L-28 -575 Z"/>
+      </clipPath>
       <clipPath clipPathUnits="userSpaceOnUse" id="clipPath40">
-        <path d="M-20 -340 L892 -340 L892 360 L-20 360 L-20 -340 Z"/>
+        <path d="M0 0 L0 28 L246 28 L246 0 Z"/>
       </clipPath>
       <clipPath clipPathUnits="userSpaceOnUse" id="clipPath41">
-        <path d="M0 0 L0 28 L358 28 L358 0 Z"/>
+        <path d="M0 0 L0 27 L246 27 L246 0 Z"/>
       </clipPath>
       <clipPath clipPathUnits="userSpaceOnUse" id="clipPath42">
-        <path d="M0 0 L0 27 L358 27 L358 0 Z"/>
+        <path d="M-20 -340 L892 -340 L892 360 L-20 360 L-20 -340 Z"/>
       </clipPath>
       <clipPath clipPathUnits="userSpaceOnUse" id="clipPath43">
-        <path d="M-530 -20 L382 -20 L382 680 L-530 680 L-530 -20 Z"/>
+        <path d="M0 0 L0 28 L358 28 L358 0 Z"/>
       </clipPath>
       <clipPath clipPathUnits="userSpaceOnUse" id="clipPath44">
-        <path d="M0 0 L0 28 L94 28 L94 0 Z"/>
+        <path d="M0 0 L0 27 L358 27 L358 0 Z"/>
       </clipPath>
       <clipPath clipPathUnits="userSpaceOnUse" id="clipPath45">
-        <path d="M0 0 L0 27 L94 27 L94 0 Z"/>
+        <path d="M-530 -20 L382 -20 L382 680 L-530 680 L-530 -20 Z"/>
       </clipPath>
       <clipPath clipPathUnits="userSpaceOnUse" id="clipPath46">
-        <path d="M-518 -100 L394 -100 L394 600 L-518 600 L-518 -100 Z"/>
+        <path d="M0 0 L0 28 L94 28 L94 0 Z"/>
       </clipPath>
       <clipPath clipPathUnits="userSpaceOnUse" id="clipPath47">
-        <path d="M0 0 L0 28 L118 28 L118 0 Z"/>
+        <path d="M0 0 L0 27 L94 27 L94 0 Z"/>
       </clipPath>
       <clipPath clipPathUnits="userSpaceOnUse" id="clipPath48">
+        <path d="M-518 -100 L394 -100 L394 600 L-518 600 L-518 -100 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath49">
+        <path d="M0 0 L0 28 L118 28 L118 0 Z"/>
+      </clipPath>
+      <clipPath clipPathUnits="userSpaceOnUse" id="clipPath50">
         <path d="M0 0 L0 27 L118 27 L118 0 Z"/>
       </clipPath>
     </defs>
@@ -154,243 +160,243 @@
     <g fill="silver" stroke="silver">
       <path d="M12.3594 680.0156 L12.3594 683.0938 L13.8438 683.0938 Q14.6719 683.0938 15.125 682.7031 Q15.5781 682.2969 15.5781 681.5469 Q15.5781 680.8125 15.125 680.4219 Q14.6719 680.0156 13.8438 680.0156 L12.3594 680.0156 ZM11.1719 679 L13.8438 679 Q15.3281 679 16.0781 679.6406 Q16.8281 680.2812 16.8281 681.5469 Q16.8281 682.7969 16.0781 683.4531 Q15.3281 684.0938 13.8438 684.0938 L12.3594 684.0938 L12.3594 688 L11.1719 688 L11.1719 679 ZM20.6719 681.9531 Q19.8125 681.9531 19.2969 682.6406 Q18.7969 683.3125 18.7969 684.5 Q18.7969 685.6875 19.2969 686.375 Q19.7969 687.0469 20.6719 687.0469 Q21.5312 687.0469 22.0312 686.375 Q22.5469 685.6875 22.5469 684.5 Q22.5469 683.3281 22.0312 682.6406 Q21.5312 681.9531 20.6719 681.9531 ZM20.6719 681 Q22.0781 681 22.875 681.9375 Q23.6875 682.8594 23.6875 684.5 Q23.6875 686.1406 22.875 687.0781 Q22.0781 688 20.6719 688 Q19.2656 688 18.4531 687.0781 Q17.6562 686.1406 17.6562 684.5 Q17.6562 682.8594 18.4531 681.9375 Q19.2656 681 20.6719 681 ZM24.5 681 L25.5781 681 L26.9375 686.4688 L28.2656 681 L29.5469 681 L30.8906 686.4688 L32.2344 681 L33.3125 681 L31.5938 688 L30.3281 688 L28.9062 682.2656 L27.5 688 L26.2188 688 L24.5 681 ZM39.75 684.3594 L39.75 684.9219 L34.7812 684.9219 Q34.8594 685.9688 35.4531 686.5156 Q36.0625 687.0469 37.125 687.0469 Q37.75 687.0469 38.3281 686.9062 Q38.9219 686.7656 39.5 686.4844 L39.5 687.4688 Q38.9062 687.7188 38.2969 687.8594 Q37.6875 688 37.0625 688 Q35.5 688 34.5781 687.0781 Q33.6562 686.1406 33.6562 684.5625 Q33.6562 682.9219 34.5312 681.9688 Q35.4062 681 36.875 681 Q38.2031 681 38.9688 681.9062 Q39.75 682.8125 39.75 684.3594 ZM38.6719 684.0781 Q38.6562 683.1094 38.1719 682.5312 Q37.6875 681.9531 36.8906 681.9531 Q35.9844 681.9531 35.4375 682.5156 Q34.9062 683.0625 34.8281 684.0781 L38.6719 684.0781 ZM44.9375 682.0625 Q44.75 681.9531 44.5312 681.9062 Q44.3281 681.8438 44.0625 681.8438 Q43.1562 681.8438 42.6562 682.4844 Q42.1719 683.1094 42.1719 684.2969 L42.1719 688 L41.0938 688 L41.0938 681 L42.1719 681 L42.1719 682.0781 Q42.5156 681.5469 43.0625 681.2812 Q43.6094 681 44.3906 681 Q44.5 681 44.625 680.9844 Q44.7656 680.9531 44.9219 680.9062 L44.9375 682.0625 ZM50.75 684.3594 L50.75 684.9219 L45.7812 684.9219 Q45.8594 685.9688 46.4531 686.5156 Q47.0625 687.0469 48.125 687.0469 Q48.75 687.0469 49.3281 686.9062 Q49.9219 686.7656 50.5 686.4844 L50.5 687.4688 Q49.9062 687.7188 49.2969 687.8594 Q48.6875 688 48.0625 688 Q46.5 688 45.5781 687.0781 Q44.6562 686.1406 44.6562 684.5625 Q44.6562 682.9219 45.5312 681.9688 Q46.4062 681 47.875 681 Q49.2031 681 49.9688 681.9062 Q50.75 682.8125 50.75 684.3594 ZM49.6719 684.0781 Q49.6562 683.1094 49.1719 682.5312 Q48.6875 681.9531 47.8906 681.9531 Q46.9844 681.9531 46.4375 682.5156 Q45.9062 683.0625 45.8281 684.0781 L49.6719 684.0781 ZM56.4531 682.2031 L56.4531 678 L57.5312 678 L57.5312 688 L56.4531 688 L56.4531 686.9688 Q56.1094 687.4844 55.5938 687.75 Q55.0781 688 54.3438 688 Q53.1562 688 52.4062 687.0469 Q51.6562 686.0781 51.6562 684.5 Q51.6562 682.9219 52.4062 681.9688 Q53.1562 681 54.3438 681 Q55.0781 681 55.5938 681.2969 Q56.1094 681.5938 56.4531 682.2031 ZM52.7812 684.5938 Q52.7812 685.8281 53.2656 686.5312 Q53.75 687.2344 54.6094 687.2344 Q55.4688 687.2344 55.9531 686.5312 Q56.4531 685.8281 56.4531 684.5938 Q56.4531 683.3438 55.9531 682.6406 Q55.4688 681.9375 54.6094 681.9375 Q53.75 681.9375 53.2656 682.6406 Q52.7812 683.3438 52.7812 684.5938 ZM66.8438 684.5 Q66.8438 683.2969 66.3438 682.625 Q65.8594 681.9375 65.0156 681.9375 Q64.1562 681.9375 63.6562 682.625 Q63.1719 683.2969 63.1719 684.5 Q63.1719 685.7031 63.6562 686.3906 Q64.1562 687.0625 65.0156 687.0625 Q65.8594 687.0625 66.3438 686.3906 Q66.8438 685.7031 66.8438 684.5 ZM63.1719 682.1875 Q63.5156 681.5938 64.0312 681.2969 Q64.5469 681 65.2656 681 Q66.4688 681 67.2188 681.9688 Q67.9688 682.9219 67.9688 684.5 Q67.9688 686.0781 67.2188 687.0469 Q66.4688 688 65.2656 688 Q64.5469 688 64.0312 687.7031 Q63.5156 687.4062 63.1719 686.8125 L63.1719 688 L62.0938 688 L62.0938 678 L63.1719 678 L63.1719 682.1875 ZM71.8594 688.9375 Q71.4062 690.2188 70.9688 690.6094 Q70.5312 691 69.8125 691 L68.9531 691 L68.9531 690.0625 L69.5781 690.0625 Q70.0312 690.0625 70.2656 689.8281 Q70.5156 689.5938 70.8125 688.7188 L71.0156 688.1719 L68.3594 681 L69.5 681 L71.5469 686.7031 L73.6094 681 L74.75 681 L71.8594 688.9375 ZM81.8594 688.9375 Q81.4062 690.2188 80.9688 690.6094 Q80.5312 691 79.8125 691 L78.9531 691 L78.9531 690.0625 L79.5781 690.0625 Q80.0312 690.0625 80.2656 689.8281 Q80.5156 689.5938 80.8125 688.7188 L81.0156 688.1719 L78.3594 681 L79.5 681 L81.5469 686.7031 L83.6094 681 L84.75 681 L81.8594 688.9375 ZM86.1719 679 L91.2031 679 L91.2031 680.0312 L87.3594 680.0312 L87.3594 683.0781 L90.8281 683.0781 L90.8281 684.1094 L87.3594 684.1094 L87.3594 688 L86.1719 688 L86.1719 679 ZM92.125 681 L93.2031 681 L93.2031 688 L92.125 688 L92.125 681 ZM92.125 678 L93.2031 678 L93.2031 679.4219 L92.125 679.4219 L92.125 678 ZM95.125 678 L96.2031 678 L96.2031 688 L95.125 688 L95.125 678 ZM103.75 684.3594 L103.75 684.9219 L98.7812 684.9219 Q98.8594 685.9688 99.4531 686.5156 Q100.0625 687.0469 101.125 687.0469 Q101.75 687.0469 102.3281 686.9062 Q102.9219 686.7656 103.5 686.4844 L103.5 687.4688 Q102.9062 687.7188 102.2969 687.8594 Q101.6875 688 101.0625 688 Q99.5 688 98.5781 687.0781 Q97.6562 686.1406 97.6562 684.5625 Q97.6562 682.9219 98.5312 681.9688 Q99.4062 681 100.875 681 Q102.2031 681 102.9688 681.9062 Q103.75 682.8125 103.75 684.3594 ZM102.6719 684.0781 Q102.6562 683.1094 102.1719 682.5312 Q101.6875 681.9531 100.8906 681.9531 Q99.9844 681.9531 99.4375 682.5156 Q98.9062 683.0625 98.8281 684.0781 L102.6719 684.0781 ZM109.3125 681.3594 L109.3125 682.4062 Q108.8594 682.1719 108.3594 682.0625 Q107.875 681.9375 107.3438 681.9375 Q106.5469 681.9375 106.1406 682.1875 Q105.7344 682.4375 105.7344 682.9375 Q105.7344 683.3125 106.0156 683.5312 Q106.3125 683.75 107.1875 683.9375 L107.5469 684.0312 Q108.7031 684.2812 109.1875 684.7344 Q109.6719 685.1875 109.6719 686 Q109.6719 686.9219 108.9375 687.4688 Q108.2188 688 106.9531 688 Q106.4219 688 105.8438 687.9062 Q105.2812 687.7969 104.6562 687.5781 L104.6562 686.4375 Q105.25 686.75 105.8281 686.9062 Q106.4062 687.0625 106.9844 687.0625 Q107.7344 687.0625 108.1406 686.7969 Q108.5625 686.5312 108.5625 686.0625 Q108.5625 685.6094 108.2656 685.375 Q107.9688 685.1406 106.9688 684.9219 L106.5938 684.8281 Q105.5938 684.6094 105.1406 684.1719 Q104.7031 683.7344 104.7031 682.9531 Q104.7031 682.0156 105.3594 681.5156 Q106.0156 681 107.2188 681 Q107.8125 681 108.3438 681.0938 Q108.875 681.1875 109.3125 681.3594 Z" stroke="none" clip-path="url(#clipPath1)"/>
     </g>
-    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(309,475)" stroke="silver">
-      <path d="M0 0 L184 0 L184 30 L0 30 L0 0 ZM1 1 L183 1 L183 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath3)" stroke="none"/>
-    </g>
-    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(310,476)" stroke="rgb(215,213,172)">
-      <rect x="0" width="182" height="28" y="0" clip-path="url(#clipPath4)" stroke="none"/>
-      <rect x="0" y="27" clip-path="url(#clipPath4)" fill="rgb(90,90,90)" width="182" height="1" stroke="none"/>
-    </g>
-    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(310,476)" stroke="rgb(8,8,8)">
-      <image x="2" y="6" clip-path="url(#clipPath5)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR4XmNgoDbI&#10;2u/Ak7Td0S95q1NN0janSSAMZgPFQHLo6lFA4mYno6StzhOTtjnPxIqBciA16PrA&#10;ACSRvN15BoYmNAxSg2FI0kZrXrw2o2OQWqAehAFA/6ErMrBXf4CM0eVBeuAGQAIM&#10;0yaHFP0jIIwuDsIgPQgX4HA+PgNAeqhnAOVeoDQQKY5GEKAoIcEARUkZBijKTOQA&#10;AArDPZARqQL9AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
-      <text x="24" y="18" clip-path="url(#clipPath5)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">PermissionInterface</text>
-    </g>
     <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(350,160)" stroke="silver">
-      <path d="M0 0 L104 0 L104 30 L0 30 L0 0 ZM1 1 L103 1 L103 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath6)" stroke="none"/>
+      <path d="M0 0 L104 0 L104 30 L0 30 L0 0 ZM1 1 L103 1 L103 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath3)" stroke="none"/>
     </g>
     <g fill="rgb(255,255,228)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(351,161)" stroke="rgb(255,255,228)">
-      <rect x="0" width="102" height="28" y="0" clip-path="url(#clipPath7)" stroke="none"/>
-      <rect x="0" y="27" clip-path="url(#clipPath7)" fill="rgb(90,90,90)" width="102" height="1" stroke="none"/>
+      <rect x="0" width="102" height="28" y="0" clip-path="url(#clipPath4)" stroke="none"/>
+      <rect x="0" y="27" clip-path="url(#clipPath4)" fill="rgb(90,90,90)" width="102" height="1" stroke="none"/>
     </g>
     <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(351,161)" stroke="rgb(8,8,8)">
-      <image x="2" y="6" clip-path="url(#clipPath8)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR4XmNgoDbI&#10;2u/Ak7Td0S95q1NN0janSSAMZgPFQHLo6lFA4mYno6StzhOTtjnPxIqBciA16PrA&#10;ACSRvN15BoYmNAxSg2FI0kZrXrw2o2OQWqAehAFA/6ErMrBXf4CM0eVBeuAGQAIM&#10;0yaHFP0jIIwuDsIgPQgX4HA+PgNAeqhnAOVeoDQQKY5GEKAoIcEARUkZBijKTOQA&#10;AArDPZARqQL9AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
-      <text x="24" y="18" clip-path="url(#clipPath8)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">Countable</text>
+      <image x="2" y="6" clip-path="url(#clipPath5)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR4XmNgoDbI&#10;2u/Ak7Td0S95q1NN0janSSAMZgPFQHLo6lFA4mYno6StzhOTtjnPxIqBciA16PrA&#10;ACSRvN15BoYmNAxSg2FI0kZrXrw2o2OQWqAehAFA/6ErMrBXf4CM0eVBeuAGQAIM&#10;0yaHFP0jIIwuDsIgPQgX4HA+PgNAeqhnAOVeoDQQKY5GEKAoIcEARUkZBijKTOQA&#10;AArDPZARqQL9AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
+      <text x="24" y="18" clip-path="url(#clipPath5)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">Countable</text>
     </g>
-    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(0,630)" stroke="silver">
-      <path d="M0 0 L104 0 L104 30 L0 30 L0 0 ZM1 1 L103 1 L103 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath9)" stroke="none"/>
+    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(157,630)" stroke="silver">
+      <path d="M0 0 L72 0 L72 30 L0 30 L0 0 ZM1 1 L71 1 L71 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath6)" stroke="none"/>
     </g>
-    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(1,631)" stroke="rgb(215,213,172)">
-      <rect x="0" width="102" height="28" y="0" clip-path="url(#clipPath7)" stroke="none"/>
-      <rect x="0" y="27" clip-path="url(#clipPath7)" fill="rgb(90,90,90)" width="102" height="1" stroke="none"/>
+    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(158,631)" stroke="rgb(215,213,172)">
+      <rect x="0" width="70" height="28" y="0" clip-path="url(#clipPath7)" stroke="none"/>
+      <rect x="0" y="27" clip-path="url(#clipPath7)" fill="rgb(90,90,90)" width="70" height="1" stroke="none"/>
     </g>
-    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(1,631)" stroke="rgb(8,8,8)">
+    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(158,631)" stroke="rgb(8,8,8)">
       <image x="2" y="6" clip-path="url(#clipPath8)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABBUlEQVR4XmNgoDZw&#10;2P+Kx277PT+HrQ9q7Lc9mATCIDZYDCiHrh4F2G5+YGS/9f5E+233Z2LFQDmQGnR9&#10;YACScNh+fwaGJjQMUoNhiPXGG7x4bUbHQLUgPXADQP5DVmC7+fYso9zmvVruQTe1&#10;HDwe6IUkn7OevW8JshqQHrgBkABDSBrmNO3Xi8w6bbP0xEK7dZfnmrUu3GC74vx8&#10;ZDUgPXAD0J2v5R5402bxiYXIYhgYqIeAAceINwDTCw379SLSz4AMsV15YZ5Z7fSt&#10;lhM3rkRWg+IF9EC033x7NsgQbbfAW5oOXvf0IjNO2yw6ughZDUogUhyNIEBRQoIB&#10;ipIyDFCUmcgBAO2xiXpDgcL0AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
-      <text x="24" y="18" clip-path="url(#clipPath8)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">SimpleAcl</text>
-    </g>
-    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(149,630)" stroke="silver">
-      <path d="M0 0 L72 0 L72 30 L0 30 L0 0 ZM1 1 L71 1 L71 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath10)" stroke="none"/>
-    </g>
-    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(150,631)" stroke="rgb(215,213,172)">
-      <rect x="0" width="70" height="28" y="0" clip-path="url(#clipPath11)" stroke="none"/>
-      <rect x="0" y="27" clip-path="url(#clipPath11)" fill="rgb(90,90,90)" width="70" height="1" stroke="none"/>
-    </g>
-    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(150,631)" stroke="rgb(8,8,8)">
-      <image x="2" y="6" clip-path="url(#clipPath12)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABBUlEQVR4XmNgoDZw&#10;2P+Kx277PT+HrQ9q7Lc9mATCIDZYDCiHrh4F2G5+YGS/9f5E+233Z2LFQDmQGnR9&#10;YACScNh+fwaGJjQMUoNhiPXGG7x4bUbHQLUgPXADQP5DVmC7+fYso9zmvVruQTe1&#10;HDwe6IUkn7OevW8JshqQHrgBkABDSBrmNO3Xi8w6bbP0xEK7dZfnmrUu3GC74vx8&#10;ZDUgPXAD0J2v5R5402bxiYXIYhgYqIeAAceINwDTCw379SLSz4AMsV15YZ5Z7fSt&#10;lhM3rkRWg+IF9EC033x7NsgQbbfAW5oOXvf0IjNO2yw6ughZDUogUhyNIEBRQoIB&#10;ipIyDFCUmcgBAO2xiXpDgcL0AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
-      <text x="24" y="18" clip-path="url(#clipPath12)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">Utils</text>
-    </g>
-    <g fill="silver" transform="matrix(1,0,0,1,20,20)" stroke="silver">
-      <rect x="311" width="5" height="5" y="549" clip-path="url(#clipPath2)" stroke="none"/>
-      <rect x="311" width="5" height="5" y="568" clip-path="url(#clipPath2)" stroke="none"/>
-      <rect x="311" width="5" height="5" y="587" clip-path="url(#clipPath2)" stroke="none"/>
-      <rect x="399" width="5" height="5" y="587" clip-path="url(#clipPath2)" stroke="none"/>
-      <rect x="399" width="5" height="5" y="549" clip-path="url(#clipPath2)" stroke="none"/>
-      <rect x="487" width="5" height="5" y="549" clip-path="url(#clipPath2)" stroke="none"/>
-      <rect x="487" width="5" height="5" y="568" clip-path="url(#clipPath2)" stroke="none"/>
-      <rect x="487" width="5" height="5" y="587" clip-path="url(#clipPath2)" stroke="none"/>
-    </g>
-    <g fill="rgb(255,200,0)" transform="matrix(1,0,0,1,20,20) translate(317,555)" stroke="rgb(255,200,0)">
-      <path d="M0 0.5 L0 29.5 C0 29.7761 0.2239 30 0.5 30 L167.5 30 C167.7761 30 168 29.7761 168 29.5 L168 0.5 C168 0.2239 167.7761 0 167.5 0 L0.5 0 C0.2239 0 0 0.2239 0 0.5 ZM1 1.1 L1 28.9 C1 28.9552 1.0448 29 1.1 29 L166.9 29 C166.9552 29 167 28.9552 167 28.9 L167 1.1 C167 1.0448 166.9552 1 166.9 1 L1.1 1 C1.0448 1 1 1.0448 1 1.1 Z" fill-rule="evenodd" clip-path="url(#clipPath13)" stroke="none"/>
-    </g>
-    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(318,556)" stroke="rgb(215,213,172)">
-      <rect x="0" width="166" height="28" y="0" clip-path="url(#clipPath14)" stroke="none"/>
-      <rect x="0" y="27" clip-path="url(#clipPath14)" fill="rgb(90,90,90)" width="166" height="1" stroke="none"/>
-    </g>
-    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(318,556)" stroke="rgb(8,8,8)">
-      <image x="2" y="6" clip-path="url(#clipPath15)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABBUlEQVR4XmNgoDZw&#10;2P+Kx277PT+HrQ9q7Lc9mATCIDZYDCiHrh4F2G5+YGS/9f5E+233Z2LFQDmQGnR9&#10;YACScNh+fwaGJjQMUoNhiPXGG7x4bUbHQLUgPXADQP5DVmC7+fYso9zmvVruQTe1&#10;HDwe6IUkn7OevW8JshqQHrgBkABDSBrmNO3Xi8w6bbP0xEK7dZfnmrUu3GC74vx8&#10;ZDUgPXAD0J2v5R5402bxiYXIYhgYqIeAAceINwDTCw379SLSz4AMsV15YZ5Z7fSt&#10;lhM3rkRWg+IF9EC033x7NsgQbbfAW5oOXvf0IjNO2yw6ughZDUogUhyNIEBRQoIB&#10;ipIyDFCUmcgBAO2xiXpDgcL0AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
-      <text x="24" y="18" clip-path="url(#clipPath15)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">GenericPermission</text>
+      <text x="24" y="18" clip-path="url(#clipPath8)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">Utils</text>
     </g>
     <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(474,160)" stroke="silver">
-      <path d="M0 0 L168 0 L168 30 L0 30 L0 0 ZM1 1 L167 1 L167 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath16)" stroke="none"/>
+      <path d="M0 0 L168 0 L168 30 L0 30 L0 0 ZM1 1 L167 1 L167 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath9)" stroke="none"/>
     </g>
     <g fill="rgb(255,255,228)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(475,161)" stroke="rgb(255,255,228)">
-      <rect x="0" width="166" height="28" y="0" clip-path="url(#clipPath14)" stroke="none"/>
-      <rect x="0" y="27" clip-path="url(#clipPath14)" fill="rgb(90,90,90)" width="166" height="1" stroke="none"/>
+      <rect x="0" width="166" height="28" y="0" clip-path="url(#clipPath10)" stroke="none"/>
+      <rect x="0" y="27" clip-path="url(#clipPath10)" fill="rgb(90,90,90)" width="166" height="1" stroke="none"/>
     </g>
     <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(475,161)" stroke="rgb(8,8,8)">
-      <image x="2" y="6" clip-path="url(#clipPath15)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR4XmNgoDbI&#10;2u/Ak7Td0S95q1NN0janSSAMZgPFQHLo6lFA4mYno6StzhOTtjnPxIqBciA16PrA&#10;ACSRvN15BoYmNAxSg2FI0kZrXrw2o2OQWqAehAFA/6ErMrBXf4CM0eVBeuAGQAIM&#10;0yaHFP0jIIwuDsIgPQgX4HA+PgNAeqhnAOVeoDQQKY5GEKAoIcEARUkZBijKTOQA&#10;AArDPZARqQL9AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
-      <text x="24" y="18" clip-path="url(#clipPath15)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">IteratorAggregate</text>
-    </g>
-    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(380,320)" stroke="silver">
-      <path d="M0 0 L200 0 L200 30 L0 30 L0 0 ZM1 1 L199 1 L199 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath17)" stroke="none"/>
-    </g>
-    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(381,321)" stroke="rgb(215,213,172)">
-      <rect x="0" width="198" height="28" y="0" clip-path="url(#clipPath18)" stroke="none"/>
-      <rect x="0" y="27" clip-path="url(#clipPath18)" fill="rgb(90,90,90)" width="198" height="1" stroke="none"/>
-    </g>
-    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(381,321)" stroke="rgb(8,8,8)">
-      <image x="2" y="6" clip-path="url(#clipPath19)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABCklEQVR4XmNgoDZw&#10;2/mC22bbPV+HLQ+qHbbdnwDGQDZIDCSHrh4DADX0A/F0HLgfXT0czF61yQlEY9GE&#10;gpHVwsH89esFZq7YcJBYA0BqQXrgBsxavjFj1ooNZ2AG2Gy5M8Mot3m3lnvwdS0H&#10;r3t6oclnrGbtWwQzAKQWpAfJgPXLkA0wymnaqxeRfdJ26Yn5tusuzzZtXbjObvm5&#10;uagGrF+GZMCGQ8gGaLkHXrddcmI+uvNRDdhwiIABR0kxAN0LDXt1IzJOgQyxWXFh&#10;jmnt9M0WEzcux+MF1EC033RrJsgQbffAG1oOnnf0IjJO2i4+tgDVAKRApDgaQYCi&#10;hIQMHMhNyjBAcWYiFQAANe1aTyry/MQAAAAASUVORK5CYII=" height="16" preserveAspectRatio="none"/>
-      <text x="24" y="18" clip-path="url(#clipPath19)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">GenericBaseCollection</text>
-    </g>
-    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(8,555)" stroke="silver">
-      <path d="M0 0 L248 0 L248 30 L0 30 L0 0 ZM1 1 L247 1 L247 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath20)" stroke="none"/>
-    </g>
-    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(9,556)" stroke="rgb(215,213,172)">
-      <rect x="0" width="246" height="28" y="0" clip-path="url(#clipPath21)" stroke="none"/>
-      <rect x="0" y="27" clip-path="url(#clipPath21)" fill="rgb(90,90,90)" width="246" height="1" stroke="none"/>
-    </g>
-    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(9,556)" stroke="rgb(8,8,8)">
-      <image x="2" y="6" clip-path="url(#clipPath22)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABBUlEQVR4XmNgoDZw&#10;2P+Kx277PT+HrQ9q7Lc9mATCIDZYDCiHrh4F2G5+YGS/9f5E+233Z2LFQDmQGnR9&#10;YACScNh+fwaGJjQMUoNhiPXGG7x4bUbHQLUgPXADQP5DVmC7+fYso9zmvVruQTe1&#10;HDwe6IUkn7OevW8JshqQHrgBkABDSBrmNO3Xi8w6bbP0xEK7dZfnmrUu3GC74vx8&#10;ZDUgPXAD0J2v5R5402bxiYXIYhgYqIeAAceINwDTCw379SLSz4AMsV15YZ5Z7fSt&#10;lhM3rkRWg+IF9EC033x7NsgQbbfAW5oOXvf0IjNO2yw6ughZDUogUhyNIEBRQoIB&#10;ipIyDFCUmcgBAO2xiXpDgcL0AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
-      <text x="24" y="18" clip-path="url(#clipPath22)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">GenericPermissionableEntity</text>
-    </g>
-    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(538,475)" stroke="silver">
-      <path d="M0 0 L112 0 L112 30 L0 30 L0 0 ZM1 1 L111 1 L111 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath23)" stroke="none"/>
-    </g>
-    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(539,476)" stroke="rgb(215,213,172)">
-      <rect x="0" width="110" height="28" y="0" clip-path="url(#clipPath24)" stroke="none"/>
-      <rect x="0" y="27" clip-path="url(#clipPath24)" fill="rgb(90,90,90)" width="110" height="1" stroke="none"/>
-    </g>
-    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(539,476)" stroke="rgb(8,8,8)">
-      <image x="2" y="6" clip-path="url(#clipPath25)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAANElEQVR4XmNgGBRg&#10;1ooNZ1Dw8g1bgDgQXR1OgGEADK/cmISuFivA0EgkHjVg1AAUA4Y2AAAXJ3w91syP&#10;YwAAAABJRU5ErkJggg==" height="16" preserveAspectRatio="none"/>
-      <text x="24" y="18" clip-path="url(#clipPath25)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">exceptions</text>
-    </g>
-    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(695,475)" stroke="silver">
-      <path d="M0 0 L112 0 L112 30 L0 30 L0 0 ZM1 1 L111 1 L111 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath26)" stroke="none"/>
-    </g>
-    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(696,476)" stroke="rgb(215,213,172)">
-      <rect x="0" width="110" height="28" y="0" clip-path="url(#clipPath24)" stroke="none"/>
-      <rect x="0" y="27" clip-path="url(#clipPath24)" fill="rgb(90,90,90)" width="110" height="1" stroke="none"/>
-    </g>
-    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(696,476)" stroke="rgb(8,8,8)">
-      <image x="2" y="6" clip-path="url(#clipPath25)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAANElEQVR4XmNgGBRg&#10;1ooNZ1Dw8g1bgDgQXR1OgGEADK/cmISuFivA0EgkHjVg1AAUA4Y2AAAXJ3w91syP&#10;YwAAAABJRU5ErkJggg==" height="16" preserveAspectRatio="none"/>
-      <text x="24" y="18" clip-path="url(#clipPath25)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">interfaces</text>
-    </g>
-    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(133,400)" stroke="silver">
-      <path d="M0 0 L344 0 L344 30 L0 30 L0 0 ZM1 1 L343 1 L343 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath27)" stroke="none"/>
-    </g>
-    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(134,401)" stroke="rgb(215,213,172)">
-      <rect x="0" width="342" height="28" y="0" clip-path="url(#clipPath28)" stroke="none"/>
-      <rect x="0" y="27" clip-path="url(#clipPath28)" fill="rgb(90,90,90)" width="342" height="1" stroke="none"/>
-    </g>
-    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(134,401)" stroke="rgb(8,8,8)">
-      <image x="2" y="6" clip-path="url(#clipPath29)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABBUlEQVR4XmNgoDZw&#10;2P+Kx277PT+HrQ9q7Lc9mATCIDZYDCiHrh4F2G5+YGS/9f5E+233Z2LFQDmQGnR9&#10;YACScNh+fwaGJjQMUoNhiPXGG7x4bUbHQLUgPXADQP5DVmC7+fYso9zmvVruQTe1&#10;HDwe6IUkn7OevW8JshqQHrgBkABDSBrmNO3Xi8w6bbP0xEK7dZfnmrUu3GC74vx8&#10;ZDUgPXAD0J2v5R5402bxiYXIYhgYqIeAAceINwDTCw379SLSz4AMsV15YZ5Z7fSt&#10;lhM3rkRWg+IF9EC033x7NsgQbbfAW5oOXvf0IjNO2yw6ughZDUogUhyNIEBRQoIB&#10;ipIyDFCUmcgBAO2xiXpDgcL0AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
-      <text x="24" y="18" clip-path="url(#clipPath29)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">GenericPermissionableEntitiesCollection</text>
-    </g>
-    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(505,400)" stroke="silver">
-      <path d="M0 0 L256 0 L256 30 L0 30 L0 0 ZM1 1 L255 1 L255 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath30)" stroke="none"/>
-    </g>
-    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(506,401)" stroke="rgb(215,213,172)">
-      <rect x="0" width="254" height="28" y="0" clip-path="url(#clipPath31)" stroke="none"/>
-      <rect x="0" y="27" clip-path="url(#clipPath31)" fill="rgb(90,90,90)" width="254" height="1" stroke="none"/>
-    </g>
-    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(506,401)" stroke="rgb(8,8,8)">
-      <image x="2" y="6" clip-path="url(#clipPath32)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABBUlEQVR4XmNgoDZw&#10;2P+Kx277PT+HrQ9q7Lc9mATCIDZYDCiHrh4F2G5+YGS/9f5E+233Z2LFQDmQGnR9&#10;YACScNh+fwaGJjQMUoNhiPXGG7x4bUbHQLUgPXADQP5DVmC7+fYso9zmvVruQTe1&#10;HDwe6IUkn7OevW8JshqQHrgBkABDSBrmNO3Xi8w6bbP0xEK7dZfnmrUu3GC74vx8&#10;ZDUgPXAD0J2v5R5402bxiYXIYhgYqIeAAceINwDTCw379SLSz4AMsV15YZ5Z7fSt&#10;lhM3rkRWg+IF9EC033x7NsgQbbfAW5oOXvf0IjNO2yw6ughZDUogUhyNIEBRQoIB&#10;ipIyDFCUmcgBAO2xiXpDgcL0AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
-      <text x="24" y="18" clip-path="url(#clipPath32)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">GenericPermissionsCollection</text>
-    </g>
-    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(0,475)" stroke="silver">
-      <path d="M0 0 L264 0 L264 30 L0 30 L0 0 ZM1 1 L263 1 L263 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath33)" stroke="none"/>
-    </g>
-    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(1,476)" stroke="rgb(215,213,172)">
-      <rect x="0" width="262" height="28" y="0" clip-path="url(#clipPath34)" stroke="none"/>
-      <rect x="0" y="27" clip-path="url(#clipPath34)" fill="rgb(90,90,90)" width="262" height="1" stroke="none"/>
-    </g>
-    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(1,476)" stroke="rgb(8,8,8)">
-      <image x="2" y="6" clip-path="url(#clipPath35)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR4XmNgoDbI&#10;2u/Ak7Td0S95q1NN0janSSAMZgPFQHLo6lFA4mYno6StzhOTtjnPxIqBciA16PrA&#10;ACSRvN15BoYmNAxSg2FI0kZrXrw2o2OQWqAehAFA/6ErMrBXf4CM0eVBeuAGQAIM&#10;0yaHFP0jIIwuDsIgPQgX4HA+PgNAeqhnAOVeoDQQKY5GEKAoIcEARUkZBijKTOQA&#10;AArDPZARqQL9AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
-      <text x="24" y="18" clip-path="url(#clipPath35)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">PermissionableEntityInterface</text>
-    </g>
-    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(388,240)" stroke="silver">
-      <path d="M0 0 L184 0 L184 30 L0 30 L0 0 ZM1 1 L183 1 L183 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath36)" stroke="none"/>
-    </g>
-    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(389,241)" stroke="rgb(215,213,172)">
-      <rect x="0" width="182" height="28" y="0" clip-path="url(#clipPath4)" stroke="none"/>
-      <rect x="0" y="27" clip-path="url(#clipPath4)" fill="rgb(90,90,90)" width="182" height="1" stroke="none"/>
-    </g>
-    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(389,241)" stroke="rgb(8,8,8)">
-      <image x="2" y="6" clip-path="url(#clipPath5)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR4XmNgoDbI&#10;2u/Ak7Td0S95q1NN0janSSAMZgPFQHLo6lFA4mYno6StzhOTtjnPxIqBciA16PrA&#10;ACSRvN15BoYmNAxSg2FI0kZrXrw2o2OQWqAehAFA/6ErMrBXf4CM0eVBeuAGQAIM&#10;0yaHFP0jIIwuDsIgPQgX4HA+PgNAeqhnAOVeoDQQKY5GEKAoIcEARUkZBijKTOQA&#10;AArDPZARqQL9AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
-      <text x="24" y="18" clip-path="url(#clipPath5)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">CollectionInterface</text>
+      <image x="2" y="6" clip-path="url(#clipPath11)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR4XmNgoDbI&#10;2u/Ak7Td0S95q1NN0janSSAMZgPFQHLo6lFA4mYno6StzhOTtjnPxIqBciA16PrA&#10;ACSRvN15BoYmNAxSg2FI0kZrXrw2o2OQWqAehAFA/6ErMrBXf4CM0eVBeuAGQAIM&#10;0yaHFP0jIIwuDsIgPQgX4HA+PgNAeqhnAOVeoDQQKY5GEKAoIcEARUkZBijKTOQA&#10;AArDPZARqQL9AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
+      <text x="24" y="18" clip-path="url(#clipPath11)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">IteratorAggregate</text>
     </g>
     <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(600,320)" stroke="silver">
-      <path d="M0 0 L272 0 L272 30 L0 30 L0 0 ZM1 1 L271 1 L271 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath37)" stroke="none"/>
+      <path d="M0 0 L272 0 L272 30 L0 30 L0 0 ZM1 1 L271 1 L271 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath12)" stroke="none"/>
     </g>
     <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(601,321)" stroke="rgb(215,213,172)">
-      <rect x="0" width="270" height="28" y="0" clip-path="url(#clipPath38)" stroke="none"/>
-      <rect x="0" y="27" clip-path="url(#clipPath38)" fill="rgb(90,90,90)" width="270" height="1" stroke="none"/>
+      <rect x="0" width="270" height="28" y="0" clip-path="url(#clipPath13)" stroke="none"/>
+      <rect x="0" y="27" clip-path="url(#clipPath13)" fill="rgb(90,90,90)" width="270" height="1" stroke="none"/>
     </g>
     <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(601,321)" stroke="rgb(8,8,8)">
-      <image x="2" y="6" clip-path="url(#clipPath39)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR4XmNgoDbI&#10;2u/Ak7Td0S95q1NN0janSSAMZgPFQHLo6lFA4mYno6StzhOTtjnPxIqBciA16PrA&#10;ACSRvN15BoYmNAxSg2FI0kZrXrw2o2OQWqAehAFA/6ErMrBXf4CM0eVBeuAGQAIM&#10;0yaHFP0jIIwuDsIgPQgX4HA+PgNAeqhnAOVeoDQQKY5GEKAoIcEARUkZBijKTOQA&#10;AArDPZARqQL9AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
-      <text x="24" y="18" clip-path="url(#clipPath39)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">PermissionsCollectionInterface</text>
+      <image x="2" y="6" clip-path="url(#clipPath14)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR4XmNgoDbI&#10;2u/Ak7Td0S95q1NN0janSSAMZgPFQHLo6lFA4mYno6StzhOTtjnPxIqBciA16PrA&#10;ACSRvN15BoYmNAxSg2FI0kZrXrw2o2OQWqAehAFA/6ErMrBXf4CM0eVBeuAGQAIM&#10;0yaHFP0jIIwuDsIgPQgX4HA+PgNAeqhnAOVeoDQQKY5GEKAoIcEARUkZBijKTOQA&#10;AArDPZARqQL9AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
+      <text x="24" y="18" clip-path="url(#clipPath14)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">PermissionsCollectionInterface</text>
+    </g>
+    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(388,240)" stroke="silver">
+      <path d="M0 0 L184 0 L184 30 L0 30 L0 0 ZM1 1 L183 1 L183 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath15)" stroke="none"/>
+    </g>
+    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(389,241)" stroke="rgb(215,213,172)">
+      <rect x="0" width="182" height="28" y="0" clip-path="url(#clipPath16)" stroke="none"/>
+      <rect x="0" y="27" clip-path="url(#clipPath16)" fill="rgb(90,90,90)" width="182" height="1" stroke="none"/>
+    </g>
+    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(389,241)" stroke="rgb(8,8,8)">
+      <image x="2" y="6" clip-path="url(#clipPath17)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR4XmNgoDbI&#10;2u/Ak7Td0S95q1NN0janSSAMZgPFQHLo6lFA4mYno6StzhOTtjnPxIqBciA16PrA&#10;ACSRvN15BoYmNAxSg2FI0kZrXrw2o2OQWqAehAFA/6ErMrBXf4CM0eVBeuAGQAIM&#10;0yaHFP0jIIwuDsIgPQgX4HA+PgNAeqhnAOVeoDQQKY5GEKAoIcEARUkZBijKTOQA&#10;AArDPZARqQL9AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
+      <text x="24" y="18" clip-path="url(#clipPath17)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">CollectionInterface</text>
+    </g>
+    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(711,475)" stroke="silver">
+      <path d="M0 0 L112 0 L112 30 L0 30 L0 0 ZM1 1 L111 1 L111 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath18)" stroke="none"/>
+    </g>
+    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(712,476)" stroke="rgb(215,213,172)">
+      <rect x="0" width="110" height="28" y="0" clip-path="url(#clipPath19)" stroke="none"/>
+      <rect x="0" y="27" clip-path="url(#clipPath19)" fill="rgb(90,90,90)" width="110" height="1" stroke="none"/>
+    </g>
+    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(712,476)" stroke="rgb(8,8,8)">
+      <image x="2" y="6" clip-path="url(#clipPath20)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAANElEQVR4XmNgGBRg&#10;1ooNZ1Dw8g1bgDgQXR1OgGEADK/cmISuFivA0EgkHjVg1AAUA4Y2AAAXJ3w91syP&#10;YwAAAABJRU5ErkJggg==" height="16" preserveAspectRatio="none"/>
+      <text x="24" y="18" clip-path="url(#clipPath20)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">interfaces</text>
+    </g>
+    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(0,630)" stroke="silver">
+      <path d="M0 0 L112 0 L112 30 L0 30 L0 0 ZM1 1 L111 1 L111 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath21)" stroke="none"/>
+    </g>
+    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(1,631)" stroke="rgb(215,213,172)">
+      <rect x="0" width="110" height="28" y="0" clip-path="url(#clipPath19)" stroke="none"/>
+      <rect x="0" y="27" clip-path="url(#clipPath19)" fill="rgb(90,90,90)" width="110" height="1" stroke="none"/>
+    </g>
+    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(1,631)" stroke="rgb(8,8,8)">
+      <image x="2" y="6" clip-path="url(#clipPath20)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAANElEQVR4XmNgGBRg&#10;1ooNZ1Dw8g1bgDgQXR1OgGEADK/cmISuFivA0EgkHjVg1AAUA4Y2AAAXJ3w91syP&#10;YwAAAABJRU5ErkJggg==" height="16" preserveAspectRatio="none"/>
+      <text x="24" y="18" clip-path="url(#clipPath20)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">exceptions</text>
+    </g>
+    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(538,475)" stroke="silver">
+      <path d="M0 0 L128 0 L128 30 L0 30 L0 0 ZM1 1 L127 1 L127 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath22)" stroke="none"/>
+    </g>
+    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(539,476)" stroke="rgb(215,213,172)">
+      <rect x="0" width="126" height="28" y="0" clip-path="url(#clipPath23)" stroke="none"/>
+      <rect x="0" y="27" clip-path="url(#clipPath23)" fill="rgb(90,90,90)" width="126" height="1" stroke="none"/>
+    </g>
+    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(539,476)" stroke="rgb(8,8,8)">
+      <image x="2" y="6" clip-path="url(#clipPath24)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABBUlEQVR4XmNgoDZw&#10;2P+Kx277PT+HrQ9q7Lc9mATCIDZYDCiHrh4F2G5+YGS/9f5E+233Z2LFQDmQGnR9&#10;YACScNh+fwaGJjQMUoNhiPXGG7x4bUbHQLUgPXADQP5DVmC7+fYso9zmvVruQTe1&#10;HDwe6IUkn7OevW8JshqQHrgBkABDSBrmNO3Xi8w6bbP0xEK7dZfnmrUu3GC74vx8&#10;ZDUgPXAD0J2v5R5402bxiYXIYhgYqIeAAceINwDTCw379SLSz4AMsV15YZ5Z7fSt&#10;lhM3rkRWg+IF9EC033x7NsgQbbfAW5oOXvf0IjNO2yw6ughZDUogUhyNIEBRQoIB&#10;ipIyDFCUmcgBAO2xiXpDgcL0AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
+      <text x="24" y="18" clip-path="url(#clipPath24)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">VersatileAcl</text>
+    </g>
+    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(505,400)" stroke="silver">
+      <path d="M0 0 L256 0 L256 30 L0 30 L0 0 ZM1 1 L255 1 L255 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath25)" stroke="none"/>
+    </g>
+    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(506,401)" stroke="rgb(215,213,172)">
+      <rect x="0" width="254" height="28" y="0" clip-path="url(#clipPath26)" stroke="none"/>
+      <rect x="0" y="27" clip-path="url(#clipPath26)" fill="rgb(90,90,90)" width="254" height="1" stroke="none"/>
+    </g>
+    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(506,401)" stroke="rgb(8,8,8)">
+      <image x="2" y="6" clip-path="url(#clipPath27)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABBUlEQVR4XmNgoDZw&#10;2P+Kx277PT+HrQ9q7Lc9mATCIDZYDCiHrh4F2G5+YGS/9f5E+233Z2LFQDmQGnR9&#10;YACScNh+fwaGJjQMUoNhiPXGG7x4bUbHQLUgPXADQP5DVmC7+fYso9zmvVruQTe1&#10;HDwe6IUkn7OevW8JshqQHrgBkABDSBrmNO3Xi8w6bbP0xEK7dZfnmrUu3GC74vx8&#10;ZDUgPXAD0J2v5R5402bxiYXIYhgYqIeAAceINwDTCw379SLSz4AMsV15YZ5Z7fSt&#10;lhM3rkRWg+IF9EC033x7NsgQbbfAW5oOXvf0IjNO2yw6ughZDUogUhyNIEBRQoIB&#10;ipIyDFCUmcgBAO2xiXpDgcL0AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
+      <text x="24" y="18" clip-path="url(#clipPath27)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">GenericPermissionsCollection</text>
+    </g>
+    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(0,475)" stroke="silver">
+      <path d="M0 0 L264 0 L264 30 L0 30 L0 0 ZM1 1 L263 1 L263 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath28)" stroke="none"/>
+    </g>
+    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(1,476)" stroke="rgb(215,213,172)">
+      <rect x="0" width="262" height="28" y="0" clip-path="url(#clipPath29)" stroke="none"/>
+      <rect x="0" y="27" clip-path="url(#clipPath29)" fill="rgb(90,90,90)" width="262" height="1" stroke="none"/>
+    </g>
+    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(1,476)" stroke="rgb(8,8,8)">
+      <image x="2" y="6" clip-path="url(#clipPath30)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR4XmNgoDbI&#10;2u/Ak7Td0S95q1NN0janSSAMZgPFQHLo6lFA4mYno6StzhOTtjnPxIqBciA16PrA&#10;ACSRvN15BoYmNAxSg2FI0kZrXrw2o2OQWqAehAFA/6ErMrBXf4CM0eVBeuAGQAIM&#10;0yaHFP0jIIwuDsIgPQgX4HA+PgNAeqhnAOVeoDQQKY5GEKAoIcEARUkZBijKTOQA&#10;AArDPZARqQL9AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
+      <text x="24" y="18" clip-path="url(#clipPath30)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">PermissionableEntityInterface</text>
+    </g>
+    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(309,475)" stroke="silver">
+      <path d="M0 0 L184 0 L184 30 L0 30 L0 0 ZM1 1 L183 1 L183 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath31)" stroke="none"/>
+    </g>
+    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(310,476)" stroke="rgb(215,213,172)">
+      <rect x="0" width="182" height="28" y="0" clip-path="url(#clipPath16)" stroke="none"/>
+      <rect x="0" y="27" clip-path="url(#clipPath16)" fill="rgb(90,90,90)" width="182" height="1" stroke="none"/>
+    </g>
+    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(310,476)" stroke="rgb(8,8,8)">
+      <image x="2" y="6" clip-path="url(#clipPath17)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR4XmNgoDbI&#10;2u/Ak7Td0S95q1NN0janSSAMZgPFQHLo6lFA4mYno6StzhOTtjnPxIqBciA16PrA&#10;ACSRvN15BoYmNAxSg2FI0kZrXrw2o2OQWqAehAFA/6ErMrBXf4CM0eVBeuAGQAIM&#10;0yaHFP0jIIwuDsIgPQgX4HA+PgNAeqhnAOVeoDQQKY5GEKAoIcEARUkZBijKTOQA&#10;AArDPZARqQL9AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
+      <text x="24" y="18" clip-path="url(#clipPath17)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">PermissionInterface</text>
+    </g>
+    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(380,320)" stroke="silver">
+      <path d="M0 0 L200 0 L200 30 L0 30 L0 0 ZM1 1 L199 1 L199 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath32)" stroke="none"/>
+    </g>
+    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(381,321)" stroke="rgb(215,213,172)">
+      <rect x="0" width="198" height="28" y="0" clip-path="url(#clipPath33)" stroke="none"/>
+      <rect x="0" y="27" clip-path="url(#clipPath33)" fill="rgb(90,90,90)" width="198" height="1" stroke="none"/>
+    </g>
+    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(381,321)" stroke="rgb(8,8,8)">
+      <image x="2" y="6" clip-path="url(#clipPath34)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABCklEQVR4XmNgoDZw&#10;2/mC22bbPV+HLQ+qHbbdnwDGQDZIDCSHrh4DADX0A/F0HLgfXT0czF61yQlEY9GE&#10;gpHVwsH89esFZq7YcJBYA0BqQXrgBsxavjFj1ooNZ2AG2Gy5M8Mot3m3lnvwdS0H&#10;r3t6oclnrGbtWwQzAKQWpAfJgPXLkA0wymnaqxeRfdJ26Yn5tusuzzZtXbjObvm5&#10;uagGrF+GZMCGQ8gGaLkHXrddcmI+uvNRDdhwiIABR0kxAN0LDXt1IzJOgQyxWXFh&#10;jmnt9M0WEzcux+MF1EC033RrJsgQbffAG1oOnnf0IjJO2i4+tgDVAKRApDgaQYCi&#10;hIQMHMhNyjBAcWYiFQAANe1aTyry/MQAAAAASUVORK5CYII=" height="16" preserveAspectRatio="none"/>
+      <text x="24" y="18" clip-path="url(#clipPath34)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">GenericBaseCollection</text>
+    </g>
+    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(317,555)" stroke="silver">
+      <path d="M0 0 L168 0 L168 30 L0 30 L0 0 ZM1 1 L167 1 L167 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath35)" stroke="none"/>
+    </g>
+    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(318,556)" stroke="rgb(215,213,172)">
+      <rect x="0" width="166" height="28" y="0" clip-path="url(#clipPath10)" stroke="none"/>
+      <rect x="0" y="27" clip-path="url(#clipPath10)" fill="rgb(90,90,90)" width="166" height="1" stroke="none"/>
+    </g>
+    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(318,556)" stroke="rgb(8,8,8)">
+      <image x="2" y="6" clip-path="url(#clipPath11)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABBUlEQVR4XmNgoDZw&#10;2P+Kx277PT+HrQ9q7Lc9mATCIDZYDCiHrh4F2G5+YGS/9f5E+233Z2LFQDmQGnR9&#10;YACScNh+fwaGJjQMUoNhiPXGG7x4bUbHQLUgPXADQP5DVmC7+fYso9zmvVruQTe1&#10;HDwe6IUkn7OevW8JshqQHrgBkABDSBrmNO3Xi8w6bbP0xEK7dZfnmrUu3GC74vx8&#10;ZDUgPXAD0J2v5R5402bxiYXIYhgYqIeAAceINwDTCw379SLSz4AMsV15YZ5Z7fSt&#10;lhM3rkRWg+IF9EC033x7NsgQbbfAW5oOXvf0IjNO2yw6ughZDUogUhyNIEBRQoIB&#10;ipIyDFCUmcgBAO2xiXpDgcL0AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
+      <text x="24" y="18" clip-path="url(#clipPath11)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">GenericPermission</text>
+    </g>
+    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(133,400)" stroke="silver">
+      <path d="M0 0 L344 0 L344 30 L0 30 L0 0 ZM1 1 L343 1 L343 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath36)" stroke="none"/>
+    </g>
+    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(134,401)" stroke="rgb(215,213,172)">
+      <rect x="0" width="342" height="28" y="0" clip-path="url(#clipPath37)" stroke="none"/>
+      <rect x="0" y="27" clip-path="url(#clipPath37)" fill="rgb(90,90,90)" width="342" height="1" stroke="none"/>
+    </g>
+    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(134,401)" stroke="rgb(8,8,8)">
+      <image x="2" y="6" clip-path="url(#clipPath38)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABBUlEQVR4XmNgoDZw&#10;2P+Kx277PT+HrQ9q7Lc9mATCIDZYDCiHrh4F2G5+YGS/9f5E+233Z2LFQDmQGnR9&#10;YACScNh+fwaGJjQMUoNhiPXGG7x4bUbHQLUgPXADQP5DVmC7+fYso9zmvVruQTe1&#10;HDwe6IUkn7OevW8JshqQHrgBkABDSBrmNO3Xi8w6bbP0xEK7dZfnmrUu3GC74vx8&#10;ZDUgPXAD0J2v5R5402bxiYXIYhgYqIeAAceINwDTCw379SLSz4AMsV15YZ5Z7fSt&#10;lhM3rkRWg+IF9EC033x7NsgQbbfAW5oOXvf0IjNO2yw6ughZDUogUhyNIEBRQoIB&#10;ipIyDFCUmcgBAO2xiXpDgcL0AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
+      <text x="24" y="18" clip-path="url(#clipPath38)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">GenericPermissionableEntitiesCollection</text>
+    </g>
+    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(8,555)" stroke="silver">
+      <path d="M0 0 L248 0 L248 30 L0 30 L0 0 ZM1 1 L247 1 L247 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath39)" stroke="none"/>
+    </g>
+    <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(9,556)" stroke="rgb(215,213,172)">
+      <rect x="0" width="246" height="28" y="0" clip-path="url(#clipPath40)" stroke="none"/>
+      <rect x="0" y="27" clip-path="url(#clipPath40)" fill="rgb(90,90,90)" width="246" height="1" stroke="none"/>
+    </g>
+    <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(9,556)" stroke="rgb(8,8,8)">
+      <image x="2" y="6" clip-path="url(#clipPath41)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABBUlEQVR4XmNgoDZw&#10;2P+Kx277PT+HrQ9q7Lc9mATCIDZYDCiHrh4F2G5+YGS/9f5E+233Z2LFQDmQGnR9&#10;YACScNh+fwaGJjQMUoNhiPXGG7x4bUbHQLUgPXADQP5DVmC7+fYso9zmvVruQTe1&#10;HDwe6IUkn7OevW8JshqQHrgBkABDSBrmNO3Xi8w6bbP0xEK7dZfnmrUu3GC74vx8&#10;ZDUgPXAD0J2v5R5402bxiYXIYhgYqIeAAceINwDTCw379SLSz4AMsV15YZ5Z7fSt&#10;lhM3rkRWg+IF9EC033x7NsgQbbfAW5oOXvf0IjNO2yw6ughZDUogUhyNIEBRQoIB&#10;ipIyDFCUmcgBAO2xiXpDgcL0AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
+      <text x="24" y="18" clip-path="url(#clipPath41)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">GenericPermissionableEntity</text>
     </g>
     <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(0,320)" stroke="silver">
-      <path d="M0 0 L360 0 L360 30 L0 30 L0 0 ZM1 1 L359 1 L359 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath40)" stroke="none"/>
+      <path d="M0 0 L360 0 L360 30 L0 30 L0 0 ZM1 1 L359 1 L359 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath42)" stroke="none"/>
     </g>
     <g fill="rgb(215,213,172)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(1,321)" stroke="rgb(215,213,172)">
-      <rect x="0" width="358" height="28" y="0" clip-path="url(#clipPath41)" stroke="none"/>
-      <rect x="0" y="27" clip-path="url(#clipPath41)" fill="rgb(90,90,90)" width="358" height="1" stroke="none"/>
+      <rect x="0" width="358" height="28" y="0" clip-path="url(#clipPath43)" stroke="none"/>
+      <rect x="0" y="27" clip-path="url(#clipPath43)" fill="rgb(90,90,90)" width="358" height="1" stroke="none"/>
     </g>
     <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(1,321)" stroke="rgb(8,8,8)">
-      <image x="2" y="6" clip-path="url(#clipPath42)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR4XmNgoDbI&#10;2u/Ak7Td0S95q1NN0janSSAMZgPFQHLo6lFA4mYno6StzhOTtjnPxIqBciA16PrA&#10;ACSRvN15BoYmNAxSg2FI0kZrXrw2o2OQWqAehAFA/6ErMrBXf4CM0eVBeuAGQAIM&#10;0yaHFP0jIIwuDsIgPQgX4HA+PgNAeqhnAOVeoDQQKY5GEKAoIcEARUkZBijKTOQA&#10;AArDPZARqQL9AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
-      <text x="24" y="18" clip-path="url(#clipPath42)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">PermissionableEntitiesCollectionInterface</text>
+      <image x="2" y="6" clip-path="url(#clipPath44)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR4XmNgoDbI&#10;2u/Ak7Td0S95q1NN0janSSAMZgPFQHLo6lFA4mYno6StzhOTtjnPxIqBciA16PrA&#10;ACSRvN15BoYmNAxSg2FI0kZrXrw2o2OQWqAehAFA/6ErMrBXf4CM0eVBeuAGQAIM&#10;0yaHFP0jIIwuDsIgPQgX4HA+PgNAeqhnAOVeoDQQKY5GEKAoIcEARUkZBijKTOQA&#10;AArDPZARqQL9AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
+      <text x="24" y="18" clip-path="url(#clipPath44)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">PermissionableEntitiesCollectionInterface</text>
     </g>
     <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(510,0)" stroke="silver">
-      <path d="M0 0 L96 0 L96 30 L0 30 L0 0 ZM1 1 L95 1 L95 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath43)" stroke="none"/>
+      <path d="M0 0 L96 0 L96 30 L0 30 L0 0 ZM1 1 L95 1 L95 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath45)" stroke="none"/>
     </g>
     <g fill="rgb(255,255,228)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(511,1)" stroke="rgb(255,255,228)">
-      <rect x="0" width="94" height="28" y="0" clip-path="url(#clipPath44)" stroke="none"/>
-      <rect x="0" y="27" clip-path="url(#clipPath44)" fill="rgb(90,90,90)" width="94" height="1" stroke="none"/>
+      <rect x="0" width="94" height="28" y="0" clip-path="url(#clipPath46)" stroke="none"/>
+      <rect x="0" y="27" clip-path="url(#clipPath46)" fill="rgb(90,90,90)" width="94" height="1" stroke="none"/>
     </g>
     <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(511,1)" stroke="rgb(8,8,8)">
-      <image x="2" y="6" clip-path="url(#clipPath45)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR4XmNgoDbI&#10;2u/Ak7Td0S95q1NN0janSSAMZgPFQHLo6lFA4mYno6StzhOTtjnPxIqBciA16PrA&#10;ACSRvN15BoYmNAxSg2FI0kZrXrw2o2OQWqAehAFA/6ErMrBXf4CM0eVBeuAGQAIM&#10;0yaHFP0jIIwuDsIgPQgX4HA+PgNAeqhnAOVeoDQQKY5GEKAoIcEARUkZBijKTOQA&#10;AArDPZARqQL9AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
-      <text x="24" y="18" clip-path="url(#clipPath45)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">iterable</text>
+      <image x="2" y="6" clip-path="url(#clipPath47)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR4XmNgoDbI&#10;2u/Ak7Td0S95q1NN0janSSAMZgPFQHLo6lFA4mYno6StzhOTtjnPxIqBciA16PrA&#10;ACSRvN15BoYmNAxSg2FI0kZrXrw2o2OQWqAehAFA/6ErMrBXf4CM0eVBeuAGQAIM&#10;0yaHFP0jIIwuDsIgPQgX4HA+PgNAeqhnAOVeoDQQKY5GEKAoIcEARUkZBijKTOQA&#10;AArDPZARqQL9AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
+      <text x="24" y="18" clip-path="url(#clipPath47)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">iterable</text>
     </g>
-    <g fill="silver" transform="matrix(1,0,0,1,20,20) translate(498,80)" stroke="silver">
-      <path d="M0 0 L120 0 L120 30 L0 30 L0 0 ZM1 1 L119 1 L119 29 L1 29 L1 1 Z" fill-rule="evenodd" clip-path="url(#clipPath46)" stroke="none"/>
+    <g fill="silver" transform="matrix(1,0,0,1,20,20)" stroke="silver">
+      <rect x="492" width="5" height="5" y="74" clip-path="url(#clipPath2)" stroke="none"/>
+      <rect x="492" width="5" height="5" y="93" clip-path="url(#clipPath2)" stroke="none"/>
+      <rect x="492" width="5" height="5" y="112" clip-path="url(#clipPath2)" stroke="none"/>
+      <rect x="556" width="5" height="5" y="112" clip-path="url(#clipPath2)" stroke="none"/>
+      <rect x="556" width="5" height="5" y="74" clip-path="url(#clipPath2)" stroke="none"/>
+      <rect x="620" width="5" height="5" y="74" clip-path="url(#clipPath2)" stroke="none"/>
+      <rect x="620" width="5" height="5" y="93" clip-path="url(#clipPath2)" stroke="none"/>
+      <rect x="620" width="5" height="5" y="112" clip-path="url(#clipPath2)" stroke="none"/>
+    </g>
+    <g fill="rgb(255,200,0)" transform="matrix(1,0,0,1,20,20) translate(498,80)" stroke="rgb(255,200,0)">
+      <path d="M0 0.5 L0 29.5 C0 29.7761 0.2239 30 0.5 30 L119.5 30 C119.7761 30 120 29.7761 120 29.5 L120 0.5 C120 0.2239 119.7761 0 119.5 0 L0.5 0 C0.2239 0 0 0.2239 0 0.5 ZM1 1.1 L1 28.9 C1 28.9552 1.0448 29 1.1 29 L118.9 29 C118.9552 29 119 28.9552 119 28.9 L119 1.1 C119 1.0448 118.9552 1 118.9 1 L1.1 1 C1.0448 1 1 1.0448 1 1.1 Z" fill-rule="evenodd" clip-path="url(#clipPath48)" stroke="none"/>
     </g>
     <g fill="rgb(255,255,228)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(499,81)" stroke="rgb(255,255,228)">
-      <rect x="0" width="118" height="28" y="0" clip-path="url(#clipPath47)" stroke="none"/>
-      <rect x="0" y="27" clip-path="url(#clipPath47)" fill="rgb(90,90,90)" width="118" height="1" stroke="none"/>
+      <rect x="0" width="118" height="28" y="0" clip-path="url(#clipPath49)" stroke="none"/>
+      <rect x="0" y="27" clip-path="url(#clipPath49)" fill="rgb(90,90,90)" width="118" height="1" stroke="none"/>
     </g>
     <g fill="rgb(8,8,8)" font-size="13px" font-family="'JetBrains Mono'" transform="matrix(1,0,0,1,20,20) translate(499,81)" stroke="rgb(8,8,8)">
-      <image x="2" y="6" clip-path="url(#clipPath48)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR4XmNgoDbI&#10;2u/Ak7Td0S95q1NN0janSSAMZgPFQHLo6lFA4mYno6StzhOTtjnPxIqBciA16PrA&#10;ACSRvN15BoYmNAxSg2FI0kZrXrw2o2OQWqAehAFA/6ErMrBXf4CM0eVBeuAGQAIM&#10;0yaHFP0jIIwuDsIgPQgX4HA+PgNAeqhnAOVeoDQQKY5GEKAoIcEARUkZBijKTOQA&#10;AArDPZARqQL9AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
-      <text x="24" y="18" clip-path="url(#clipPath48)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">Traversable</text>
+      <image x="2" y="6" clip-path="url(#clipPath50)" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR4XmNgoDbI&#10;2u/Ak7Td0S95q1NN0janSSAMZgPFQHLo6lFA4mYno6StzhOTtjnPxIqBciA16PrA&#10;ACSRvN15BoYmNAxSg2FI0kZrXrw2o2OQWqAehAFA/6ErMrBXf4CM0eVBeuAGQAIM&#10;0yaHFP0jIIwuDsIgPQgX4HA+PgNAeqhnAOVeoDQQKY5GEKAoIcEARUkZBijKTOQA&#10;AArDPZARqQL9AAAAAElFTkSuQmCC" height="16" preserveAspectRatio="none"/>
+      <text x="24" y="18" clip-path="url(#clipPath50)" text-rendering="optimizeSpeed" shape-rendering="optimizeSpeed" stroke="none" xml:space="preserve">Traversable</text>
     </g>
     <g fill="rgb(0,130,0)" stroke-miterlimit="1.45" stroke-dasharray="6,2" transform="matrix(1,0,0,1,20,20)" stroke-linecap="butt" stroke="rgb(0,130,0)">
-      <path fill="none" d="M401 554.9512 L401 516.0488" clip-path="url(#clipPath2)"/>
+      <path fill="none" d="M697 399.9512 L697 375 L736 375 L736 361.0488" clip-path="url(#clipPath2)"/>
     </g>
     <g fill="rgb(0,130,0)" stroke-miterlimit="1.45" stroke-dasharray="6,2" transform="matrix(1,0,0,1,20,20)" stroke-linecap="butt" stroke="rgb(0,130,0)">
-      <path d="M401 505.0488 L395 517.0488 L407 517.0488 Z" stroke="none" clip-path="url(#clipPath2)"/>
-      <path fill="none" d="M219 399.9512 L219 375 L180 375 L180 361.0488" clip-path="url(#clipPath2)"/>
-      <path d="M180 350.0488 L174 362.0488 L186 362.0488 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <path fill="none" stroke-dasharray="none" d="M569 399.9512 L569 375 L530 375 L530 361.0488" clip-path="url(#clipPath2)" stroke="rgb(0,0,130)"/>
-      <path fill="rgb(0,0,130)" stroke-dasharray="none" d="M530 350.0488 L524 362.0488 L536 362.0488 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <path fill="none" d="M480 319.9512 L480 281.0488" clip-path="url(#clipPath2)"/>
-      <path d="M480 270.0488 L474 282.0488 L486 282.0488 Z" clip-path="url(#clipPath2)" stroke="none"/>
+      <path d="M736 350.0488 L730 362.0488 L742 362.0488 Z" stroke="none" clip-path="url(#clipPath2)"/>
       <path fill="none" stroke-dasharray="none" d="M736 319.9512 L736 295 L541.3333 295 L541.3333 281.0488" clip-path="url(#clipPath2)"/>
       <path stroke-dasharray="none" d="M541.3333 270.0488 L535.3333 282.0488 L547.3333 282.0488 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <path fill="none" d="M697 399.9512 L697 375 L736 375 L736 361.0488" clip-path="url(#clipPath2)"/>
-      <path d="M736 350.0488 L730 362.0488 L742 362.0488 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <path fill="none" stroke-dasharray="none" d="M391 399.9512 L391 375 L430 375 L430 361.0488" clip-path="url(#clipPath2)" stroke="rgb(0,0,130)"/>
-      <path fill="rgb(0,0,130)" stroke-dasharray="none" d="M430 350.0488 L424 362.0488 L436 362.0488 Z" clip-path="url(#clipPath2)" stroke="none"/>
+      <path fill="none" d="M219 399.9512 L219 375 L180 375 L180 361.0488" clip-path="url(#clipPath2)"/>
+      <path d="M180 350.0488 L174 362.0488 L186 362.0488 Z" clip-path="url(#clipPath2)" stroke="none"/>
+      <path fill="none" stroke-dasharray="none" d="M558 79.9512 L558 41.0488" clip-path="url(#clipPath2)"/>
+      <path stroke-dasharray="none" d="M558 30.0488 L552 42.0488 L564 42.0488 Z" clip-path="url(#clipPath2)" stroke="none"/>
       <path fill="none" stroke-dasharray="none" d="M180 319.9512 L180 295 L418.6667 295 L418.6667 281.0488" clip-path="url(#clipPath2)"/>
       <path stroke-dasharray="none" d="M418.6667 270.0488 L412.6667 282.0488 L424.6667 282.0488 Z" clip-path="url(#clipPath2)" stroke="none"/>
       <path fill="none" stroke-dasharray="none" d="M558 159.9512 L558 121.0488" clip-path="url(#clipPath2)"/>
       <path stroke-dasharray="none" d="M558 110.0488 L552 122.0488 L564 122.0488 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <path fill="none" stroke-dasharray="none" d="M526 239.9512 L526 215 L558 215 L558 201.0488" clip-path="url(#clipPath2)"/>
-      <path stroke-dasharray="none" d="M558 190.0488 L552 202.0488 L564 202.0488 Z" clip-path="url(#clipPath2)" stroke="none"/>
+      <path fill="none" d="M480 319.9512 L480 281.0488" clip-path="url(#clipPath2)"/>
+      <path d="M480 270.0488 L474 282.0488 L486 282.0488 Z" clip-path="url(#clipPath2)" stroke="none"/>
       <path fill="none" stroke-dasharray="none" d="M434 239.9512 L434 215 L402 215 L402 201.0488" clip-path="url(#clipPath2)"/>
       <path stroke-dasharray="none" d="M402 190.0488 L396 202.0488 L408 202.0488 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <path fill="none" stroke-dasharray="none" d="M558 79.9512 L558 41.0488" clip-path="url(#clipPath2)"/>
-      <path stroke-dasharray="none" d="M558 30.0488 L552 42.0488 L564 42.0488 Z" clip-path="url(#clipPath2)" stroke="none"/>
+      <path fill="none" stroke-dasharray="none" d="M569 399.9512 L569 375 L530 375 L530 361.0488" clip-path="url(#clipPath2)" stroke="rgb(0,0,130)"/>
+      <path fill="rgb(0,0,130)" stroke-dasharray="none" d="M530 350.0488 L524 362.0488 L536 362.0488 Z" clip-path="url(#clipPath2)" stroke="none"/>
+      <path fill="none" stroke-dasharray="none" d="M526 239.9512 L526 215 L558 215 L558 201.0488" clip-path="url(#clipPath2)"/>
+      <path stroke-dasharray="none" d="M558 190.0488 L552 202.0488 L564 202.0488 Z" clip-path="url(#clipPath2)" stroke="none"/>
+      <path fill="none" stroke-dasharray="none" d="M391 399.9512 L391 375 L430 375 L430 361.0488" clip-path="url(#clipPath2)" stroke="rgb(0,0,130)"/>
+      <path fill="rgb(0,0,130)" stroke-dasharray="none" d="M430 350.0488 L424 362.0488 L436 362.0488 Z" clip-path="url(#clipPath2)" stroke="none"/>
       <path fill="none" d="M132 554.9512 L132 516.0488" clip-path="url(#clipPath2)"/>
       <path d="M132 505.0488 L126 517.0488 L138 517.0488 Z" clip-path="url(#clipPath2)" stroke="none"/>
+      <path fill="none" d="M401 554.9512 L401 516.0488" clip-path="url(#clipPath2)"/>
+      <path d="M401 505.0488 L395 517.0488 L407 517.0488 Z" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
   </g>
 </svg>
