@@ -70,15 +70,15 @@ class CustomPermissionsCollection extends GenericBaseCollection implements Permi
             
             if(
                 (
-                    Utils::strtolower($permission->getAction()) === Utils::strtolower($action)
+                    Utils::strToLower($permission->getAction()) === Utils::strToLower($action)
                     ||
-                    Utils::strtolower($permission->getAction()) === Utils::strtolower($permissionClass::getAllActionsIdentifier())
+                    Utils::strToLower($permission->getAction()) === Utils::strToLower($permissionClass::getAllActionsIdentifier())
                 )
                 &&
                 (
-                    Utils::strtolower($permission->getResource()) === Utils::strtolower($resource)
+                    Utils::strToLower($permission->getResource()) === Utils::strToLower($resource)
                     ||
-                    Utils::strtolower($permission->getResource()) === Utils::strtolower($permissionClass::getAllResourcesIdentifier())
+                    Utils::strToLower($permission->getResource()) === Utils::strToLower($permissionClass::getAllResourcesIdentifier())
                 )
                 
             ) {
@@ -270,22 +270,22 @@ class CustomPermissionsCollection extends GenericBaseCollection implements Permi
                         // match by $action and $resource
                         $action !== ''
                         && $resource !== ''
-                        && Utils::strtolower($permission->getAction()) === Utils::strtolower($action)
-                        && Utils::strtolower($permission->getResource()) === Utils::strtolower($resource)
+                        && Utils::strToLower($permission->getAction()) === Utils::strToLower($action)
+                        && Utils::strToLower($permission->getResource()) === Utils::strToLower($resource)
                     )
                     ||
                     (
                         // only match by $resource
                         $action === ''
                         && $resource !== ''
-                        && Utils::strtolower($permission->getResource()) === Utils::strtolower($resource)
+                        && Utils::strToLower($permission->getResource()) === Utils::strToLower($resource)
                     )
                     ||
                     (
                         // only match by $action
                         $action !== ''
                         && $resource === ''
-                        && Utils::strtolower($permission->getAction()) === Utils::strtolower($action)
+                        && Utils::strToLower($permission->getAction()) === Utils::strToLower($action)
                     )
                 ) {
                     return $permission;
@@ -323,22 +323,22 @@ class CustomPermissionsCollection extends GenericBaseCollection implements Permi
                         // match by $action and $resource
                         $action !== ''
                         && $resource !== ''
-                        && Utils::strtolower($permission->getAction()) === Utils::strtolower($action)
-                        && Utils::strtolower($permission->getResource()) === Utils::strtolower($resource)
+                        && Utils::strToLower($permission->getAction()) === Utils::strToLower($action)
+                        && Utils::strToLower($permission->getResource()) === Utils::strToLower($resource)
                     )
                     ||
                     (
                         // only match by $resource
                         $action === ''
                         && $resource !== ''
-                        && Utils::strtolower($permission->getResource()) === Utils::strtolower($resource)
+                        && Utils::strToLower($permission->getResource()) === Utils::strToLower($resource)
                     )
                     ||
                     (
                         // only match by $action
                         $action !== ''
                         && $resource === ''
-                        && Utils::strtolower($permission->getAction()) === Utils::strtolower($action)
+                        && Utils::strToLower($permission->getAction()) === Utils::strToLower($action)
                     )
                 ) {
                     $permissionsCollection->add($permission);
