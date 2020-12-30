@@ -502,26 +502,12 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
     }
     
     public function dump(array $propertiesToExcludeFromDump=[]):string {
-        
-        static $propertiesToExcludeFromDumpAcrossAllInstances;
-        
-        if(
-            !$propertiesToExcludeFromDumpAcrossAllInstances  // first call
-            || 
-            (
-                $propertiesToExcludeFromDumpAcrossAllInstances !== $propertiesToExcludeFromDump
-            ) // handle multiple calls with different values of $propertiesToExcludeFromDump
-        ) {
-            $propertiesToExcludeFromDumpAcrossAllInstances = $propertiesToExcludeFromDump;
-        }
-        
-        $propertiesToExcludeFromThisCall = $propertiesToExcludeFromDumpAcrossAllInstances;
 
         $objAsStr = static::class ." (". spl_object_hash($this) . ")" . PHP_EOL . "{" . PHP_EOL;
         
-        $objAsStr .= in_array('id', $propertiesToExcludeFromThisCall) ? '' : "\t"."id: `{$this->id}`" . PHP_EOL;
-        $objAsStr .= in_array('parentEntities', $propertiesToExcludeFromThisCall) ? '' : "\t"."parentEntities: " . PHP_EOL . "\t\t". str_replace(PHP_EOL, PHP_EOL."\t\t", ''.$this->parentEntities) . PHP_EOL;
-        $objAsStr .= in_array('permissions', $propertiesToExcludeFromThisCall) ? '' : "\t"."permissions: " . PHP_EOL . "\t\t". str_replace(PHP_EOL, PHP_EOL."\t\t", ''.$this->permissions) . PHP_EOL;
+        $objAsStr .= in_array('id', $propertiesToExcludeFromDump) ? '' : "\t"."id: `{$this->id}`" . PHP_EOL;
+        $objAsStr .= in_array('parentEntities', $propertiesToExcludeFromDump) ? '' : "\t"."parentEntities: " . PHP_EOL . "\t\t". str_replace(PHP_EOL, PHP_EOL."\t\t", ''.$this->parentEntities) . PHP_EOL;
+        $objAsStr .= in_array('permissions', $propertiesToExcludeFromDump) ? '' : "\t"."permissions: " . PHP_EOL . "\t\t". str_replace(PHP_EOL, PHP_EOL."\t\t", ''.$this->permissions) . PHP_EOL;
                 
         return $objAsStr . (PHP_EOL . "}" . PHP_EOL);
     }
