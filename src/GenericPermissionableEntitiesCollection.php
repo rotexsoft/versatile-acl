@@ -55,9 +55,8 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
         
             $this->storage[] = $permissionEntity;
             
-        } else {
+        } else { // update the existing entity
             
-            // update the existing entity
             $key = $this->getKey($permissionEntity);
             $key !== null && $this->put($permissionEntity, ''.$key);
         }
