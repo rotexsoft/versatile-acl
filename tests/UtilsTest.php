@@ -1,7 +1,7 @@
 <?php
 /** @noinspection PhpFullyQualifiedNameUsageInspection */
 declare(strict_types=1);
-use SimpleAcl\Utils;
+use VersatileAcl\Utils;
 
 /**
  * Description of ArraysCollectionTest
