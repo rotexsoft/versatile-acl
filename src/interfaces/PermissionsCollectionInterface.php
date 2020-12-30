@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace SimpleAcl\Interfaces;
+namespace VersatileAcl\Interfaces;
 
 
 interface PermissionsCollectionInterface extends CollectionInterface

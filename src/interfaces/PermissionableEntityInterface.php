@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace SimpleAcl\Interfaces;
+namespace VersatileAcl\Interfaces;
 
-use SimpleAcl\Exceptions\EmptyEntityIdException;
-use SimpleAcl\Exceptions\ParentCannotBeChildException;
+use VersatileAcl\Exceptions\EmptyEntityIdException;
+use VersatileAcl\Exceptions\ParentCannotBeChildException;
 
 interface PermissionableEntityInterface {
     
@@ -42,7 +42,7 @@ interface PermissionableEntityInterface {
      * where $x->isEqualTo($entity) === true), nothing should happen and this method should just
      * return the current instance (a.k.a $this).
      *
-     * A \SimpleAcl\Exceptions\ParentCannotBeChildException must be thrown if the current instance is already a parent to $entity.
+     * A \VersatileAcl\Exceptions\ParentCannotBeChildException must be thrown if the current instance is already a parent to $entity.
      * An instance `A` of PermissionableEntityInterface is a parent to another instance `B` of PermissionableEntityInterface
      * if the list of instance B's parents contains an object `C` where C->isEqualTo(A) === true
      *
@@ -62,7 +62,7 @@ interface PermissionableEntityInterface {
      * this method should either try to add the next parent entity (if any) or just return the
      * current instance (a.k.a $this).
      *
-     * A \SimpleAcl\Exceptions\ParentCannotBeChildException must be thrown if the current instance is already a parent to at least
+     * A \VersatileAcl\Exceptions\ParentCannotBeChildException must be thrown if the current instance is already a parent to at least
      * one entity in $entities. Parent(s) added before the exception was thrown are still valid and should not be removed.
      * An instance `A` of PermissionableEntityInterface is a parent to another instance `B` of PermissionableEntityInterface
      * if the list of instance B's parents contains an object `C` where C->isEqualTo(A) === true
