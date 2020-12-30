@@ -200,7 +200,7 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
         
         /** @var PermissionableEntityInterface $entity */
         foreach ($this->storage as $entity) {
-            if( Utils::strtolower($entity->getId()) === Utils::strtolower($entityId) ) {
+            if( Utils::strSameIgnoreCase($entity->getId(), $entityId) ) {
                 return $entity;
             }
         }
