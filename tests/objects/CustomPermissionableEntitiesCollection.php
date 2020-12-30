@@ -204,7 +204,7 @@ class CustomPermissionableEntitiesCollection extends GenericBaseCollection imple
         
         /** @var SimpleAcl\Interfaces\PermissionableEntityInterface $entity */
         foreach ($this->storage as $entity) {
-            if( Utils::strtolower($entity->getId()) === Utils::strtolower($entityId) ) {
+            if( Utils::strToLower($entity->getId()) === Utils::strToLower($entityId) ) {
                 return $entity;
             }
         }
