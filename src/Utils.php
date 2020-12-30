@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
-namespace SimpleAcl;
+namespace VersatileAcl;
 
 use Closure;
 use function function_exists;
+use function strcmp;
 use function strtolower;
 
 /**
@@ -55,8 +56,8 @@ class Utils {
     public static function strSame(string $str1, string  $str2, bool $caseSensitiveComp=true): bool {
         
         return $caseSensitiveComp 
-                    ? (\strcmp($str1, $str2) === 0 ) 
-                    : (\strcmp(static::strToLower($str1), static::strToLower($str2)) === 0 );
+                    ? (strcmp($str1, $str2) === 0 )
+                    : (strcmp(static::strToLower($str1), static::strToLower($str2)) === 0 );
     }
     
     /**
