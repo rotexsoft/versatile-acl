@@ -92,11 +92,11 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * Adds an instance of PermissionInterface to an instance of this class.
      * 
      * @param PermissionInterface $permission
-     * @psalm-suppress MethodSignatureMismatch
      * 
+     * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
      * @return $this
      */
-    public function add(PermissionInterface $permission): self {
+    public function add(PermissionInterface $permission): PermissionsCollectionInterface {
                 
         if( !$this->hasPermission($permission) ) {
         
@@ -134,11 +134,11 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * Removes an instance of PermissionInterface from an instance of this class.
      * 
      * @param PermissionInterface $permission
-     * @psalm-suppress MethodSignatureMismatch
      * 
+     * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
      * @return $this
      */
-    public function remove(PermissionInterface $permission): self {
+    public function remove(PermissionInterface $permission): PermissionsCollectionInterface {
         
         $key = $this->getKey($permission);
         
@@ -150,11 +150,11 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
     
     /**
      * Remove all items in the collection and return $this
-     * @psalm-suppress MethodSignatureMismatch
      * 
+     * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
      * @return $this
      */
-    public function removeAll(): self {
+    public function removeAll(): PermissionsCollectionInterface {
         
         $this->storage = [];
         
@@ -166,11 +166,11 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * 
      * @param PermissionInterface $permission
      * @param string $key specified key for $permission in the collection
-     * @psalm-suppress MethodSignatureMismatch
      * 
+     * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
      * @return $this
      */
-    public function put(PermissionInterface $permission, string $key): self {
+    public function put(PermissionInterface $permission, string $key): PermissionsCollectionInterface {
         
         $this->storage[$key] = $permission;
         
@@ -209,10 +209,9 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      *                      considered to be respectively less than, equal to,
      *                      or greater than the second.
      *
-     * @noRector
+     * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
      * @return $this
      * @noinspection PhpDocSignatureInspection
-     * @psalm-suppress MethodSignatureMismatch
      */
     public function sort(callable $comparator = null): PermissionsCollectionInterface {
         
