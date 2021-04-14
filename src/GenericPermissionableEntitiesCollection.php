@@ -46,10 +46,11 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
      * Adds an instance of PermissionableEntityInterface to an instance of this class
      * 
      * @param PermissionableEntityInterface $permissionEntity
+     * @psalm-suppress MethodSignatureMismatch
      * 
      * @return $this
      */
-    public function add(PermissionableEntityInterface $permissionEntity): PermissionableEntitiesCollectionInterface {
+    public function add(PermissionableEntityInterface $permissionEntity): self {
         
         if( !$this->has($permissionEntity) ) {
         
@@ -86,10 +87,11 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
      * Removes an instance of PermissionableEntityInterface from an instance of this class.
      * 
      * @param PermissionableEntityInterface $permissionEntity
+     * @psalm-suppress MethodSignatureMismatch
      * 
      * @return $this
      */
-    public function remove(PermissionableEntityInterface $permissionEntity): PermissionableEntitiesCollectionInterface {
+    public function remove(PermissionableEntityInterface $permissionEntity): self {
         
         $key = $this->getKey($permissionEntity);
         
@@ -103,9 +105,11 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
     /**
      * Remove all items in the collection and return $this
      * 
+     * @psalm-suppress MethodSignatureMismatch
+     * 
      * @return $this
      */
-    public function removeAll(): PermissionableEntitiesCollectionInterface {
+    public function removeAll(): self {
         
         $this->storage = [];
         
@@ -117,10 +121,10 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
      * 
      * @param PermissionableEntityInterface $permissionEntity
      * @param string $key specified key for $permissionEntity in the collection
-     * 
+     * @psalm-suppress MethodSignatureMismatch
      * @return $this
      */
-    public function put(PermissionableEntityInterface $permissionEntity, string $key): PermissionableEntitiesCollectionInterface {
+    public function put(PermissionableEntityInterface $permissionEntity, string $key): self {
         
         $this->storage[$key] = $permissionEntity;
         
@@ -156,9 +160,11 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
      *                      considered to be respectively less than, equal to,
      *                      or greater than the second.
      *
+     * @psalm-suppress MethodSignatureMismatch
+     *  
      * @return $this
      */
-    public function sort(callable $comparator = null): PermissionableEntitiesCollectionInterface {
+    public function sort(callable $comparator = null): self {
         
         if( $comparator === null ) {
             

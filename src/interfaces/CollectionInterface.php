@@ -10,9 +10,9 @@ interface CollectionInterface extends Countable, IteratorAggregate {
     
     /**
      * Remove an item with the specified key from the collection if it exists and return the removed item or null if it doesn't exist.
-     * 
+     *
      * @param string|int $key
-     * 
+     *
      * @return mixed the removed item
      */
     public function removeByKey($key);
