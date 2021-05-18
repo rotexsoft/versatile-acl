@@ -17,55 +17,44 @@ interface PermissionsCollectionInterface extends CollectionInterface
     /**
      * Adds an instance of PermissionInterface to an instance of this interface.
      * Duplicate PermissionInterface instances should not be allowed in the same instance of this interface.
-     * 
-     * @param PermissionInterface $permission
-     * 
-     * @return $this
+     *
+     *
      */
     public function add(PermissionInterface $permission): self;
     
     /**
      * Adds an instance of PermissionInterface to an instance of this interface with the specified key.
-     * 
-     * @param PermissionInterface $permission
+     *
      * @param string $key specified key for $permission in the collection
-     * 
-     * @return $this
+     *
      */
     public function put(PermissionInterface $permission, string $key): self;
     
     /**
      * Removes an instance of PermissionInterface from an instance of this interface.
-     * 
-     * @param PermissionInterface $permission
-     * 
-     * @return $this
+     *
+     *
      */
     public function remove(PermissionInterface $permission): self;
     
     /**
      * Remove all items in the collection and return $this
-     * 
-     * @return $this
      */
     public function removeAll(): self;
     
     /**
      * Retrieves the permission in the collection associated with the specified collection key.
      * If the key is not present in the collection, NULL should be returned
-     * 
+     *
      * @param string $key a key in the collection instance this method is being called on
-     * 
-     * @return PermissionInterface|null
      */
     public function get(string $key): ?PermissionInterface;
     
     /**
      * Retrieves the key in the collection associated with the specified permission object.
      * If the object is not present in the collection, NULL should be returned
-     * 
-     * @param PermissionInterface $permission
-     * 
+     *
+     *
      * @return string|int|null
      */
     public function getKey(PermissionInterface $permission);
@@ -76,8 +65,7 @@ interface PermissionsCollectionInterface extends CollectionInterface
      * `$permission` is present in the current instance if there is another permission `$x`
      * in the current instance where $x->isEqualTo($permission) === true.
      *
-     * @param PermissionInterface $permission
-     * 
+     *
      * @return bool true if there is another permission `$x` in the current instance where $x->isEqualTo($permission) === true, otherwise return false
      */
     public function hasPermission(PermissionInterface $permission): bool;
@@ -115,8 +103,6 @@ interface PermissionsCollectionInterface extends CollectionInterface
      *                      equal to, or greater than zero if the first argument is
      *                      considered to be respectively less than, equal to,
      *                      or greater than the second.
-     *
-     * @return $this
      */
     public function sort(callable $comparator=null): self;
     
@@ -127,11 +113,8 @@ interface PermissionsCollectionInterface extends CollectionInterface
      * If $action has an empty string value, do not use it for the match
      * If $resource has an empty string value, do not use it for the match
      * If both $action & $resource have empty string values, return NULL
-     * 
-     * @param string $action
-     * @param string $resource
-     * 
-     * @return PermissionInterface|null
+     *
+     *
      */
     public function findOne(string $action='', string $resource=''): ?PermissionInterface;
     
@@ -142,11 +125,8 @@ interface PermissionsCollectionInterface extends CollectionInterface
      * If $action has an empty string value, do not use it for the match
      * If $resource has an empty string value, do not use it for the match
      * If both $action & $resource have empty string values, return an empty collection
-     * 
-     * @param string $action
-     * @param string $resource
-     * 
-     * @return PermissionsCollectionInterface
+     *
+     *
      */
     public function findAll(string $action='', string $resource=''): PermissionsCollectionInterface;
 }
