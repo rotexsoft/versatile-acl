@@ -16,36 +16,28 @@ interface PermissionableEntitiesCollectionInterface extends CollectionInterface 
     /**
      * Adds an instance of PermissionableEntityInterface to an instance of this interface. 
      * Duplicate PermissionableEntityInterface instances should not be allowed in the same instance of this interface.
-     * 
-     * @param PermissionableEntityInterface $permissionEntity
-     * 
-     * @return $this
+     *
+     *
      */
     public function add(PermissionableEntityInterface $permissionEntity): self;
     
     /**
      * Adds an instance of PermissionableEntityInterface to an instance of this interface with the specified key.
-     * 
-     * @param PermissionableEntityInterface $permissionEntity
+     *
      * @param string $key specified key for $permissionEntity in the collection
-     * 
-     * @return $this
+     *
      */
     public function put(PermissionableEntityInterface $permissionEntity, string $key): self;
     
     /**
      * Removes an instance of PermissionableEntityInterface from an instance of this interface.
-     * 
-     * @param PermissionableEntityInterface $permissionEntity
-     * 
-     * @return $this
+     *
+     *
      */
     public function remove(PermissionableEntityInterface $permissionEntity): self;
     
     /**
      * Remove all items in the collection and return $this
-     * 
-     * @return $this
      */
     public function removeAll(): self;
     
@@ -68,19 +60,16 @@ interface PermissionableEntitiesCollectionInterface extends CollectionInterface 
     /**
      * Retrieves the entity in the collection associated with the specified collection key.
      * If the key is not present in the collection, NULL should be returned
-     * 
-     * @param string $key
-     * 
-     * @return PermissionableEntityInterface|null
+     *
+     *
      */
     public function get(string $key): ?PermissionableEntityInterface;
     
     /**
      * Retrieves the key in the collection associated with the specified object.
      * If the object is not present in the collection, NULL should be returned
-     * 
-     * @param PermissionableEntityInterface $entity
-     * 
+     *
+     *
      * @return string|int|null
      */
     public function getKey(PermissionableEntityInterface $entity);
@@ -91,8 +80,7 @@ interface PermissionableEntitiesCollectionInterface extends CollectionInterface 
      * `$entity` is present in the current instance if there is another entity `$x`
      * in the current instance where $x->isEqualTo($entity) === true.
      *
-     * @param PermissionableEntityInterface $entity
-     * 
+     *
      * @return bool true if there is another entity `$x` in the current instance where $x->isEqualTo($entity) === true, otherwise return false
      */
     public function has(PermissionableEntityInterface $entity): bool;
@@ -109,8 +97,6 @@ interface PermissionableEntitiesCollectionInterface extends CollectionInterface 
      *                      equal to, or greater than zero if the first argument is
      *                      considered to be respectively less than, equal to,
      *                      or greater than the second.
-     *
-     * @return $this
      */
     public function sort(callable $comparator=null): self;
 }

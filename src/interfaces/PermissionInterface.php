@@ -83,8 +83,6 @@ interface PermissionInterface
      * Set the boolean value indicating whether or not an instance of this interface signifies that an action can be performed on a resource to true or false.
      *
      * @param bool $allowActionOnResource a boolean value indicating whether or not an instance of this interface signifies that an action can be performed on a resource
-     * 
-     * @return $this
      */
     public function setAllowActionOnResource(bool $allowActionOnResource): self;
 
@@ -112,16 +110,12 @@ interface PermissionInterface
      *
      * It is up to the implementer of this method to define what criteria makes two permission objects equal.
      *
-     * @param PermissionInterface $permission
-     * 
-     * @return bool
+     *
      */
     public function isEqualTo(PermissionInterface $permission): bool;
 
     /**
      * Return string representation of an instance of this interface
-     *
-     * @return string
      */
     public function __toString(): string;
 }
