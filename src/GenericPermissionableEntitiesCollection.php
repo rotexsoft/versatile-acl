@@ -28,8 +28,7 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
      * `$entity` is present in the current instance if there is another entity `$x`
      * in the current instance where $x->isEqualTo($entity) === true.
      *
-     * @param PermissionableEntityInterface $entity
-     * 
+     *
      * @return bool true if there is another entity `$x` in the current instance where $x->isEqualTo($entity) === true, otherwise return false
      */
     public function has(PermissionableEntityInterface $entity): bool {
@@ -44,9 +43,8 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
 
     /**
      * Adds an instance of PermissionableEntityInterface to an instance of this class
-     * 
-     * @param PermissionableEntityInterface $permissionEntity
-     * 
+     *
+     *
      * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
      * @return $this
      */
@@ -68,9 +66,8 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
     /**
      * Retrieves the key in the collection associated with the specified object.
      * If the object is not present in the collection, NULL should be returned
-     * 
-     * @param PermissionableEntityInterface $entity
-     * 
+     *
+     *
      * @return string|int|null
      */
     public function getKey(PermissionableEntityInterface $entity) {
@@ -85,9 +82,8 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
     
     /**
      * Removes an instance of PermissionableEntityInterface from an instance of this class.
-     * 
-     * @param PermissionableEntityInterface $permissionEntity
-     * 
+     *
+     *
      * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
      * @return $this
      */
@@ -117,10 +113,9 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
 
     /**
      * Adds an instance of PermissionableEntityInterface to an instance of this class with the specified key.
-     * 
-     * @param PermissionableEntityInterface $permissionEntity
+     *
      * @param string $key specified key for $permissionEntity in the collection
-     * 
+     *
      * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
      * @return $this
      */
@@ -134,10 +129,8 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
     /**
      * Retrieves the entity in the collection associated with the specified key.
      * If the key is not present in the collection, NULL should be returned
-     * 
-     * @param string $key
-     * 
-     * @return PermissionableEntityInterface|null
+     *
+     *
      */
     public function get(string $key): ?PermissionableEntityInterface {
         

@@ -16,10 +16,8 @@ class Utils {
 
     /**
      * Converts a callable to an instance of \Closure
-     * 
-     * @param callable $callable
-     * 
-     * @return Closure
+     *
+     *
      */
     public static function getClosureFromCallable(callable $callable): Closure {
 
@@ -28,10 +26,8 @@ class Utils {
     
     /**
      * Lowers the case of all characters in a string. Uses \mb_strtolower if available in UTF-8 mode
-     * 
-     * @param string $str
-     * 
-     * @return string
+     *
+     *
      * @noinspection PhpFullyQualifiedNameUsageInspection
      */
     public static function strToLower(string $str): string {
@@ -46,12 +42,9 @@ class Utils {
     
     /**
      * Checks if two strings have the same value via case-sensitive or case-insensitive comparison
-     * 
-     * @param string $str1
-     * @param string $str2
+     *
      * @param bool $caseSensitiveComp true to perform case-sensitive comparison, false to perform case-insensitive comparison
-     * 
-     * @return bool
+     *
      */
     public static function strSame(string $str1, string  $str2, bool $caseSensitiveComp=true): bool {
         
@@ -62,10 +55,8 @@ class Utils {
     
     /**
      * Checks if two strings have the same value via case-insensitive comparison
-     * 
-     * @param string $str1
-     * @param string $str2
-     * 
+     *
+     *
      * @return bool true if they have the same value, false otherwise
      */
     public static function strSameIgnoreCase(string $str1, string  $str2): bool {

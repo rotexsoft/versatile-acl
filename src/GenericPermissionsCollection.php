@@ -28,8 +28,7 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * `$perm` is present in the current instance if there is another permission `$x`
      * in the current instance where $x->isEqualTo($perm) === true.
      *
-     * @param PermissionInterface $permission
-     * 
+     *
      * @return bool true if there is another permission `$x` in the current instance where $x->isEqualTo($perm) === true, otherwise return false
      */
     public function hasPermission(PermissionInterface $permission): bool {
@@ -90,9 +89,8 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
 
     /**
      * Adds an instance of PermissionInterface to an instance of this class.
-     * 
-     * @param PermissionInterface $permission
-     * 
+     *
+     *
      * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
      * @return $this
      */
@@ -115,9 +113,8 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
     /**
      * Retrieves the key in the collection associated with the specified permission object.
      * If the object is not present in the collection, NULL should be returned
-     * 
-     * @param PermissionInterface $permission
-     * 
+     *
+     *
      * @return string|int|null
      */
     public function getKey(PermissionInterface $permission) {
@@ -132,9 +129,8 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
 
     /**
      * Removes an instance of PermissionInterface from an instance of this class.
-     * 
-     * @param PermissionInterface $permission
-     * 
+     *
+     *
      * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
      * @return $this
      */
@@ -163,10 +159,9 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
 
     /**
      * Adds an instance of PermissionInterface to an instance of this class with the specified key.
-     * 
-     * @param PermissionInterface $permission
+     *
      * @param string $key specified key for $permission in the collection
-     * 
+     *
      * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
      * @return $this
      */
@@ -180,10 +175,8 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
     /**
      * Retrieves the permission in the collection associated with the specified key.
      * If the key is not present in the collection, NULL should be returned
-     * 
-     * @param string $key
-     * 
-     * @return PermissionInterface|null
+     *
+     *
      */
     public function get(string $key): ?PermissionInterface {
         
@@ -260,10 +253,7 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * If $resource has an empty string value, do not use it for the match
      * If both $action & $resource have empty string values, return NULL
      *
-     * @param string $action
-     * @param string $resource
      *
-     * @return PermissionInterface|null
      * @noinspection PhpFullyQualifiedNameUsageInspection
      * @noinspection PhpRedundantOptionalArgumentInspection
      * @throws \Exception
@@ -308,22 +298,19 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
     /**
      * Find and return the all permissions in the collection that match the specified $action and / or $resource.
      * An empty collection should be returned if there was no match. The match is always case-insensitive
-     * 
+     *
      * If $action has an empty string value, do not use it for the match
-     * 
+     *
      * If $resource has an empty string value, do not use it for the match
-     * 
+     *
      * If both $action & $resource have empty string values, return an empty collection
-     * 
+     *
      * If $n < 1, this method internally bumps it up to 1 and returns either 
      * a collection contain only 1 matching permission object or an empty collection
-     * 
-     * @param string $action
-     * @param string $resource
+     *
      * @param int $n number of matching permission objects to be returned
      *
-     * @return PermissionsCollectionInterface
-     * 
+     *
      * @noinspection DuplicatedCode
      * @psalm-suppress RedundantCondition
      * @psalm-suppress UnsafeInstantiation

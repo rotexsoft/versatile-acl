@@ -219,9 +219,7 @@ class GenericPermission implements PermissionInterface {
      * strtolower($x->getAction()) === strtolower($y->getAction()) 
      * && strtolower($x->getResource()) === strtolower($y->getResource())
      *
-     * @param PermissionInterface $permission
-     * 
-     * @return bool
+     *
      */
     public function isEqualTo(PermissionInterface $permission): bool {
         

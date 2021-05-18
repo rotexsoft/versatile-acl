@@ -27,8 +27,6 @@ abstract class GenericBaseCollection implements CollectionInterface {
      * Retrieve an external iterator
      *
      * @link https://php.net/manual/en/iteratoraggregate.getiterator.php
-     *
-     * @return Traversable
      */
     public function getIterator(): Traversable {
         
@@ -56,10 +54,9 @@ abstract class GenericBaseCollection implements CollectionInterface {
     
     /**
      * Check if specified key exists in the collection.
-     * 
+     *
      * @param string|int $key
-     * 
-     * @return bool
+     *
      * @psalm-suppress RedundantConditionGivenDocblockType
      */
     public function keyExists($key): bool {

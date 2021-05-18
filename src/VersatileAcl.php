@@ -100,13 +100,6 @@ class VersatileAcl {
     protected $performVerboseAudit = true;
 
 
-    /**
-     * 
-     * @param string $permissionableEntityInterfaceClassName
-     * @param string $permissionInterfaceClassName
-     * @param string $permissionableEntitiesCollectionInterfaceClassName
-     * @param string $permissionsCollectionInterfaceClassName
-     */
     public function __construct(
         string $permissionableEntityInterfaceClassName = GenericPermissionableEntity::class,
         string $permissionInterfaceClassName = GenericPermission::class,
@@ -150,10 +143,8 @@ class VersatileAcl {
     
     /**
      * Adds an entity to an instance of this class if it doesn't already exist.
-     * 
+     *
      * @param string $entityId ID of the entity to be added. It is treated in a case-insensitive manner, meaning that 'ALice' and 'alicE' both refer to the same entity
-     * 
-     * @return $this
      */
     public function addEntity(string $entityId): self {
         
@@ -254,12 +245,11 @@ class VersatileAcl {
      * If an entity with an ID value of $entityId does not exist in the instance 
      * of this class upon which this method is called, the entity will be created
      * and added first before the parent entity is added to it.
-     * 
+     *
      * @param string $entityId ID of the entity to which a parent entity is to be added. It is treated in a case-insensitive manner, meaning that 'ALice' and 'alicE' both refer to the same entity
      * @param string $parentEntityId ID of the parent entity to be added. It is treated in a case-insensitive manner, meaning that 'ALice' and 'alicE' both refer to the same entity
-     * 
-     * @return $this
-     * 
+     *
+     *
      * @throws RuntimeException
      * @throws ParentCannotBeChildException
      */
@@ -371,9 +361,8 @@ class VersatileAcl {
      * Gets and returns an entity with specified Id from an instance of this class 
      * or returns NULL if an entity with specified Id doesn't already exist in the 
      * instance of this class this method is being invoked on.
-     * 
-     * @param string $entityId
-     * 
+     *
+     *
      * @return PermissionableEntityInterface|null
      */
     public function getEntity(string $entityId): ?PermissionableEntityInterface {
@@ -432,14 +421,10 @@ class VersatileAcl {
      * Add a permission to an entity with the ID value of $entityId. 
      * This entity will be created and added to the instance of this class upon
      * which this method is being invoked if the entity does not exist.
-     * 
+     *
      * @param string $entityId the ID of the entity to which the permission is to be added
-     * @param string $action
-     * @param string $resource
-     * @param bool $allowActionOnResource
      * @param callable|null $additionalAssertions
      * @param mixed $argsForCallback
-     * @return $this
      * @noinspection PhpUnhandledExceptionInspection
      * @see PermissionInterface::__construct($action, $resource, $allowActionOnResource, $additionalAssertions, ...$argsForCallback)
      * for definitions of all but the first parameter
@@ -541,10 +526,6 @@ class VersatileAcl {
      * Remove a permission from the entity with an ID value of $entityId and return the removed permission
      * or return null if either the entity and / or permission do not exist.
      *
-     * @param string $entityId
-     * @param string $action
-     * @param string $resource
-     * @param bool $allowActionOnResource
      * @param callable|null $additionalAssertions
      * @param mixed $argsForCallback
      *
@@ -649,13 +630,11 @@ class VersatileAcl {
      * @param callable|null $additionalAssertions See the see section above
      * @param mixed $argsForCallback See the see section above
      *
-     * @return bool
      * @see PermissionInterface::isAllowed($action, $resource, $additionalAssertions, ...$argsForCallback)
      * for definitions of all but the first parameter
      *
      * @noinspection PhpUnhandledExceptionInspection
      * @noinspection PhpDocMissingThrowsInspection
-     * 
      * @psalm-suppress MoreSpecificReturnType
      */
     public function isAllowed(string $entityId, string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool  {
@@ -860,14 +839,10 @@ class VersatileAcl {
      * @see PermissionInterface::__construct($action, $resource, $allowActionOnResource, $additionalAssertions, ...$argsForCallback)
      * for definitions of all the parameters of this method
      *
-     * @param string $action
-     * @param string $resource
-     * @param bool $allowActionOnResource
      * @param callable|null $additionalAssertions
      * @param mixed ...$argsForCallback
      *
      * @return PermissionInterface
-     * 
      * @psalm-suppress LessSpecificReturnStatement
      * @psalm-suppress MoreSpecificReturnType
      * @psalm-suppress InvalidStringClass
@@ -884,8 +859,7 @@ class VersatileAcl {
     
     /**
      * Empties the contents of the Audit Trail containing the trace of all logged internal activities 
-     * 
-     * @return $this
+     *
      */
     public function clearAuditTrail(): self {
         
@@ -896,8 +870,7 @@ class VersatileAcl {
     
     /**
      * Returns a string containing a trace of all logged internal activities 
-     * 
-     * @return string
+     *
      */
     public function getAuditTrail(): string {
         
@@ -906,10 +879,8 @@ class VersatileAcl {
     
     /**
      * Enables or disables the logging of internal activities performed in the public methods of this class
-     * 
+     *
      * @param bool $canAudit true to start logging internal activities, false to stop logging internal activities
-     * 
-     * @return $this
      */
     public function enableAuditTrail(bool $canAudit=true): self {
         
@@ -920,14 +891,12 @@ class VersatileAcl {
     
     /**
      * Sets a boolean value for $this->performVerboseAudit.
-     * 
+     *
      * True means that $this->logActivity(string $description, string $shortDescription='') 
      * should use the first parameter for auditing, false means that it should use the second
      * parameter if not empty (else it will use the first parameter).
-     * 
-     * @param bool $performVerboseAudit
-     * 
-     * @return $this
+     *
+     *
      */
     public function enableVerboseAudit(bool $performVerboseAudit=true): self {
         
