@@ -31,6 +31,8 @@ use function var_export;
  * A class for managing entities and permissions for access controlling resources in applications using this package 
  *
  * @author rotimi
+ * 
+ * @psalm-suppress RedundantCondition
  */
 class VersatileAcl {
     
