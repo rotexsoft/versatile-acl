@@ -10,7 +10,7 @@ A simple, highly flexible and customizable access control package for PHP applic
 
 ## Installation 
 
-**Via composer:** (Requires PHP 7.3+ or PHP 8.0+). 
+**Via composer:** (Requires PHP 7.4+ or PHP 8.0+). 
 
     composer require rotexsoft/versatile-acl
 
