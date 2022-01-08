@@ -35,6 +35,9 @@
         "files": [ ]
     },
     "scripts": {
-        "test": "vendor/bin/phpunit --coverage-text"
+        "test": "vendor/bin/phpunit --coverage-text",
+        "rector": "vendor/bin/rector process src --dry-run",
+        "psalm": "vendor/bin/psalm",
+        "qa": "composer test && composer rector && composer psalm"
     }
 }

@@ -13,26 +13,11 @@ use function var_export;
 
 class GenericPermission implements PermissionInterface {
     
-    /**
-     * 
-     * @var string
-     * 
-     */
-    protected $action = '';
+    protected string $action = '';
 
-    /**
-     * 
-     * @var string
-     * 
-     */
-    protected $resource = '';
+    protected string $resource = '';
 
-    /**
-     * 
-     * @var bool
-     * 
-     */
-    protected $allowActionOnResource = true;
+    protected bool $allowActionOnResource = true;
 
     /**
      * 
@@ -41,12 +26,7 @@ class GenericPermission implements PermissionInterface {
      */
     protected $additionalAssertions = null;
 
-    /**
-     * 
-     * @var array
-     * 
-     */
-    protected $argsForCallback = [];
+    protected array $argsForCallback = [];
 
     /**
      * PermissionInterface constructor.

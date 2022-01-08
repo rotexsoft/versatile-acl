@@ -16,12 +16,7 @@ use function str_replace;
 
 abstract class GenericBaseCollection implements CollectionInterface {
 
-    /**
-     * 
-     * @var array
-     * 
-     */
-    protected $storage = [];
+    protected array $storage = [];
     
     /**
      * Retrieve an external iterator
