@@ -21,6 +21,8 @@ abstract class GenericBaseCollection implements CollectionInterface {
     /**
      * Retrieve an external iterator
      *
+     * @noRector
+     * 
      * @link https://php.net/manual/en/iteratoraggregate.getiterator.php
      */
     public function getIterator(): Traversable {
