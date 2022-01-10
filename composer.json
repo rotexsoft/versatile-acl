@@ -36,7 +36,7 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit --coverage-text",
-        "rector": "vendor/bin/rector process src --dry-run",
+        "rector": "vendor/bin/rector process src --dry-run -vvv",
         "psalm": "vendor/bin/psalm",
         "qa": "composer test && composer rector && composer psalm"
     }
