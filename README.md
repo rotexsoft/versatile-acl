@@ -75,9 +75,9 @@ Let's model these groups and permissions using [VersatileAcl\VersatileAcl](src/V
 <?php
 use VersatileAcl\VersatileAcl;
 
-$groupsSaclObj = new VersatileAcl();
+$groupsVaclObj = new VersatileAcl();
 
-$groupsSaclObj
+$groupsVaclObj
     ->addEntity('admin')
     
     // | Group Name          | Resource | Action  | Allowed |
@@ -94,7 +94,7 @@ $groupsSaclObj
       true
    );
 
-$groupsSaclObj
+$groupsVaclObj
     ->addEntity('comments-moderators')
     
     // | Group Name          | Resource | Action  | Allowed |
@@ -115,7 +115,7 @@ $groupsSaclObj
     // on a blog post
     ->addPermission('comments-moderators', 'delete', 'comment', true);
 
-$groupsSaclObj
+$groupsVaclObj
     ->addEntity('posts-moderators')
         
     // | Group Name          | Resource | Action  | Allowed |
@@ -139,7 +139,7 @@ $groupsSaclObj
 // We will create an owners group entity that will
 // contain permissions for the comments-owners and
 // the posts-owners groups
-$groupsSaclObj
+$groupsVaclObj
     ->addEntity('owners')
     
     // | Group Name          | Resource | Action  | Allowed |
@@ -207,8 +207,8 @@ Let's create and register entity objects for each user in our **VersatileAcl** o
 ```php
 <?php
 
-$usersSaclObj = new VersatileAcl(); 
-$usersSaclObj->addEntity('frankwhite')
+$usersVaclObj = new VersatileAcl(); 
+$usersVaclObj->addEntity('frankwhite')
              ->addEntity('ginawhite')
              ->addEntity('johndoe')
              ->addEntity('janedoe')
@@ -233,27 +233,27 @@ Let's model these relationships by adding the appropriate entity objects represe
 ```php
 <?php
 // add 'frankwhite' to the admin group
-$usersSaclObj->getEntity('frankwhite')
+$usersVaclObj->getEntity('frankwhite')
              ->addParent(
-                $groupsSaclObj->getEntity('admin')
+                $groupsVaclObj->getEntity('admin')
              );
 
 // add 'ginawhite' to the comments-moderators group
-$usersSaclObj->getEntity('ginawhite')
+$usersVaclObj->getEntity('ginawhite')
              ->addParent(
-                $groupsSaclObj->getEntity('comments-moderators')
+                $groupsVaclObj->getEntity('comments-moderators')
              );
 
 // add 'johndoe' to the comments-moderators group
-$usersSaclObj->getEntity('johndoe')
+$usersVaclObj->getEntity('johndoe')
              ->addParent(
-                $groupsSaclObj->getEntity('comments-moderators')
+                $groupsVaclObj->getEntity('comments-moderators')
              );
 
 // add 'janedoe' to the posts-moderators group
-$usersSaclObj->getEntity('janedoe')
+$usersVaclObj->getEntity('janedoe')
              ->addParent(
-                $groupsSaclObj->getEntity('posts-moderators')
+                $groupsVaclObj->getEntity('posts-moderators')
              );
     
 // Now let's model the two group memberships 
@@ -262,37 +262,37 @@ $usersSaclObj->getEntity('janedoe')
 // |---------------------|-----------|
 // | comments-owners     | all       |
 // | posts-owners        | all       |
-$usersSaclObj->getEntity('frankwhite')
+$usersVaclObj->getEntity('frankwhite')
              ->addParent(
-                $groupsSaclObj->getEntity('owners')
+                $groupsVaclObj->getEntity('owners')
              ); // frankwhite's membership in the admin group
                 // already grants him permission to perform any
                 // action on any resource, so this membership is
                 // redundant for him
         
-$usersSaclObj->getEntity('ginawhite')
+$usersVaclObj->getEntity('ginawhite')
              ->addParent(
-                $groupsSaclObj->getEntity('owners')
+                $groupsVaclObj->getEntity('owners')
              );
              
-$usersSaclObj->getEntity('johndoe')
+$usersVaclObj->getEntity('johndoe')
              ->addParent(
-                $groupsSaclObj->getEntity('owners')
+                $groupsVaclObj->getEntity('owners')
              );
              
-$usersSaclObj->getEntity('janedoe')
+$usersVaclObj->getEntity('janedoe')
              ->addParent(
-                $groupsSaclObj->getEntity('owners')
+                $groupsVaclObj->getEntity('owners')
              );
         
-$usersSaclObj->getEntity('jackbauer')
+$usersVaclObj->getEntity('jackbauer')
              ->addParent(
-                $groupsSaclObj->getEntity('owners')
+                $groupsVaclObj->getEntity('owners')
              );
         
-$usersSaclObj->getEntity('jillbauer')
+$usersVaclObj->getEntity('jillbauer')
              ->addParent(
-                $groupsSaclObj->getEntity('owners')
+                $groupsVaclObj->getEntity('owners')
              );
 ```
 
@@ -304,10 +304,10 @@ Let's start with the user **'frankwhite'** that belongs to the **'admin'**  grou
 ```php
 <?php
 
-var_dump( $usersSaclObj->isAllowed('frankwhite', 'approve', 'comment') ); // === true
-var_dump( $usersSaclObj->isAllowed('frankwhite', 'delete', 'comment') ); // === true
-var_dump( $usersSaclObj->isAllowed('frankwhite', 'approve', 'post') ); // === true
-var_dump( $usersSaclObj->isAllowed('frankwhite', 'delete', 'post') ); // === true
+var_dump( $usersVaclObj->isAllowed('frankwhite', 'approve', 'comment') ); // === true
+var_dump( $usersVaclObj->isAllowed('frankwhite', 'delete', 'comment') ); // === true
+var_dump( $usersVaclObj->isAllowed('frankwhite', 'approve', 'post') ); // === true
+var_dump( $usersVaclObj->isAllowed('frankwhite', 'delete', 'post') ); // === true
 ```
 
 Now let's continue with the user **'ginawhite'** that belongs to the **'comments-moderators'**  group. This user should be able to only approve and delete comments in the application (the user should also be able to approve and delete posts they have created):
@@ -315,10 +315,10 @@ Now let's continue with the user **'ginawhite'** that belongs to the **'comments
 ```php
 <?php
 
-var_dump( $usersSaclObj->isAllowed('ginawhite', 'approve', 'comment') ); // === true
-var_dump( $usersSaclObj->isAllowed('ginawhite', 'delete', 'comment') ); // === true
-var_dump( $usersSaclObj->isAllowed('ginawhite', 'approve', 'post') ); // === false
-var_dump( $usersSaclObj->isAllowed('ginawhite', 'delete', 'post') ); // === false
+var_dump( $usersVaclObj->isAllowed('ginawhite', 'approve', 'comment') ); // === true
+var_dump( $usersVaclObj->isAllowed('ginawhite', 'delete', 'comment') ); // === true
+var_dump( $usersVaclObj->isAllowed('ginawhite', 'approve', 'post') ); // === false
+var_dump( $usersVaclObj->isAllowed('ginawhite', 'delete', 'post') ); // === false
 
 // Assuming we have the post record below and the user record for 'ginawhite' below
 $postRecord = [
@@ -338,7 +338,7 @@ $userRecord = [
 
 // Here's how we would check if 'ginawhite' can approve and delete posts she has created
 var_dump( 
-    $usersSaclObj->isAllowed(
+    $usersVaclObj->isAllowed(
         'ginawhite', 
         'approve', 
         'post',
@@ -349,7 +349,7 @@ var_dump(
 ); // === true
 
 var_dump( 
-    $usersSaclObj->isAllowed(
+    $usersVaclObj->isAllowed(
         'ginawhite', 
         'delete', 
         'post',
@@ -365,10 +365,10 @@ Now let's continue with the user **'johndoe'** that belongs to the **'comments-m
 ```php
 <?php
 
-var_dump( $usersSaclObj->isAllowed('johndoe', 'approve', 'comment') ); // === true
-var_dump( $usersSaclObj->isAllowed('johndoe', 'delete', 'comment') ); // === true
-var_dump( $usersSaclObj->isAllowed('johndoe', 'approve', 'post') ); // === false
-var_dump( $usersSaclObj->isAllowed('johndoe', 'delete', 'post') ); // === false
+var_dump( $usersVaclObj->isAllowed('johndoe', 'approve', 'comment') ); // === true
+var_dump( $usersVaclObj->isAllowed('johndoe', 'delete', 'comment') ); // === true
+var_dump( $usersVaclObj->isAllowed('johndoe', 'approve', 'post') ); // === false
+var_dump( $usersVaclObj->isAllowed('johndoe', 'delete', 'post') ); // === false
 
 // Assuming we have the post record below and the user record for 'johndoe' below
 $postRecord2 = [
@@ -387,7 +387,7 @@ $userRecord2 = [
 ];
 
 var_dump( 
-    $usersSaclObj->isAllowed(
+    $usersVaclObj->isAllowed(
         'johndoe', 
         'approve', 
         'post',
@@ -398,7 +398,7 @@ var_dump(
 ); // === true
 
 var_dump(
-    $usersSaclObj->isAllowed(
+    $usersVaclObj->isAllowed(
         'johndoe', 
         'delete', 
         'post',
@@ -414,10 +414,10 @@ Now let's continue with the user **'janedoe'** that belongs to the **'posts-mode
 ```php
 <?php
 
-var_dump( $usersSaclObj->isAllowed('janedoe', 'approve', 'comment') ); // === false
-var_dump( $usersSaclObj->isAllowed('janedoe', 'delete', 'comment') ); // === false
-var_dump( $usersSaclObj->isAllowed('janedoe', 'approve', 'post') ); // === true
-var_dump( $usersSaclObj->isAllowed('janedoe', 'delete', 'post') ); // === true
+var_dump( $usersVaclObj->isAllowed('janedoe', 'approve', 'comment') ); // === false
+var_dump( $usersVaclObj->isAllowed('janedoe', 'delete', 'comment') ); // === false
+var_dump( $usersVaclObj->isAllowed('janedoe', 'approve', 'post') ); // === true
+var_dump( $usersVaclObj->isAllowed('janedoe', 'delete', 'post') ); // === true
 
 // Assuming we have the comment record below and the user record for 'janedoe' below
 $commentRecord3 = [
@@ -436,7 +436,7 @@ $userRecord3 = [
 ];
 
 var_dump(
-    $usersSaclObj->isAllowed(
+    $usersVaclObj->isAllowed(
         'janedoe', 
         'approve', 
         'comment',
@@ -447,7 +447,7 @@ var_dump(
 );  // === true
 
 var_dump(
-    $usersSaclObj->isAllowed(
+    $usersVaclObj->isAllowed(
         'janedoe', 
         'delete', 
         'comment',
@@ -463,12 +463,12 @@ Now let's continue with the user **'jackbauer'** that only belongs to the **'own
 ```php
 <?php
 // all comments including those not owned by jackbauer
-var_dump( $usersSaclObj->isAllowed('jackbauer', 'approve', 'comment') ); // === false
-var_dump( $usersSaclObj->isAllowed('jackbauer', 'delete', 'comment') ); // === false
+var_dump( $usersVaclObj->isAllowed('jackbauer', 'approve', 'comment') ); // === false
+var_dump( $usersVaclObj->isAllowed('jackbauer', 'delete', 'comment') ); // === false
 
 // all posts including those not owned by jackbauer
-var_dump( $usersSaclObj->isAllowed('jackbauer', 'approve', 'post') ); // === false
-var_dump( $usersSaclObj->isAllowed('jackbauer', 'delete', 'post') ); // === false
+var_dump( $usersVaclObj->isAllowed('jackbauer', 'approve', 'post') ); // === false
+var_dump( $usersVaclObj->isAllowed('jackbauer', 'delete', 'post') ); // === false
 
 // Assuming we have the post and comment records below and the user record for 'jackbauer' below
 $commentRecord5 = [
@@ -498,7 +498,7 @@ $userRecord5 = [
 
 // comment owned by jackbauer
 var_dump(
-    $usersSaclObj->isAllowed(
+    $usersVaclObj->isAllowed(
         'jackbauer', 
         'approve', 
         'comment',
@@ -510,7 +510,7 @@ var_dump(
 
 // comment owned by jackbauer
 var_dump(
-    $usersSaclObj->isAllowed(
+    $usersVaclObj->isAllowed(
         'jackbauer', 
         'delete', 
         'comment',
@@ -522,7 +522,7 @@ var_dump(
 
 // post owned by jackbauer
 var_dump(
-    $usersSaclObj->isAllowed(
+    $usersVaclObj->isAllowed(
         'jackbauer', 
         'approve', 
         'post',
@@ -534,7 +534,7 @@ var_dump(
 
 // post owned by jackbauer
 var_dump(
-    $usersSaclObj->isAllowed(
+    $usersVaclObj->isAllowed(
         'jackbauer', 
         'delete', 
         'post',
@@ -550,12 +550,12 @@ Finally, let's test the user **'jillbauer'** that also only belongs to the **'ow
 ```php
 <?php
 // all comments including those not owned by jillbauer
-var_dump( $usersSaclObj->isAllowed('jillbauer', 'approve', 'comment') ); // === false
-var_dump( $usersSaclObj->isAllowed('jillbauer', 'delete', 'comment') ); // === false
+var_dump( $usersVaclObj->isAllowed('jillbauer', 'approve', 'comment') ); // === false
+var_dump( $usersVaclObj->isAllowed('jillbauer', 'delete', 'comment') ); // === false
 
 // all posts including those not owned by jillbauer
-var_dump( $usersSaclObj->isAllowed('jillbauer', 'approve', 'post') ); // === false
-var_dump( $usersSaclObj->isAllowed('jillbauer', 'delete', 'post') ); // === false
+var_dump( $usersVaclObj->isAllowed('jillbauer', 'approve', 'post') ); // === false
+var_dump( $usersVaclObj->isAllowed('jillbauer', 'delete', 'post') ); // === false
 
 // Assuming we have the post and comment records below and the user record for 'jackbauer' below
 $commentRecord6 = [
@@ -585,7 +585,7 @@ $userRecord6 = [
 
 // comment owned by jillbauer
 var_dump(
-    $usersSaclObj->isAllowed(
+    $usersVaclObj->isAllowed(
         'jillbauer', 
         'approve', 
         'comment',
@@ -597,7 +597,7 @@ var_dump(
 
 // comment owned by jillbauer
 var_dump(
-    $usersSaclObj->isAllowed(
+    $usersVaclObj->isAllowed(
         'jillbauer', 
         'delete', 
         'comment',
@@ -609,7 +609,7 @@ var_dump(
 
 // post owned by jillbauer
 var_dump(
-    $usersSaclObj->isAllowed(
+    $usersVaclObj->isAllowed(
         'jillbauer', 
         'approve', 
         'post',
@@ -621,7 +621,7 @@ var_dump(
 
 // post owned by jillbauer
 var_dump(
-    $usersSaclObj->isAllowed(
+    $usersVaclObj->isAllowed(
         'jillbauer', 
         'delete', 
         'post',
