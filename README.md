@@ -2,6 +2,9 @@
 
 [![PHP Tests and Code Quality Tools](https://github.com/rotexsoft/versatile-acl/workflows/Run%20PHP%20Tests%20and%20Code%20Quality%20Tools/badge.svg)](https://github.com/rotexsoft/versatile-acl/actions?query=workflow%3A%22Run+PHP+Tests+and+Code+Quality+Tools%22) &nbsp;
 [![Release](https://img.shields.io/github/release/rotexsoft/versatile-acl.png?style=flat-square)](https://github.com/rotexsoft/versatile-acl/releases/latest) &nbsp; 
+![Coveralls](https://img.shields.io/coveralls/github/rotexsoft/versatile-acl) &nbsp; 
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/rotexsoft/file-renderer) &nbsp; 
+![GitHub top language](https://img.shields.io/github/languages/top/rotexsoft/versatile-acl) &nbsp;
 [![License](https://img.shields.io/badge/license-BSD-brightgreen.png?style=flat-square)](https://github.com/rotexsoft/versatile-acl/blob/master/LICENSE) &nbsp; 
 
 
