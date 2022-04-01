@@ -14,3 +14,5 @@
        * When setLogger is called on an instance of VersatileAcl, it will inject that logger into every collection it creates
 * Submit to packagist once it's well done.
 * When PHP 7.4 becomes the minimum version, change all class properties to typed properties and edit **rector.php** to include PHP 7.4 rules
+
+Add them to https://github.com/rotexsoft/versatile-acl/issues moving forward.
