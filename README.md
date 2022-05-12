@@ -1,11 +1,19 @@
 # Versatile Acl
 
 [![PHP Tests and Code Quality Tools](https://github.com/rotexsoft/versatile-acl/workflows/Run%20PHP%20Tests%20and%20Code%20Quality%20Tools/badge.svg)](https://github.com/rotexsoft/versatile-acl/actions?query=workflow%3A%22Run+PHP+Tests+and+Code+Quality+Tools%22) &nbsp;
-[![Release](https://img.shields.io/github/release/rotexsoft/versatile-acl.png?style=flat-square)](https://github.com/rotexsoft/versatile-acl/releases/latest) &nbsp; 
-![Coveralls](https://img.shields.io/coveralls/github/rotexsoft/versatile-acl) &nbsp; 
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/rotexsoft/file-renderer) &nbsp; 
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/rotexsoft/versatile-acl?label=latest%20release) &nbsp;
+![GitHub](https://img.shields.io/github/license/rotexsoft/versatile-acl) &nbsp;
+[![Coverage Status](https://coveralls.io/repos/github/rotexsoft/versatile-acl/badge.svg?branch=master)](https://coveralls.io/github/rotexsoft/versatile-acl?branch=master) &nbsp;
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/rotexsoft/versatile-acl) &nbsp;
+![Packagist Downloads](https://img.shields.io/packagist/dt/rotexsoft/versatile-acl) &nbsp;
 ![GitHub top language](https://img.shields.io/github/languages/top/rotexsoft/versatile-acl) &nbsp;
-[![License](https://img.shields.io/badge/license-BSD-brightgreen.png?style=flat-square)](https://github.com/rotexsoft/versatile-acl/blob/master/LICENSE) &nbsp; 
+![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/rotexsoft/versatile-acl) &nbsp;
+![GitHub commits since latest release (by date) for a branch](https://img.shields.io/github/commits-since/rotexsoft/versatile-acl/latest/master) &nbsp;
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/rotexsoft/versatile-acl/master) &nbsp;
+![GitHub Release Date](https://img.shields.io/github/release-date/rotexsoft/versatile-acl) &nbsp;
+<a href="https://libraries.io/github/rotexsoft/versatile-acl">
+<img alt="Libraries.io dependency status for GitHub repo" src="https://img.shields.io/librariesio/github/rotexsoft/versatile-acl">
+</a>
 
 
 A simple, highly flexible and customizable access control package for PHP applications.
