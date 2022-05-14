@@ -32,6 +32,7 @@ use function var_export;
  *
  * @author rotimi
  * 
+ * @psalm-suppress RedundantCondition
  */
 class VersatileAcl {
     
