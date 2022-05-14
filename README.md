@@ -201,7 +201,6 @@ $groupsVaclObj
 
 
 
-
 Now that we have created entity objects for each group and added the necessary permissions to the appropriate entity objects, we are ready to go ahead with defining the entity objects that will represent the users below in the blog application. 
 
 Below is a list of userids of users in the application
