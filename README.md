@@ -3,7 +3,7 @@
 [![PHP Tests and Code Quality Tools](https://github.com/rotexsoft/versatile-acl/workflows/Run%20PHP%20Tests%20and%20Code%20Quality%20Tools/badge.svg)](https://github.com/rotexsoft/versatile-acl/actions?query=workflow%3A%22Run+PHP+Tests+and+Code+Quality+Tools%22) &nbsp;
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/rotexsoft/versatile-acl?label=latest%20release) &nbsp;
 ![GitHub](https://img.shields.io/github/license/rotexsoft/versatile-acl) &nbsp;
-[![Coverage Status](https://coveralls.io/repos/github/rotexsoft/versatile-acl/badge.svg?branch=master)](https://coveralls.io/github/rotexsoft/versatile-acl?branch=master) &nbsp;
+[![Coveralls branch](https://img.shields.io/coveralls/github/rotexsoft/versatile-acl/master)](https://coveralls.io/github/rotexsoft/versatile-acl?branch=master) &nbsp;
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/rotexsoft/versatile-acl) &nbsp;
 ![Packagist Downloads](https://img.shields.io/packagist/dt/rotexsoft/versatile-acl) &nbsp;
 ![GitHub top language](https://img.shields.io/github/languages/top/rotexsoft/versatile-acl) &nbsp;
