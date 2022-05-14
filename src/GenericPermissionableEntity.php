@@ -107,19 +107,22 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
             /**
              * @param PermissionableEntitiesCollectionInterface $parents a collection containing parent entities
              * @noRector
+             * 
              */
             $putParent = function(PermissionableEntitiesCollectionInterface $parents) use ($entity, &$putParent): void{
                 
-                /** @var PermissionableEntityInterface $parent */
+                /** @var \IteratorAggregate<string|int, PermissionableEntityInterface> $parents */
                 foreach ($parents as $key => $parent) {
                     
                     if($entity->isEqualTo($parent)) {
                         
-                        $parents->put($entity, ''.$key);
+                        /** @var PermissionableEntitiesCollectionInterface $parents */
+                        $parents->put($entity, ((string)$key));
                         
                     } else {
                         
                         // recurse
+                        /** @var callable $putParent **/
                         $putParent($parent->getDirectParents());
                     }
                 }
@@ -154,6 +157,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
      */
     public function addParents(PermissionableEntitiesCollectionInterface $entities): PermissionableEntityInterface {
         
+        /** @var PermissionableEntityInterface $entity **/
         foreach ($entities as $entity) {
             
             $this->addParent($entity);
@@ -177,7 +181,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
      *
      *
      *
-     * @psalm-suppress UndefinedInterfaceMethod
+     * 
      */
     protected function doGetAllParentEntities(PermissionableEntitiesCollectionInterface $coll): PermissionableEntitiesCollectionInterface {
         
@@ -192,6 +196,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
             if( $entity->getDirectParents()->count() > 0 ) {
                 
                 // recurse
+                /** @var GenericPermissionableEntity $entity **/
                 $entity->doGetAllParentEntities($coll);
             }
         }    
@@ -228,6 +233,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
      */
     public function isChildOfEntityWithId(string $entityId): bool {
         
+        /** @var PermissionableEntityInterface $parent **/
         foreach ($this->getAllParents() as $parent) {
             
             if( Utils::strSameIgnoreCase($parent->getId(), $entityId) ) {
@@ -303,6 +309,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
      */
     public function removeParentsThatExist(PermissionableEntitiesCollectionInterface $entities): PermissionableEntityInterface {
         
+        /** @var PermissionableEntityInterface $entity **/
         foreach ($entities as $entity) {
             
             $this->removeParentIfExists($entity);
@@ -354,6 +361,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
      */
     public function addPermissions(PermissionsCollectionInterface $perms): PermissionableEntityInterface {
         
+        /** @var PermissionInterface $perm **/
         foreach ($perms as $perm) {
             
             $this->addPermission($perm);
@@ -382,7 +390,10 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
         $allParentEntities = $this->getAllParents();
         $inheritedPermsToReturn = $inheritedPerms ?? GenericPermission::createCollection();
         
+        /** @var PermissionableEntityInterface $parent_entity **/
         foreach ($allParentEntities as $parent_entity) {
+            
+            /** @var PermissionInterface $parent_permission **/
             foreach ($parent_entity->getDirectPermissions() as $parent_permission) {
                 
                 (!$inheritedPermsToReturn->hasPermission($parent_permission)) 
@@ -414,11 +425,13 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
             $collection2 = $directPerms;
         }
         
+        /** @var PermissionInterface $item **/
         foreach($collection1 as $item) {
             
             $allPermissions->add($item);
         }
         
+        /** @var PermissionInterface $item **/
         foreach($collection2 as $item) {
             
             $allPermissions->add($item);
@@ -453,6 +466,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
      */
     public function removePermissionsThatExist(PermissionsCollectionInterface $perms): PermissionableEntityInterface {
         
+        /** @var PermissionInterface $perm **/
         foreach ($perms as $perm) {
             
             $this->removePermissionIfExists($perm);

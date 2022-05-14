@@ -32,7 +32,6 @@ use function var_export;
  *
  * @author rotimi
  * 
- * @psalm-suppress RedundantCondition
  */
 class VersatileAcl {
     
@@ -41,46 +40,46 @@ class VersatileAcl {
      * @var string name of the class that implements PermissionableEntityInterface that will be used to create new entities
      * 
      */
-    protected $permissionableEntityInterfaceClassName;
+    protected string $permissionableEntityInterfaceClassName;
     
     /**
      *
      * @var string name of the class that implements PermissionInterface that will be used to create new permissions
      *  
      */
-    protected $permissionInterfaceClassName;
+    protected string $permissionInterfaceClassName;
     
     /**
      *
      * @var string name of the class that implements PermissionableEntitiesCollectionInterface that will be used to create new entity collections
      *  
      */
-    protected $permissionableEntitiesCollectionInterfaceClassName;
+    protected string $permissionableEntitiesCollectionInterfaceClassName;
     
     /**
      *
      * @var string name of the class that implements PermissionsCollectionInterface that will be used to create new permission collections
      * 
      */
-    protected $permissionsCollectionInterfaceClassName;
+    protected string $permissionsCollectionInterfaceClassName;
     
     /**
      *
      * @var PermissionableEntitiesCollectionInterface|null collection of entities for each instance of this class
      */
-    protected $entitiesCollection;
+    protected ?PermissionableEntitiesCollectionInterface $entitiesCollection;
     
     /**
      *
      * @var string tracks activities performed in methods in this class
      */
-    protected $auditTrail = '';
+    protected string $auditTrail = '';
     
     /**
      *
      * @var bool true for activities performed in methods in this class to be tracked by concatenating descriptive messages to $this->auditTrail, false for no tracking
      */
-    protected $auditActivities = false;
+    protected bool $auditActivities = false;
     
     /**
      * An integer to be used within $this->logActivity(..) to control the number of tabs to prepend to its return value
@@ -88,7 +87,7 @@ class VersatileAcl {
      * 
      * @var int 
      */
-    protected $numTabsForIndentingAudit = 0;
+    protected int $numTabsForIndentingAudit = 0;
     
     /**
      * True means that $this->logActivity(string $description, string $shortDescription='') 
@@ -99,7 +98,7 @@ class VersatileAcl {
      * 
      * @var bool
      */
-    protected $performVerboseAudit = true;
+    protected bool $performVerboseAudit = true;
 
 
     public function __construct(
@@ -207,7 +206,6 @@ class VersatileAcl {
      * 
      * @return PermissionableEntityInterface|null the removed entity object or NULL if no such entity exists
      * 
-     * @psalm-suppress PossiblyNullReference
      */
     public function removeEntity(string $entityId): ?PermissionableEntityInterface {
         
@@ -222,7 +220,7 @@ class VersatileAcl {
         
         if($entity !== null) {
             
-            $this->entitiesCollection->remove($entity);
+            ($this->entitiesCollection !== null) && $this->entitiesCollection->remove($entity);
             $this->auditActivities 
                 && $this->logActivity("Successfully removed the entity whose ID is `{$entityId}`.");
         } else {
@@ -637,7 +635,6 @@ class VersatileAcl {
      *
      * @noinspection PhpUnhandledExceptionInspection
      * @noinspection PhpDocMissingThrowsInspection
-     * @psalm-suppress MoreSpecificReturnType
      */
     public function isAllowed(string $entityId, string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool  {
         
@@ -795,14 +792,12 @@ class VersatileAcl {
      * 
      * @return PermissionableEntitiesCollectionInterface
      * 
-     * @psalm-suppress LessSpecificReturnStatement
-     * @psalm-suppress MoreSpecificReturnType
-     * @psalm-suppress InvalidStringClass
      */
     public function createEntityCollection(): PermissionableEntitiesCollectionInterface {
         
         $collectionClassName = $this->permissionableEntitiesCollectionInterfaceClassName;
         
+        /** @var PermissionableEntitiesCollectionInterface */
         return new $collectionClassName();
     }
     
@@ -810,14 +805,12 @@ class VersatileAcl {
      * 
      * @return PermissionsCollectionInterface
      * 
-     * @psalm-suppress LessSpecificReturnStatement
-     * @psalm-suppress MoreSpecificReturnType
-     * @psalm-suppress InvalidStringClass
      */
     public function createPermissionCollection(): PermissionsCollectionInterface {
         
         $collectionClassName = $this->permissionsCollectionInterfaceClassName;
         
+        /** @var PermissionsCollectionInterface */
         return new $collectionClassName();
     }
 
@@ -826,14 +819,12 @@ class VersatileAcl {
      *
      * @return PermissionableEntityInterface the created entity object
      * 
-     * @psalm-suppress LessSpecificReturnStatement
-     * @psalm-suppress MoreSpecificReturnType
-     * @psalm-suppress InvalidStringClass
      */
     public function createEntity(string $entityId): PermissionableEntityInterface {
         
         $entityClassName = $this->permissionableEntityInterfaceClassName;
         
+        /** @var PermissionableEntityInterface */
         return new $entityClassName($entityId, $this->createPermissionCollection(), $this->createEntityCollection());
     }
 
@@ -845,9 +836,7 @@ class VersatileAcl {
      * @param mixed ...$argsForCallback
      *
      * @return PermissionInterface
-     * @psalm-suppress LessSpecificReturnStatement
-     * @psalm-suppress MoreSpecificReturnType
-     * @psalm-suppress InvalidStringClass
+     * 
      */
     public function createPermission(
         string $action, string $resource, bool $allowActionOnResource = true, callable $additionalAssertions = null, ...$argsForCallback
@@ -855,6 +844,7 @@ class VersatileAcl {
         
         $permissionClassName = $this->permissionInterfaceClassName;
         
+        /** @var PermissionInterface */
         return new $permissionClassName($action, $resource, $allowActionOnResource, $additionalAssertions, ...$argsForCallback);
     }
     
@@ -958,7 +948,7 @@ class VersatileAcl {
      * Returns an associative array whose keys are the names of the parameters for the specified method ($methodName) and the values are the values in $paramVals
      *
      * @param string $methodName name of a method in this class
-     * @param array $paramVals an array of values supplied as arguments to the method named by $methodName
+     * @param array<string|int, mixed> $paramVals an array of values supplied as arguments to the method named by $methodName
      *
      * @return array an associative array whose keys are the names of the parameters for the specified method ($methodName) and the values are the values in $paramVals
      * @noinspection PhpRedundantVariableDocTypeInspection
@@ -975,13 +965,13 @@ class VersatileAcl {
 
             $parameters = $refMethodObj->getParameters();
 
-            /** @var ReflectionParameter $parameter */
             foreach ($parameters as $parameter) {
 
                 $pos = $parameter->getPosition();
                 
                 if(array_key_exists($pos, $paramVals)) {
                     
+                    /** @var mixed */
                     $paramPosToNameMap[$parameter->getName()] = $paramVals[$pos];
                 }
             }

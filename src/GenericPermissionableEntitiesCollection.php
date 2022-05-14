@@ -33,6 +33,7 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
      */
     public function has(PermissionableEntityInterface $entity): bool {
         
+        /** @var PermissionableEntityInterface $other_entity **/
         foreach ($this->storage as $other_entity) {
             if( $entity->isEqualTo($other_entity) ) {
                 return true;
@@ -72,6 +73,7 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
      */
     public function getKey(PermissionableEntityInterface $entity) {
         
+        /** @var PermissionableEntityInterface $other_entity **/
         foreach ($this->storage as $key => $other_entity) {
             if( $entity->isEqualTo($other_entity) ) {
                 return $key;
@@ -134,6 +136,7 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
      */
     public function get(string $key): ?PermissionableEntityInterface {
         
+        /** @var ?PermissionableEntityInterface */
         return array_key_exists($key, $this->storage) ? $this->storage[$key] : null;
     }
 
@@ -174,7 +177,9 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
                 return 1;
             };
         }
-        
+                
+        /** @var array<string, PermissionableEntityInterface> $this->storage **/
+        /** @var callable(mixed, mixed):int $comparator **/
         uasort($this->storage, $comparator);
         
         return $this;

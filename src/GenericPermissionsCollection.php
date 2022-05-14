@@ -33,6 +33,7 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      */
     public function hasPermission(PermissionInterface $permission): bool {
         
+        /** @var PermissionInterface $other_permission **/
         foreach ($this->storage as $other_permission) {
             if( $permission->isEqualTo($other_permission) ) {
                 return true;
@@ -62,6 +63,7 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      */
     public function isAllowed(string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool {
         
+        /** @var PermissionInterface $permission */
         foreach ($this->storage as $permission) {
 
             /** @var PermissionInterface $permissionClass */
@@ -119,6 +121,7 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      */
     public function getKey(PermissionInterface $permission) {
         
+        /** @var PermissionInterface $other_permission */
         foreach ($this->storage as $key => $other_permission) {
             if( $permission->isEqualTo($other_permission) ) {
                 return $key;
@@ -180,6 +183,7 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      */
     public function get(string $key): ?PermissionInterface {
         
+        /** @var PermissionInterface $this->storage[$key] **/
         return array_key_exists($key, $this->storage) ? $this->storage[$key] : null;
     }
 
@@ -239,7 +243,8 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
                 return 1;
             };
         }
-        
+        /** @var array<string, PermissionInterface> $this->storage **/
+        /** @var callable(mixed, mixed):int $comparator **/
         uasort($this->storage, $comparator);
         
         return $this;
@@ -260,7 +265,9 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      */
     public function findOne(string $action='', string $resource=''): ?PermissionInterface {
         
+        
         /** @noRector */
+        /** @var array<int|string, PermissionInterface> $firstMatch **/
         $firstMatch = 
             \iterator_to_array(
                 $this->findFirstN($action, $resource, 1)
@@ -286,8 +293,6 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * @return PermissionsCollectionInterface
      * 
      * @noinspection DuplicatedCode
-     * @psalm-suppress RedundantCondition
-     * @psalm-suppress UnsafeInstantiation
      */
     public function findAll(string $action='', string $resource=''): PermissionsCollectionInterface {
 
