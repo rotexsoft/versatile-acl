@@ -319,6 +319,7 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * @noinspection DuplicatedCode
      * @psalm-suppress RedundantCondition
      * @psalm-suppress UnsafeInstantiation
+     * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
      */
     protected function findFirstN(string $action='', string $resource='', int $n=1): PermissionsCollectionInterface {
         

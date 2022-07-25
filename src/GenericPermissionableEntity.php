@@ -178,10 +178,6 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
     
     /**
      * Recursively adds all parents to the current instance of this class to $coll
-     *
-     *
-     *
-     * 
      */
     protected function doGetAllParentEntities(PermissionableEntitiesCollectionInterface $coll): PermissionableEntitiesCollectionInterface {
         

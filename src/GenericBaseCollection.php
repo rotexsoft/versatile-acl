@@ -43,7 +43,7 @@ abstract class GenericBaseCollection implements CollectionInterface {
         
         if($this->keyExists($key)) {
             
-            /** @var mixed */
+            /** @var mixed $item */
             $item = $this->storage[$key];
             unset($this->storage[$key]);
         }
@@ -59,10 +59,13 @@ abstract class GenericBaseCollection implements CollectionInterface {
      */
     public function keyExists($key): bool {
         
+        /** @noRector \Rector\DeadCode\Rector\If_\RemoveAlwaysTrueIfConditionRector */
         if(is_int($key) || is_string($key)){
             
             return array_key_exists($key, $this->storage);
         }
+        
+        /** @noRector \Rector\DeadCode\Rector\Stmt\RemoveUnreachableStatementRector */
         return false;
     }
 

@@ -136,6 +136,7 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
      */
     public function get(string $key): ?PermissionableEntityInterface {
         
+        /** @noRector \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector */
         /** @var ?PermissionableEntityInterface */
         return array_key_exists($key, $this->storage) ? $this->storage[$key] : null;
     }

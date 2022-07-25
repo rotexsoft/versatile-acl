@@ -10,7 +10,6 @@ use VersatileAcl\Interfaces\{
     PermissionInterface, PermissionableEntitiesCollectionInterface, 
     PermissionableEntityInterface, PermissionsCollectionInterface
 };
-use ReflectionParameter;
 use RuntimeException;
 use VersatileAcl\Exceptions\ParentCannotBeChildException;
 
@@ -33,6 +32,7 @@ use function var_export;
  * @author rotimi
  * 
  * @psalm-suppress RedundantCondition
+ *  
  */
 class VersatileAcl {
     
@@ -84,9 +84,7 @@ class VersatileAcl {
     
     /**
      * An integer to be used within $this->logActivity(..) to control the number of tabs to prepend to its return value
-     *  
      * 
-     * @var int 
      */
     protected int $numTabsForIndentingAudit = 0;
     
@@ -97,7 +95,6 @@ class VersatileAcl {
      * 
      * If $this->auditActivities === false, then the value of this property is irrelevant.
      * 
-     * @var bool
      */
     protected bool $performVerboseAudit = true;
 
@@ -315,7 +312,6 @@ class VersatileAcl {
      * @param string $entityId ID of entity from which a parent entity with ID value of $parentEntityId is to be removed
      * @param string $parentEntityId ID of the parent entity to be removed from the specified entity with the ID value of $entityId
      * 
-     * @return PermissionableEntityInterface|null
      */
     public function removeParentEntity(string $entityId, string $parentEntityId): ?PermissionableEntityInterface {
         
@@ -363,8 +359,6 @@ class VersatileAcl {
      * or returns NULL if an entity with specified Id doesn't already exist in the 
      * instance of this class this method is being invoked on.
      *
-     *
-     * @return PermissionableEntityInterface|null
      */
     public function getEntity(string $entityId): ?PermissionableEntityInterface {
         
@@ -411,7 +405,7 @@ class VersatileAcl {
     /**
      * Returns a collection of all entities added to an instance of this class via $this->addEntity(string $entityId) or null if the collection has not yet been initialized
      * 
-     * @return PermissionableEntitiesCollectionInterface a collection of all entities added to an instance of this class via $this->addEntity(string $entityId) or null if the collection has not yet been initialized
+     * @return PermissionableEntitiesCollectionInterface|null a collection of all entities added to an instance of this class via $this->addEntity(string $entityId) or null if the collection has not yet been initialized
      */
     public function getAllEntities() : ?PermissionableEntitiesCollectionInterface {
         
@@ -530,7 +524,6 @@ class VersatileAcl {
      * @param callable|null $additionalAssertions
      * @param mixed $argsForCallback
      *
-     * @return PermissionInterface|null
      * @noinspection PhpUnhandledExceptionInspection
      * @see PermissionInterface::__construct($action, $resource, $allowActionOnResource, $additionalAssertions, $argsForCallback)
      * for definitions of all but the first parameter
@@ -791,26 +784,24 @@ class VersatileAcl {
     
     /**
      * 
-     * @return PermissionableEntitiesCollectionInterface
-     * 
      */
     public function createEntityCollection(): PermissionableEntitiesCollectionInterface {
         
         $collectionClassName = $this->permissionableEntitiesCollectionInterfaceClassName;
         
+        /** @noRector \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector */
         /** @var PermissionableEntitiesCollectionInterface */
         return new $collectionClassName();
     }
     
     /**
      * 
-     * @return PermissionsCollectionInterface
-     * 
      */
     public function createPermissionCollection(): PermissionsCollectionInterface {
         
         $collectionClassName = $this->permissionsCollectionInterfaceClassName;
         
+        /** @noRector \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector */
         /** @var PermissionsCollectionInterface */
         return new $collectionClassName();
     }
@@ -825,6 +816,7 @@ class VersatileAcl {
         
         $entityClassName = $this->permissionableEntityInterfaceClassName;
         
+        /** @noRector \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector */
         /** @var PermissionableEntityInterface */
         return new $entityClassName($entityId, $this->createPermissionCollection(), $this->createEntityCollection());
     }
@@ -836,7 +828,6 @@ class VersatileAcl {
      * @param callable|null $additionalAssertions
      * @param mixed ...$argsForCallback
      *
-     * @return PermissionInterface
      * 
      */
     public function createPermission(
@@ -845,6 +836,7 @@ class VersatileAcl {
         
         $permissionClassName = $this->permissionInterfaceClassName;
         
+        /** @noRector \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector */
         /** @var PermissionInterface */
         return new $permissionClassName($action, $resource, $allowActionOnResource, $additionalAssertions, ...$argsForCallback);
     }
@@ -972,6 +964,7 @@ class VersatileAcl {
                 
                 if(array_key_exists($pos, $paramVals)) {
                     
+                    /** @noRector \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector */
                     /** @var mixed */
                     $paramPosToNameMap[$parameter->getName()] = $paramVals[$pos];
                 }
