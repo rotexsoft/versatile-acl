@@ -16,8 +16,6 @@ class Utils {
 
     /**
      * Converts a callable to an instance of \Closure
-     *
-     *
      */
     public static function getClosureFromCallable(callable $callable): Closure {
 
@@ -26,7 +24,6 @@ class Utils {
     
     /**
      * Lowers the case of all characters in a string. Uses \mb_strtolower if available in UTF-8 mode
-     *
      *
      * @noinspection PhpFullyQualifiedNameUsageInspection
      */

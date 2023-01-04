@@ -473,7 +473,8 @@ VersatileAcl\GenericPermission (0000000010c6e6c2000000002e73da65)
         $this->assertStringContainsString("\taction: `action-a`", $haystack);
         $this->assertStringContainsString("\tresource: `resource-a`", $haystack);
         $this->assertStringContainsString("\tallowActionOnResource: true", $haystack);
-        $this->assertStringContainsString("\tadditionalAssertions: Closure::__set_state(array(", $haystack);
+        isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\tadditionalAssertions: \\Closure::__set_state(array(", $haystack);
+        !isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\tadditionalAssertions: Closure::__set_state(array(", $haystack);
         $this->assertStringContainsString("\t))", $haystack);
         $this->assertStringContainsString("\targsForCallback: array (", $haystack);
         $this->assertStringContainsString("\t)", $haystack);
@@ -501,7 +502,8 @@ VersatileAcl\GenericPermission (0000000078ef9ee800000000588db454)
         $this->assertStringContainsString("\taction: `action-a`", $haystack);
         $this->assertStringContainsString("\tresource: `resource-a`", $haystack);
         $this->assertStringContainsString("\tallowActionOnResource: true", $haystack);
-        $this->assertStringContainsString("\tadditionalAssertions: Closure::__set_state(array(", $haystack);
+        isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\tadditionalAssertions: \\Closure::__set_state(array(", $haystack);
+        !isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\tadditionalAssertions: Closure::__set_state(array(", $haystack);
         $this->assertStringContainsString("\t))", $haystack);
         $this->assertStringContainsString("\targsForCallback: array (", $haystack);
         $this->assertStringContainsString("\t  0 => false,", $haystack);
@@ -530,7 +532,8 @@ VersatileAcl\GenericPermission (0000000078ef9ee800000000588db454)
         $this->assertStringContainsString("\taction: `action-a`", $haystack);
         $this->assertStringContainsString("\tresource: `resource-a`", $haystack);
         $this->assertStringContainsString("\tallowActionOnResource: true", $haystack);
-        $this->assertStringContainsString("\tadditionalAssertions: Closure::__set_state(array(", $haystack);
+        isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\tadditionalAssertions: \\Closure::__set_state(array(", $haystack);
+        !isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\tadditionalAssertions: Closure::__set_state(array(", $haystack);
         $this->assertStringContainsString("\t))", $haystack);
         $this->assertStringContainsString("\targsForCallback: array (", $haystack);
         $this->assertStringContainsString("\t  0 => true,", $haystack);
@@ -560,7 +563,8 @@ VersatileAcl\GenericPermission (0000000030c2abd70000000053ea6caf)
         $this->assertStringContainsString("\taction: `action-a`", $haystack);
         $this->assertStringContainsString("\tresource: `resource-a`", $haystack);
         $this->assertStringContainsString("\tallowActionOnResource: true", $haystack);
-        $this->assertStringContainsString("\tadditionalAssertions: Closure::__set_state(array(", $haystack);
+        !isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\tadditionalAssertions: Closure::__set_state(array(", $haystack);
+        isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\tadditionalAssertions: \\Closure::__set_state(array(", $haystack);
         $this->assertStringContainsString("\t))", $haystack);
         $this->assertStringContainsString("\targsForCallback: array (", $haystack);
         $this->assertStringContainsString("\t  0 => false,", $haystack);
@@ -592,7 +596,8 @@ VersatileAcl\GenericPermission (0000000030c2abd70000000053ea6caf)
         $this->assertStringContainsString("\taction: `action-a`", $haystack);
         $this->assertStringContainsString("\tresource: `resource-a`", $haystack);
         $this->assertStringContainsString("\tallowActionOnResource: true", $haystack);
-        $this->assertStringContainsString("\tadditionalAssertions: Closure::__set_state(array(", $haystack);
+        !isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\tadditionalAssertions: Closure::__set_state(array(", $haystack);
+        isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\tadditionalAssertions: \\Closure::__set_state(array(", $haystack);
         $this->assertStringContainsString("\t))", $haystack);
         $this->assertStringContainsString("\targsForCallback: array (", $haystack);
         $this->assertStringContainsString("\t  0 => true,", $haystack);
@@ -721,7 +726,8 @@ VersatileAcl\GenericPermission (0000000010c6e6c2000000002e73da65)
         $this->assertStringContainsString("\taction: `action-a`", $haystack);
         $this->assertStringContainsString("\tresource: `resource-a`", $haystack);
         $this->assertStringContainsString("\tallowActionOnResource: true", $haystack);
-        $this->assertStringContainsString("\tadditionalAssertions: Closure::__set_state(array(", $haystack);
+        !isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\tadditionalAssertions: Closure::__set_state(array(", $haystack);
+        isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\tadditionalAssertions: \\Closure::__set_state(array(", $haystack);
         $this->assertStringContainsString("\t))", $haystack);
         $this->assertStringContainsString("\targsForCallback: array (", $haystack);
         $this->assertStringContainsString("\t)", $haystack);
@@ -749,7 +755,8 @@ VersatileAcl\GenericPermission (0000000078ef9ee800000000588db454)
         $this->assertStringContainsString("\taction: `action-a`", $haystack);
         $this->assertStringContainsString("\tresource: `resource-a`", $haystack);
         $this->assertStringContainsString("\tallowActionOnResource: true", $haystack);
-        $this->assertStringContainsString("\tadditionalAssertions: Closure::__set_state(array(", $haystack);
+        !isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\tadditionalAssertions: Closure::__set_state(array(", $haystack);
+        isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\tadditionalAssertions: \\Closure::__set_state(array(", $haystack);
         $this->assertStringContainsString("\t))", $haystack);
         $this->assertStringContainsString("\targsForCallback: array (", $haystack);
         $this->assertStringContainsString("\t  0 => false,", $haystack);
@@ -778,7 +785,8 @@ VersatileAcl\GenericPermission (0000000078ef9ee800000000588db454)
         $this->assertStringContainsString("\taction: `action-a`", $haystack);
         $this->assertStringContainsString("\tresource: `resource-a`", $haystack);
         $this->assertStringContainsString("\tallowActionOnResource: true", $haystack);
-        $this->assertStringContainsString("\tadditionalAssertions: Closure::__set_state(array(", $haystack);
+        !isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\tadditionalAssertions: Closure::__set_state(array(", $haystack);
+        isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\tadditionalAssertions: \\Closure::__set_state(array(", $haystack);
         $this->assertStringContainsString("\t))", $haystack);
         $this->assertStringContainsString("\targsForCallback: array (", $haystack);
         $this->assertStringContainsString("\t  0 => true,", $haystack);
@@ -808,7 +816,8 @@ VersatileAcl\GenericPermission (0000000030c2abd70000000053ea6caf)
         $this->assertStringContainsString("\taction: `action-a`", $haystack);
         $this->assertStringContainsString("\tresource: `resource-a`", $haystack);
         $this->assertStringContainsString("\tallowActionOnResource: true", $haystack);
-        $this->assertStringContainsString("\tadditionalAssertions: Closure::__set_state(array(", $haystack);
+        !isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\tadditionalAssertions: Closure::__set_state(array(", $haystack);
+        isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\tadditionalAssertions: \\Closure::__set_state(array(", $haystack);
         $this->assertStringContainsString("\t))", $haystack);
         $this->assertStringContainsString("\targsForCallback: array (", $haystack);
         $this->assertStringContainsString("\t  0 => false,", $haystack);
@@ -840,7 +849,8 @@ VersatileAcl\GenericPermission (0000000030c2abd70000000053ea6caf)
         $this->assertStringContainsString("\taction: `action-a`", $haystack);
         $this->assertStringContainsString("\tresource: `resource-a`", $haystack);
         $this->assertStringContainsString("\tallowActionOnResource: true", $haystack);
-        $this->assertStringContainsString("\tadditionalAssertions: Closure::__set_state(array(", $haystack);
+        !isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\tadditionalAssertions: Closure::__set_state(array(", $haystack);
+        isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\tadditionalAssertions: \\Closure::__set_state(array(", $haystack);
         $this->assertStringContainsString("\t))", $haystack);
         $this->assertStringContainsString("\targsForCallback: array (", $haystack);
         $this->assertStringContainsString("\t  0 => true,", $haystack);
