@@ -924,7 +924,8 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertStringContainsString("\t\taction: `action-b`", $haystack1);
         $this->assertStringContainsString("\t\tresource: `resource-b`", $haystack1);
         $this->assertStringContainsString("\t\tallowActionOnResource: true", $haystack1);
-        $this->assertStringContainsString("\t\tadditionalAssertions: Closure::__set_state(array(", $haystack1);
+        !isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\t\tadditionalAssertions: Closure::__set_state(array(", $haystack1);
+        isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\t\tadditionalAssertions: \\Closure::__set_state(array(", $haystack1);
         $this->assertStringContainsString("\t\t))", $haystack1);
         $this->assertStringContainsString("\t\targsForCallback: array (", $haystack1);
         $this->assertStringContainsString("\t\t  0 => true,", $haystack1);
@@ -938,7 +939,8 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertStringContainsString("\t\taction: `action-c`", $haystack1);
         $this->assertStringContainsString("\t\tresource: `resource-c`", $haystack1);
         $this->assertStringContainsString("\t\tallowActionOnResource: false", $haystack1);
-        $this->assertStringContainsString("\t\tadditionalAssertions: Closure::__set_state(array(", $haystack1);
+        !isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\t\tadditionalAssertions: Closure::__set_state(array(", $haystack1);
+        isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\t\tadditionalAssertions: \\Closure::__set_state(array(", $haystack1);
         $this->assertStringContainsString("\t\t))", $haystack1);
         $this->assertStringContainsString("\t\targsForCallback: array (", $haystack1);
         $this->assertStringContainsString("\t\t)", $haystack1);
@@ -969,7 +971,8 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertStringNotContainsString("\t\taction: `action-b`", $haystack2);
         $this->assertStringNotContainsString("\t\tresource: `resource-b`", $haystack2);
         $this->assertStringNotContainsString("\t\tallowActionOnResource: true", $haystack2);
-        $this->assertStringNotContainsString("\t\tadditionalAssertions: Closure::__set_state(array(", $haystack2);
+        !isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringNotContainsString("\t\tadditionalAssertions: Closure::__set_state(array(", $haystack2);
+        isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringNotContainsString("\t\tadditionalAssertions: \\Closure::__set_state(array(", $haystack2);
         $this->assertStringNotContainsString("\t\t))", $haystack2);
         $this->assertStringNotContainsString("\t\targsForCallback: array (", $haystack2);
         $this->assertStringNotContainsString("\t\t  0 => true,", $haystack2);
@@ -983,7 +986,8 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertStringNotContainsString("\t\taction: `action-c`", $haystack2);
         $this->assertStringNotContainsString("\t\tresource: `resource-c`", $haystack2);
         $this->assertStringNotContainsString("\t\tallowActionOnResource: false", $haystack2);
-        $this->assertStringNotContainsString("\t\tadditionalAssertions: Closure::__set_state(array(", $haystack2);
+        !isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringNotContainsString("\t\tadditionalAssertions: Closure::__set_state(array(", $haystack2);
+        isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringNotContainsString("\t\tadditionalAssertions: \\Closure::__set_state(array(", $haystack2);
         $this->assertStringNotContainsString("\t\t))", $haystack2);
         $this->assertStringNotContainsString("\t\targsForCallback: array (", $haystack2);
         $this->assertStringNotContainsString("\t\t)", $haystack2);
@@ -1031,7 +1035,8 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertStringContainsString("\t\taction: `action-b`", $haystack1);
         $this->assertStringContainsString("\t\tresource: `resource-b`", $haystack1);
         $this->assertStringContainsString("\t\tallowActionOnResource: true", $haystack1);
-        $this->assertStringContainsString("\t\tadditionalAssertions: Closure::__set_state(array(", $haystack1);
+        !isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\t\tadditionalAssertions: Closure::__set_state(array(", $haystack1);
+        isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\t\tadditionalAssertions: \\Closure::__set_state(array(", $haystack1);
         $this->assertStringContainsString("\t\t))", $haystack1);
         $this->assertStringContainsString("\t\targsForCallback: array (", $haystack1);
         $this->assertStringContainsString("\t\t  0 => true,", $haystack1);
@@ -1045,7 +1050,8 @@ class GenericPermissionsCollectionTest extends \PHPUnit\Framework\TestCase {
         $this->assertStringContainsString("\t\taction: `action-c`", $haystack1);
         $this->assertStringContainsString("\t\tresource: `resource-c`", $haystack1);
         $this->assertStringContainsString("\t\tallowActionOnResource: false", $haystack1);
-        $this->assertStringContainsString("\t\tadditionalAssertions: Closure::__set_state(array(", $haystack1);
+        !isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\t\tadditionalAssertions: Closure::__set_state(array(", $haystack1);
+        isRunningOnGreaterThanOrEqualToPhp82() && $this->assertStringContainsString("\t\tadditionalAssertions: \\Closure::__set_state(array(", $haystack1);
         $this->assertStringContainsString("\t\t))", $haystack1);
         $this->assertStringContainsString("\t\targsForCallback: array (", $haystack1);
         $this->assertStringContainsString("\t\t)", $haystack1);
