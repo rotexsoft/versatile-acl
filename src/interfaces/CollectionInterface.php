@@ -28,4 +28,8 @@ interface CollectionInterface extends Countable, IteratorAggregate {
      * Return string representation of an instance of this interface
      */
     public function __toString(): string;
+    
+    public function count(): int;
+    
+    public function getIterator(): \Traversable;
 }
