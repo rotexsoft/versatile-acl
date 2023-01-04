@@ -20,8 +20,12 @@ use VersatileAcl\Interfaces\{
  * @author rotimi
  */
 class VersatileAclTest extends \PHPUnit\Framework\TestCase {
+    
+    protected string $namespaceBackslash = '';
 
     protected function setUp(): void { 
+        
+        $this->namespaceBackslash = isRunningOnGreaterThanOrEqualToPhp82()?  "\\" : '';
         
         parent::setUp();
     }
@@ -507,7 +511,7 @@ array (
   'resource' => 'blog-post',
   'allowActionOnResource' => true,
   'additionalAssertions' => 
-  Closure::__set_state(array(
+  {$this->namespaceBackslash}Closure::__set_state(array(
   )),
   'argsForCallback' => 
   array (
@@ -557,7 +561,7 @@ array (
 action: `edit`
 resource: `blog-post`
 allowActionOnResource: true
-additionalAssertions: Closure::__set_state(array(
+additionalAssertions: {$this->namespaceBackslash}Closure::__set_state(array(
 ))
 argsForCallback: array (
   0 => true,
@@ -600,7 +604,7 @@ argsForCallback: array (
 action: `edit`
 resource: `blog-post`
 allowActionOnResource: true
-additionalAssertions: Closure::__set_state(array(
+additionalAssertions: {$this->namespaceBackslash}Closure::__set_state(array(
 ))
 argsForCallback: array (
   0 => true,
@@ -634,7 +638,7 @@ array (
   'resource' => 'blog-post',
   'allowActionOnResource' => true,
   'additionalAssertions' => 
-  Closure::__set_state(array(
+  {$this->namespaceBackslash}Closure::__set_state(array(
   )),
   'argsForCallback' => 
   array (
@@ -673,7 +677,7 @@ array (
 action: `edit`
 resource: `blog-post`
 allowActionOnResource: true
-additionalAssertions: Closure::__set_state(array(
+additionalAssertions: {$this->namespaceBackslash}Closure::__set_state(array(
 ))
 argsForCallback: array (
   0 => true,
@@ -708,7 +712,7 @@ argsForCallback: array (
 action: `edit`
 resource: `blog-post`
 allowActionOnResource: true
-additionalAssertions: Closure::__set_state(array(
+additionalAssertions: {$this->namespaceBackslash}Closure::__set_state(array(
 ))
 argsForCallback: array (
   0 => true,
@@ -1062,7 +1066,7 @@ array (
   'resource' => 'blog-post',
   'allowActionOnResource' => true,
   'additionalAssertions' => 
-  Closure::__set_state(array(
+  {$this->namespaceBackslash}Closure::__set_state(array(
   )),
   'argsForCallback' => 
   array (
@@ -1144,7 +1148,7 @@ array (
   'resource' => 'blog-post',
   'allowActionOnResource' => true,
   'additionalAssertions' => 
-  Closure::__set_state(array(
+  {$this->namespaceBackslash}Closure::__set_state(array(
   )),
   'argsForCallback' => 
   array (
@@ -1178,7 +1182,7 @@ array (
 						action: `edit`
 						resource: `blog-post`
 						allowActionOnResource: true
-						additionalAssertions: Closure::__set_state(array(
+						additionalAssertions: {$this->namespaceBackslash}Closure::__set_state(array(
 						))
 						argsForCallback: array (
 						  0 => true,
@@ -1200,7 +1204,7 @@ array (
 action: `edit`
 resource: `blog-post`
 allowActionOnResource: true
-additionalAssertions: Closure::__set_state(array(
+additionalAssertions: {$this->namespaceBackslash}Closure::__set_state(array(
 ))
 argsForCallback: array (
   0 => true,
@@ -1214,7 +1218,7 @@ argsForCallback: array (
 	action: `edit`
 	resource: `blog-post`
 	allowActionOnResource: true
-	additionalAssertions: Closure::__set_state(array(
+	additionalAssertions: {$this->namespaceBackslash}Closure::__set_state(array(
 	))
 	argsForCallback: array (
 	  0 => true,
@@ -1258,7 +1262,7 @@ argsForCallback: array (
 action: `edit`
 resource: `blog-post`
 allowActionOnResource: true
-additionalAssertions: Closure::__set_state(array(
+additionalAssertions: {$this->namespaceBackslash}Closure::__set_state(array(
 ))
 argsForCallback: array (
   0 => true,
@@ -1294,7 +1298,7 @@ array (
   'action' => 'edit',
   'resource' => 'blog-post',
   'additionalAssertions' => 
-  Closure::__set_state(array(
+  {$this->namespaceBackslash}Closure::__set_state(array(
   )),
   'argsForCallback' => 
   array (
@@ -1355,7 +1359,7 @@ array (
   'action' => 'edit',
   'resource' => 'blog-post',
   'additionalAssertions' => 
-  Closure::__set_state(array(
+  {$this->namespaceBackslash}Closure::__set_state(array(
   )),
   'argsForCallback' => 
   array (
@@ -1423,7 +1427,7 @@ array (
   'action' => 'edit',
   'resource' => 'blog-post',
   'additionalAssertions' => 
-  Closure::__set_state(array(
+  {$this->namespaceBackslash}Closure::__set_state(array(
   )),
   'argsForCallback' => 
   array (
@@ -1457,7 +1461,7 @@ array (
 						action: `edit`
 						resource: `blog-post`
 						allowActionOnResource: true
-						additionalAssertions: Closure::__set_state(array(
+						additionalAssertions: {$this->namespaceBackslash}Closure::__set_state(array(
 						))
 						argsForCallback: array (
 						  0 => true,
@@ -1547,7 +1551,7 @@ array (
   'action' => 'edit',
   'resource' => 'blog-post',
   'additionalAssertions' => 
-  Closure::__set_state(array(
+  {$this->namespaceBackslash}Closure::__set_state(array(
   )),
   'argsForCallback' => 
   array (
@@ -1623,7 +1627,7 @@ array (
   'action' => 'edit',
   'resource' => 'blog-post',
   'additionalAssertions' => 
-  Closure::__set_state(array(
+  {$this->namespaceBackslash}Closure::__set_state(array(
   )),
   'argsForCallback' => 
   array (
@@ -1658,7 +1662,7 @@ array (
 						action: `edit`
 						resource: `blog-post`
 						allowActionOnResource: true
-						additionalAssertions: Closure::__set_state(array(
+						additionalAssertions: {$this->namespaceBackslash}Closure::__set_state(array(
 						))
 						argsForCallback: array (
 						  0 => true,
