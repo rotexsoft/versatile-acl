@@ -30,7 +30,14 @@ return static function (RectorConfig $rectorConfigurator): void {
     $rectorConfigurator->import(SetList::DEAD_CODE);
     $rectorConfigurator->import(SetList::PSR_4);
     $rectorConfigurator->import(SetList::TYPE_DECLARATION);
-    $rectorConfigurator->import(SetList::TYPE_DECLARATION_STRICT);
+    
+    $rectorConfigurator->skip([
+        \Rector\DeadCode\Rector\PropertyProperty\RemoveNullPropertyInitializationRector::class,
+        \Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeFromPropertyTypeRector::class,
+        \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector::class,
+        \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector::class,
+        \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector::class,
+    ]);
     
     // get services (needed for register a single rule)
     $services = $rectorConfigurator->services();

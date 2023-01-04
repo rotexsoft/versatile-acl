@@ -789,7 +789,7 @@ class VersatileAcl {
         
         $collectionClassName = $this->permissionableEntitiesCollectionInterfaceClassName;
         
-        /** @noRector \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector */
+        
         /** @var PermissionableEntitiesCollectionInterface */
         return new $collectionClassName();
     }
@@ -801,7 +801,7 @@ class VersatileAcl {
         
         $collectionClassName = $this->permissionsCollectionInterfaceClassName;
         
-        /** @noRector \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector */
+        
         /** @var PermissionsCollectionInterface */
         return new $collectionClassName();
     }
@@ -816,7 +816,7 @@ class VersatileAcl {
         
         $entityClassName = $this->permissionableEntityInterfaceClassName;
         
-        /** @noRector \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector */
+        
         /** @var PermissionableEntityInterface */
         return new $entityClassName($entityId, $this->createPermissionCollection(), $this->createEntityCollection());
     }
@@ -836,7 +836,7 @@ class VersatileAcl {
         
         $permissionClassName = $this->permissionInterfaceClassName;
         
-        /** @noRector \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector */
+        
         /** @var PermissionInterface */
         return new $permissionClassName($action, $resource, $allowActionOnResource, $additionalAssertions, ...$argsForCallback);
     }
@@ -925,6 +925,9 @@ class VersatileAcl {
         return $this;
     }
     
+    /**
+     * @return never
+     */
     protected function throwInvalidArgExceptionDueToWrongClassName(
         string $class, string $function, string $wrongClassName, 
         string $expectedInterfaceName, string $positionthParameter
@@ -964,7 +967,6 @@ class VersatileAcl {
                 
                 if(array_key_exists($pos, $paramVals)) {
                     
-                    /** @noRector \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector */
                     /** @var mixed */
                     $paramPosToNameMap[$parameter->getName()] = $paramVals[$pos];
                 }

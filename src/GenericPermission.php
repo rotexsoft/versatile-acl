@@ -22,7 +22,6 @@ class GenericPermission implements PermissionInterface {
     /**
      * 
      * @var callable|null
-     * @noRector
      */
     protected $additionalAssertions = null;
 

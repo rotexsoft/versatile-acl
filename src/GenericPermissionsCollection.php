@@ -93,7 +93,7 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * Adds an instance of PermissionInterface to an instance of this class.
      *
      *
-     * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
+     * 
      * @return $this
      */
     public function add(PermissionInterface $permission): PermissionsCollectionInterface {
@@ -134,7 +134,7 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * Removes an instance of PermissionInterface from an instance of this class.
      *
      *
-     * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
+     * 
      * @return $this
      */
     public function remove(PermissionInterface $permission): PermissionsCollectionInterface {
@@ -150,7 +150,7 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
     /**
      * Remove all items in the collection and return $this
      * 
-     * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
+     * 
      * @return $this
      */
     public function removeAll(): PermissionsCollectionInterface {
@@ -165,7 +165,7 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      *
      * @param string $key specified key for $permission in the collection
      *
-     * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
+     * 
      * @return $this
      */
     public function put(PermissionInterface $permission, string $key): PermissionsCollectionInterface {
@@ -206,36 +206,36 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      *                      considered to be respectively less than, equal to,
      *                      or greater than the second.
      *
-     * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
+     * 
      * @return $this
      * @noinspection PhpDocSignatureInspection
      */
     public function sort(callable $comparator = null): PermissionsCollectionInterface {
         
         if( $comparator === null ) {
-            /** @noRector */
+            
             $comparator = function(PermissionInterface $a, PermissionInterface $b ) : int {
-                /** @noRector */
+                
                 if( $a->getResource() < $b->getResource() ) {
-                    /** @noRector */
+                    
                     return -1;
-                /** @noRector */
+                
                 } else if( $a->getResource() === $b->getResource() ) {
-                    /** @noRector */
+
                     if( $a->getAction() < $b->getAction() ) {
-                        /** @noRector */
+
                         return -1;
-                    /** @noRector */
+
                     } else if ( $a->getAction() === $b->getAction() ) {
-                        /** @noRector */
+
                         if( $a->getAllowActionOnResource() < $b->getAllowActionOnResource() ) {
-                            /** @noRector */
+
                             return -1;
-                        /** @noRector */
+
                         } elseif( $a->getAllowActionOnResource() === $b->getAllowActionOnResource() ) {
-                            /** @noRector */
+
                             return 0;
-                            /** @noRector */
+
                         } // if( $a->getAllowActionOnResource() < $b->getAllowActionOnResource() ) ... elseif( $a->getAllowActionOnResource() === $b->getAllowActionOnResource() )
                     } // if( $a->getAction() < $b->getAction() ) ... else if ( $a->getAction() === $b->getAction() )
                 } // if( $a->getResource() < $b->getResource() ) ... else if( $a->getResource() === $b->getResource() )
@@ -266,7 +266,7 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
     public function findOne(string $action='', string $resource=''): ?PermissionInterface {
         
         
-        /** @noRector */
+        
         /** @var array<int|string, PermissionInterface> $firstMatch **/
         $firstMatch = 
             \iterator_to_array(
@@ -286,11 +286,6 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * If $resource has an empty string value, do not use it for the match
      * If both $action & $resource have empty string values, return an empty collection
      * 
-     * @param string $action
-     * @param string $resource
-     *
-     * @noRector
-     * @return PermissionsCollectionInterface
      * 
      * @noinspection DuplicatedCode
      */
@@ -319,7 +314,7 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * @noinspection DuplicatedCode
      * @psalm-suppress RedundantCondition
      * @psalm-suppress UnsafeInstantiation
-     * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
+     * 
      */
     protected function findFirstN(string $action='', string $resource='', int $n=1): PermissionsCollectionInterface {
         

@@ -20,8 +20,6 @@ abstract class GenericBaseCollection implements CollectionInterface {
     
     /**
      * Retrieve an external iterator
-     *
-     * @noRector
      * 
      * @link https://php.net/manual/en/iteratoraggregate.getiterator.php
      */
@@ -59,14 +57,7 @@ abstract class GenericBaseCollection implements CollectionInterface {
      */
     public function keyExists($key): bool {
         
-        /** @noRector \Rector\DeadCode\Rector\If_\RemoveAlwaysTrueIfConditionRector */
-        if(is_int($key) || is_string($key)){
-            
-            return array_key_exists($key, $this->storage);
-        }
-        
-        /** @noRector \Rector\DeadCode\Rector\Stmt\RemoveUnreachableStatementRector */
-        return false;
+        return (is_int($key) || is_string($key)) && array_key_exists($key, $this->storage);
     }
 
     /**

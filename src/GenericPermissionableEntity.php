@@ -106,8 +106,6 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
             // update the entity in that collection
             /**
              * @param PermissionableEntitiesCollectionInterface $parents a collection containing parent entities
-             * @noRector
-             * 
              */
             $putParent = function(PermissionableEntitiesCollectionInterface $parents) use ($entity, &$putParent): void{
                 

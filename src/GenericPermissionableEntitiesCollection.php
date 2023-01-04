@@ -46,7 +46,7 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
      * Adds an instance of PermissionableEntityInterface to an instance of this class
      *
      *
-     * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
+     * 
      * @return $this
      */
     public function add(PermissionableEntityInterface $permissionEntity): PermissionableEntitiesCollectionInterface {
@@ -86,7 +86,7 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
      * Removes an instance of PermissionableEntityInterface from an instance of this class.
      *
      *
-     * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
+     * 
      * @return $this
      */
     public function remove(PermissionableEntityInterface $permissionEntity): PermissionableEntitiesCollectionInterface {
@@ -103,7 +103,7 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
     /**
      * Remove all items in the collection and return $this
      * 
-     * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
+     * 
      * @return $this
      */
     public function removeAll(): PermissionableEntitiesCollectionInterface {
@@ -118,7 +118,7 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
      *
      * @param string $key specified key for $permissionEntity in the collection
      *
-     * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
+     * 
      * @return $this
      */
     public function put(PermissionableEntityInterface $permissionEntity, string $key): PermissionableEntitiesCollectionInterface {
@@ -136,7 +136,6 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
      */
     public function get(string $key): ?PermissionableEntityInterface {
         
-        /** @noRector \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector */
         /** @var ?PermissionableEntityInterface */
         return array_key_exists($key, $this->storage) ? $this->storage[$key] : null;
     }
@@ -157,7 +156,7 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
      *                      considered to be respectively less than, equal to,
      *                      or greater than the second.
      *
-     * @noRector \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector
+     * 
      * @return $this
      */
     public function sort(callable $comparator = null): PermissionableEntitiesCollectionInterface {
