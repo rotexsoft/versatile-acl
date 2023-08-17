@@ -28,14 +28,13 @@ return static function (RectorConfig $rectorConfigurator): void {
     //$containerConfigurator->import(SetList::PHP_80);
     //$containerConfigurator->import(SetList::PHP_81);
     $rectorConfigurator->import(SetList::DEAD_CODE);
-    $rectorConfigurator->import(SetList::PSR_4);
+    //$rectorConfigurator->import(SetList::PSR_4);
     $rectorConfigurator->import(SetList::TYPE_DECLARATION);
     
     $rectorConfigurator->skip([
         \Rector\DeadCode\Rector\PropertyProperty\RemoveNullPropertyInitializationRector::class,
         \Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeFromPropertyTypeRector::class,
-        \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector::class,
-        \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector::class,
+        //\Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector::class,
         \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector::class,
     ]);
     
