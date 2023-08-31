@@ -9,12 +9,15 @@ use function array_key_exists;
 use function get_class;
 use function uasort;
 
+/**
+ * @property PermissionInterface[] $storage
+ */
 class GenericPermissionsCollection extends GenericBaseCollection implements PermissionsCollectionInterface {
     
     /**
      * Constructor.
      * 
-     * @param mixed ...$permissions zero or more instances of PermissionInterface to be added to this collection
+     * @param PermissionInterface ...$permissions zero or more instances of PermissionInterface to be added to this collection
      *
      */
     public function __construct(PermissionInterface ...$permissions) {

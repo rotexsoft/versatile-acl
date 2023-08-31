@@ -6,6 +6,9 @@ namespace VersatileAcl\Interfaces;
 use Countable;
 use IteratorAggregate;
 
+/**
+ * @psalm-suppress MissingTemplateParam
+ */
 interface CollectionInterface extends Countable, IteratorAggregate {
     
     /**

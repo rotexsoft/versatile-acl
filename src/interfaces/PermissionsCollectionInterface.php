@@ -9,7 +9,7 @@ interface PermissionsCollectionInterface extends CollectionInterface
     /**
      * Constructor.
      * 
-     * @param mixed ...$permissions zero or more instances of PermissionInterface to be added to this collection
+     * @param PermissionInterface ...$permissions zero or more instances of PermissionInterface to be added to this collection
      *
      */
     public function __construct(PermissionInterface ...$permissions);
@@ -17,8 +17,6 @@ interface PermissionsCollectionInterface extends CollectionInterface
     /**
      * Adds an instance of PermissionInterface to an instance of this interface.
      * Duplicate PermissionInterface instances should not be allowed in the same instance of this interface.
-     *
-     *
      */
     public function add(PermissionInterface $permission): self;
     

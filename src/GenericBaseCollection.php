@@ -15,7 +15,7 @@ use function spl_object_hash;
 use function str_replace;
 
 abstract class GenericBaseCollection implements CollectionInterface {
-
+    
     protected array $storage = [];
     
     /**

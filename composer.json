@@ -25,7 +25,7 @@
         "phpunit/phpunit": "^9.0",
         "php-coveralls/php-coveralls": "^2.0",
         "vimeo/psalm": "^5.4",
-        "rector/rector": "^0.17.0"
+        "rector/rector": "^0.18.0"
     },
     "autoload": {
         "classmap": ["src/"]
@@ -37,7 +37,7 @@
     "scripts": {
         "test": "vendor/bin/phpunit --coverage-text",
         "rector": "vendor/bin/rector process src --dry-run -vvv",
-        "psalm": "vendor/bin/psalm",
+        "psalm": "vendor/bin/psalm --clear-cache && vendor/bin/psalm",
         "qa": "composer test && composer rector && composer psalm"
     }
 }

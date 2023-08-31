@@ -1,8 +1,6 @@
 <?php
-
 declare(strict_types=1);
 
-use Rector\Php74\Rector\Property\TypedPropertyRector;
 use Rector\Set\ValueObject\SetList;
 use Rector\Config\RectorConfig;
 
@@ -31,16 +29,18 @@ return static function (RectorConfig $rectorConfigurator): void {
     //$rectorConfigurator->import(SetList::PSR_4);
     $rectorConfigurator->import(SetList::TYPE_DECLARATION);
     
-    $rectorConfigurator->skip([
+    $skipables = [
+        \Rector\CodeQuality\Rector\If_\ShortenElseIfRector::class,
+        \Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector::class,
+        \Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector::class,
+        \Rector\CodingStyle\Rector\ClassMethod\UnSpreadOperatorRector::class,
         \Rector\DeadCode\Rector\PropertyProperty\RemoveNullPropertyInitializationRector::class,
-        \Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeFromPropertyTypeRector::class,
-        //\Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector::class,
-        \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector::class,
-    ]);
+    ];
     
-    // get services (needed for register a single rule)
-    $services = $rectorConfigurator->services();
+    if(PHP_MAJOR_VERSION < 8) {
+        
+        $skipables[] = \Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPromotedPropertyRector::class;
+    }
     
-    //TODO:PHP8 comment once PHP 8 becomes minimum version
-    $services->remove(Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPromotedPropertyRector::class);
+    $rectorConfigurator->skip($skipables);
 };

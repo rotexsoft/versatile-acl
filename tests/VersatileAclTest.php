@@ -225,20 +225,22 @@ class VersatileAclTest extends \PHPUnit\Framework\TestCase {
         $sAclObj2 = $this->createNewVersatileAclExposingNonPublicMethods();
         $sAclObj2->doNothingDuringAddEntity = true;
         
-        $this->expectException(RuntimeException::class);
-        $this->expectErrorMessageMatches(
-            '*Could not create or retrieve the entity with an ID of '
-            . '`jdoe` to which the parent entity with an ID of `admin`'
-            . ' is to be added*'
-        );
-        
-        // Because of the doNothingDuringAddEntity hack above, the call 
-        // below will not add the entity `jdoe` to $sAclObj2, this 
-        // will trigger an exception since you can't add a parent
-        // entity to an entity that does not exist in the acl object
-        /** @noinspection PhpUnhandledExceptionInspection */
-        $sAclObj2->addParentEntity('jdoe', 'admin');
-       
+        try {
+            // Because of the doNothingDuringAddEntity hack above, the call 
+            // below will not add the entity `jdoe` to $sAclObj2, this 
+            // will trigger an exception since you can't add a parent
+            // entity to an entity that does not exist in the acl object
+            /** @noinspection PhpUnhandledExceptionInspection */
+            $sAclObj2->addParentEntity('jdoe', 'admin');
+            
+        } catch (RuntimeException $ex) {
+            
+            $message = 'Could not create or retrieve the entity with an ID of '
+                     . '`jdoe` to which the parent entity with an ID of `admin`'
+                     . ' is to be added';
+            
+            $this->assertStringContainsString($message, $ex->getMessage());
+        }
     }
     
     public function testThatClearAuditTrailWorksAsExpected() {

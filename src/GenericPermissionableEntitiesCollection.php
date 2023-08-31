@@ -9,6 +9,9 @@ use VersatileAcl\Interfaces\PermissionableEntitiesCollectionInterface;
 use function array_key_exists;
 use function uasort;
 
+/**
+ * @property PermissionableEntityInterface[] $storage
+ */
 class GenericPermissionableEntitiesCollection extends GenericBaseCollection implements PermissionableEntitiesCollectionInterface {
     
     /**
@@ -131,12 +134,9 @@ class GenericPermissionableEntitiesCollection extends GenericBaseCollection impl
     /**
      * Retrieves the entity in the collection associated with the specified key.
      * If the key is not present in the collection, NULL should be returned
-     *
-     *
      */
     public function get(string $key): ?PermissionableEntityInterface {
         
-        /** @var ?PermissionableEntityInterface */
         return array_key_exists($key, $this->storage) ? $this->storage[$key] : null;
     }
 

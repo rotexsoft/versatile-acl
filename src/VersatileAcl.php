@@ -783,26 +783,24 @@ class VersatileAcl {
     }
     
     /**
-     * 
+     * @psalm-suppress MoreSpecificReturnType
      */
     public function createEntityCollection(): PermissionableEntitiesCollectionInterface {
         
         $collectionClassName = $this->permissionableEntitiesCollectionInterfaceClassName;
         
-        
-        /** @var PermissionableEntitiesCollectionInterface */
+        /** @psalm-suppress LessSpecificReturnStatement */
         return new $collectionClassName();
     }
     
     /**
-     * 
+     * @psalm-suppress MoreSpecificReturnType
      */
     public function createPermissionCollection(): PermissionsCollectionInterface {
         
         $collectionClassName = $this->permissionsCollectionInterfaceClassName;
         
-        
-        /** @var PermissionsCollectionInterface */
+        /** @psalm-suppress LessSpecificReturnStatement */
         return new $collectionClassName();
     }
 
@@ -811,13 +809,13 @@ class VersatileAcl {
      *
      * @return PermissionableEntityInterface the created entity object
      * 
+     * @psalm-suppress MoreSpecificReturnType
      */
     public function createEntity(string $entityId): PermissionableEntityInterface {
         
         $entityClassName = $this->permissionableEntityInterfaceClassName;
         
-        
-        /** @var PermissionableEntityInterface */
+        /** @psalm-suppress LessSpecificReturnStatement */
         return new $entityClassName($entityId, $this->createPermissionCollection(), $this->createEntityCollection());
     }
 
@@ -828,7 +826,7 @@ class VersatileAcl {
      * @param callable|null $additionalAssertions
      * @param mixed ...$argsForCallback
      *
-     * 
+     * @psalm-suppress MoreSpecificReturnType
      */
     public function createPermission(
         string $action, string $resource, bool $allowActionOnResource = true, callable $additionalAssertions = null, ...$argsForCallback
@@ -836,8 +834,7 @@ class VersatileAcl {
         
         $permissionClassName = $this->permissionInterfaceClassName;
         
-        
-        /** @var PermissionInterface */
+        /** @psalm-suppress LessSpecificReturnStatement */
         return new $permissionClassName($action, $resource, $allowActionOnResource, $additionalAssertions, ...$argsForCallback);
     }
     
@@ -967,7 +964,7 @@ class VersatileAcl {
                 
                 if(array_key_exists($pos, $paramVals)) {
                     
-                    /** @var mixed */
+                    /** @psalm-suppress MixedAssignment */
                     $paramPosToNameMap[$parameter->getName()] = $paramVals[$pos];
                 }
             }
