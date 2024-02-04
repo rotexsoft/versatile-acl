@@ -232,6 +232,7 @@ class VersatileAclTest extends \PHPUnit\Framework\TestCase {
             // entity to an entity that does not exist in the acl object
             /** @noinspection PhpUnhandledExceptionInspection */
             $sAclObj2->addParentEntity('jdoe', 'admin');
+            $this->fail('Failed to throw `' . RuntimeException::class .'`');
             
         } catch (RuntimeException $ex) {
             
