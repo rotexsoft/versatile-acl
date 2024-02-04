@@ -33,7 +33,6 @@ return static function (RectorConfig $rectorConfigurator): void {
         \Rector\CodeQuality\Rector\If_\ShortenElseIfRector::class,
         \Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector::class,
         \Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector::class,
-        \Rector\CodingStyle\Rector\ClassMethod\UnSpreadOperatorRector::class,
         \Rector\DeadCode\Rector\PropertyProperty\RemoveNullPropertyInitializationRector::class,
     ];
     
