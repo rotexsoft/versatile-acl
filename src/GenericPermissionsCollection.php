@@ -6,7 +6,6 @@ namespace VersatileAcl;
 use VersatileAcl\Interfaces\PermissionInterface;
 use VersatileAcl\Interfaces\PermissionsCollectionInterface;
 use function array_key_exists;
-use function get_class;
 use function uasort;
 
 /**
@@ -64,13 +63,13 @@ class GenericPermissionsCollection extends GenericBaseCollection implements Perm
      * 
      * @return bool return true if one or more items in an instance of this class signifies that a specified action can be performed on a specified resource, or false otherwise
      */
-    public function isAllowed(string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool {
+    public function isAllowed(string $action, string $resource, callable $additionalAssertions = null, mixed ...$argsForCallback): bool {
         
         /** @var PermissionInterface $permission */
         foreach ($this->storage as $permission) {
 
             /** @var PermissionInterface $permissionClass */
-            $permissionClass = get_class($permission); // for late static binding
+            $permissionClass = $permission::class; // for late static binding
             
             if(
                 (

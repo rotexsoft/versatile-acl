@@ -16,7 +16,6 @@ use VersatileAcl\Exceptions\ParentCannotBeChildException;
 use function array_key_exists;
 use function array_shift;
 use function func_get_args;
-use function get_class;
 use function gettype;
 use function is_object;
 use function is_subclass_of;
@@ -108,28 +107,28 @@ class VersatileAcl {
         if(!is_subclass_of($permissionableEntityInterfaceClassName, PermissionableEntityInterface::class)) {
            
             $this->throwInvalidArgExceptionDueToWrongClassName(
-                get_class($this), __FUNCTION__, $permissionableEntityInterfaceClassName, PermissionableEntityInterface::class, 'first'
+                static::class, __FUNCTION__, $permissionableEntityInterfaceClassName, PermissionableEntityInterface::class, 'first'
             );
         }
         
         if(!is_subclass_of($permissionInterfaceClassName, PermissionInterface::class)) {
            
             $this->throwInvalidArgExceptionDueToWrongClassName(
-                get_class($this), __FUNCTION__, $permissionInterfaceClassName, PermissionInterface::class, 'second'
+                static::class, __FUNCTION__, $permissionInterfaceClassName, PermissionInterface::class, 'second'
             );
         }
         
         if(!is_subclass_of($permissionableEntitiesCollectionInterfaceClassName, PermissionableEntitiesCollectionInterface::class)) {
            
             $this->throwInvalidArgExceptionDueToWrongClassName(
-                get_class($this), __FUNCTION__, $permissionableEntitiesCollectionInterfaceClassName, PermissionableEntitiesCollectionInterface::class, 'third'
+                static::class, __FUNCTION__, $permissionableEntitiesCollectionInterfaceClassName, PermissionableEntitiesCollectionInterface::class, 'third'
             );
         }
         
         if(!is_subclass_of($permissionsCollectionInterfaceClassName, PermissionsCollectionInterface::class)) {
            
             $this->throwInvalidArgExceptionDueToWrongClassName(
-                get_class($this), __FUNCTION__, $permissionsCollectionInterfaceClassName, PermissionsCollectionInterface::class, 'fourth'
+                static::class, __FUNCTION__, $permissionsCollectionInterfaceClassName, PermissionsCollectionInterface::class, 'fourth'
             );
         }
         
@@ -164,10 +163,10 @@ class VersatileAcl {
             
             $this->auditActivities 
                 && $this->logActivity(
-                    "Initialized " . get_class($this) 
+                    "Initialized " . static::class 
                     . '::entitiesCollection to a new empty instance of ' 
-                    . get_class($this->entitiesCollection),
-                    "Initialized " . get_class($this) . '::entitiesCollection'
+                    . $this->entitiesCollection::class,
+                    "Initialized " . static::class . '::entitiesCollection'
                 );
         }
         
@@ -285,7 +284,7 @@ class VersatileAcl {
             // We should never really get here in most cases.
             // Something weird happened, we could not create or retrieve
             // the entity to which a parent is to be added
-            $class = get_class($this);
+            $class = static::class;
             $function = __FUNCTION__;
             $msg = "Error [{$class}::{$function}(...)]:"
             . " Could not create or retrieve the entity with an ID of `{$entityId}`"
@@ -413,13 +412,12 @@ class VersatileAcl {
     }
     
     /**
-     * Add a permission to an entity with the ID value of $entityId. 
+     * Add a permission to an entity with the ID value of $entityId.
      * This entity will be created and added to the instance of this class upon
      * which this method is being invoked if the entity does not exist.
      *
      * @param string $entityId the ID of the entity to which the permission is to be added
      * @param callable|null $additionalAssertions
-     * @param mixed $argsForCallback
      * @noinspection PhpUnhandledExceptionInspection
      * @see PermissionInterface::__construct($action, $resource, $allowActionOnResource, $additionalAssertions, ...$argsForCallback)
      * for definitions of all but the first parameter
@@ -432,7 +430,7 @@ class VersatileAcl {
         string $resource, 
         bool $allowActionOnResource = true, 
         callable $additionalAssertions = null, 
-        ...$argsForCallback
+        mixed ...$argsForCallback
     ): self {
 
         $this->auditActivities
@@ -493,7 +491,7 @@ class VersatileAcl {
             
             // We should never really get here in most cases. Something weird happened, 
             // we could not create or retrieve the entity to which a parent is to be added
-            $class = get_class($this);
+            $class = static::class;
             $function = __FUNCTION__;
             $msg = "Error [{$class}::{$function}(...)]:"
             . " Could not create or retrieve the entity with an ID of `{$entityId}`"
@@ -522,7 +520,6 @@ class VersatileAcl {
      * or return null if either the entity and / or permission do not exist.
      *
      * @param callable|null $additionalAssertions
-     * @param mixed $argsForCallback
      *
      * @noinspection PhpUnhandledExceptionInspection
      * @see PermissionInterface::__construct($action, $resource, $allowActionOnResource, $additionalAssertions, $argsForCallback)
@@ -536,7 +533,7 @@ class VersatileAcl {
         string $resource, 
         bool $allowActionOnResource = true, 
         callable $additionalAssertions = null, 
-        ...$argsForCallback
+        mixed ...$argsForCallback
     ): ?PermissionInterface {
 
         $this->auditActivities
@@ -630,7 +627,7 @@ class VersatileAcl {
      * @noinspection PhpUnhandledExceptionInspection
      * @noinspection PhpDocMissingThrowsInspection
      */
-    public function isAllowed(string $entityId, string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool  {
+    public function isAllowed(string $entityId, string $action, string $resource, callable $additionalAssertions = null, mixed ...$argsForCallback): bool  {
         
         $this->auditActivities
             && ++$this->numTabsForIndentingAudit // increment on first call to logActivity within a method
@@ -824,12 +821,11 @@ class VersatileAcl {
      * for definitions of all the parameters of this method
      *
      * @param callable|null $additionalAssertions
-     * @param mixed ...$argsForCallback
      *
      * @psalm-suppress MoreSpecificReturnType
      */
     public function createPermission(
-        string $action, string $resource, bool $allowActionOnResource = true, callable $additionalAssertions = null, ...$argsForCallback
+        string $action, string $resource, bool $allowActionOnResource = true, callable $additionalAssertions = null, mixed ...$argsForCallback
     ): PermissionInterface {
         
         $permissionClassName = $this->permissionInterfaceClassName;
@@ -976,11 +972,9 @@ class VersatileAcl {
     /**
      * Helper method to describe the value in $returnVal
      * 
-     * @param mixed $returnVal
-     * 
      * @return string description of the value in $returnVal
      */
-    protected function formatReturnValueForAudit($returnVal): string {
+    protected function formatReturnValueForAudit(mixed $returnVal): string {
 
         $returnType = gettype($returnVal);
         $formattedSentence = 
@@ -991,7 +985,7 @@ class VersatileAcl {
             
             $formattedSentence = 
                 " with a return type of `object` that is an instance of" 
-                . " `" . get_class($returnVal) . "` with the following"
+                . " `" . $returnVal::class . "` with the following"
                 . " string representation: "
                 . PHP_EOL
                 . 

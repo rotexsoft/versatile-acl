@@ -17,7 +17,7 @@ interface PermissionInterface
      * @param callable|null $additionalAssertions an optional callback function that must return a boolean further indicating whether or not an action can be performed on the resource.
      * @param mixed ...$argsForCallback zero or more arguments to be used to invoke $additionalAssertions
      */
-    public function __construct(string $action, string $resource, bool $allowActionOnResource=true, callable $additionalAssertions=null, ...$argsForCallback);
+    public function __construct(string $action, string $resource, bool $allowActionOnResource=true, callable $additionalAssertions=null, mixed ...$argsForCallback);
 
     /**
      * Create a new and empty collection that is meant to house one or more instances of PermissionInterface
@@ -103,7 +103,7 @@ interface PermissionInterface
      * 
      * @return bool return true if an instance of this interface signifies that a specified action can be performed on a specified resource, or false otherwise
      */
-    public function isAllowed(string $action, string $resource, callable $additionalAssertions=null, ...$argsForCallback): bool;
+    public function isAllowed(string $action, string $resource, callable $additionalAssertions=null, mixed ...$argsForCallback): bool;
 
     /**
      * Checks whether the specified permission object has an equal value to the current instance.

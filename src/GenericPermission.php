@@ -17,8 +17,6 @@ class GenericPermission implements PermissionInterface {
 
     protected string $resource = '';
 
-    protected bool $allowActionOnResource = true;
-
     /**
      * 
      * @var callable|null
@@ -40,11 +38,10 @@ class GenericPermission implements PermissionInterface {
      *                                            You must add default values for each parameter the callback accepts.
      * @param mixed ...$argsForCallback zero or more arguments to be used to invoke $additionalAssertions
      */
-    public function __construct(string $action, string $resource, bool $allowActionOnResource = true, callable $additionalAssertions = null, ...$argsForCallback) {
+    public function __construct(string $action, string $resource,  protected bool $allowActionOnResource = true, callable $additionalAssertions = null, mixed ...$argsForCallback) {
         
         $this->action = Utils::strToLower($action);
         $this->resource = Utils::strToLower($resource);
-        $this->allowActionOnResource = $allowActionOnResource;
         $this->additionalAssertions = $additionalAssertions;
         $this->argsForCallback = $argsForCallback;
     }
@@ -158,7 +155,7 @@ class GenericPermission implements PermissionInterface {
      * 
      * @return bool return true if an instance of this class signifies that a specified action can be performed on a specified resource, or false otherwise
      */
-    public function isAllowed(string $action, string $resource, callable $additionalAssertions = null, ...$argsForCallback): bool {
+    public function isAllowed(string $action, string $resource, callable $additionalAssertions = null, mixed ...$argsForCallback): bool {
         
         if( $additionalAssertions === null && $this->additionalAssertions !== null ) {
             

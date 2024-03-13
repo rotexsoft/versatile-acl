@@ -87,7 +87,7 @@ interface PermissionsCollectionInterface extends CollectionInterface
      * 
      * @return bool return true if one or more items in an instance of this interface signifies that a specified action can be performed on a specified resource, or false otherwise
      */
-    public function isAllowed(string $action, string $resource, callable $additionalAssertions=null, ...$argsForCallback): bool;
+    public function isAllowed(string $action, string $resource, callable $additionalAssertions=null, mixed ...$argsForCallback): bool;
 
     /**
      * Sort the collection.

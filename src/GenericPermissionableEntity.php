@@ -40,7 +40,7 @@ class GenericPermissionableEntity implements PermissionableEntityInterface {
         if( $trimmedId === '' ) {
             
             throw new EmptyEntityIdException(
-                "An instance of " . get_class($this)
+                "An instance of " . static::class
                 . " cannot be created with an empty `Id`." 
             );
         }
