@@ -25,6 +25,14 @@ A simple, highly flexible and customizable access control package for PHP applic
 
     composer require rotexsoft/versatile-acl
 
+## Branching
+
+These are the branches in this repository:
+
+- **master:** contains code for the latest major version of this package.
+- **4.x:** contains code for the **4.x** version of this package. No new features, only bug fixes.
+- **1.X:** contains code for the **1.X** version of this package. Abandoned.
+
 ## Introduction
 A PHP application can use this package to define **Permissionable Entities** (e.g. application users or groups that users can belong to).
 * Each entity is an instance of **[\VersatileAcl\Interfaces\PermissionableEntityInterface](src/interfaces/PermissionableEntityInterface.php)** 
