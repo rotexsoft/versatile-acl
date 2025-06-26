@@ -29,9 +29,9 @@ return static function (RectorConfig $rectorConfigurator): void {
     $rectorConfigurator->import(SetList::TYPE_DECLARATION);
     
     $skipables = [
-        \Rector\CodeQuality\Rector\If_\ShortenElseIfRector::class,
-        \Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector::class,
-        \Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector::class,
+        //\Rector\CodeQuality\Rector\If_\ShortenElseIfRector::class,
+        //\Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector::class,
+        //\Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector::class,
         \Rector\DeadCode\Rector\PropertyProperty\RemoveNullPropertyInitializationRector::class,
     ];
     
